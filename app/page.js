@@ -1,6 +1,7 @@
 import Image from "next/image";
 import logo from "../app/assets/logo.svg";
 import man from "../app/assets/man.png";
+import Link from "next/link";
 const Login = () => {
   return (
     <div className="border w-[437px] h-[389px] rounded-[24px] flex items-center justify-center p-[24px] flex-col border-[#DCDCDC] gap-[16px] ">
@@ -22,9 +23,12 @@ const Login = () => {
         />
       </div>
       <div className="w-full">
-        <button className=" w-full h-[52px] flex items-center justify-center rounded-[99px] text-[16px] font-bold ">
-          Login
-        </button>
+        <Link href="/dashboard">
+          {" "}
+          <button className=" w-full h-[52px] flex items-center justify-center rounded-[99px] text-[16px] font-bold ">
+            Login
+          </button>
+        </Link>
         <p className="text-[16px] text-center mt-[8px] text-gray-600 font-bold ">
           Don't have an account{" "}
           <a href="">
