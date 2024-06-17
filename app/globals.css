@@ -11,3 +11,21 @@ body{
 h1{
   @apply font-semibold text-[60px]
 }
+.h3{
+  @apply text-[25px] font-bold
+}
+.label{
+  @apply text-[16px] text-[#989898] font-normal 
+}
+button{
+  @apply bg-primary text-white
+}
+.inputa{
+@apply h-[56px] w-[391px] rounded-[16px] bg-[#F4F4F4] px-[24px] py-[18px]  
+}
+.holder{
+  @apply space-y-[8px]
+}
+.cover{
+  @apply h-full w-full object-cover absolute top-0 left-0
+}
