@@ -8,6 +8,15 @@ body{
   font-weight: 300;
 
 }
+.box{
+  @apply h-[195px] w-auto rounded-[12px] border items-start px-[16px] justify-center flex flex-col  
+}
+.title{
+  @apply text-[32px] text-[#1D2739] font-semibold 
+}
+.grey{
+  @apply text-[#475367]
+}
 h1{
   @apply font-semibold text-[60px]
 }
