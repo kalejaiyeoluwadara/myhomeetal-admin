@@ -16,6 +16,8 @@ module.exports = {
         primary: "#ED2224",
         sec: "#0D292A",
         tertiary: "#354C4D",
+        blak: "#1D2739",
+        border: "#E4E7EC",
       },
     },
   },

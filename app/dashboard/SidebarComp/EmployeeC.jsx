@@ -4,6 +4,7 @@ import Inner from "./Inner";
 import employees from "../../assets/users.svg";
 import Image from "next/image";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import Link from "next/link";
 function EmployeeC() {
   const [emp, setEmp] = useState(false);
   return (
@@ -27,7 +28,9 @@ function EmployeeC() {
       {/* contents */}
       {emp && (
         <div>
-          <Inner name={"All Employees"} />
+          <Link href={"/dashboard/employees"}>
+            <Inner name={"All Employees"} />
+          </Link>
           <Inner name={"Add Employees"} />
         </div>
       )}
