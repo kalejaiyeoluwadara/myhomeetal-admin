@@ -15,6 +15,7 @@ import { RiCustomerServiceLine } from "react-icons/ri";
 import { IoIosArrowDown } from "react-icons/io";
 import Inner from "../SidebarComp/Inner";
 import EmployeeC from "../SidebarComp/EmployeeC";
+import ProductsC from "../SidebarComp/ProductsC";
 function Sidebar() {
   const [emp, setEmp] = useState(false);
   return (
@@ -38,14 +39,7 @@ function Sidebar() {
         <EmployeeC />
 
         {/* Products */}
-        <div
-          className={`h-[44px] px-[16px] flex-shrink-0 py-[12px]  rounded-[4px] `}
-        >
-          <div className={`flex grey gap-3 `}>
-            <Image src={cart} alt="" className={`opacity-60 `} />{" "}
-            <p>Procucts</p>{" "}
-          </div>
-        </div>
+        <ProductsC />
 
         {/* Orders */}
         <div

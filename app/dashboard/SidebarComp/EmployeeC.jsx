@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Inner from "./Inner";
 import employees from "../../assets/users.svg";
 import Image from "next/image";
-import { IoIosArrowDown } from "react-icons/io";
+import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 function EmployeeC() {
   const [emp, setEmp] = useState(false);
   return (
@@ -22,10 +22,7 @@ function EmployeeC() {
             <p>Employees</p>{" "}
           </div>
         </div>
-        <div>
-          {" "}
-          <IoIosArrowDown />{" "}
-        </div>
+        <div> {!emp ? <IoIosArrowDown /> : <IoIosArrowUp />}</div>
       </div>
       {/* contents */}
       {emp && (
