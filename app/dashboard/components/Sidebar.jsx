@@ -16,6 +16,7 @@ import { IoIosArrowDown } from "react-icons/io";
 import Inner from "../SidebarComp/Inner";
 import EmployeeC from "../SidebarComp/EmployeeC";
 import ProductsC from "../SidebarComp/ProductsC";
+import OrderC from "../SidebarComp/OrderC";
 function Sidebar() {
   const [emp, setEmp] = useState(false);
   return (
@@ -29,7 +30,7 @@ function Sidebar() {
       <section className="h-[236px] w-[270px] flex flex-col px-2 overflow-x-hidden gap overflow-y-scroll border-b mt-[12px]   ">
         {/* Home */}
         <div
-          className={`h-[44px] px-[16px] flex-shrink-0 py-[12px] bg-red-50  rounded-[4px] `}
+          className={`h-[44px] px-[16px] flex-shrink-0 py-[12px]   rounded-[4px] `}
         >
           <div className={`flex grey gap-3 `}>
             <Image src={home} alt="" className="   " /> <p>Home</p>{" "}
@@ -42,13 +43,7 @@ function Sidebar() {
         <ProductsC />
 
         {/* Orders */}
-        <div
-          className={`h-[44px] px-[16px] flex-shrink-0 py-[12px]  rounded-[4px] `}
-        >
-          <div className={`flex grey gap-3 `}>
-            <Image src={chart} alt="" className={`opacity-60`} /> <p>Orders</p>{" "}
-          </div>
-        </div>
+        <OrderC />
         {/* Finance */}
         <div
           className={`h-[44px] px-[16px] flex-shrink-0 py-[12px]  rounded-[4px] `}

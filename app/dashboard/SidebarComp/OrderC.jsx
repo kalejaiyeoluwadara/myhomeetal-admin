@@ -1,13 +1,13 @@
 "use client";
 import React, { useState } from "react";
 import Inner from "./Inner";
-import cart from "../../assets/cart.svg";
+import chart from "../../assets/orders.svg";
 import Image from "next/image";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
-function ProcuctsC() {
+function OrderC() {
   const [emp, setEmp] = useState(false);
   return (
-    <div className="flex cursor-pointer  flex-col">
+    <div className="flex cursor-pointer flex-col">
       <div
         onClick={() => {
           setEmp((prev) => !prev);
@@ -15,28 +15,25 @@ function ProcuctsC() {
         className="flex hover:bg-red-50 pr-1 w-full justify-between items-center "
       >
         <div
-          className={`h-[44px]  px-[16px] flex-shrink-0 py-[12px]  rounded-[4px] `}
+          className={`h-[44px] px-[16px] flex-shrink-0 py-[12px]  rounded-[4px] `}
         >
           <div className={`flex grey gap-3 `}>
-            <Image src={cart} alt="" className={`opacity-60 `} />{" "}
-            <p>Products</p>{" "}
+            <Image src={chart} alt="" className={`opacity-60 `} /> <p>Orders</p>{" "}
           </div>
         </div>
-        <div>
-          {" "}
-          <div> {!emp ? <IoIosArrowDown /> : <IoIosArrowUp />}</div>
-        </div>
+        <div> {!emp ? <IoIosArrowDown /> : <IoIosArrowUp />}</div>
       </div>
       {/* contents */}
       {emp && (
         <div>
-          <Inner name={"All Products"} />
-          <Inner name={"Add Products"} />
-          <Inner name={"Product Analysis"} />
+          <Inner name={"All Orders"} />
+          <Inner name={"Add Order"} />
+          <Inner name={"Order Analytics"} />
+          <Inner name={"Returns and Refunds"} />
         </div>
       )}
     </div>
   );
 }
 
-export default ProcuctsC;
+export default OrderC;

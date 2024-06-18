@@ -7,12 +7,12 @@ import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 function EmployeeC() {
   const [emp, setEmp] = useState(false);
   return (
-    <div className="flex  flex-col">
+    <div className="flex cursor-pointer flex-col">
       <div
         onClick={() => {
           setEmp((prev) => !prev);
         }}
-        className="flex w-full justify-between items-center "
+        className="flex hover:bg-red-50 pr-1 w-full justify-between items-center "
       >
         <div
           className={`h-[44px] px-[16px] flex-shrink-0 py-[12px]  rounded-[4px] `}
