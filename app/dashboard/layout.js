@@ -9,8 +9,8 @@ export const metadata = {
 export default function Layout({ children }) {
   return (
     <div className=" flex overflow-hidden relative ">
-      <div className=" relative flex-shrink-0 overflow-hidden border-r  w-[222px]">
-        <div className="fixed w-[222px]">
+      <div className=" relative flex-shrink-0 overflow-hidden border-r  w-[272px]">
+        <div className="fixed w-[272px]">
           <Sidebar />
         </div>
       </div>
