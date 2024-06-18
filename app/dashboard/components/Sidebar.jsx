@@ -8,10 +8,15 @@ import { RiCustomerServiceLine } from "react-icons/ri";
 function Sidebar() {
   return (
     <div className="h-screen relative -z-40 w-full py-[24px]  ">
+      {/* Header */}
       <section className="px-[24px]">
         <Image src={logo} alt="" className="" />
       </section>
+
+      {/* Nav */}
       <section className="h-[236px] bg-gray-50 mt-[12px]   "></section>
+
+      {/* Footer */}
       <section className="absolute w-full bottom-2  ">
         <div className="w-full   px-[2px] flex flex-col justify-center items-center ">
           <div className="w-full flex items-center h-[44px] justify-start px-[16px] gap-[12px]">

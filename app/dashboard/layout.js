@@ -10,7 +10,9 @@ export default function Layout({ children }) {
   return (
     <div className=" flex overflow-hidden relative ">
       <div className=" relative flex-shrink-0 overflow-hidden border-r  w-[222px]">
-        <Sidebar />
+        <div className="fixed w-[222px]">
+          <Sidebar />
+        </div>
       </div>
       <div className="flex flex-col w-full items-start justify-start  ">
         <NavBar />
