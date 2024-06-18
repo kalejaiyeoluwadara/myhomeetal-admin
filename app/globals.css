@@ -4,9 +4,18 @@
 
 
 body{
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   font-weight: 300;
 
+}
+.pointer{
+  @apply cursor-pointer transition-all 
+}
+.sh{
+  @apply shadow-sm
+}
+.center{
+  @apply flex items-center justify-center
 }
 .box{
   @apply h-[195px] w-auto rounded-[12px] border items-start px-[16px] justify-center flex flex-col  
