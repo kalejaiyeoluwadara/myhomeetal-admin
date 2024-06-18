@@ -18,6 +18,7 @@ module.exports = {
         tertiary: "#354C4D",
         blak: "#1D2739",
         border: "#E4E7EC",
+        screen: "#F9FAFB",
       },
     },
   },

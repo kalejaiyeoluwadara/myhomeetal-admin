@@ -5,7 +5,7 @@ import Status from "./Status";
 
 function Page() {
   return (
-    <div className="w-full p-[36px] bg-[#F9FAFB]   min-h-screen overflow-y-scroll ">
+    <div className="w-full p-[36px] bg-screen   min-h-screen overflow-y-scroll ">
       <Welcome />
       <Status />
       <Table />

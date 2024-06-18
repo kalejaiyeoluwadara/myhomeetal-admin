@@ -1,5 +1,5 @@
 import React from "react";
-
+import { GoPeople } from "react-icons/go";
 function Status() {
   const data = [
     {
@@ -21,7 +21,9 @@ function Status() {
         return (
           <div className="w-auto h-[195px] flex justify-center items-start flex-col rounded-[12px] px-4 gap-8   border border-border bg-white">
             <div className="flex gap-3 center">
-              <div className="h-[32px] rounded-[8px] bg-[#FFF1F1] w-[32px] "></div>
+              <div className="h-[32px] rounded-[8px] center bg-[#FFF1F1] text-[#FF6567] w-[32px] ">
+                <GoPeople size={15} />
+              </div>
               <p className="grey">{d.title}</p>
             </div>
             <div>

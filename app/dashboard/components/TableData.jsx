@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import profile from "../../assets/profile.png";
 import { IoIosArrowDown, IoIosArrowUp, IoMdMore } from "react-icons/io";
+import Link from "next/link";
 function TableData() {
   const [modal, setModal] = useState(false);
 
@@ -33,9 +34,13 @@ function TableData() {
           <IoMdMore size={20} />{" "}
         </p>
         {modal && (
-          <div className="h-[60px] border bg-white sh absolute top-6 -right-2 z-40 center rounded-md w-[70px] ">
-            <p>View</p>
-          </div>
+          <Link href={"/dashboard/employees/1"}>
+            <div className="h-[60px] border bg-white sh absolute top-6 -right-2 z-40 center rounded-md w-[100px] p-2 text-[14px] ">
+              <p className="w-full h-full pointer hover:bg-red-50 center rounded-md ">
+                View Data
+              </p>
+            </div>
+          </Link>
         )}
       </div>
     </div>
