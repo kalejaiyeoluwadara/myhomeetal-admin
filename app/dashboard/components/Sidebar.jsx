@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import logo from "../../assets/logo.svg";
 import finance from "../../assets/finance.svg";
 import home from "../../assets/home.svg";
-import employees from "../../assets/users.svg";
 import { PiUsers } from "react-icons/pi";
 import Inner from "../SidebarComp/Inner";
 import EmployeeC from "../SidebarComp/EmployeeC";
@@ -30,13 +29,8 @@ function Sidebar() {
             <Image src={home} alt="" className="   " /> <p>Home</p>{" "}
           </div>
         </div>
-        {/* Employees */}
         <EmployeeC />
-
-        {/* Products */}
         <ProductsC />
-
-        {/* Orders */}
         <OrderC />
         {/* Finance */}
         <div
@@ -48,7 +42,6 @@ function Sidebar() {
         </div>
       </section>
 
-      {/* Footer */}
       <Footer />
     </div>
   );
