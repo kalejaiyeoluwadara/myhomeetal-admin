@@ -11,6 +11,15 @@ body{
 .pointer{
   @apply cursor-pointer transition-all 
 }
+ th{
+  @apply text-[14px] font-medium h-[44px] bg-[#F9FAFB] 
+}
+tr{
+  @apply bg-white text-[14px] h-[44px] font-medium
+} 
+tbody{
+  @apply px-3
+}
 .sh{
   @apply shadow-sm
 }
