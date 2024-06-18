@@ -9,6 +9,7 @@ import { IoAnalyticsOutline } from "react-icons/io5";
 import TaksComp from "./comps/TaksComp";
 import Container from "./comps/Container";
 import Permissions from "./comps/Permissions";
+import girl from "../../../assets/girl.svg";
 function Page({ params }) {
   const pi = [
     {
@@ -60,7 +61,7 @@ function Page({ params }) {
       <div className="w-full border px-[48px] py-[40px] flex items-start justify-between bg-white h-[202px] rounded-xl mt-[58px] mb-[24px] ">
         <section className="flex items-center gap-6 ">
           <div className="h-[120px] w-[120px] rounded-full bg-gray-200 ">
-            <Image className="" alt="" src={""} />
+            <Image className="" alt="" src={girl} />
           </div>
           <div className="space-y-3">
             <h2 className=" text-[28px] font-semibold ">Olamide Akintan</h2>

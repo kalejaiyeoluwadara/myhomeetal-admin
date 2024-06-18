@@ -1,7 +1,7 @@
 import React from "react";
 import { CiBellOn } from "react-icons/ci";
 import { IoSearch } from "react-icons/io5";
-import profile from "../../assets/profile.png";
+import profile from "../../assets/man.svg";
 import Image from "next/image";
 function NavBar() {
   return (

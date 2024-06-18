@@ -1,6 +1,6 @@
 import Image from "next/image";
 import logo from "../app/assets/logo.svg";
-import man from "../app/assets/man.png";
+import man from "../app/assets/wall.svg";
 import Link from "next/link";
 const Login = () => {
   return (

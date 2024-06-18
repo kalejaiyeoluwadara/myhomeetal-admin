@@ -1,7 +1,7 @@
 import React from "react";
 import { FiLogOut } from "react-icons/fi";
 import { TbSettings } from "react-icons/tb";
-import profile from "../../assets/profile.png";
+import profile from "../../assets/man.svg";
 import { RiCustomerServiceLine } from "react-icons/ri";
 import Image from "next/image";
 function Footer() {
