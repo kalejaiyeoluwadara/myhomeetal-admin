@@ -6,6 +6,10 @@ import date from "../../app/assets/date.svg";
 import Image from "next/image";
 import profile from "../assets/profile.png";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import {
+  HiOutlineArrowLongRight,
+  HiOutlineArrowLongLeft,
+} from "react-icons/hi2";
 import TableData from "./components/TableData";
 function Table() {
   return (
@@ -53,11 +57,11 @@ function Table() {
         {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((d, id) => {
           return <TableData />;
         })}
-        <footer className="w-full flex items-center justify-between px-2 h-[68px] bg-white">
+        <footer className="w-full flex items-center justify-between px-4 h-[68px] bg-white">
           <div>
             <p className="font-semibold text-[#667185] ">Page 1 of 30</p>
           </div>
-          <div className="flex gap-2">
+          <div className="flex text-[#98A2B3] gap-2">
             <p>1</p>
             <p>2</p>
             <p>3</p>
@@ -65,14 +69,12 @@ function Table() {
           </div>
           <div className="flex gap-2">
             <section className="w-auto px-3 h-[40px] border border-[#D0D5DD] flex items-center justify-center gap-2 sh pointer rounded-[8px] text-[14px]  ">
-              <Image src={date} alt="" className="" />
-              <p className="text-[#344054]] ">Select dates</p>
-              <IoIosArrowDown className="text-[#667185]" size={20} />
+              <HiOutlineArrowLongLeft className="text-[#667185]" size={20} />
+              <p className="text-[#344054] font-semibold ">Previous</p>
             </section>
             <section className="w-auto px-3 h-[40px] border border-[#D0D5DD] flex items-center justify-center gap-2 sh pointer rounded-[8px] text-[14px]  ">
-              <Image src={date} alt="" className="" />
-              <p className="text-[#344054]] ">Select dates</p>
-              <IoIosArrowDown className="text-[#667185]" size={20} />
+              <p className="text-[#344054] font-semibold ">Next</p>
+              <HiOutlineArrowLongRight className="text-[#667185]" size={20} />
             </section>
           </div>
         </footer>
