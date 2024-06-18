@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
-import profile from "../../assets/profile.png";
+import profile from "../../assets/man.svg";
 import { IoIosArrowDown, IoIosArrowUp, IoMdMore } from "react-icons/io";
 import Link from "next/link";
 function TableData() {
