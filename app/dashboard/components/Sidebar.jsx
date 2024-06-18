@@ -1,5 +1,6 @@
+"use client";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import { FiLogOut } from "react-icons/fi";
 import logo from "../../assets/logo.svg";
 import finance from "../../assets/finance.svg";
@@ -13,6 +14,7 @@ import { TbSettings } from "react-icons/tb";
 import { RiCustomerServiceLine } from "react-icons/ri";
 import { IoIosArrowDown } from "react-icons/io";
 function Sidebar() {
+  const [emp, setEmp] = useState(false);
   return (
     <div className="h-screen relative -z-40 w-full py-[24px]  ">
       {/* Header */}
@@ -31,9 +33,13 @@ function Sidebar() {
           </div>
         </div>
         {/* Employees */}
-
         <div className="flex  flex-col">
-          <div className="flex w-full justify-between items-center ">
+          <div
+            onClick={() => {
+              setEmp((prev) => !prev);
+            }}
+            className="flex w-full justify-between items-center "
+          >
             <div
               className={`h-[44px] px-[16px] flex-shrink-0 py-[12px]  rounded-[4px] `}
             >
@@ -48,8 +54,28 @@ function Sidebar() {
             </div>
           </div>
           {/* contents */}
-          <div></div>
+          {emp && (
+            <div>
+              <div
+                className={`h-[44px] px-[16px] flex-shrink-0 py-[12px]  rounded-[4px] `}
+              >
+                <div className={`flex grey gap-3 `}>
+                  <p>All Employees</p>{" "}
+                </div>
+              </div>
+              <div></div>
+              <div
+                className={`h-[44px] px-[16px] flex-shrink-0 py-[12px]  rounded-[4px] `}
+              >
+                <div className={`flex grey gap-3 `}>
+                  <p>Add Employees</p>{" "}
+                </div>
+              </div>
+              <div></div>
+            </div>
+          )}
         </div>
+
         {/* Products */}
         <div
           className={`h-[44px] px-[16px] flex-shrink-0 py-[12px]  rounded-[4px] `}
