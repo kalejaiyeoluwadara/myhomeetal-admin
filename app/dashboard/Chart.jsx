@@ -1,5 +1,4 @@
 "use client";
-
 import React from "react";
 import { Line, Pie } from "react-chartjs-2";
 import {
@@ -12,6 +11,8 @@ import {
   ArcElement,
   Tooltip,
   Legend,
+  PluginServiceRegistrationOptions,
+  ChartItem,
 } from "chart.js";
 
 ChartJS.register(
@@ -25,13 +26,46 @@ ChartJS.register(
   Legend
 );
 
+// Register a plugin for percentage display on Pie chart segments
+const percentagePlugin = {
+  id: "percentagePlugin",
+  beforeDraw: (chart) => {
+    const ctx = chart.ctx;
+    const { chartArea } = chart;
+    const meta = chart.getDatasetMeta(0); // Assuming only one dataset in pieData
+
+    if (!ctx || !chartArea || !meta) {
+      return;
+    }
+
+    const total = meta.total;
+    meta.data.forEach((element, index) => {
+      const data = meta.data[index].raw; // Access raw data instead of dataset.data
+      if (typeof data !== "number") {
+        return;
+      }
+      const percent = ((data / total) * 100).toFixed(1) + "%";
+      const fontSize = 14; // Set font size for percentage text
+      ctx.save();
+      ctx.fillStyle = "black"; // Set color for percentage text
+      ctx.font = `${fontSize}px Arial`;
+      const fontStyle = ctx.font.split(" ");
+      const textWidth = ctx.measureText(percent).width;
+      const { x, y, base } = element.tooltipPosition();
+      ctx.fillText(percent, x - textWidth / 2, y - fontSize / 2);
+      ctx.restore();
+    });
+  },
+};
+
+ChartJS.register(percentagePlugin);
+
 const Charts = () => {
   const options = {
     plugins: {
       legend: {
         align: "end", // Align labels to the extreme right
-        position: "top",
-        // Position labels at the top
+        position: "top", // Position labels at the top
         labels: {
           usePointStyle: true, // Use point style
           pointStyle: "circle", // Make the legend points circular
@@ -52,13 +86,16 @@ const Charts = () => {
       },
     },
   };
+
   const pieOptions = {
     plugins: {
       legend: {
         display: false, // Hide the legend
       },
+      percentagePlugin: {}, // Use the custom percentage plugin for displaying percentages
     },
   };
+
   const lineData = {
     labels: Array.from({ length: 12 }, (_, i) => i + 1),
     datasets: [
@@ -70,7 +107,6 @@ const Charts = () => {
       },
       {
         label: "Current month",
-
         data: [200, 400, 300, 500, 600, 400, 700, 600, 500, 400, 300, 200],
         borderColor: "rgb(22, 113, 217)",
         backgroundColor: "rgb(22, 113, 217)",
@@ -111,8 +147,8 @@ const Charts = () => {
         <Line data={lineData} options={options} />
       </div>
       <div className="border relative h-[400px] rounded-xl p-4">
-        <h2 className="text-lg mb-[47px] font-semibold ">Categories</h2>
-        <hr className="absolute w-full top-[55px] left-0  " />
+        <h2 className="text-lg mb-[47px] font-semibold">Categories</h2>
+        <hr className="absolute w-full top-[55px] left-0" />
         <Pie data={pieData} options={pieOptions} />
       </div>
     </div>
