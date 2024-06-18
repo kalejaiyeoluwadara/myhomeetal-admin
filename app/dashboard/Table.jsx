@@ -40,16 +40,16 @@ function Table() {
       </section>
       {/* Content */}
       <div className="w-full ">
-        <div className="w-full h-[44px] px-3 pt-1 items-center justify-center grid grid-cols-8 ">
+        <div className="w-full h-[44px] px-3 pt-1 items-center justify-center grid grid-cols-9 ">
           <p className=" col-span-2 ">Name</p>
           <p className="">ID</p>
           <p>Position</p>
           <p className="col-span-2">Email</p>
-          <p>Phone No</p>
+          <p className="">Phone No</p>
           <p>Status</p>
-          <p></p>
+          <p className="w-[20px]"></p>
         </div>
-        <div className="w-full h-[72px] bg-white text-[#344054] text-[14px] px-3 items-center justify-center grid pt-2 grid-cols-8 ">
+        <div className="w-full h-[72px] bg-white text-[#344054] text-[14px] px-3 items-center justify-center grid pt-2 grid-cols-9 ">
           <div className="flex w-auto col-span-2 items-center justify-start gap-2 truncate">
             <Image className="" alt="" src={profile} />
             <p className="text-[14px] font-medium text-[#101928] ">
@@ -61,7 +61,9 @@ function Table() {
           <p className=" truncate col-span-2">olamideakintan@gmail.com</p>
           <p className="">0814 609 2019</p>
           <p>Label</p>
-          <p></p>
+          <p className="w-[20px]">
+            <IoIosArrowDown size={20} />{" "}
+          </p>
         </div>
       </div>
     </div>
