@@ -13,6 +13,8 @@ import profile from "../../assets/profile.png";
 import { TbSettings } from "react-icons/tb";
 import { RiCustomerServiceLine } from "react-icons/ri";
 import { IoIosArrowDown } from "react-icons/io";
+import Inner from "../SidebarComp/Inner";
+import EmployeeC from "../SidebarComp/EmployeeC";
 function Sidebar() {
   const [emp, setEmp] = useState(false);
   return (
@@ -33,48 +35,7 @@ function Sidebar() {
           </div>
         </div>
         {/* Employees */}
-        <div className="flex  flex-col">
-          <div
-            onClick={() => {
-              setEmp((prev) => !prev);
-            }}
-            className="flex w-full justify-between items-center "
-          >
-            <div
-              className={`h-[44px] px-[16px] flex-shrink-0 py-[12px]  rounded-[4px] `}
-            >
-              <div className={`flex grey gap-3 `}>
-                <Image src={employees} alt="" className={`opacity-60 `} />{" "}
-                <p>Employees</p>{" "}
-              </div>
-            </div>
-            <div>
-              {" "}
-              <IoIosArrowDown />{" "}
-            </div>
-          </div>
-          {/* contents */}
-          {emp && (
-            <div>
-              <div
-                className={`h-[44px] px-[16px] flex-shrink-0 py-[12px]  rounded-[4px] `}
-              >
-                <div className={`flex grey gap-3 `}>
-                  <p>All Employees</p>{" "}
-                </div>
-              </div>
-              <div></div>
-              <div
-                className={`h-[44px] px-[16px] flex-shrink-0 py-[12px]  rounded-[4px] `}
-              >
-                <div className={`flex grey gap-3 `}>
-                  <p>Add Employees</p>{" "}
-                </div>
-              </div>
-              <div></div>
-            </div>
-          )}
-        </div>
+        <EmployeeC />
 
         {/* Products */}
         <div
