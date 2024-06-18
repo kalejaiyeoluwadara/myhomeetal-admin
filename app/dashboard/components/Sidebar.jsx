@@ -13,14 +13,14 @@ import Footer from "../SidebarComp/Footer";
 function Sidebar() {
   const [emp, setEmp] = useState(false);
   return (
-    <div className="h-screen relative -z-40 w-full py-[24px]  ">
+    <div className="h-screen relative border-r border-border -z-40 w-full py-[24px]  ">
       {/* Header */}
       <section className="px-[24px]">
         <Image src={logo} alt="" className="" />
       </section>
 
       {/* Nav */}
-      <section className="h-[236px] w-[270px] flex flex-col px-2 overflow-x-hidden gap overflow-y-scroll border-b mt-[12px]   ">
+      <section className="h-[236px] w-[270px] flex flex-col px-2 overflow-x-hidden gap overflow-y-scroll no-scrollbar border-b mt-[12px]   ">
         {/* Home */}
         <div
           className={`h-[44px] px-[16px] flex-shrink-0 py-[12px]   rounded-[4px] `}
