@@ -2,12 +2,16 @@ import Image from "next/image";
 import React from "react";
 import { FiLogOut } from "react-icons/fi";
 import logo from "../../assets/logo.svg";
+import finance from "../../assets/finance.svg";
+import chart from "../../assets/orders.svg";
+import cart from "../../assets/cart.svg";
 import home from "../../assets/home.svg";
+import employees from "../../assets/users.svg";
 import { PiUsers } from "react-icons/pi";
 import profile from "../../assets/profile.png";
 import { TbSettings } from "react-icons/tb";
 import { RiCustomerServiceLine } from "react-icons/ri";
-import { CiShoppingCart } from "react-icons/ci";
+import { IoIosArrowDown } from "react-icons/io";
 function Sidebar() {
   return (
     <div className="h-screen relative -z-40 w-full py-[24px]  ">
@@ -27,19 +31,32 @@ function Sidebar() {
           </div>
         </div>
         {/* Employees */}
-        <div
-          className={`h-[44px] px-[16px] flex-shrink-0 py-[12px]  rounded-[4px] `}
-        >
-          <div className={`flex grey gap-3 `}>
-            <Image src={home} alt="" className="   " /> <p>Employees</p>{" "}
+
+        <div className="flex  flex-col">
+          <div className="flex w-full justify-between items-center ">
+            <div
+              className={`h-[44px] px-[16px] flex-shrink-0 py-[12px]  rounded-[4px] `}
+            >
+              <div className={`flex grey gap-3 `}>
+                <Image src={employees} alt="" className={`opacity-60 `} />{" "}
+                <p>Employees</p>{" "}
+              </div>
+            </div>
+            <div>
+              {" "}
+              <IoIosArrowDown />{" "}
+            </div>
           </div>
+          {/* contents */}
+          <div></div>
         </div>
         {/* Products */}
         <div
           className={`h-[44px] px-[16px] flex-shrink-0 py-[12px]  rounded-[4px] `}
         >
           <div className={`flex grey gap-3 `}>
-            <Image src={home} alt="" className="   " /> <p>Procucts</p>{" "}
+            <Image src={cart} alt="" className={`opacity-60 `} />{" "}
+            <p>Procucts</p>{" "}
           </div>
         </div>
 
@@ -48,7 +65,7 @@ function Sidebar() {
           className={`h-[44px] px-[16px] flex-shrink-0 py-[12px]  rounded-[4px] `}
         >
           <div className={`flex grey gap-3 `}>
-            <Image src={home} alt="" className="   " /> <p>Orders</p>{" "}
+            <Image src={chart} alt="" className={`opacity-60`} /> <p>Orders</p>{" "}
           </div>
         </div>
         {/* Finance */}
@@ -56,7 +73,7 @@ function Sidebar() {
           className={`h-[44px] px-[16px] flex-shrink-0 py-[12px]  rounded-[4px] `}
         >
           <div className={`flex grey gap-3 `}>
-            <Image src={home} alt="" className="   " /> <p>Finance</p>{" "}
+            <Image src={finance} alt="" className="   " /> <p>Finance</p>{" "}
           </div>
         </div>
       </section>
