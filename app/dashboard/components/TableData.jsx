@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import profile from "../../assets/profile.png";
-import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import { IoIosArrowDown, IoIosArrowUp, IoMdMore } from "react-icons/io";
 function TableData() {
   const [modal, setModal] = useState(false);
 
@@ -30,7 +30,7 @@ function TableData() {
           }}
           className="w-[32px] h-[32px] pointer border rounded-[8px] flex items-center justify-center "
         >
-          <IoIosArrowDown size={20} />{" "}
+          <IoMdMore size={20} />{" "}
         </p>
         {modal && (
           <div className="h-[60px] border bg-white sh absolute top-6 -right-2 z-40 center rounded-md w-[70px] ">
