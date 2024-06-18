@@ -12,7 +12,7 @@ function TotalUsers() {
       </div>
 
       <div>
-        <p className="text-[32px] font-semibold ">450,823</p>
+        <p className="title mt-8 ">450,823</p>
       </div>
 
       <div className="flex items-center mt-[12px] gap-2 justify-center  ">

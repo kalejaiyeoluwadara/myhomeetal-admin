@@ -15,7 +15,7 @@ function Loadtime() {
       </div>
 
       <div>
-        <p className="title">30sec</p>
+        <p className="title mt-8">30sec</p>
       </div>
 
       <div className="flex items-center mt-[12px] gap-2 justify-center  ">

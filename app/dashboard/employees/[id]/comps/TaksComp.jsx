@@ -1,19 +1,19 @@
 import React from "react";
-import { PiMoneyWavy } from "react-icons/pi";
-import { IoPersonOutline } from "react-icons/io5";
+
+import { SiHackthebox } from "react-icons/si";
 import { IoAnalyticsOutline } from "react-icons/io5";
-function ActiveUsers() {
+function TaksComp({ title, data }) {
   return (
     <div className="box">
       <div className="flex gap-2 items-center justify-center">
         <div className="flex items-center justify-center h-[32px] w-[32px] border rounded-[8px] ">
-          <IoPersonOutline />
+          <SiHackthebox />
         </div>
-        <p className="grey text-[14px] font-medium ">Active Current user</p>
+        <p className="grey text-[14px] font-medium ">{title}</p>
       </div>
 
       <div>
-        <p className="title mt-8 ">5,800</p>
+        <p className="title mt-8 ">{data}</p>
       </div>
 
       <div className="flex items-center mt-[12px] gap-2 justify-center  ">
@@ -30,4 +30,4 @@ function ActiveUsers() {
   );
 }
 
-export default ActiveUsers;
+export default TaksComp;

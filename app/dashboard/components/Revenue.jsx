@@ -15,7 +15,7 @@ function Revenue() {
       </div>
 
       <div>
-        <p className="title">₦45,823,900</p>
+        <p className="title mt-8 ">₦45,823,900</p>
       </div>
 
       <div className="flex items-center mt-[12px] gap-2 justify-center  ">
