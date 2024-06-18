@@ -25,9 +25,9 @@ const Login = () => {
       <div className="w-full">
         <Link href="/dashboard">
           {" "}
-          <button className=" w-full h-[52px] flex items-center justify-center rounded-[99px] text-[16px] font-bold ">
+          <div className=" w-full h-[52px] flex items-center justify-center rounded-[99px] text-[16px] font-bold ">
             Login
-          </button>
+          </div>
         </Link>
         <p className="text-[16px] text-center mt-[8px] text-gray-600 font-bold ">
           Don't have an account{" "}
