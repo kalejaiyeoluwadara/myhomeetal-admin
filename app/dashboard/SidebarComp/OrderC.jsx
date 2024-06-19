@@ -4,6 +4,7 @@ import Inner from "./Inner";
 import chart from "../../assets/orders.svg";
 import Image from "next/image";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import Link from "next/link";
 function OrderC() {
   const [emp, setEmp] = useState(false);
   return (
@@ -26,9 +27,15 @@ function OrderC() {
       {/* contents */}
       {emp && (
         <div>
-          <Inner name={"All Orders"} />
-          <Inner name={"Order Analytics"} />
-          <Inner name={"Returns and Refunds"} />
+          <Link href={"/dashboard/orders"}>
+            <Inner name={"All Orders"} />
+          </Link>
+          <Link href="/dashboard/orders/orderanalytics">
+            <Inner name={"Order Analytics"} />
+          </Link>
+          <Link href={"/dashboard/returns"}>
+            <Inner name={"Returns and Refunds"} />
+          </Link>
         </div>
       )}
     </div>

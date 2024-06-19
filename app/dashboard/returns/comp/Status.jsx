@@ -4,16 +4,12 @@ import { SiHackthebox } from "react-icons/si";
 function Status() {
   const data = [
     {
-      title: "Total Orders",
+      title: "Total Refunds",
+      count: "₦672,000.90",
+    },
+    {
+      title: "Pending Returns",
       count: "150",
-    },
-    {
-      title: "Pending Orders",
-      count: "25",
-    },
-    {
-      title: "Completed Orders",
-      count: "125",
     },
   ];
   return (
