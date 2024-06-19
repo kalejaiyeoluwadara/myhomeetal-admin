@@ -12,6 +12,7 @@ import ProductsC from "../SidebarComp/ProductsC";
 import OrderC from "../SidebarComp/OrderC";
 import Footer from "../SidebarComp/Footer";
 import Link from "next/link";
+import { PiHashBold } from "react-icons/pi";
 import { useParams } from "@/utils/param";
 function Sidebar() {
   const active = useParams(); // Get the current pathname
@@ -51,6 +52,20 @@ function Sidebar() {
             <div className={`flex grey gap-3`}>
               <Image src={finance} alt="" className="" />
               <p>Finance</p>
+            </div>
+          </div>
+        </Link>
+
+        {/* Customer */}
+        <Link href={"/dashboard/customers"}>
+          <div
+            className={`h-[44px] hover:bg-red-50 px-[16px] flex-shrink-0 py-[12px] rounded-[4px] ${
+              active === "/dashboard/customers" ? "bg-red-50" : "bg-white"
+            }`}
+          >
+            <div className={`flex grey gap-3`}>
+              <PiHashBold size={20} className="grey" />
+              <p>Customers</p>
             </div>
           </div>
         </Link>

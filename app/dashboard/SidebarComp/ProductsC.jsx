@@ -43,7 +43,7 @@ function ProcuctsC() {
             </div>
           </Link>
           <Inner name={"Add Products"} />
-          <Inner name={"Product Analysis"} />
+          <Inner name={"Bulk Product"} />
         </div>
       )}
     </div>

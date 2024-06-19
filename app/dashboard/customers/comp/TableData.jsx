@@ -9,18 +9,14 @@ function TableData() {
 
   return (
     <div className="w-full h-[72px] border-b bg-white text-[#344054] text-[14px] px-3 items-center justify-center grid pt-2 grid-cols-9 ">
-      <p className=" col-span-2 truncate ">ORD-1562792771583</p>
       <div className="flex w-auto col-span-2 items-center justify-start gap-2 truncate">
         <Image className="" alt="" src={sport} />
-        <p className="text-[14px] font-medium text-[#101928] ">Bessie Cooper</p>
+        <p className="text-[14px] font-medium text-[#101928] ">Nguyen, Shane</p>
       </div>
-      <p className="col-span-2 truncate">February 11, 2014</p>
+      <p className=" col-span-2 truncate ">alma.lawson@example.com </p>
+      <p className="col-span-2 truncate">(252) 555-0126</p>
       <p className=" ">$854.08</p>
-      <div className="px-2 ">
-        <p className="px-3 font-medium bg-[#FFF1F1] rounded-[12px] py-[2px] flex items-center justify-center text-[#C70E10] ">
-          Pending
-        </p>
-      </div>
+      <p className=" ">24 May, 2020</p>
       <div className="flex items-center relative justify-center ">
         <p
           onClick={() => {
@@ -31,10 +27,15 @@ function TableData() {
           <IoMdMore size={20} />{" "}
         </p>
         {modal && (
-          <Link href={"/dashboard/orders/1"}>
-            <div className="h-[60px] border bg-white sh absolute top-6 -right-2 z-40 center rounded-md w-[100px] p-2 text-[14px] ">
-              <p className="w-full h-full pointer hover:bg-red-50 center rounded-md ">
-                View Order
+          <Link href={"/dashboard/customers/1"}>
+            <div
+              onClick={() => {
+                setModal((prev) => !prev);
+              }}
+              className="h-[60px] border bg-white sh absolute top-6 -right-2 z-40 center rounded-md w-[120px] p-2 text-[14px] "
+            >
+              <p className="w-full truncate h-full pointer hover:bg-red-50 center rounded-md ">
+                View Customer
               </p>
             </div>
           </Link>
