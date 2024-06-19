@@ -37,13 +37,16 @@ function Sidebar() {
         <ProductsC />
         <OrderC />
         {/* Finance */}
-        <div
-          className={`h-[44px] px-[16px] flex-shrink-0 py-[12px]  rounded-[4px] `}
-        >
-          <div className={`flex grey gap-3 `}>
-            <Image src={finance} alt="" className="   " /> <p>Finance</p>{" "}
+        <Link href={"/dashboard/finance"}>
+          {" "}
+          <div
+            className={`h-[44px] hover:bg-red-50 px-[16px] flex-shrink-0 py-[12px]  rounded-[4px] `}
+          >
+            <div className={`flex grey gap-3 `}>
+              <Image src={finance} alt="" className="   " /> <p>Finance</p>{" "}
+            </div>
           </div>
-        </div>
+        </Link>
       </section>
 
       <Footer />
