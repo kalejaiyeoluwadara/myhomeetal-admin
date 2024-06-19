@@ -5,7 +5,9 @@ import employees from "../../assets/users.svg";
 import Image from "next/image";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import Link from "next/link";
+import { useParams } from "@/utils/param";
 function EmployeeC() {
+  const active = useParams();
   const [emp, setEmp] = useState(false);
   return (
     <div className="flex cursor-pointer flex-col">
@@ -13,7 +15,7 @@ function EmployeeC() {
         onClick={() => {
           setEmp((prev) => !prev);
         }}
-        className="flex hover:bg-red-50 pr-1 w-full justify-between items-center "
+        className="flex hover:bg-red-50  pr-1 w-full justify-between items-center "
       >
         <div
           className={`h-[44px] px-[16px] flex-shrink-0 py-[12px]  rounded-[4px] `}
@@ -29,7 +31,13 @@ function EmployeeC() {
       {emp && (
         <div>
           <Link href={"/dashboard/employees"}>
-            <Inner name={"All Employees"} />
+            <div
+              className={` ${
+                active === "/dashboard/employees" ? "bg-red-50" : "bg-white"
+              }  rounded-[4px] `}
+            >
+              <Inner name={"All Employees"} />
+            </div>
           </Link>
           <Inner name={"Add Employees"} />
         </div>

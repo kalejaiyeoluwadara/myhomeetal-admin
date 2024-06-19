@@ -5,8 +5,10 @@ import cart from "../../assets/cart.svg";
 import Image from "next/image";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import Link from "next/link";
+import { useParams } from "@/utils/param";
 function ProcuctsC() {
   const [emp, setEmp] = useState(false);
+  const active = useParams();
   return (
     <div className="flex cursor-pointer  flex-col">
       <div
@@ -32,7 +34,13 @@ function ProcuctsC() {
       {emp && (
         <div>
           <Link href={"/dashboard/products"}>
-            <Inner name={"All Products"} />
+            <div
+              className={` ${
+                active === "/dashboard/products" ? "bg-red-50" : "bg-white"
+              }  rounded-[4px] `}
+            >
+              <Inner name={"All Products"} />
+            </div>
           </Link>
           <Inner name={"Add Products"} />
           <Inner name={"Product Analysis"} />

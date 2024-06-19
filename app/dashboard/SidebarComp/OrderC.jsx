@@ -5,8 +5,10 @@ import chart from "../../assets/orders.svg";
 import Image from "next/image";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import Link from "next/link";
+import { useParams } from "@/utils/param";
 function OrderC() {
   const [emp, setEmp] = useState(false);
+  const active = useParams();
   return (
     <div className="flex cursor-pointer flex-col">
       <div
@@ -28,13 +30,33 @@ function OrderC() {
       {emp && (
         <div>
           <Link href={"/dashboard/orders"}>
-            <Inner name={"All Orders"} />
+            <div
+              className={` ${
+                active === "/dashboard/orders" ? "bg-red-50" : "bg-white"
+              }  rounded-[4px] `}
+            >
+              <Inner name={"All Orders"} />
+            </div>
           </Link>
           <Link href="/dashboard/orders/orderanalytics">
-            <Inner name={"Order Analytics"} />
+            <div
+              className={` ${
+                active === "/dashboard/orders/orderanalytics"
+                  ? "bg-red-50"
+                  : "bg-white"
+              }  rounded-[4px] `}
+            >
+              <Inner name={"Order Analytics"} />
+            </div>
           </Link>
           <Link href={"/dashboard/returns"}>
-            <Inner name={"Returns and Refunds"} />
+            <div
+              className={` ${
+                active === "/dashboard/returns" ? "bg-red-50" : "bg-white"
+              }  rounded-[4px] `}
+            >
+              <Inner name={"Returns and Refunds"} />
+            </div>
           </Link>
         </div>
       )}
