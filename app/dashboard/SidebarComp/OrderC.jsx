@@ -27,7 +27,6 @@ function OrderC() {
       {emp && (
         <div>
           <Inner name={"All Orders"} />
-          <Inner name={"Add Order"} />
           <Inner name={"Order Analytics"} />
           <Inner name={"Returns and Refunds"} />
         </div>

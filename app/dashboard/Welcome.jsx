@@ -10,7 +10,7 @@ function Welcome() {
         </p>
       </section>
       <section>
-        <button className="h-[56px] text-[16px] font-semibold w-[161px] rounded-[8px] flex items-center justify-center gap-2 ">
+        <button className=" text-[16px] font-semibold p-4 rounded-[8px] flex items-center justify-center gap-2 ">
           <FaPlus size={20} />
           Add product
         </button>
