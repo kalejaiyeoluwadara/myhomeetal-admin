@@ -4,6 +4,7 @@ import Inner from "./Inner";
 import cart from "../../assets/cart.svg";
 import Image from "next/image";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import Link from "next/link";
 function ProcuctsC() {
   const [emp, setEmp] = useState(false);
   return (
@@ -30,7 +31,9 @@ function ProcuctsC() {
       {/* contents */}
       {emp && (
         <div>
-          <Inner name={"All Products"} />
+          <Link href={"/dashboard/products"}>
+            <Inner name={"All Products"} />
+          </Link>
           <Inner name={"Add Products"} />
           <Inner name={"Product Analysis"} />
         </div>
