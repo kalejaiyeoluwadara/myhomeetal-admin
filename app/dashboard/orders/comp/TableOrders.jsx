@@ -86,13 +86,12 @@ function Table() {
       {/* Content */}
       <div className="w-full ">
         <div className="w-full h-[44px] px-3 text-[12px] font-medium pt-1 items-center justify-center grid grid-cols-9 ">
-          <p className=" col-span-2 ">Product name</p>
-          <p className="col-span-2">SKU</p>
-          <p>Price</p>
-          <p className="">Stock Level </p>
-          <p className="">Category</p>
-          <p className="pl-2">Status</p>
-          <p className="">Action</p>
+          <p className=" col-span-2 ">Order Id</p>
+          <p className="col-span-2">Customer Name</p>
+          <p className="col-span-2">Order Date</p>
+          <p className="">Total Amount</p>
+          <p className="">Status</p>
+          <p className="pl-2">Action</p>
         </div>
         {currentData.map((d, id) => {
           return <TableData key={id} />;
