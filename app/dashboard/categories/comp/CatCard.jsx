@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 import { WiCloudUp } from "react-icons/wi";
 
@@ -14,9 +15,11 @@ function CatCard() {
       </div>
       <div className="flex gap-[104px] items-center justify-center ">
         <p>500 products</p>
-        <p className="text-[#ED2224] font-light cursor-pointer ">
-          Edit Category
-        </p>
+        <Link href={"/dashboard/categories/1"}>
+          <p className="text-[#ED2224] font-light cursor-pointer ">
+            Edit Category
+          </p>
+        </Link>
       </div>
     </section>
   );
