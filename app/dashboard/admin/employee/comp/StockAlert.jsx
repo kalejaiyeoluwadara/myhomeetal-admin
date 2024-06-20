@@ -1,7 +1,6 @@
 "use client";
-import Image from "next/image";
-import sport from "@/app/assets/sport.svg";
 import React, { useState } from "react";
+import Data from "./Data";
 function StockAlert() {
   // const [filt,setFilt] = useState('E')
   const [modal, setModal] = useState(false);
@@ -35,11 +34,9 @@ function StockAlert() {
       </section>
       {/* data */}
       <section className="mt-3">
-        <div className="flex justify-between px-4 h-[68px] items-center">
-          <Image src={sport} className="" alt="" />
-          <h3>Sporty Running Shoe</h3>
-          <button className="pill cursor-text ">Low</button>
-        </div>
+        {[1, 2, 3, 4, 5, 6].map((d, id) => {
+          return <Data key={id} />;
+        })}
       </section>
     </div>
   );
