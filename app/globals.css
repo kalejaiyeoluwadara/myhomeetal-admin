@@ -18,7 +18,7 @@ body{
   @apply cursor-pointer transition-all 
 }
 .shadowt{
-  @apply cursor-pointer transition-all hover:shadow-md
+  @apply cursor-pointer transition-all hover:shadow-sm
 }
 .pill{
   @apply bg-[#FFF1F1] text-[14px] text-[#C70E10] rounded-xl flex items-center justify-center w-[52px] h-[24px] 
