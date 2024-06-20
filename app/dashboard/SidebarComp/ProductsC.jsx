@@ -43,7 +43,17 @@ function ProcuctsC() {
             </div>
           </Link>
           {/* Add products */}
-          <Inner name={"Add Products"} />
+          <Link href={"/dashboard/products/addproducts"}>
+            <div
+              className={` ${
+                active === "/dashboard/products/addproducts"
+                  ? "bg-red-50"
+                  : "bg-white"
+              }  rounded-[4px] `}
+            >
+              <Inner name={"Add Products"} />
+            </div>
+          </Link>
 
           {/* categories */}
           <Link href={"/dashboard/categories"}>

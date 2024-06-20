@@ -14,9 +14,11 @@ export default function Layout({ children }) {
           <Sidebar />
         </div>
       </div>
-      <div className="flex flex-col w-full items-start justify-start  ">
-        <NavBar />
-        <main className="relative w-full   ">{children}</main>
+      <div className="flex relative flex-col w-full items-start justify-start  ">
+        <div className="fixed pr-[270px] top-0 z-20 w-screen  ">
+          <NavBar />
+        </div>
+        <main className="relative w-full mt-20   ">{children}</main>
         <></>
       </div>
     </div>
