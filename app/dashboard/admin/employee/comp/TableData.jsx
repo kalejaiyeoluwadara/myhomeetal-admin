@@ -8,19 +8,22 @@ function TableData() {
   const [modal, setModal] = useState(false);
 
   return (
-    <div className="w-full h-[72px] border-b bg-white text-[#344054] text-[14px] px-3 items-center justify-center grid pt-2 grid-cols-9 ">
-      <p className=" col-span-2 truncate ">ORD-1562792771583</p>
-      <div className="flex w-auto col-span-2 items-center justify-start gap-2 truncate">
+    <div className="w-full h-[72px] border-b bg-white text-[#344054] text-[14px] px-3 items-center justify-center grid pt-2 grid-cols-5 ">
+      <div className="flex col-span-2   w-[79%]  gap-2">
         <Image className="" alt="" src={sport} />
-        <p className="text-[14px] font-medium text-[#101928] ">Bessie Cooper</p>
+        <div className="w-full">
+          <p className="text-[14px] truncate w-full font-medium text-[#101928] ">
+            Bessie Cooper
+          </p>
+          <p className="truncate">ORD-1562792771583</p>
+        </div>
       </div>
-      <p className="col-span-2 truncate">February 11, 2014</p>
-      <p className=" ">$854.08</p>
-      <div className="px-2 ">
-        <p className="px-3 font-medium bg-[#FFF1F1] rounded-[12px] py-[2px] flex items-center justify-center text-[#C70E10] ">
+      <div className="  ">
+        <p className=" w-[79px] h-[24px] text-[14px] flex items-center justify-center rounded-xl font-medium bg-[#FFF1F1]  text-[#C70E10] ">
           Pending
         </p>
       </div>
+      <p className=" truncate">February 11, 2014</p>
       <div className="flex items-center relative justify-center ">
         <p
           onClick={() => {
@@ -32,9 +35,9 @@ function TableData() {
         </p>
         {modal && (
           <Link href={"/dashboard/orders/1"}>
-            <div className="h-[60px] border bg-white sh absolute top-6 -right-2 z-40 center rounded-md w-[100px] p-2 text-[14px] ">
+            <div className="h-[60px] border bg-white sh absolute top-6 -right-2 z-40 center rounded-md w-[150px] p-2 text-[14px] ">
               <p className="w-full h-full pointer hover:bg-red-50 center rounded-md ">
-                View Order
+                View Order Details
               </p>
             </div>
           </Link>
