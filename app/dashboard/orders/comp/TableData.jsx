@@ -31,13 +31,19 @@ function TableData() {
           <IoMdMore size={20} />{" "}
         </p>
         {modal && (
-          <Link href={"/dashboard/orders/1"}>
-            <div className="h-[60px] border bg-white sh absolute top-6 -right-2 z-40 center rounded-md w-[100px] p-2 text-[14px] ">
-              <p className="w-full h-full pointer hover:bg-red-50 center rounded-md ">
-                View Order
+          <div className="h-auto border flex flex-col bg-white sh absolute top-6 -right-2 z-40 center rounded-md w-[130px] items-start px-2 py-2 text-[14px] ">
+            <Link className="w-full" href={"/dashboard/orders/1"}>
+              <p className="w-full px-2 h-[40px]  pointer hover:bg-red-50 flex items-center rounded-md ">
+                See Details
               </p>
-            </div>
-          </Link>
+            </Link>
+            <p className="w-full px-2 h-[40px]  pointer hover:bg-red-50 flex items-center rounded-md ">
+              Change Status
+            </p>
+            <p className="w-full px-2 h-[40px]  pointer hover:bg-red-50 flex items-center rounded-md ">
+              Cancel Order
+            </p>
+          </div>
         )}
       </div>
     </div>

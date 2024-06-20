@@ -19,6 +19,7 @@ module.exports = {
         blak: "#1D2739",
         border: "#E4E7EC",
         screen: "#F9FAFB",
+        c7: "#C70E10",
       },
     },
   },

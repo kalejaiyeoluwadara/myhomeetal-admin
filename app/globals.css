@@ -11,6 +11,9 @@ body{
   font-weight: 300;
 
 }
+.core{
+  @apply text-base font-semibold
+}
 .pointer{
   @apply cursor-pointer transition-all 
 }
