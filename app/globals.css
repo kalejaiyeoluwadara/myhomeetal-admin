@@ -51,10 +51,10 @@ button{
   @apply bg-primary text-white
 }
 .inputa{
-@apply h-[56px] w-[391px] rounded-[16px] bg-[#F4F4F4] px-[24px] py-[18px]  
+@apply h-[56px] w-full rounded-[16px] bg-[#F4F4F4] px-[24px] py-[18px]  
 }
 .holder{
-  @apply space-y-[8px]
+  @apply flex flex-col gap-2 w-full
 }
 .cover{
   @apply h-full w-full object-cover absolute top-0 left-0
