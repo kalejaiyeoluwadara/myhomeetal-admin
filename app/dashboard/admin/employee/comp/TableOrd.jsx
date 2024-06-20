@@ -93,7 +93,7 @@ function Table() {
           <p className="text-[#344054] pointer capitalize ">{filt}</p>
           {/* Modal */}
           {modal && (
-            <div className=" h-auto w-[180px] flex flex-col items-start justify-center p-2  bg-white border top-12 right-3 rounded-xl absolute z-40  ">
+            <div className=" h-auto w-[180px] flex flex-col items-start justify-center p-2  bg-white border top-12 right-3  rounded-xl absolute z-40  ">
               {[
                 "today",
                 "yesterday",
@@ -110,7 +110,7 @@ function Table() {
                       // setModal(!modal);
                     }}
                     key={id}
-                    className=" p-3 capitalize rounded-md hover:bg-red-50 pointer text-sm"
+                    className=" w-full p-3 capitalize rounded-md hover:bg-red-50 pointer text-sm"
                   >
                     {d}
                   </p>
