@@ -25,7 +25,7 @@ function Sidebar() {
       </section>
 
       {/* Nav */}
-      <section className="h-[236px] w-[270px] flex flex-col px-2 overflow-x-hidden gap overflow-y-scroll no-scrollbar border-b pb-4 mt-[12px]">
+      <section className="h-[50%] w-[270px] flex flex-col px-2 overflow-x-hidden gap overflow-y-scroll no-scrollbar border-b pb-4 mt-[12px]">
         {/* Home */}
         <div
           className={`h-[44px] grey pointer hover:bg-red-50 ${
