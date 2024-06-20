@@ -14,11 +14,14 @@ const Modal = () => {
     "My Phones and Tablet",
   ];
   return (
-    <div className="flex flex-col h-[300px] top-24 p-4 right-2 w-[200px] rounded-xl border bg-white absolute z-20 ">
+    <div className="flex flex-col h-auto top-24 p-4 right-2 w-[200px] rounded-xl border bg-white absolute z-20 ">
       {cats.map((d, id) => {
         return (
-          <p key={id} className="px-2 hover:bg-red-50 py-2">
-            {data}
+          <p
+            key={id}
+            className="px-2 text-[12px] rounded-md cursor-pointer hover:bg-red-50 py-2"
+          >
+            {d}
           </p>
         );
       })}
@@ -71,12 +74,17 @@ function Form() {
               <label className="inputlabel">SKU (Stock Keeping Unit)</label>
               <input className="input" type="text" placeholder="783kl32" />
             </div>
-            <div className="w-full relative ">
+            <div
+              onClick={() => {
+                setModal((prev) => !prev);
+              }}
+              className="w-full relative "
+            >
               <label className="inputlabel">Category</label>
               <div className="w-full border flex items-center h-[56px] rounded-md  justify-between px-4 ">
                 <p>My Phones and Tablet</p>
                 <GoChevronDown />
-                <Modal />
+                {modal && <Modal />}
               </div>
             </div>
           </section>
