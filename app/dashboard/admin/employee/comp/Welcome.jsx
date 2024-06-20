@@ -1,6 +1,5 @@
 import React from "react";
 import Table from "./TableOrd";
-import StockAlert from "./Stockalert";
 
 function Welcome() {
   return (

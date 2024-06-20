@@ -104,9 +104,14 @@ function Page({ params }) {
               </p>
             </div>
           </div>
-          <div className="relative">
+          <div
+            onClick={() => {
+              setModal((prev) => !prev);
+            }}
+            className="relative"
+          >
             <p className="text-[14px] pointer ">Change status</p>
-            <Modal setStatus={setStatus} />
+            {modal && <Modal setStatus={setStatus} />}
           </div>
         </div>
         <div className="flex items-center gap-4 h-[69px] w-full border-b py-[14px] border-[#F7F9FC] ">
