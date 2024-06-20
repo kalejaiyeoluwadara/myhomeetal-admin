@@ -12,7 +12,6 @@ import {
   HiOutlineArrowLongLeft,
 } from "react-icons/hi2";
 import TableData from "./TableData";
-
 function Table() {
   const data = [
     1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
@@ -22,7 +21,7 @@ function Table() {
     79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97,
     98, 99, 100,
   ]; // Sample data array
-  const itemsPerPage = 5;
+  const itemsPerPage = 6;
   const [currentPage, setCurrentPage] = useState(1);
 
   const totalPages = Math.ceil(data.length / itemsPerPage);
@@ -77,12 +76,49 @@ function Table() {
     }
     return pages;
   };
-
+  const [modal, setModal] = useState(false);
+  const [filt, setFilt] = useState("this week");
   return (
     <div className="w-auto relative col-span-2 bg-white overflow-hidden h-full rounded-[10px] flex flex-col items-start justify-start border ">
       {/* Header */}
-      <section className="w-full flex items-center justify-between px-[16px] bg-white h-[68px] ">
-        {/* search and filter button */}
+      <section className="w-full flex items-center justify-between px-[16px]  h-[68px] ">
+        <h2 className="font-semibold text-base ">Orders</h2>
+        <section
+          onClick={() => {
+            setModal((prev) => !prev);
+          }}
+          className="px-3 relative  h-[40px] border border-[#D0D5DD] flex items-center justify-center gap-2 rounded-[8px] sh text-[14px] font-[500] "
+        >
+          <Image src={filter} alt="" className="h-[13px] w-[13px] " />
+          <p className="text-[#344054] pointer capitalize ">{filt}</p>
+          {/* Modal */}
+          {modal && (
+            <div className=" h-auto w-[180px] flex flex-col items-start justify-center p-2  bg-white border top-12 right-3 rounded-xl absolute z-40  ">
+              {[
+                "today",
+                "yesterday",
+                "this week",
+                "this month",
+                "this quarter",
+                "yearly",
+                "all time",
+              ].map((d, id) => {
+                return (
+                  <p
+                    onClick={() => {
+                      setFilt(d);
+                      // setModal(!modal);
+                    }}
+                    key={id}
+                    className=" p-3 capitalize rounded-md hover:bg-red-50 pointer text-sm"
+                  >
+                    {d}
+                  </p>
+                );
+              })}
+            </div>
+          )}
+        </section>
       </section>
       {/* Content */}
       <div className="w-full ">
@@ -91,7 +127,7 @@ function Table() {
         })}
 
         {/* Footer */}
-        <footer className="w-full absolute bottom-0 flex items-center justify-between px-4 h-[68px] bg-white">
+        <footer className="w-full absolute bottom-0 flex items-center justify-between px-4 h-[68px] ">
           <div>
             <p className="font-semibold text-[#667185] ">
               Page {currentPage} of {totalPages}

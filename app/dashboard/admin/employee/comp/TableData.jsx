@@ -8,8 +8,8 @@ function TableData() {
   const [modal, setModal] = useState(false);
 
   return (
-    <div className="w-full h-[72px] border-b bg-white text-[#344054] text-[14px] px-3 items-center justify-center grid pt-2 grid-cols-5 ">
-      <div className="flex col-span-2   w-[79%]  gap-2">
+    <div className="w-full h-[72px] border-b border-[#F7F9FC] bg-white text-[#344054] text-[14px] px-3 items-center justify-center grid pt-2 grid-cols-7 ">
+      <div className="flex col-span-3   w-[79%]  gap-2">
         <Image className="" alt="" src={sport} />
         <div className="w-full">
           <p className="text-[14px] truncate w-full font-medium text-[#101928] ">
@@ -18,12 +18,12 @@ function TableData() {
           <p className="truncate">ORD-1562792771583</p>
         </div>
       </div>
-      <div className="  ">
+      <div className=" flex items-center justify-start   ">
         <p className=" w-[79px] h-[24px] text-[14px] flex items-center justify-center rounded-xl font-medium bg-[#FFF1F1]  text-[#C70E10] ">
           Pending
         </p>
       </div>
-      <p className=" truncate">February 11, 2014</p>
+      <p className=" col-span-2 text-center truncate">February 11, 2014</p>
       <div className="flex items-center relative justify-center ">
         <p
           onClick={() => {
