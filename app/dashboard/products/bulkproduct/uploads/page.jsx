@@ -40,13 +40,13 @@ function Page() {
               - Light Green
             </p>
           </div>
-          <div>
-            <div className="h-[30px] w-[30px] center rounded-full bg-[#ED2224] text-white font-semibold  ">
+          <div className="h-full justify-between bg-red-200 items-end flex flex-col ">
+            <div className="h-[30px] w-[30px] center rounded-full  text-white font-semibold  ">
               1
             </div>
-            <div className="flex gap-4">
+            <div className="flex text-[14px] text-nowrap w-full gap-4">
               <p>Remove</p>
-              <p>Edit Product</p>
+              <p className="text-c7">Edit Product</p>
             </div>
           </div>
         </div>
