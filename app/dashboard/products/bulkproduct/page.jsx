@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 import { FiUploadCloud } from "react-icons/fi";
 import { GoChevronDown } from "react-icons/go";
@@ -32,9 +33,11 @@ function Page() {
             </div>
           </div>
 
-          <button className="w-[354px]  center h-[52px] rounded-[10px] text-[16px] font-medium ">
-            Browse Files
-          </button>
+          <Link href={"/dashboard/products/bulkproduct/uploads"}>
+            <button className="w-[354px]  center h-[52px] rounded-[10px] text-[16px] font-medium ">
+              Browse Files
+            </button>
+          </Link>
         </div>
       </div>
     </main>
