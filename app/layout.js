@@ -1,3 +1,4 @@
+import AppProvider from "./context";
 import "./globals.css";
 
 export const metadata = {
@@ -22,7 +23,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className="overflow-x-hidden w-screen ">{children}</body>
+      <AppProvider>
+        <body className="overflow-x-hidden w-screen ">{children}</body>
+      </AppProvider>
     </html>
   );
 }

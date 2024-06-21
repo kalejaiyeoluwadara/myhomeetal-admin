@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { FaCheckCircle } from "react-icons/fa";
 import { MdError } from "react-icons/md";
+import { useGlobal } from "./context";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -13,6 +14,7 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { role, setRole } = useGlobal();
   const router = useRouter();
 
   const handleLogin = async () => {
@@ -39,7 +41,7 @@ const Login = () => {
       if (response.ok) {
         const data = await response.json();
         localStorage.setItem("token", data.token);
-        console.log(data.adminProfile.role);
+        setRole(data.adminProfile.role);
         setIsLoading(false);
         setModalMessage("Login successful! Redirecting...");
         setIsModalOpen(true);

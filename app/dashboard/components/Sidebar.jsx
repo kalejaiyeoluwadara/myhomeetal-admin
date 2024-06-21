@@ -14,9 +14,10 @@ import Footer from "../SidebarComp/Footer";
 import Link from "next/link";
 import { PiHashBold } from "react-icons/pi";
 import { useParams } from "@/utils/param";
+import { useGlobal } from "@/app/context";
 function Sidebar() {
   const active = useParams(); // Get the current pathname
-
+  const { role, setRole } = useGlobal();
   return (
     <div className="h-screen relative border-r border-border -z-40 w-full py-[24px]">
       {/* Header */}
@@ -29,7 +30,9 @@ function Sidebar() {
         {/* Home */}
         <div
           className={`h-[44px] grey pointer hover:bg-red-50 ${
-            active === "/dashboard" ? "bg-red-50" : "bg-white"
+            active === "/dashboard" || active === "/dashboard/admin/employee"
+              ? "bg-red-50"
+              : "bg-white"
           } px-[16px] flex-shrink-0 py-[12px] rounded-[4px]`}
         >
           <Link href={"/dashboard"}>
@@ -39,22 +42,24 @@ function Sidebar() {
             </div>
           </Link>
         </div>
-        <EmployeeC />
+        {role === "Super Admin " && <EmployeeC />}
         <ProductsC />
         <OrderC />
         {/* Finance */}
-        <Link href={"/dashboard/finance"}>
-          <div
-            className={`h-[44px] hover:bg-red-50 px-[16px] flex-shrink-0 py-[12px] rounded-[4px] ${
-              active === "/dashboard/finance" ? "bg-red-50" : "bg-white"
-            }`}
-          >
-            <div className={`flex grey gap-3`}>
-              <Image src={finance} alt="" className="" />
-              <p>Finance</p>
+        {role === "Super Admin " && (
+          <Link href={"/dashboard/finance"}>
+            <div
+              className={`h-[44px] hover:bg-red-50 px-[16px] flex-shrink-0 py-[12px] rounded-[4px] ${
+                active === "/dashboard/finance" ? "bg-red-50" : "bg-white"
+              }`}
+            >
+              <div className={`flex grey gap-3`}>
+                <Image src={finance} alt="" className="" />
+                <p>Finance</p>
+              </div>
             </div>
-          </div>
-        </Link>
+          </Link>
+        )}
 
         {/* Customer */}
         <Link href={"/dashboard/customers"}>
