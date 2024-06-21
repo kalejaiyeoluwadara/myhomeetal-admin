@@ -68,7 +68,10 @@ function ProcuctsC() {
           <Link href={"/dashboard/products/bulkproduct"}>
             <div
               className={` ${
-                active === "/dashboard/bulkproduct" ? "bg-red-50" : "bg-white"
+                active === "/dashboard/products/bulkproduct" ||
+                active === "/dashboard/products/bulkproduct/uploads"
+                  ? "bg-red-50"
+                  : "bg-white"
               }  rounded-[4px] `}
             >
               <Inner name={"Bulk Product"} />
