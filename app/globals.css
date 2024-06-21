@@ -71,7 +71,7 @@ button{
 .inputlabel{
   @apply text-[14px] mb-1 font-medium text-[#475367] 
 }
-.input{@apply w-full border p-4 outline-[#FFC5C6] active:border-[#FFC5C6] border-[#D0D5DD] focus:border-[#FFC5C6] h-[56px] rounded-md }
+.input{@apply w-full border outline-[1.5px] transition-all p-4 outline-[#FFC5C6] active:border-[#FFC5C6] border-[#D0D5DD] focus:border-[#FFC5C6] h-[56px] rounded-md }
 .inputfooter{
   @apply text-[14px] mt-2 text-[#667185] font-normal
 }
