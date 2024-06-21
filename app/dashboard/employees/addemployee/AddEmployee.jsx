@@ -161,7 +161,12 @@ function AddEmployee() {
                 <button className="w-auto bg-white text-[#FF6567] border-primary h-[55px] border rounded-[8px] ">
                   Save Draft
                 </button>
-                <button className="w-auto col-span-2 text-[16px] font-semibold border h-[55px]  rounded-[8px] ">
+                <button
+                  onClick={() => {
+                    setActive("Employment");
+                  }}
+                  className="w-auto col-span-2 text-[16px] font-semibold border h-[55px]  rounded-[8px] "
+                >
                   Next Step
                 </button>
               </section>
@@ -262,7 +267,12 @@ function AddEmployee() {
                 <button className="w-auto bg-white text-[#FF6567] border-primary h-[55px] border rounded-[8px] ">
                   Save Draft
                 </button>
-                <button className="w-auto col-span-2 text-[16px] font-semibold border h-[55px]  rounded-[8px] ">
+                <button
+                  onClick={() => {
+                    setActive("Login Credentials");
+                  }}
+                  className="w-auto col-span-2 text-[16px] font-semibold border h-[55px]  rounded-[8px] "
+                >
                   Next Step
                 </button>
               </section>
