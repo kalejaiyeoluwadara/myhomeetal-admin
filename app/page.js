@@ -39,6 +39,7 @@ const Login = () => {
       if (response.ok) {
         const data = await response.json();
         localStorage.setItem("token", data.token);
+        console.log(data.adminProfile.role);
         setIsLoading(false);
         setModalMessage("Login successful! Redirecting...");
         setIsModalOpen(true);
@@ -46,7 +47,11 @@ const Login = () => {
         setPassword("");
         setTimeout(() => {
           setIsModalOpen(false);
-          router.push("/dashboard");
+          if (data.adminProfile.role === "super admin") {
+            router.push("/dashboard");
+          } else {
+            router.push("/dashboard/admin/employee");
+          }
         }, 4000);
       } else {
         const errorData = await response.json();
