@@ -41,7 +41,7 @@ const Login = () => {
       if (response.ok) {
         const data = await response.json();
         localStorage.setItem("token", data.token);
-
+        localStorage.setItem("role", data.adminProfile.role);
         setIsLoading(false);
         setModalMessage("Login successful! Redirecting...");
         setIsModalOpen(true);
@@ -50,8 +50,6 @@ const Login = () => {
         setTimeout(() => {
           setIsModalOpen(false);
           if (data.adminProfile.role === "Super Admin") {
-            setRole("Super Admin");
-            console.log("role:", role);
             router.push("/dashboard");
           } else {
             router.push("/dashboard/admin/employee");

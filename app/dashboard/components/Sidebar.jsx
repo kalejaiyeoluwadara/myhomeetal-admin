@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import logo from "../../assets/logo.svg";
 import finance from "../../assets/finance.svg";
 import home from "../../assets/home.svg";
@@ -18,6 +18,12 @@ import { useGlobal } from "@/app/context";
 function Sidebar() {
   const active = useParams(); // Get the current pathname
   const { role, setRole } = useGlobal();
+  useEffect(() => {
+    const storedRole = localStorage.getItem("role");
+    if (storedRole) {
+      setRole(storedRole);
+    }
+  }, []);
   return (
     <div className="h-screen relative border-r border-border -z-40 w-full py-[24px]">
       {/* Header */}
