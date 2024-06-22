@@ -1,3 +1,4 @@
+import Logout from "./components/Logout";
 import NavBar from "./components/NavBar";
 import Sidebar from "./components/Sidebar";
 
@@ -19,6 +20,7 @@ export default function Layout({ children }) {
           <NavBar />
         </div>
         <main className="relative w-full mt-20   ">{children}</main>
+        <Logout />
         <></>
       </div>
     </div>
