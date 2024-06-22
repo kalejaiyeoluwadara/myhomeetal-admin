@@ -6,9 +6,11 @@ import Image from "next/image";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import Link from "next/link";
 import { useParams } from "@/utils/param";
+import { useGlobal } from "@/app/context";
 function EmployeeC() {
   const active = useParams();
   const [emp, setEmp] = useState(false);
+  const { addEmployee, setAddEmployee } = useGlobal();
   return (
     <div className="flex cursor-pointer flex-col">
       <div
@@ -39,7 +41,13 @@ function EmployeeC() {
               <Inner name={"All Employees"} />
             </div>
           </Link>
-          <Inner name={"Add Employees"} />
+          <div
+            onClick={() => {
+              setAddEmployee((prev) => !prev);
+            }}
+          >
+            <Inner name={"Add Employees"} />
+          </div>
         </div>
       )}
     </div>

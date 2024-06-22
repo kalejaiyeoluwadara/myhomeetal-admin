@@ -49,7 +49,7 @@ const Login = () => {
         setPassword("");
         setTimeout(() => {
           setIsModalOpen(false);
-          if (data.adminProfile.role === "super admin") {
+          if (data.adminProfile.role === "Super Admin") {
             router.push("/dashboard");
           } else {
             router.push("/dashboard/admin/employee");

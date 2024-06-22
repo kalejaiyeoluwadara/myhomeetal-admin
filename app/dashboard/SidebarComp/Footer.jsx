@@ -7,7 +7,7 @@ import Image from "next/image";
 function Footer() {
   return (
     <footer className="absolute w-full bottom-2  ">
-      <div className="w-full   px-[2px] flex flex-col justify-center items-center ">
+      {/* <div className="w-full   px-[2px] flex flex-col justify-center items-center ">
         <div className="w-full flex items-center h-[44px] justify-start px-[16px] gap-[12px]">
           <TbSettings />
           <p className="text-[14px] font-normal ">Settings</p>
@@ -16,7 +16,7 @@ function Footer() {
           <RiCustomerServiceLine />
           <p className="text-[14px] font-normal ">Help Center</p>
         </div>
-      </div>
+      </div> */}
       <div className="flex items-center  justify-between py-[12px] px-[16px] gap-2">
         <div className="flex items-center gap-[12px] justify-center ">
           <div className="relative flex">

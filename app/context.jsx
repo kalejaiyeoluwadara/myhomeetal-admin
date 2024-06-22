@@ -4,11 +4,17 @@ const AppContext = React.createContext();
 
 function AppProvider({ children }) {
   const [role, setRole] = useState("");
+  const [logout, setLogOut] = useState(false);
+  const [addEmployee, setAddEmployee] = useState(false);
   return (
     <AppContext.Provider
       value={{
         role,
         setRole,
+        logout,
+        setLogOut,
+        addEmployee,
+        setAddEmployee,
       }}
     >
       {children}

@@ -42,11 +42,11 @@ function Sidebar() {
             </div>
           </Link>
         </div>
-        {role === "Super Admin " && <EmployeeC />}
+        {role === "Super Admin" && <EmployeeC />}
         <ProductsC />
         <OrderC />
         {/* Finance */}
-        {role === "Super Admin " && (
+        {role === "Super Admin" && (
           <Link href={"/dashboard/finance"}>
             <div
               className={`h-[44px] hover:bg-red-50 px-[16px] flex-shrink-0 py-[12px] rounded-[4px] ${
