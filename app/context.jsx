@@ -1,5 +1,6 @@
 "use client";
 import React, { useContext, useState, useEffect } from "react";
+
 const AppContext = React.createContext();
 
 function AppProvider({ children }) {
@@ -7,7 +8,8 @@ function AppProvider({ children }) {
   const [addEmployee, setAddEmployee] = useState(false);
   const [role, setRole] = useState("");
   const [createCat, setCreateCat] = useState(false);
-  const [admins, setAdmins] = useState();
+  const [admins, setAdmins] = useState([]);
+
   const fetchAdmins = async () => {
     try {
       const response = await fetch(
@@ -30,8 +32,7 @@ function AppProvider({ children }) {
       }
 
       const data = await response.json();
-      console.log(data);
-      setAdmins(data);
+      setAdmins(data); // Update state with fetched data
     } catch (error) {
       console.error("An error occurred while fetching admins:", error);
     }
@@ -40,6 +41,12 @@ function AppProvider({ children }) {
   useEffect(() => {
     fetchAdmins();
   }, []);
+
+  // Log admins whenever it changes
+  useEffect(() => {
+    console.log(admins);
+  }, [admins]);
+
   return (
     <AppContext.Provider
       value={{
@@ -51,12 +58,15 @@ function AppProvider({ children }) {
         setAddEmployee,
         createCat,
         setCreateCat,
+        admins,
+        setAdmins,
       }}
     >
       {children}
     </AppContext.Provider>
   );
 }
+
 export const useGlobal = () => {
   return useContext(AppContext);
 };

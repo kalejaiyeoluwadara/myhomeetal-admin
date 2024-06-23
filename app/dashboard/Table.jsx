@@ -13,7 +13,7 @@ import {
 } from "react-icons/hi2";
 import TableData from "./components/TableData";
 import Tableheader from "./components/Tableheader";
-
+import { useGlobal } from "../context";
 function Table() {
   const data = [
     1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
@@ -23,10 +23,11 @@ function Table() {
     79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97,
     98, 99, 100,
   ]; // Sample data array
+  const { admins, setAdmins } = useGlobal();
   const itemsPerPage = 8;
   const [currentPage, setCurrentPage] = useState(1);
 
-  const totalPages = Math.ceil(data.length / itemsPerPage);
+  const totalPages = Math.ceil(admins.length / itemsPerPage);
 
   const handleNextPage = () => {
     if (currentPage < totalPages) {
@@ -40,7 +41,7 @@ function Table() {
     }
   };
 
-  const currentData = data.slice(
+  const currentData = admins.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
@@ -95,7 +96,15 @@ function Table() {
           <p className="w-[20px]"></p>
         </div>
         {currentData.map((d, id) => {
-          return <TableData key={id} />;
+          return (
+            <TableData
+              username={d.username}
+              email={d.email}
+              role={d.role}
+              _id={d._id}
+              key={d._id}
+            />
+          );
         })}
 
         {/* Footer */}
