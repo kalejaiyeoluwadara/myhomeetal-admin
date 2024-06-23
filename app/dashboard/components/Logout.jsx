@@ -21,7 +21,13 @@ function Logout() {
             <p className="text-center text-[#292929] mt-4 text-sm font-light w-[277px]  ">
               Ensure you've saved all your actions before proceeding.
             </p>
-            <Link className="w-full" href={"/"}>
+            <Link
+              onClick={() => {
+                setLogOut(false);
+              }}
+              className="w-full"
+              href={"/"}
+            >
               {" "}
               <div className="bg-red-600 text-white mt-6 mb-2 gap-2 text-[16px] center w-full h-[44px] rounded-[8px] ">
                 <Image src={logouts} alt="" className="" />
