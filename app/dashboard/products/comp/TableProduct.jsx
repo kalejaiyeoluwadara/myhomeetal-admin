@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { IoSearch } from "react-icons/io5";
 import filter from "../../../assets/filter.svg";
 import ex from "../../../assets/export.svg";
@@ -14,18 +14,13 @@ import {
 import TableData from "./TableData";
 
 function Table() {
-  const data = [
-    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
-    22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
-    41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59,
-    60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78,
-    79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97,
-    98, 99, 100,
-  ]; // Sample data array
   const itemsPerPage = 8;
   const [currentPage, setCurrentPage] = useState(1);
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const totalPages = Math.ceil(data.length / itemsPerPage);
+  const totalPages = Math.ceil(products.length / itemsPerPage);
 
   const handleNextPage = () => {
     if (currentPage < totalPages) {
@@ -39,7 +34,7 @@ function Table() {
     }
   };
 
-  const currentData = data.slice(
+  const currentData = products.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
@@ -77,6 +72,41 @@ function Table() {
     }
     return pages;
   };
+
+  const fetchProducts = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch(
+        "https://my-home-et-al-backend.onrender.com/api/v1/product/all-products",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2M2YyNjdjNDMyNDg5NmFlNzg2ZjgwZSIsImVtYWlsIjoiYmFiYUBteWhvbWVldGFsLmNvbSIsInJvbGUiOiJTdXBlciBBZG1pbiIsImlhdCI6MTcxODE2MTQ5NSwiZXhwIjoxNzI2ODAxNDk1fQ.w3OuGAzZmBRQN_kQbcEAAv82dVV3n0ymvu7G6gJLY6o",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(
+          `Failed to fetch products: ${response.status} ${response.statusText} - ${errorData.message}`
+        );
+      }
+
+      const data = await response.json();
+      setProducts(data);
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
 
   return (
     <div className="w-full overflow-hidden h-auto rounded-[10px] flex flex-col items-start justify-start border ">
@@ -120,9 +150,35 @@ function Table() {
           <p className="pl-2">Status</p>
           <p className="">Action</p>
         </div>
-        {currentData.map((d, id) => {
-          return <TableData key={id} />;
-        })}
+        {loading ? (
+          <div className="text-center py-10">
+            <p className="text-gray-500">Loading...</p>
+          </div>
+        ) : error ? (
+          <div className="text-center py-10">
+            <p className="text-red-500">{error}</p>
+          </div>
+        ) : currentData.length === 0 ? (
+          <div className="text-center py-10">
+            <p className="text-gray-500">No data available</p>
+          </div>
+        ) : (
+          currentData.map((d, id) => {
+            const { _id, productTitle, price, category, description, brand } =
+              d;
+            return (
+              <TableData
+                key={d._id}
+                category={category}
+                price={price}
+                productTitle={productTitle}
+                description={description}
+                brand={brand}
+                _id={d._id}
+              />
+            );
+          })
+        )}
 
         {/* Footer */}
         <footer className="w-full flex items-center justify-between px-4 h-[68px] bg-white">

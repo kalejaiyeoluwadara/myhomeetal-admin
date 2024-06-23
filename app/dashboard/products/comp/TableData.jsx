@@ -4,7 +4,7 @@ import Image from "next/image";
 import sport from "../../../assets/sport.svg";
 import { IoIosArrowDown, IoIosArrowUp, IoMdMore } from "react-icons/io";
 import Link from "next/link";
-function TableData() {
+function TableData({ _id, productTitle, price, category, description, brand }) {
   const [modal, setModal] = useState(false);
 
   return (
@@ -12,13 +12,13 @@ function TableData() {
       <div className="flex w-auto col-span-2 items-center justify-start gap-2 truncate">
         <Image className="" alt="" src={sport} />
         <p className="text-[14px] font-medium text-[#101928] ">
-          Sporty Running Shoe
+          {productTitle}
         </p>
       </div>
       <p className=" col-span-2 truncate ">EOX01-OOE-100015</p>
-      <p>$5.22</p>
+      <p>${price}</p>
       <p className=" ">833</p>
-      <p className="truncate ">Books</p>
+      <p className="truncate ">{category}</p>
       <div className="px-2 ">
         <p className="px-3 font-medium bg-[#FFF1F1] rounded-[12px] py-[2px] flex items-center justify-center text-[#C70E10] ">
           Inactive

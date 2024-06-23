@@ -15,14 +15,6 @@ import TableData from "./components/TableData";
 import Tableheader from "./components/Tableheader";
 import { useGlobal } from "../context";
 function Table() {
-  const data = [
-    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
-    22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
-    41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59,
-    60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78,
-    79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97,
-    98, 99, 100,
-  ]; // Sample data array
   const { admins, setAdmins } = useGlobal();
   const itemsPerPage = 8;
   const [currentPage, setCurrentPage] = useState(1);
@@ -95,17 +87,25 @@ function Table() {
           <p className="pl-2">Status</p>
           <p className="w-[20px]"></p>
         </div>
-        {currentData.map((d, id) => {
-          return (
-            <TableData
-              username={d.username}
-              email={d.email}
-              role={d.role}
-              _id={d._id}
-              key={d._id}
-            />
-          );
-        })}
+        <div className="w-full">
+          {currentData.length === 0 ? (
+            <div className="text-center py-10">
+              <p className="text-gray-500">No data available</p>
+            </div>
+          ) : (
+            currentData.map((d, id) => {
+              return (
+                <TableData
+                  username={d.username}
+                  email={d.email}
+                  role={d.role}
+                  _id={d._id}
+                  key={d._id}
+                />
+              );
+            })
+          )}
+        </div>
 
         {/* Footer */}
         <footer className="w-full flex items-center justify-between px-4 h-[68px] bg-white">
