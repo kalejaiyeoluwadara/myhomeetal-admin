@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import home from "@/app/assets/home.svg";
 import { LiaTimesSolid } from "react-icons/lia";
 import { FiUploadCloud } from "react-icons/fi";
+import { IoChevronDown } from "react-icons/io5";
 import { LuDot } from "react-icons/lu";
 import Image from "next/image";
 import { useGlobal } from "@/app/context";
@@ -25,7 +26,10 @@ const HeaderButton = ({ name, onclick, active, setActive }) => {
 };
 function AddEmployee() {
   const [active, setActive] = useState("Personal");
-
+  const [gender, setGender] = useState("");
+  const [gendModal, setGenModal] = useState(false);
+  const [emp, setEmp] = useState("");
+  const [empModal, setEmpModal] = useState(false);
   return (
     <div className=" w-full px-[36px] bg-screen  min-h-screen overflow-y-scroll ">
       {/* welcome  */}
@@ -140,8 +144,31 @@ function AddEmployee() {
                 </div>
                 <div className="w-full ">
                   <label className="inputlabel">Gender</label>
-                  <div className="w-full h-[56px] flex justify-between items-center px-4 border relative rounded-xl ">
-                    Gender
+                  <div
+                    onClick={() => {
+                      setGenModal((prev) => !prev);
+                    }}
+                    className="w-full pointer h-[56px] flex justify-between items-center px-4 border relative rounded-xl "
+                  >
+                    <p>{gender === "" ? "Select a gender" : gender}</p>
+                    <IoChevronDown size={20} />
+
+                    {gendModal && (
+                      <div className="absolute h-auto flex pointer flex-col gap-2 w-[200px] px-1 py-4 rounded-xl bg-white border top-16 ">
+                        {["Male", "Female"].map((d, id) => {
+                          return (
+                            <p
+                              onClick={() => {
+                                setGender(d);
+                              }}
+                              className="w-full h-[40px] rounded-md hover:bg-red-50 p-2 "
+                            >
+                              {d}
+                            </p>
+                          );
+                        })}
+                      </div>
+                    )}
                   </div>
                 </div>
               </section>
@@ -180,12 +207,7 @@ function AddEmployee() {
 
               {/* Buttons */}
               <section className="grid mt-[32px] grid-cols-3 gap-6 ">
-                <button
-                  onClick={() => {
-                    setAddEmployee(false);
-                  }}
-                  className="w-auto bg-white text-[#FF6567] border-primary h-[55px] border rounded-[8px] "
-                >
+                <button className="w-auto bg-white text-[#FF6567] border-primary h-[55px] border rounded-[8px] ">
                   Save Draft
                 </button>
                 <button
@@ -273,8 +295,31 @@ function AddEmployee() {
                 </div>
                 <div className="w-full ">
                   <label className="inputlabel">Employment type</label>
-                  <div className="w-full h-[56px] flex justify-between items-center px-4 border relative rounded-xl ">
-                    Employment type
+                  <div
+                    onClick={() => {
+                      setEmpModal((prev) => !prev);
+                    }}
+                    className="w-full pointer h-[56px] flex justify-between items-center px-4 border relative rounded-xl "
+                  >
+                    <p>{emp === "" ? "Select Employment type" : emp}</p>
+                    <IoChevronDown size={20} />
+
+                    {empModal && (
+                      <div className="absolute h-auto flex pointer flex-col gap-2 w-[200px] px-1 py-4 rounded-xl bg-white border top-16 ">
+                        {["Full-time", "Per-time"].map((d, id) => {
+                          return (
+                            <p
+                              onClick={() => {
+                                setEmp(d);
+                              }}
+                              className="w-full h-[40px] rounded-md hover:bg-red-50 p-2 "
+                            >
+                              {d}
+                            </p>
+                          );
+                        })}
+                      </div>
+                    )}
                   </div>
                 </div>
               </section>
