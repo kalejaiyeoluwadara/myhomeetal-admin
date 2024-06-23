@@ -65,6 +65,9 @@ button{
 .holder{
   @apply flex flex-col gap-2 w-full
 }
+input{
+  @apply outline-red-500 transition-all
+}
 .cover{
   @apply h-full w-full object-cover absolute top-0 left-0
 }
