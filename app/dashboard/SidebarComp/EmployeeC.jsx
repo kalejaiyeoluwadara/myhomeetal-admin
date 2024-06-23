@@ -41,13 +41,17 @@ function EmployeeC() {
               <Inner name={"All Employees"} />
             </div>
           </Link>
-          <div
-            onClick={() => {
-              setAddEmployee((prev) => !prev);
-            }}
-          >
-            <Inner name={"Add Employees"} />
-          </div>
+          <Link href={"/dashboard/employees/addemployee"}>
+            <div
+              className={` ${
+                active === "/dashboard/employees/addemployee"
+                  ? "bg-red-50"
+                  : "bg-white"
+              }  rounded-[4px] `}
+            >
+              <Inner name={"Add Employees"} />
+            </div>
+          </Link>
         </div>
       )}
     </div>
