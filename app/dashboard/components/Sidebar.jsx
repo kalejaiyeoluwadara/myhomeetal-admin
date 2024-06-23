@@ -41,13 +41,29 @@ function Sidebar() {
               : "bg-white"
           } px-[16px] flex-shrink-0 py-[12px] rounded-[4px]`}
         >
-          <Link href={"/dashboard"}>
+          <Link href={"/dashboard/admin/employee"}>
             <div className={`flex gap-3`}>
               <Image src={home} alt="" className="" />
               <p>Home</p>
             </div>
           </Link>
         </div>
+        {role === "Super Admin" && (
+          <div
+            className={`h-[44px] grey pointer hover:bg-red-50 ${
+              active === "/dashboard" || active === "/dashboard/admin/employee"
+                ? "bg-red-50"
+                : "bg-white"
+            } px-[16px] flex-shrink-0 py-[12px] rounded-[4px]`}
+          >
+            <Link href={"/dashboard"}>
+              <div className={`flex gap-3`}>
+                <Image src={home} alt="" className="" />
+                <p>Home</p>
+              </div>
+            </Link>
+          </div>
+        )}
         {role === "Super Admin" && <EmployeeC />}
         <ProductsC />
         <OrderC />
