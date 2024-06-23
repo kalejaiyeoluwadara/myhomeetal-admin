@@ -4,7 +4,9 @@ import { TbSettings } from "react-icons/tb";
 import profile from "../../assets/man.svg";
 import { RiCustomerServiceLine } from "react-icons/ri";
 import Image from "next/image";
+import { useGlobal } from "@/app/context";
 function Footer() {
+  const { logout, setLogOut } = useGlobal();
   return (
     <footer className="absolute w-full bottom-2  ">
       {/* <div className="w-full   px-[2px] flex flex-col justify-center items-center ">
@@ -33,7 +35,13 @@ function Footer() {
           </div>
         </div>
         <div>
-          <FiLogOut size={20} />
+          <FiLogOut
+            onClick={() => {
+              setLogOut((prev) => !prev);
+            }}
+            className=" pointer  "
+            size={20}
+          />
         </div>
       </div>
     </footer>
