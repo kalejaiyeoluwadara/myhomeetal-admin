@@ -34,20 +34,22 @@ function Sidebar() {
       {/* Nav */}
       <section className="h-[50%] w-[270px] flex flex-col px-2 overflow-x-hidden gap overflow-y-scroll no-scrollbar border-b pb-4 mt-[12px]">
         {/* Home */}
-        <div
-          className={`h-[44px] grey pointer hover:bg-red-50 ${
-            active === "/dashboard" || active === "/dashboard/admin/employee"
-              ? "bg-red-50"
-              : "bg-white"
-          } px-[16px] flex-shrink-0 py-[12px] rounded-[4px]`}
-        >
-          <Link href={"/dashboard/admin/employee"}>
-            <div className={`flex gap-3`}>
-              <Image src={home} alt="" className="" />
-              <p>Home</p>
-            </div>
-          </Link>
-        </div>
+        {role !== "Super Admin" && (
+          <div
+            className={`h-[44px] grey pointer hover:bg-red-50 ${
+              active === "/dashboard" || active === "/dashboard/admin/employee"
+                ? "bg-red-50"
+                : "bg-white"
+            } px-[16px] flex-shrink-0 py-[12px] rounded-[4px]`}
+          >
+            <Link href={"/dashboard/admin/employee"}>
+              <div className={`flex gap-3`}>
+                <Image src={home} alt="" className="" />
+                <p>Home</p>
+              </div>
+            </Link>
+          </div>
+        )}
         {role === "Super Admin" && (
           <div
             className={`h-[44px] grey pointer hover:bg-red-50 ${
