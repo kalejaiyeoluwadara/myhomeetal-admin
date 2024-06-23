@@ -39,7 +39,7 @@ function AppProvider({ children }) {
 
   useEffect(() => {
     fetchAdmins();
-  });
+  }, []);
   return (
     <AppContext.Provider
       value={{
