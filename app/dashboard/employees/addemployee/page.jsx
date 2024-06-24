@@ -8,6 +8,7 @@ import { LuDot } from "react-icons/lu";
 import Image from "next/image";
 import { useGlobal } from "@/app/context";
 import Link from "next/link";
+import Success from "./Success";
 const HeaderButton = ({ name, onclick, active, setActive }) => {
   return (
     <div
@@ -31,6 +32,26 @@ function AddEmployee() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [emp, setEmp] = useState("");
   const [empModal, setEmpModal] = useState(false);
+  const [id, setId] = useState("");
+  const [success, setSuccess] = useState(false);
+  const [formData, setFormData] = useState({
+    fullname: "",
+    image: "",
+    email: "",
+    address: "",
+    phone_no: "",
+    gender: gender,
+    emergency_contact_name: "",
+    emergency_contact_relationship: "",
+    emergency_contact_phone: "",
+    employee_id: "",
+    password: "",
+    username: "",
+    start_date: "",
+    employment_type: emp,
+    salary: "",
+  });
+
   const handleFileSelect = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -39,14 +60,58 @@ function AddEmployee() {
       // You can perform further operations with the selected file here
     }
   };
-
   const handleClick = () => {
     // Trigger click on the file input element
     document.getElementById("file-upload").click();
   };
+  const handleSubmit = async () => {
+    try {
+      const response = await fetch(
+        "https://my-home-et-al-backend.onrender.com/api/v1/admin/create-admin",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2M2YyNjdjNDMyNDg5NmFlNzg2ZjgwZSIsImVtYWlsIjoiYmFiYUBteWhvbWVldGFsLmNvbSIsInJvbGUiOiJTdXBlciBBZG1pbiIsImlhdCI6MTcxODE2MTQ5NSwiZXhwIjoxNzI2ODAxNDk1fQ.w3OuGAzZmBRQN_kQbcEAAv82dVV3n0ymvu7G6gJLY6o`,
+          },
+          body: JSON.stringify(formData),
+        }
+      );
+      const data = await response.json();
+      console.log("Response from server:", data);
+      console.log("Success");
+      setId(formData.employee_id);
+      setSuccess(true);
+      setFormData({
+        fullname: "",
+        image: "",
+        email: "",
+        address: "",
+        phone_no: "",
+        gender: gender,
+        emergency_contact_name: "",
+        emergency_contact_relationship: "",
+        emergency_contact_phone: "",
+        employee_id: "",
+        password: "",
+        username: "",
+        start_date: "",
+        employment_type: emp,
+        salary: "",
+      });
+    } catch (error) {
+      console.error("Error submitting data:", error);
+    }
+  };
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
   return (
-    <div className=" w-full px-[36px] bg-screen  min-h-screen overflow-y-scroll ">
+    <div className=" w-full px-[36px] relative bg-screen  min-h-screen overflow-y-scroll ">
       {/* welcome  */}
+      <Success success={success} setSuccess={setSuccess} id={id} />
       <div className="flex mb-[50px] mt-9 items-center justify-between">
         <section>
           <h2 className="text-[24px] font-semibold ">Create a New Employee</h2>
@@ -102,6 +167,8 @@ function AddEmployee() {
               <div className="w-full ">
                 <label className="inputlabel">Full name</label>
                 <input
+                  name="fullname"
+                  onChange={handleInputChange}
                   className="input"
                   type="text"
                   placeholder="Enter surname and first name"
@@ -148,8 +215,10 @@ function AddEmployee() {
               <div className="w-full ">
                 <label className="inputlabel">Email Address</label>
                 <input
+                  name="email"
                   className="input"
-                  type="text"
+                  onChange={handleInputChange}
+                  type="email"
                   placeholder="user@gmail.com"
                 />
               </div>
@@ -157,8 +226,10 @@ function AddEmployee() {
               <div className="w-full ">
                 <label className="inputlabel">Address</label>
                 <input
+                  name="address"
                   className="input"
                   type="text"
+                  onChange={handleInputChange}
                   placeholder="Enter address"
                 />
               </div>
@@ -167,8 +238,10 @@ function AddEmployee() {
                 <div className="w-full ">
                   <label className="inputlabel">Phone Number</label>
                   <input
+                    name="phone_no"
                     className="input"
-                    type="text"
+                    onChange={handleInputChange}
+                    type="tel"
                     placeholder="Enter Phone Number"
                   />
                 </div>
@@ -209,6 +282,8 @@ function AddEmployee() {
                 <input
                   className="input"
                   type="text"
+                  name="emergency_contact_name"
+                  onChange={handleInputChange}
                   placeholder="Enter Subject"
                 />
               </div>
@@ -220,6 +295,8 @@ function AddEmployee() {
                 <input
                   className="input"
                   type="text"
+                  name="emergency_contact_relationship"
+                  onChange={handleInputChange}
                   placeholder="Enter subject"
                 />
               </div>
@@ -230,7 +307,9 @@ function AddEmployee() {
                 </label>
                 <input
                   className="input"
+                  name="emergency_contact_phone"
                   type="text"
+                  onChange={handleInputChange}
                   placeholder="Enter subject"
                 />
               </div>
@@ -239,7 +318,32 @@ function AddEmployee() {
               <section className=" w-full mt-[32px] gap-6 ">
                 <button
                   onClick={() => {
-                    setActive("Employment");
+                    const {
+                      fullname,
+                      image,
+                      email,
+                      address,
+                      phone_no,
+                      gender,
+                      emergency_contact_name,
+                      emergency_contact_relationship,
+                      emergency_contact_phone,
+                    } = formData;
+                    if (
+                      (fullname,
+                      image,
+                      email,
+                      address,
+                      phone_no,
+                      gender,
+                      emergency_contact_name,
+                      emergency_contact_relationship,
+                      emergency_contact_phone)
+                    ) {
+                      setActive("Employment");
+                    } else {
+                      alert("Incomeplete field");
+                    }
                   }}
                   className=" w-full col-span-2 mb-2 text-[16px] font-semibold border h-[55px]  rounded-[8px] "
                 >
@@ -262,35 +366,16 @@ function AddEmployee() {
 
             {/* Form */}
             <div className="mt-[22px] flex flex-col gap-4 ">
-              {/* Full name */}
+              {/* Employee ID */}
               <div className="w-full ">
                 <label className="inputlabel">Employee ID</label>
                 <input
                   className="input"
                   type="text"
+                  name="employee_id"
+                  onChange={handleInputChange}
                   placeholder="Enter surname and first name"
                 />
-              </div>
-
-              {/* Image upload */}
-              <div className="w-full ">
-                <label className="inputlabel">Upload employee image</label>
-                <div className=" h-[80px] rounded-sm p-4 flex justify-between items-center border  ">
-                  <div className="flex gap-2">
-                    <div className="h-[48px] text-[#475367] w-[48px] center rounded-full bg-[#F0F2F5] ">
-                      <FiUploadCloud />
-                    </div>
-                    <div>
-                      <h2 className="core">Upload your document</h2>
-                      <p className="flex items-center justify-start text-[14px] text[#98A2B3]  ">
-                        PDF format <LuDot /> Max. 5MB{" "}
-                      </p>
-                    </div>
-                  </div>
-                  <button className="px-4 py-2 rounded-xl text-base font-semibold  ">
-                    Upload
-                  </button>
-                </div>
               </div>
 
               {/* Row content */}
@@ -300,7 +385,9 @@ function AddEmployee() {
                   <input
                     className="input"
                     type="text"
-                    placeholder="Enter Date of joining"
+                    name="start_date"
+                    onChange={handleInputChange}
+                    placeholder="YYYY-MM-DD"
                   />
                 </div>
                 <div className="w-full ">
@@ -338,6 +425,8 @@ function AddEmployee() {
               <div className="w-full ">
                 <label className="inputlabel">Salary Details </label>
                 <input
+                  name="salary"
+                  onChange={handleInputChange}
                   className="input"
                   type="text"
                   placeholder="Enter Subject"
@@ -348,7 +437,13 @@ function AddEmployee() {
               <section className=" mt-[32px] w-full gap-6 ">
                 <button
                   onClick={() => {
-                    setActive("Login Credentials");
+                    const { employee_id, start_date, employment_type, salary } =
+                      formData;
+                    if ((employee_id, start_date, employment_type, salary)) {
+                      setActive("Login Credentials");
+                    } else {
+                      alert("Incomeplete field");
+                    }
                   }}
                   className="w-full text-[16px] font-semibold border h-[55px]  rounded-[8px] "
                 >
@@ -377,6 +472,8 @@ function AddEmployee() {
                 <input
                   className="input"
                   type="text"
+                  name="username"
+                  onChange={handleInputChange}
                   placeholder="Enter surname and first name"
                 />
               </div>
@@ -386,23 +483,18 @@ function AddEmployee() {
                 <label className="inputlabel">Password</label>
                 <input
                   className="input"
-                  type="text"
+                  name="password"
+                  onChange={handleInputChange}
+                  type="password"
                   placeholder="Enter Subject"
                 />
               </div>
-              {/* User Role */}
-              <div className="w-full ">
-                <label className="inputlabel">User Role</label>
-                <input
-                  className="input"
-                  type="text"
-                  placeholder="Enter Subject"
-                />
-              </div>
-
               {/* Buttons */}
 
-              <button className="w-full col-span-2 text-[16px] font-semibold border h-[55px]  rounded-[8px] ">
+              <button
+                onClick={handleSubmit}
+                className="w-full col-span-2 text-[16px] font-semibold border h-[55px]  rounded-[8px] "
+              >
                 Confirm employee
               </button>
             </div>
