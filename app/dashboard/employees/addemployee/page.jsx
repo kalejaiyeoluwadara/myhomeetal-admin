@@ -127,7 +127,7 @@ function AddEmployee() {
                           : "Upload your document"}
                       </h2>
                       <p className="text-sm text-[#98A2B3]">
-                        PDF format{" "}
+                        JPG/PNG/ JPEG format{" "}
                         <span className="text-[#475367]">&#8226;</span> Max. 5MB
                       </p>
                     </div>
@@ -135,12 +135,12 @@ function AddEmployee() {
                   <input
                     id="file-upload"
                     type="file"
-                    accept=".pdf"
+                    accept=".png, .jpg, .jpeg"
                     className="hidden"
                     onChange={handleFileSelect}
                   />
                   <button className="px-4 py-2 rounded-xl text-base font-semibold">
-                    Upload
+                    {selectedFile ? "Change" : "Upload your document"}
                   </button>
                 </div>
               </div>
@@ -292,24 +292,7 @@ function AddEmployee() {
                   </button>
                 </div>
               </div>
-              {/* Role/Position */}
-              <div className="w-full ">
-                <label className="inputlabel">Enter Subject</label>
-                <input
-                  className="input"
-                  type="text"
-                  placeholder="Role/Position"
-                />
-              </div>
-              {/* Department */}
-              <div className="w-full ">
-                <label className="inputlabel">Department</label>
-                <input
-                  className="input"
-                  type="text"
-                  placeholder="Enter Subject"
-                />
-              </div>
+
               {/* Row content */}
               <section className="grid grid-cols-2 gap-4">
                 <div className="w-full ">
@@ -326,14 +309,14 @@ function AddEmployee() {
                     onClick={() => {
                       setEmpModal((prev) => !prev);
                     }}
-                    className="w-full pointer h-[56px] flex justify-between items-center px-4 border relative rounded-xl "
+                    className="w-full active:border-[1.5px] active:border-red-500 pointer h-[56px] flex justify-between items-center px-4 border relative rounded-xl "
                   >
                     <p>{emp === "" ? "Select Employment type" : emp}</p>
                     <IoChevronDown size={20} />
 
                     {empModal && (
                       <div className="absolute h-auto flex pointer flex-col gap-2 w-[200px] px-1 py-4 rounded-xl bg-white border top-16 ">
-                        {["Full-time", "Per-time"].map((d, id) => {
+                        {["On-Site", "Remote"].map((d, id) => {
                           return (
                             <p
                               onClick={() => {

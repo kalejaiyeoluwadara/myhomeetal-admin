@@ -110,7 +110,7 @@ function Page({ params }) {
             Deactivate Account
           </div>
           <div className=" border px-4 py-2 border-border bg-[#667185] rounded-[8px] text-white text-[14px] font-semibold ">
-            Deactivate Account
+            Delete Account
           </div>
         </section>
       </div>

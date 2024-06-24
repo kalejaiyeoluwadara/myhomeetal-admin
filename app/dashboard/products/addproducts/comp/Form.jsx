@@ -82,7 +82,7 @@ function Form() {
     <main className="mb-40 w-full">
       <main className="grid w-full grid-cols-3 mt-10  gap-6 ">
         {/* Main form */}
-        <div className="border bg-white col-span-2 rounded-xl p-4 w-auto h-[800px]">
+        <div className="border bg-white col-span-2 rounded-xl p-4 w-auto h-[900px]">
           {/* title */}
           <h2 className=" core mt-4 ">General Information</h2>
           <section className="mt-4 flex flex-col items-start justify-center gap-6 ">
@@ -129,10 +129,14 @@ function Form() {
               <label className="inputlabel">SKU (Stock Keeping Unit)</label>
               <input className="input" type="text" placeholder="783kl32" />
             </div>
+            <div className="w-full ">
+              <label className="inputlabel">Product base price</label>
+              <input className="input" type="text" placeholder="290,000" />
+            </div>
             {/* Level */}
             <section className="flex gap-[18px]">
               <div className="w-full ">
-                <label className="inputlabel">SKU (Stock Keeping Unit)</label>
+                <label className="inputlabel">Stock Level</label>
                 <input className="input" type="text" placeholder="783kl32" />
               </div>
               <div
@@ -163,7 +167,7 @@ function Form() {
               <FiUploadCloud size={25} />
             </div>
             <div>
-              <h3 className="text-[14px] text-[#475367] ">
+              <h3 className="text-[14px] text-center text-[#475367] ">
                 <span className="text-[14px] text-[#ED2224] ">
                   Click to upload
                 </span>{" "}
@@ -189,64 +193,6 @@ function Form() {
           </div>
         </div>
       </main>
-
-      <article className="grid grid-cols-3  w-full gap-6">
-        <div className="w-auto h-[379px] bg-white mt-6 col-span-2 border rounded-xl p-4 ">
-          <h2 className="core">Pricing</h2>
-          <div className="w-full mt-4 ">
-            <div className="w-full ">
-              <label className="inputlabel">Product base price</label>
-              <input className="input" type="text" placeholder="290,000" />
-            </div>
-
-            <div className="w-full mt-6 ">
-              <label className="inputlabel mt-4 ">Discount Type</label>
-              <section className="grid grid-cols-3 gap-4 ">
-                <Rad
-                  onclick={() => SetDiscType("No Discount")}
-                  type={"No Discount"}
-                  SetDiscType={SetDiscType}
-                  disctype={disctype}
-                />
-                <div
-                  onClick={() => {
-                    setDiscModal(true);
-                  }}
-                  className="relative"
-                >
-                  <Rad
-                    onclick={() => SetDiscType("Percentage %")}
-                    type={"Percentage %"}
-                    SetDiscType={SetDiscType}
-                    disctype={disctype}
-                  />
-                </div>
-
-                <Rad
-                  onclick={() => SetDiscType("Fixed Price")}
-                  type={"Fixed Price"}
-                  SetDiscType={SetDiscType}
-                  disctype={disctype}
-                />
-              </section>
-              <div className="w-full relative -translate-y-16 translate-x-40 z-40 bg-red-300 ">
-                {discModal && (
-                  <Perc
-                    setDiscModal={setDiscModal}
-                    disc={disc}
-                    setDisc={setDisc}
-                  />
-                )}
-              </div>
-            </div>
-            <div className="w-full ">
-              <label className="inputlabel">Pricing after discount</label>
-              <input className="input" type="text" placeholder="290,000" />
-            </div>
-          </div>
-        </div>
-        <div></div>
-      </article>
     </main>
   );
 }
