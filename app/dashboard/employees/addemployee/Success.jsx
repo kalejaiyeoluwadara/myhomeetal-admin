@@ -17,10 +17,10 @@ function Success({ id, success, setSuccess }) {
             <p>Emplyee ID: #{id}</p>
           </div>
           <Link
+            href={"/dashboard"}
             onClick={() => {
               setSuccess(false);
             }}
-            href={"/dashboard"}
           >
             <button className="w-[475px] h-[60px] rounded-[10px] ">
               Return to home

@@ -39,7 +39,7 @@ function AddEmployee() {
     email: "",
     address: "",
     phone_no: "",
-    gender: gender,
+    gender: "",
     emergency_contact_name: "",
     emergency_contact_relationship: "",
     emergency_contact_phone: "",
@@ -47,13 +47,14 @@ function AddEmployee() {
     password: "",
     username: "",
     start_date: "",
-    employment_type: emp,
+    employment_type: "",
     salary: "",
   });
 
   const handleFileSelect = (e) => {
     const file = e.target.files[0];
     if (file) {
+      // setFormData({ ...formData, image: file });
       setSelectedFile(file);
       console.log("Selected file:", file);
       // You can perform further operations with the selected file here
@@ -228,7 +229,7 @@ function AddEmployee() {
                   placeholder="user@gmail.com"
                 />
               </div>
-              {/* Full name */}
+              {/* Address */}
               <div className="w-full ">
                 <label className="inputlabel">Address</label>
                 <input
@@ -269,6 +270,7 @@ function AddEmployee() {
                             <p
                               onClick={() => {
                                 setGender(d);
+                                setFormData({ ...formData, gender: d });
                               }}
                               className="w-full h-[40px] rounded-md hover:bg-red-50 p-2 "
                             >
@@ -337,7 +339,7 @@ function AddEmployee() {
                     } = formData;
                     if (
                       fullname &&
-                      image &&
+                      // image &&
                       email &&
                       address &&
                       phone_no &&
@@ -348,7 +350,9 @@ function AddEmployee() {
                     ) {
                       setActive("Employment");
                     } else {
-                      alert("Incomeplete field");
+                      alert("Incomplete field");
+                      console.log(formData.gender);
+                      console.log(formData.image);
                     }
                   }}
                   className=" w-full col-span-2 mb-2 text-[16px] font-semibold border h-[55px]  rounded-[8px] "
@@ -401,6 +405,7 @@ function AddEmployee() {
                   <div
                     onClick={() => {
                       setEmpModal((prev) => !prev);
+                      setFormData({ ...formData, employment_type: emp });
                     }}
                     className="w-full active:border-[1.5px] active:border-red-500 pointer h-[56px] flex justify-between items-center px-4 border relative rounded-xl "
                   >
@@ -414,6 +419,10 @@ function AddEmployee() {
                             <p
                               onClick={() => {
                                 setEmp(d);
+                                setFormData({
+                                  ...formData,
+                                  employment_type: d,
+                                });
                               }}
                               className="w-full h-[40px] rounded-md hover:bg-red-50 p-2 "
                             >
@@ -453,7 +462,13 @@ function AddEmployee() {
                     ) {
                       setActive("Login Credentials");
                     } else {
-                      alert("Incomeplete field");
+                      console.log(
+                        employee_id,
+                        start_date,
+                        employment_type,
+                        salary
+                      );
+                      alert("Incomplete field");
                     }
                   }}
                   className="w-full text-[16px] font-semibold border h-[55px]  rounded-[8px] "
