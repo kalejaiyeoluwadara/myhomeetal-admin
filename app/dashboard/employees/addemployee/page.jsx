@@ -206,17 +206,14 @@ function AddEmployee() {
               </div>
 
               {/* Buttons */}
-              <section className="grid mt-[32px] grid-cols-3 gap-6 ">
-                <button className="w-auto bg-white text-[#FF6567] border-primary h-[55px] border rounded-[8px] ">
-                  Save Draft
-                </button>
+              <section className=" w-full mt-[32px] gap-6 ">
                 <button
                   onClick={() => {
                     setActive("Employment");
                   }}
-                  className="w-auto col-span-2 text-[16px] font-semibold border h-[55px]  rounded-[8px] "
+                  className=" w-full col-span-2 mb-2 text-[16px] font-semibold border h-[55px]  rounded-[8px] "
                 >
-                  Next Step
+                  Confirm employee
                 </button>
               </section>
             </div>
@@ -335,22 +332,14 @@ function AddEmployee() {
               </div>
 
               {/* Buttons */}
-              <section className="grid mt-[32px] grid-cols-3 gap-6 ">
-                <button
-                  onClick={() => {
-                    setAddEmployee(false);
-                  }}
-                  className="w-auto bg-white text-[#FF6567] border-primary h-[55px] border rounded-[8px] "
-                >
-                  Save Draft
-                </button>
+              <section className=" mt-[32px] w-full gap-6 ">
                 <button
                   onClick={() => {
                     setActive("Login Credentials");
                   }}
-                  className="w-auto col-span-2 text-[16px] font-semibold border h-[55px]  rounded-[8px] "
+                  className="w-full text-[16px] font-semibold border h-[55px]  rounded-[8px] "
                 >
-                  Next Step
+                  Confirm employee
                 </button>
               </section>
             </div>

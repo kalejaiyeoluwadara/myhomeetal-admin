@@ -1,5 +1,6 @@
+"use client";
 import Link from "next/link";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { HiArrowLeft } from "react-icons/hi2";
 import Nav from "./Nav";
 import Image from "next/image";
@@ -11,6 +12,36 @@ import Container from "./comps/Container";
 import Permissions from "./comps/Permissions";
 import girl from "../../../assets/girl.svg";
 function Page({ params }) {
+  const fetchAdmins = async () => {
+    try {
+      const response = await fetch(
+        "https://my-home-et-al-backend.onrender.com/api/v1/admin/get-admins",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2M2YyNjdjNDMyNDg5NmFlNzg2ZjgwZSIsImVtYWlsIjoiYmFiYUBteWhvbWVldGFsLmNvbSIsInJvbGUiOiJTdXBlciBBZG1pbiIsImlhdCI6MTcxODE2MTQ5NSwiZXhwIjoxNzI2ODAxNDk1fQ.w3OuGAzZmBRQN_kQbcEAAv82dVV3n0ymvu7G6gJLY6o",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(
+          `Failed to fetch admins: ${response.status} ${response.statusText} - ${errorData.message}`
+        );
+      }
+
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error("An error occurred while fetching admins:", error);
+    }
+  };
+  useEffect(() => {
+    fetchAdmins();
+  }, []);
   const pi = [
     {
       title: "Fullname",
@@ -79,7 +110,7 @@ function Page({ params }) {
             Deactivate Account
           </div>
           <div className=" border px-4 py-2 border-border bg-[#667185] rounded-[8px] text-white text-[14px] font-semibold ">
-            Delete Account
+            Deactivate Account
           </div>
         </section>
       </div>

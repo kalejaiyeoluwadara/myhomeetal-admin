@@ -43,9 +43,7 @@ function AppProvider({ children }) {
   }, []);
 
   // Log admins whenever it changes
-  useEffect(() => {
-    console.log(admins);
-  }, [admins]);
+  useEffect(() => {}, [admins]);
 
   return (
     <AppContext.Provider
