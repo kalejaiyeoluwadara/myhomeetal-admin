@@ -28,8 +28,22 @@ function AddEmployee() {
   const [active, setActive] = useState("Personal");
   const [gender, setGender] = useState("");
   const [gendModal, setGenModal] = useState(false);
+  const [selectedFile, setSelectedFile] = useState(null);
   const [emp, setEmp] = useState("");
   const [empModal, setEmpModal] = useState(false);
+  const handleFileSelect = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setSelectedFile(file);
+      console.log("Selected file:", file);
+      // You can perform further operations with the selected file here
+    }
+  };
+
+  const handleClick = () => {
+    // Trigger click on the file input element
+    document.getElementById("file-upload").click();
+  };
   return (
     <div className=" w-full px-[36px] bg-screen  min-h-screen overflow-y-scroll ">
       {/* welcome  */}
@@ -95,21 +109,37 @@ function AddEmployee() {
               </div>
 
               {/* Image upload */}
-              <div className="w-full ">
+              <div className="w-full">
                 <label className="inputlabel">Upload employee image</label>
-                <div className=" h-[80px] rounded-sm p-4 flex justify-between items-center border  ">
-                  <div className="flex gap-2">
-                    <div className="h-[48px] text-[#475367] w-[48px] center rounded-full bg-[#F0F2F5] ">
+                <div
+                  className="h-[80px] rounded-sm p-4 flex justify-between items-center border"
+                  onClick={handleClick}
+                  style={{ cursor: "pointer" }}
+                >
+                  <div className="flex gap-2 items-center">
+                    <div className="h-[48px] w-[48px] flex items-center justify-center rounded-full bg-[#F0F2F5] text-[#475367] cursor-pointer">
                       <FiUploadCloud />
                     </div>
                     <div>
-                      <h2 className="core">Upload your document</h2>
-                      <p className="flex items-center justify-start text-[14px] text[#98A2B3]  ">
-                        PDF format <LuDot /> Max. 5MB{" "}
+                      <h2 className="font-semibold">
+                        {selectedFile
+                          ? selectedFile.name
+                          : "Upload your document"}
+                      </h2>
+                      <p className="text-sm text-[#98A2B3]">
+                        PDF format{" "}
+                        <span className="text-[#475367]">&#8226;</span> Max. 5MB
                       </p>
                     </div>
                   </div>
-                  <button className="px-4 py-2 rounded-xl text-base font-semibold  ">
+                  <input
+                    id="file-upload"
+                    type="file"
+                    accept=".pdf"
+                    className="hidden"
+                    onChange={handleFileSelect}
+                  />
+                  <button className="px-4 py-2 rounded-xl text-base font-semibold">
                     Upload
                   </button>
                 </div>
