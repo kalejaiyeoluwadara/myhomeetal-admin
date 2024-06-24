@@ -4,16 +4,17 @@ import Image from "next/image";
 import sport from "../../../assets/bessie.svg";
 import { IoIosArrowDown, IoIosArrowUp, IoMdMore } from "react-icons/io";
 import Link from "next/link";
-function TableData() {
+function TableData({ _id, firstname, lastname, email }) {
   const [modal, setModal] = useState(false);
-
   return (
     <div className="w-full h-[72px] border-b bg-white text-[#344054] text-[14px] px-3 items-center justify-center grid pt-2 grid-cols-9 ">
       <div className="flex w-auto col-span-2 items-center justify-start gap-2 truncate">
         <Image className="" alt="" src={sport} />
-        <p className="text-[14px] font-medium text-[#101928] ">Nguyen, Shane</p>
+        <p className="text-[14px] font-medium text-[#101928] ">
+          {lastname}, {firstname}
+        </p>
       </div>
-      <p className=" col-span-2 truncate ">alma.lawson@example.com </p>
+      <p className=" col-span-2 truncate ">{email} </p>
       <p className="col-span-2 truncate">(252) 555-0126</p>
       <p className=" ">$854.08</p>
       <p className=" ">24 May, 2020</p>
