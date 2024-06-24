@@ -5,23 +5,22 @@ import { LiaTimesSolid } from "react-icons/lia";
 import { FiUploadCloud } from "react-icons/fi";
 import { IoChevronDown } from "react-icons/io5";
 import { LuDot } from "react-icons/lu";
+import home2 from "@/app/assets/home2.svg";
+import profile2 from "@/app/assets/profile2.svg";
+import tick from "@/app/assets/tick.svg";
 import Image from "next/image";
 import { useGlobal } from "@/app/context";
 import Link from "next/link";
 import Success from "./Success";
-const HeaderButton = ({ name, onclick, active, setActive }) => {
+const HeaderButton = ({ name, onclick, active, setActive, img }) => {
   return (
     <div
-      onClick={() => {
-        setActive(name);
-      }}
       className={` ${
         active === name && "border border-[#ED2224] bg-[#FBF1F1] "
-      } h-[32px] gap-2 rounded-[8px] pointer text-[#667185] center border px-2 `}
+      } h-[32px] gap-2 rounded-[8px] text-[#667185] center border px-2 `}
     >
-      <Image src={home} alt="" className="" />
+      <Image src={img} alt="" className="" />
       <p className="text-[14px] font-medium ">{name}</p>
-      {active === name && <LiaTimesSolid size={20} />}
     </div>
   );
 };
@@ -65,42 +64,46 @@ function AddEmployee() {
     document.getElementById("file-upload").click();
   };
   const handleSubmit = async () => {
-    try {
-      const response = await fetch(
-        "https://my-home-et-al-backend.onrender.com/api/v1/admin/create-admin",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2M2YyNjdjNDMyNDg5NmFlNzg2ZjgwZSIsImVtYWlsIjoiYmFiYUBteWhvbWVldGFsLmNvbSIsInJvbGUiOiJTdXBlciBBZG1pbiIsImlhdCI6MTcxODE2MTQ5NSwiZXhwIjoxNzI2ODAxNDk1fQ.w3OuGAzZmBRQN_kQbcEAAv82dVV3n0ymvu7G6gJLY6o`,
-          },
-          body: JSON.stringify(formData),
-        }
-      );
-      const data = await response.json();
-      console.log("Response from server:", data);
-      console.log("Success");
-      setId(formData.employee_id);
-      setSuccess(true);
-      setFormData({
-        fullname: "",
-        image: "",
-        email: "",
-        address: "",
-        phone_no: "",
-        gender: gender,
-        emergency_contact_name: "",
-        emergency_contact_relationship: "",
-        emergency_contact_phone: "",
-        employee_id: "",
-        password: "",
-        username: "",
-        start_date: "",
-        employment_type: emp,
-        salary: "",
-      });
-    } catch (error) {
-      console.error("Error submitting data:", error);
+    if (formData.username && formData.password) {
+      try {
+        const response = await fetch(
+          "https://my-home-et-al-backend.onrender.com/api/v1/admin/create-admin",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2M2YyNjdjNDMyNDg5NmFlNzg2ZjgwZSIsImVtYWlsIjoiYmFiYUBteWhvbWVldGFsLmNvbSIsInJvbGUiOiJTdXBlciBBZG1pbiIsImlhdCI6MTcxODE2MTQ5NSwiZXhwIjoxNzI2ODAxNDk1fQ.w3OuGAzZmBRQN_kQbcEAAv82dVV3n0ymvu7G6gJLY6o`,
+            },
+            body: JSON.stringify(formData),
+          }
+        );
+        const data = await response.json();
+        console.log("Response from server:", data);
+        console.log("Success");
+        setId(formData.employee_id);
+        setSuccess(true);
+        setFormData({
+          fullname: "",
+          image: "",
+          email: "",
+          address: "",
+          phone_no: "",
+          gender: gender,
+          emergency_contact_name: "",
+          emergency_contact_relationship: "",
+          emergency_contact_phone: "",
+          employee_id: "",
+          password: "",
+          username: "",
+          start_date: "",
+          employment_type: emp,
+          salary: "",
+        });
+      } catch (error) {
+        console.error("Error submitting data:", error);
+      }
+    } else {
+      alert("Incomplete input field");
     }
   };
   const handleInputChange = (e) => {
@@ -136,14 +139,17 @@ function AddEmployee() {
             name={"Personal"}
             active={active}
             setActive={setActive}
+            img={home2}
           />
           <HeaderButton
             name={"Employment"}
             active={active}
+            img={profile2}
             setActive={setActive}
           />
           <HeaderButton
             name={"Login Credentials"}
+            img={tick}
             active={active}
             setActive={setActive}
           />
@@ -330,15 +336,15 @@ function AddEmployee() {
                       emergency_contact_phone,
                     } = formData;
                     if (
-                      (fullname,
-                      image,
-                      email,
-                      address,
-                      phone_no,
-                      gender,
-                      emergency_contact_name,
-                      emergency_contact_relationship,
-                      emergency_contact_phone)
+                      fullname &&
+                      image &&
+                      email &&
+                      address &&
+                      phone_no &&
+                      gender &&
+                      emergency_contact_name &&
+                      emergency_contact_relationship &&
+                      emergency_contact_phone
                     ) {
                       setActive("Employment");
                     } else {
@@ -439,7 +445,12 @@ function AddEmployee() {
                   onClick={() => {
                     const { employee_id, start_date, employment_type, salary } =
                       formData;
-                    if ((employee_id, start_date, employment_type, salary)) {
+                    if (
+                      employee_id &&
+                      start_date &&
+                      employment_type &&
+                      salary
+                    ) {
                       setActive("Login Credentials");
                     } else {
                       alert("Incomeplete field");
