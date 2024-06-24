@@ -20,8 +20,8 @@ function TableData({ username, email, _id, role }) {
       <p className=" truncate col-span-2">{email}</p>
       <p className="">0814 609 2019</p>
       <div className="px-2 ">
-        <p className="px-3 font-medium bg-[#FFF1F1] rounded-[12px] py-[2px] flex items-center justify-center text-[#C70E10] ">
-          Label
+        <p className="px-3 font-medium bg-green-200 rounded-[12px] py-[2px] flex items-center justify-center text-green-600 ">
+          active
         </p>
       </div>
       <div className="flex items-center relative justify-center ">
@@ -34,7 +34,7 @@ function TableData({ username, email, _id, role }) {
           <IoMdMore size={20} />{" "}
         </p>
         {modal && (
-          <Link href={"/dashboard/employees/1"}>
+          <Link href={`/dashboard/employees/${_id}`}>
             <div className="h-[60px] border bg-white sh absolute top-6 -right-2 z-40 center rounded-md w-[100px] p-2 text-[14px] ">
               <p className="w-full h-full pointer hover:bg-red-50 center rounded-md ">
                 View Data
