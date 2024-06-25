@@ -3,13 +3,12 @@ import { GoPeople } from "react-icons/go";
 import Pill from "./Pill";
 function Permissions() {
   const data = [
-    "User Management",
-    "product Management",
-    "Order Management",
-    "Vendor Management",
-    "Finance Management",
-    "Analytics & Reporting",
-    "Review and Feedback",
+    { title: "User Management", opt: true },
+    { title: "product Management", opt: true },
+    { title: "Vendor Management", opt: false },
+    { title: "Finance Management", opt: false },
+    { title: "Analytics & Reporting", opt: true },
+    { title: "Review and Feedback", opt: false },
   ];
   return (
     <div className="h-[461px] w-auto border flex flex-col rounded-xl gap-[24px] bg-white p-6 ">
@@ -24,8 +23,8 @@ function Permissions() {
         {data.map((d, id) => {
           return (
             <div className="flex h-[52px] border-b border-[#F7F9FC] items-center justify-start gap-4">
-              <p className="text-[14px] font-medium ">{d}</p>
-              <Pill />
+              <p className="text-[14px] font-medium ">{d.title}</p>
+              <Pill opt={d.opt} />
             </div>
           );
         })}

@@ -1,11 +1,11 @@
 import React from "react";
 
-function Pill() {
+function Pill({ opt }) {
   return (
     <div className="inline-flex items-center">
       <div className="relative inline-block w-8 h-4 rounded-full cursor-pointer">
         <input
-          defaultChecked
+          checked={opt}
           id="switch-8"
           type="checkbox"
           className="absolute w-8 h-4 transition-colors duration-300 rounded-full appearance-none cursor-pointer peer bg-[#E4E7EC] checked:bg-[#FF6567] peer-checked:border-pink-500 peer-checked:before:bg-[#FF6567]"

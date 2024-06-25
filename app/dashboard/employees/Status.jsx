@@ -1,14 +1,17 @@
+"use client";
+import { useGlobal } from "@/app/context";
 import React from "react";
 import { GoPeople } from "react-icons/go";
 function Status() {
+  const { admins } = useGlobal();
   const data = [
     {
       title: "Total employee",
-      count: "200",
+      count: admins?.length,
     },
     {
       title: "Active employee",
-      count: "175",
+      count: admins?.length,
     },
     {
       title: "Employee on leave",

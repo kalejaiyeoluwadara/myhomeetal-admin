@@ -4,7 +4,7 @@ import { SiHackthebox } from "react-icons/si";
 import { IoAnalyticsOutline } from "react-icons/io5";
 function TaksComp({ title, data }) {
   return (
-    <div className="box">
+    <div className="box bg-white ">
       <div className="flex gap-2 items-center justify-center">
         <div className="flex items-center justify-center h-[32px] w-[32px] border rounded-[8px] ">
           <SiHackthebox />

@@ -78,10 +78,9 @@ function Table() {
       <Tableheader />
       {/* Content */}
       <div className="w-full ">
-        <div className="w-full h-[44px] px-3 text-[12px] font-medium pt-1 items-center justify-center grid grid-cols-9 ">
+        <div className="w-full h-[44px] px-3 text-[12px] font-medium pt-1 items-center justify-center grid grid-cols-8 ">
           <p className=" col-span-2 ">Name</p>
           <p className="">ID</p>
-          <p>Position</p>
           <p className="col-span-2">Email</p>
           <p className="">Phone No</p>
           <p className="pl-2">Status</p>
@@ -101,6 +100,7 @@ function Table() {
                   role={d.role}
                   _id={d?.employee_id}
                   key={d._id}
+                  phone_no={d?.phone_no}
                 />
               );
             })

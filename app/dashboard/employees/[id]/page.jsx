@@ -117,9 +117,9 @@ function Page({ params }) {
 
       {/* Boxes */}
       <div className="grid gap-4 grid-cols-3 ">
-        <TaksComp title={" Tasks Completed"} data={"45,823"} />
-        <TaksComp title={"Pending Task"} data={"45,823"} />
-        <TaksComp title={"Performance Rate"} data={"45,823"} />
+        <TaksComp title={" Tasks Completed"} data={"0"} />
+        <TaksComp title={"Pending Task"} data={"0"} />
+        <TaksComp title={"Performance Rate"} data={"0"} />
         <Container title={"Personal information"} data={pi} />
         <Container title={"Employment Information"} data={ei} />
         <Permissions />
