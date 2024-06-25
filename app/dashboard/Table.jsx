@@ -99,7 +99,7 @@ function Table() {
                   username={d.username}
                   email={d.email}
                   role={d.role}
-                  _id={d._id}
+                  _id={d?.employee_id}
                   key={d._id}
                 />
               );

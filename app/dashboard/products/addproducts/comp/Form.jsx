@@ -3,22 +3,18 @@ import React, { useState } from "react";
 import { FiUploadCloud } from "react-icons/fi";
 import { GoChevronDown } from "react-icons/go";
 
-const Modal = () => {
-  const cats = [
-    "My Phones and Tablet",
-    "My Phones and Tablet",
-    "My Phones and Tablet",
-    "My Phones and Tablet",
-    "My Phones and Tablet",
-    "My Phones and Tablet",
-    "My Phones and Tablet",
-  ];
+const Modal = ({ cat, setCat, setFormData, formData }) => {
+  const cats = ["My Phones and Tablet", "My Phones and Tablet"];
   return (
     <div className="flex flex-col h-auto top-24 p-4 right-2 w-[200px] rounded-xl border bg-white absolute z-20 ">
       {cats.map((d, id) => {
         return (
           <p
             key={id}
+            onClick={() => {
+              setFormData({ ...formData, category: d });
+              setCat(d);
+            }}
             className="px-2 text-[12px] rounded-md cursor-pointer hover:bg-red-50 py-2"
           >
             {d}
@@ -28,56 +24,66 @@ const Modal = () => {
     </div>
   );
 };
-const Perc = ({ setDisc, disc, discModal, setDiscModal }) => {
-  return (
-    <div className="w-[249px] absolute z-40 top-20 border h-[196px] rounded-[10px] bg-white p-4 ">
-      <input
-        value={disc}
-        onChange={(e) => {
-          setDisc(e.target.value);
-        }}
-        placeholder="Discount Percentage"
-        type="text"
-        className="h-[50px] input w-[231px] "
-      />
-      <p className="text-[12px] text-[] my-4 ">
-        A discount of {disc}.0% would be applied to the product.
-      </p>
-      <button
-        onClick={() => {
-          setDisc(0);
-          setDiscModal(false);
-        }}
-        className="w-full h-[44px] rounded-xl "
-      >
-        Confirm
-      </button>
-    </div>
-  );
-};
-const Rad = ({ type, onclick, SetDiscType, disctype }) => {
-  return (
-    <div
-      onClick={onclick}
-      className=" text-[14px] font-semibold text-[#344054] flex border items-center justify-center gap-2 w-auto h-[56px] rounded-md "
-    >
-      {disctype !== type ? (
-        <div className=" h-[20px] w-[20px] rounded-full border " />
-      ) : (
-        <div className=" h-[20px] w-[20px] rounded-full flex items-center justify-center border ">
-          <div className=" bg-[#FF6567] h-[10px] w-[10px] rounded-full " />
-        </div>
-      )}
-      <p>{type}</p>{" "}
-    </div>
-  );
-};
 
 function Form() {
   const [disctype, SetDiscType] = useState("No Discount");
+  const [cat, setCat] = useState("My Phones $ Tablet");
   const [modal, setModal] = useState(false);
   const [disc, setDisc] = useState(0);
   const [discModal, setDiscModal] = useState(false);
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [formData, setFormData] = useState({
+    productTitle: "lx",
+    price: 4000,
+    category: "phone",
+    description: "eeee",
+    brand: "eee",
+    inventory: 20,
+    productSpec: "eee",
+    sku: "3ee",
+    stock: "20",
+    image: [],
+  });
+  // Handling files
+  const handleFileSelect = (e) => {
+    const files = Array.from(e.target.files).slice(0, 4);
+    // Limit to 4 files
+    if (files.length > 0) {
+      setSelectedFile(files);
+      console.log("Selected files:", files);
+      setFormData({ ...formData, image: files });
+    }
+  };
+
+  // Handling submit
+  const handleSubmit = async () => {
+    try {
+      const response = await fetch(
+        "https://my-home-et-al-backend.onrender.com/api/v1/product/create-product",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2M2YyNjdjNDMyNDg5NmFlNzg2ZjgwZSIsImVtYWlsIjoiYmFiYUBteWhvbWVldGFsLmNvbSIsInJvbGUiOiJTdXBlciBBZG1pbiIsImlhdCI6MTcxODE2MTQ5NSwiZXhwIjoxNzI2ODAxNDk1fQ.w3OuGAzZmBRQN_kQbcEAAv82dVV3n0ymvu7G6gJLY6o`,
+          },
+          body: JSON.stringify(formData),
+        }
+      );
+      const data = await response.json();
+      console.log("Response from server:", data);
+      console.log("Success");
+    } catch (error) {
+      console.error("Error submitting data:", error);
+    }
+  };
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+  const handleClick = () => {
+    // Trigger click on the file input element
+    document.getElementById("file-upload").click();
+  };
   return (
     <main className="mb-40 w-full">
       <main className="grid w-full grid-cols-3 mt-10  gap-6 ">
@@ -90,6 +96,8 @@ function Form() {
               <label className="inputlabel">Product Name</label>
               <input
                 className="input"
+                name="productTitle"
+                onChange={handleInputChange}
                 type="text"
                 placeholder="Iphone 11 Pro"
               />
@@ -102,6 +110,8 @@ function Form() {
               <label className="inputlabel">Product Description</label>
               <input
                 className="input"
+                name="description"
+                onChange={handleInputChange}
                 type="text"
                 placeholder="Enter Subject"
               />
@@ -113,6 +123,8 @@ function Form() {
               <label className="inputlabel">Product Specifications</label>
               <input
                 className="input"
+                name="productSpec"
+                onChange={handleInputChange}
                 type="text"
                 placeholder="Enter Subject"
               />
@@ -123,21 +135,44 @@ function Form() {
             </div>
             <div className="w-full ">
               <label className="inputlabel">Brand’s Name</label>
-              <input className="input" type="text" placeholder="Samsung" />
+              <input
+                className="input"
+                name="brand"
+                onChange={handleInputChange}
+                type="text"
+                placeholder="Samsung"
+              />
             </div>
             <div className="w-full ">
               <label className="inputlabel">SKU (Stock Keeping Unit)</label>
-              <input className="input" type="text" placeholder="783kl32" />
+              <input
+                className="input"
+                name="sku"
+                onChange={handleInputChange}
+                type="text"
+                placeholder="783kl32"
+              />
             </div>
             <div className="w-full ">
               <label className="inputlabel">Product base price</label>
-              <input className="input" type="text" placeholder="290,000" />
+              <input
+                className="input"
+                name="price"
+                onChange={handleInputChange}
+                placeholder="290,000"
+              />
             </div>
             {/* Level */}
             <section className="flex gap-[18px]">
               <div className="w-full ">
                 <label className="inputlabel">Stock Level</label>
-                <input className="input" type="text" placeholder="783kl32" />
+                <input
+                  className="input"
+                  name="stock"
+                  onChange={handleInputChange}
+                  type="text"
+                  placeholder="20"
+                />
               </div>
               <div
                 onClick={() => {
@@ -149,7 +184,14 @@ function Form() {
                 <div className="w-full border flex items-center h-[56px] rounded-md  justify-between px-4 ">
                   <p>My Phones and Tablet</p>
                   <GoChevronDown />
-                  {modal && <Modal />}
+                  {modal && (
+                    <Modal
+                      formData={formData}
+                      setFormData={setFormData}
+                      cat={cat}
+                      setCat={setCat}
+                    />
+                  )}
                 </div>
               </div>
             </section>
@@ -162,7 +204,10 @@ function Form() {
           <p className="text-[14px] font-medium text-[#475367] ">
             Set the product media gallery
           </p>
-          <div className="p-4 flex w-full border-[1.5px] rounded-md h-[417px] border-dashed border-[#D0D5DD]  items-center justify-center flex-col ">
+          <div
+            onClick={handleClick}
+            className="p-4 flex w-full border-[1.5px] rounded-md h-[417px] border-dashed border-[#D0D5DD]  items-center justify-center flex-col "
+          >
             <div className="h-[56px] w-[56px] rounded-full center bg-[#F0F2F5] mb-6 ">
               <FiUploadCloud size={25} />
             </div>
@@ -190,9 +235,76 @@ function Form() {
             <button className="w-[118px] center h-[36px] rounded-md text-[14px] font-semibold ">
               Browse Files
             </button>
+            <input
+              id="file-upload"
+              type="file"
+              accept=".png, .jpg, .jpeg, .svg"
+              className="hidden"
+              onChange={handleFileSelect}
+              multiple
+            />
           </div>
         </div>
+
+        <button
+          onClick={() => {
+            console.log(
+              "title:",
+              formData.productTitle,
+              "price",
+              "image:",
+              formData.image,
+              formData.price,
+              formData.category,
+              "desc:",
+              formData.description,
+              "brand:",
+              formData.brand,
+              "inventory:",
+              formData.inventory,
+              "productSpec:",
+              formData.productSpec,
+              "sku:",
+              formData.sku,
+              "stock:",
+              formData.stock
+            );
+          }}
+          className="px-4 py-2 rounded-md w-full h-[60px]"
+        >
+          submit
+        </button>
       </main>
+      {/* Display selected image files */}
+      <div className="w-full grid grid-cols-3 gap-4">
+        <div className="h-[400px] col-span-2 w-auto rounded-xl"></div>
+        <div className="h-[400px] w-auto flex flex-col gap-2 -translate-y-[380px] rounded-xl">
+          {selectedFile?.map((d, id) => {
+            console.log(d);
+            const handleRemoveFile = (fileIndex) => {
+              setSelectedFile((prevFiles) =>
+                prevFiles.filter((_, index) => index !== fileIndex)
+              );
+            };
+            return (
+              <div
+                key={id}
+                className="w-full  px-4 flex justify-between items-center bg-white rounded-[10px] h-[86px]"
+              >
+                <p>{d.name}</p>
+                <p
+                  className="pointer"
+                  onClick={() => {
+                    handleRemoveFile(id);
+                  }}
+                >
+                  cancel
+                </p>
+              </div>
+            );
+          })}
+        </div>
+      </div>
     </main>
   );
 }
