@@ -12,6 +12,7 @@ import {
   HiOutlineArrowLongLeft,
 } from "react-icons/hi2";
 import TableData from "./TableData";
+import { useGlobal } from "@/app/context";
 
 function Table() {
   const itemsPerPage = 8;
@@ -19,7 +20,7 @@ function Table() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  const { totalProd, setTotalProd } = useGlobal();
   const totalPages = Math.ceil(products.length / itemsPerPage);
 
   const handleNextPage = () => {
@@ -96,6 +97,7 @@ function Table() {
       }
 
       const data = await response.json();
+      setTotalProd(data.length);
       setProducts(data);
     } catch (error) {
       setError(error.message);
@@ -131,11 +133,6 @@ function Table() {
           <section className="px-3 h-[40px] border border-[#D0D5DD] flex items-center justify-center gap-2 rounded-[8px] sh pointer text-[14px] font-[500] ">
             <Image src={ex} alt="" className=" " />
             <p className="text-[#344054]  ">Export data</p>
-          </section>
-          <section className="w-auto px-3 h-[40px] border border-[#D0D5DD] flex items-center justify-center gap-2 sh pointer rounded-[8px] text-[14px]  ">
-            <Image src={date} alt="" className="" />
-            <p className="text-[#344054]] ">Select dates</p>
-            <IoIosArrowDown className="text-[#667185]" size={20} />
           </section>
         </div>
       </section>

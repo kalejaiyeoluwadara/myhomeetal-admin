@@ -12,14 +12,13 @@ import {
   HiOutlineArrowLongLeft,
 } from "react-icons/hi2";
 import TableData from "./TableData";
-
+import { useGlobal } from "@/app/context";
 function Table() {
   const [customers, setCustomers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const itemsPerPage = 8;
   const [currentPage, setCurrentPage] = useState(1);
-
   const totalPages = Math.ceil(customers.length / itemsPerPage);
 
   const handleNextPage = () => {

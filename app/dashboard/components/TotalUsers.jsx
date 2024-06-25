@@ -1,7 +1,10 @@
+"use client";
 import React from "react";
 import { PiUsersThree } from "react-icons/pi";
 import { IoAnalyticsOutline } from "react-icons/io5";
+import { useGlobal } from "@/app/context";
 function TotalUsers() {
+  const { clen } = useGlobal();
   return (
     <div className="box">
       <div className="flex gap-2 items-center justify-center">
@@ -12,7 +15,7 @@ function TotalUsers() {
       </div>
 
       <div>
-        <p className="title mt-8 ">450,823</p>
+        <p className="title mt-8 ">{clen}</p>
       </div>
 
       <div className="flex items-center mt-[12px] gap-2 justify-center  ">
