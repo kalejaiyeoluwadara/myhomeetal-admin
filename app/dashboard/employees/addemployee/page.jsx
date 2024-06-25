@@ -11,6 +11,7 @@ import tick from "@/app/assets/tick.svg";
 import Image from "next/image";
 import { useGlobal } from "@/app/context";
 import Link from "next/link";
+import { v4 as uuidv4 } from "uuid";
 import Success from "./Success";
 const HeaderButton = ({ name, onclick, active, setActive, img }) => {
   return (
@@ -29,10 +30,12 @@ function AddEmployee() {
   const [gender, setGender] = useState("");
   const [gendModal, setGenModal] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
-  const [emp, setEmp] = useState("");
+  const [emp, setEmp] = useState("Remote");
   const [empModal, setEmpModal] = useState(false);
   const [id, setId] = useState("");
   const [success, setSuccess] = useState(false);
+  const [randId, setRandId] = useState("");
+
   const [formData, setFormData] = useState({
     fullname: "",
     image: "",
@@ -47,7 +50,7 @@ function AddEmployee() {
     password: "",
     username: "",
     start_date: "",
-    employment_type: "",
+    employment_type: emp,
     salary: "",
   });
 
@@ -106,6 +109,22 @@ function AddEmployee() {
     } else {
       alert("Incomplete input field");
     }
+  };
+  const generateRandomId = (length) => {
+    const characters =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    let result = "";
+    const charactersLength = characters.length;
+    for (let i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+  };
+  // Get random id
+  const genId = () => {
+    const id = generateRandomId(6);
+    setRandId(id);
+    setFormData({ ...formData, employee_id: randId });
   };
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -379,13 +398,12 @@ function AddEmployee() {
               {/* Employee ID */}
               <div className="w-full ">
                 <label className="inputlabel">Employee ID</label>
-                <input
-                  className="input"
-                  type="text"
-                  name="employee_id"
-                  onChange={handleInputChange}
-                  placeholder="Enter surname and first name"
-                />
+                <div className="w-full rounded-xl flex justify-between items-center px-4 py-2 ">
+                  <p className="grey">#{randId}</p>
+                  <p onClick={genId} className="font-semibold text-gray-600 ">
+                    Generate
+                  </p>
+                </div>
               </div>
 
               {/* Row content */}
@@ -394,7 +412,7 @@ function AddEmployee() {
                   <label className="inputlabel">Date of joining</label>
                   <input
                     className="input"
-                    type="text"
+                    type="date"
                     name="start_date"
                     onChange={handleInputChange}
                     placeholder="YYYY-MM-DD"
