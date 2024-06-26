@@ -11,7 +11,7 @@ function CatCard({ name, amt, _id }) {
             <WiCloudUp size={30} />
           </div>
         </div>
-        <p>{name}</p>
+        <p>My {name}</p>
       </div>
       <div className="flex gap-[104px] items-center justify-center ">
         <p>

@@ -43,7 +43,7 @@ function Form({ id }) {
     inventory: 0,
     image: [],
   });
-  const [cat, setCat] = useState(formData?.cat);
+  const [cat, setCat] = useState("");
 
   // Handling submit
   const handleSubmit = async () => {
@@ -97,7 +97,8 @@ function Form({ id }) {
         image: data.images,
       });
       console.log(data);
-      console.log(formData?.cat);
+      console.log(data.category);
+      setCat(data.category);
     } catch (error) {
       console.error("An error occurred while fetching admins:", error);
     }
@@ -232,7 +233,7 @@ function Form({ id }) {
               >
                 <img
                   src={d}
-                  className=" h-[80px] w-[80px] object-cover "
+                  className=" h-[60px] w-[60px] rounded-md object-cover "
                   alt=""
                 />
                 <p

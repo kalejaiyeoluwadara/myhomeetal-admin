@@ -161,8 +161,15 @@ function Table() {
           </div>
         ) : (
           currentData.map((d, id) => {
-            const { _id, productTitle, price, category, description, brand } =
-              d;
+            const {
+              _id,
+              productTitle,
+              price,
+              category,
+              description,
+              brand,
+              images,
+            } = d;
             return (
               <TableData
                 key={d._id}
@@ -172,6 +179,7 @@ function Table() {
                 description={description}
                 brand={brand}
                 _id={d._id}
+                images={images}
               />
             );
           })

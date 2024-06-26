@@ -14,7 +14,7 @@ import {
 import TableData from "./TableData";
 import { useGlobal } from "@/app/context";
 function Table() {
-  const [customers, setCustomers] = useState([]);
+  const [customers, setCustomers] = useState([1, 2, 3]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const itemsPerPage = 8;
@@ -71,40 +71,41 @@ function Table() {
     }
     return pages;
   };
-  const fetchCutomers = async () => {
-    try {
-      setLoading(true);
-      const response = await fetch(
-        "https://my-home-et-al-backend.onrender.com/api/v1/admin/all-users",
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2M2YyNjdjNDMyNDg5NmFlNzg2ZjgwZSIsImVtYWlsIjoiYmFiYUBteWhvbWVldGFsLmNvbSIsInJvbGUiOiJTdXBlciBBZG1pbiIsImlhdCI6MTcxODE2MTQ5NSwiZXhwIjoxNzI2ODAxNDk1fQ.w3OuGAzZmBRQN_kQbcEAAv82dVV3n0ymvu7G6gJLY6o",
-          },
-        }
-      );
+  // const fetchCutomers = async () => {
+  //   try {
+  //     setLoading(true);
+  //     const response = await fetch(
+  //       "https://my-home-et-al-backend.onrender.com/api/v1/admin/all-users",
+  //       {
+  //         method: "GET",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           Authorization:
+  //             "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2M2YyNjdjNDMyNDg5NmFlNzg2ZjgwZSIsImVtYWlsIjoiYmFiYUBteWhvbWVldGFsLmNvbSIsInJvbGUiOiJTdXBlciBBZG1pbiIsImlhdCI6MTcxODE2MTQ5NSwiZXhwIjoxNzI2ODAxNDk1fQ.w3OuGAzZmBRQN_kQbcEAAv82dVV3n0ymvu7G6gJLY6o",
+  //         },
+  //       }
+  //     );
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(
-          `Failed to fetch products: ${response.status} ${response.statusText} - ${errorData.message}`
-        );
-      }
+  //     if (!response.ok) {
+  //       const errorData = await response.json();
+  //       throw new Error(
+  //         `Failed to fetch products: ${response.status} ${response.statusText} - ${errorData.message}`
+  //       );
+  //     }
 
-      const data = await response.json();
-      setCustomers(data);
-    } catch (error) {
-      setError(error.message);
-    } finally {
-      setLoading(false);
-    }
-  };
+  //     const data = await response.json();
+  //     setCustomers(data);
+  //     console.log(data);
+  //   } catch (error) {
+  //     setError(error.message);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
-  useEffect(() => {
-    fetchCutomers();
-  }, []);
+  // useEffect(() => {
+  //   fetchCutomers();
+  // }, []);
   return (
     <div className="w-full overflow-hidden h-auto rounded-[10px] flex flex-col items-start justify-start border ">
       {/* Header */}
@@ -146,7 +147,7 @@ function Table() {
           <p className="">Last Order Date</p>
           <p className="pl-2">Action</p>
         </div>
-        {loading ? (
+        {/* {loading ? (
           <div className="text-center py-10">
             <p className="text-gray-500">Loading...</p>
           </div>
@@ -171,7 +172,7 @@ function Table() {
               />
             );
           })
-        )}
+        )} */}
 
         {/* Footer */}
         <footer className="w-full flex items-center justify-between px-4 h-[68px] bg-white">
