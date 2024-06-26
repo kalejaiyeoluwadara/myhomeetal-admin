@@ -16,7 +16,7 @@ function ActiveUsers() {
       </div>
 
       <div>
-        <p className="title mt-8 ">{clen}</p>
+        <p className="title mt-8 ">1</p>
       </div>
 
       <div className="flex items-center mt-[12px] gap-2 justify-center  ">
