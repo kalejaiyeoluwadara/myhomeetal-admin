@@ -13,10 +13,10 @@ function Status() {
             Available Balance
           </p>
           <h2 className="text-[36px] font-semibold text-white ">
-            ₦ 140,000<span className="text-gray-400">.00</span>{" "}
+            ₦ 0<span className="text-gray-400">.00</span>{" "}
           </h2>
           <p className="text-[14px] text-[#98A2B3] font-medium ">
-            Payout Balance: <span className="text-white">₦139,900.99</span>
+            Payout Balance: <span className="text-white">₦0.00</span>
           </p>
         </div>
 

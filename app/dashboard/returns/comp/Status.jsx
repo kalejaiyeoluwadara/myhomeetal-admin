@@ -5,11 +5,11 @@ function Status() {
   const data = [
     {
       title: "Total Refunds",
-      count: "₦672,000.90",
+      count: "₦0",
     },
     {
       title: "Pending Returns",
-      count: "150",
+      count: "0",
     },
   ];
   return (

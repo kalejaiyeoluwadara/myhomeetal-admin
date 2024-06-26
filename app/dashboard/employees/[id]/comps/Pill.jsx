@@ -6,6 +6,7 @@ function Pill({ opt }) {
       <div className="relative inline-block w-8 h-4 rounded-full cursor-pointer">
         <input
           checked={opt}
+          onChange={() => {}}
           id="switch-8"
           type="checkbox"
           className="absolute w-8 h-4 transition-colors duration-300 rounded-full appearance-none cursor-pointer peer bg-[#E4E7EC] checked:bg-[#FF6567] peer-checked:border-pink-500 peer-checked:before:bg-[#FF6567]"

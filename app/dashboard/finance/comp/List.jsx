@@ -6,17 +6,17 @@ function List() {
       {[
         {
           title: "Total Sales",
-          item: "32,540",
+          item: "#0.00",
           year: "This year",
         },
         {
           title: "Total Revenue",
-          item: "₦832,540.00",
+          item: "₦0.00",
           year: "This year",
         },
         {
           title: "Total Withdrawal",
-          item: "₦632,540.00",
+          item: "₦0.00",
           year: "This year",
         },
       ].map((d, id) => {

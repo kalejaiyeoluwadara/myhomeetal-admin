@@ -12,7 +12,7 @@ import Container from "./comps/Container";
 import Permissions from "./comps/Permissions";
 import girl from "../../../assets/girl.svg";
 function Page({ params }) {
-  const fetchAdmins = async () => {
+  const fetchAdmin = async () => {
     try {
       const response = await fetch(
         `https://my-home-et-al-backend.onrender.com/api/v1/user/${params.id}`,
@@ -40,7 +40,7 @@ function Page({ params }) {
     }
   };
   useEffect(() => {
-    fetchAdmins();
+    fetchAdmin();
   }, []);
   const pi = [
     {

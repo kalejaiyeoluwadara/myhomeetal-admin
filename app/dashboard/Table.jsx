@@ -100,7 +100,7 @@ function Table() {
                   role={d.role}
                   employee_id={d?.employee_id}
                   _id={d?._id}
-                  key={d?._id}
+                  key={id}
                   phone_no={d?.phone_no}
                 />
               );
