@@ -11,6 +11,7 @@ function AppProvider({ children }) {
   const [admins, setAdmins] = useState([]);
   const [clen, setClen] = useState(0);
   const [totalProd, setTotalProd] = useState(0);
+
   const fetchAdmins = async () => {
     try {
       const response = await fetch(
@@ -66,6 +67,7 @@ function AppProvider({ children }) {
       console.log(error);
     }
   };
+
   useEffect(() => {
     fetchAdmins();
     fetchCutomers();

@@ -2,7 +2,7 @@ import Link from "next/link";
 import React from "react";
 import { WiCloudUp } from "react-icons/wi";
 
-function CatCard() {
+function CatCard({ name, amt, _id }) {
   return (
     <section className="flex h-[158px] bg-white w-full justify-between items-center rounded-[22px]  px-6 ">
       <div className="flex items-center justify-center gap-[59px]">
@@ -11,11 +11,14 @@ function CatCard() {
             <WiCloudUp size={30} />
           </div>
         </div>
-        <p>My Phone & Tablets</p>
+        <p>{name}</p>
       </div>
       <div className="flex gap-[104px] items-center justify-center ">
-        <p>500 products</p>
-        <Link href={"/dashboard/categories/1"}>
+        <p>
+          {amt}
+          {amt > 1 ? " products" : " product"}{" "}
+        </p>
+        <Link href={`/dashboard/categories/${_id}`}>
           <p className="text-[#ED2224] font-light cursor-pointer ">
             Edit Category
           </p>
