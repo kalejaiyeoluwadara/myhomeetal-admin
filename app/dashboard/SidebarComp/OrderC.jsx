@@ -38,7 +38,7 @@ function OrderC() {
               <Inner name={"All Orders"} />
             </div>
           </Link>
-          <Link href="/dashboard/orders/orderanalytics">
+          {/* <Link href="/dashboard/orders/orderanalytics">
             <div
               className={` ${
                 active === "/dashboard/orders/orderanalytics"
@@ -48,7 +48,7 @@ function OrderC() {
             >
               <Inner name={"Order Analytics"} />
             </div>
-          </Link>
+          </Link> */}
           <Link href={"/dashboard/returns"}>
             <div
               className={` ${

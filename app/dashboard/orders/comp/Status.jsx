@@ -5,15 +5,15 @@ function Status() {
   const data = [
     {
       title: "Total Orders",
-      count: "150",
+      count: "0",
     },
     {
       title: "Pending Orders",
-      count: "25",
+      count: "0",
     },
     {
       title: "Completed Orders",
-      count: "125",
+      count: "0",
     },
   ];
   return (

@@ -130,11 +130,6 @@ function Table() {
             <Image src={ex} alt="" className=" " />
             <p className="text-[#344054]  ">Export data</p>
           </section>
-          <section className="w-auto px-3 h-[40px] border border-[#D0D5DD] flex items-center justify-center gap-2 sh pointer rounded-[8px] text-[14px]  ">
-            <Image src={date} alt="" className="" />
-            <p className="text-[#344054]] ">Select dates</p>
-            <IoIosArrowDown className="text-[#667185]" size={20} />
-          </section>
         </div>
       </section>
       {/* Content */}
