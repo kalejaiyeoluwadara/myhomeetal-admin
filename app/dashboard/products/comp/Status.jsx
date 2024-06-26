@@ -1,19 +1,22 @@
+"use client";
+import { useGlobal } from "@/app/context";
 import React from "react";
 import { GoPeople } from "react-icons/go";
 import { SiHackthebox } from "react-icons/si";
 function Status() {
+  const { totalProd } = useGlobal();
   const data = [
     {
       title: "Total products",
-      count: "32,540",
+      count: totalProd,
     },
     {
       title: "Out of Stock Products ",
-      count: "175",
+      count: 0,
     },
     {
       title: "Most Viewed Product",
-      count: "25",
+      count: 0,
     },
   ];
   return (

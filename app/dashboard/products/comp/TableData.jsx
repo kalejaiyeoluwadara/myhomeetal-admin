@@ -15,13 +15,13 @@ function TableData({ _id, productTitle, price, category, description, brand }) {
           {productTitle}
         </p>
       </div>
-      <p className=" col-span-2 truncate ">EOX01-OOE-100015</p>
-      <p>${price}</p>
-      <p className=" ">833</p>
+      <p className=" col-span-2 truncate ">-</p>
+      <p>#{price}</p>
+      <p className=" ">-</p>
       <p className="truncate ">{category}</p>
       <div className="px-2 ">
-        <p className="px-3 font-medium bg-[#FFF1F1] rounded-[12px] py-[2px] flex items-center justify-center text-[#C70E10] ">
-          Inactive
+        <p className="px-3 font-medium bg-green-200 rounded-[12px] py-[2px] flex items-center justify-center text-green-600 ">
+          active
         </p>
       </div>
       <div className="flex items-center relative justify-center ">
@@ -34,7 +34,7 @@ function TableData({ _id, productTitle, price, category, description, brand }) {
           <IoMdMore size={20} />{" "}
         </p>
         {modal && (
-          <Link href={"/dashboard/employees/1"}>
+          <Link href={`/dashboard/products/${_id}`}>
             <div className="h-[60px] border bg-white sh absolute top-6 -right-2 z-40 center rounded-md w-[100px] p-2 text-[14px] ">
               <p className="w-full h-full pointer hover:bg-red-50 center rounded-md ">
                 View Product

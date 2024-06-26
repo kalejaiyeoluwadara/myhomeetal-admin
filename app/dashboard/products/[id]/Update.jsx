@@ -1,8 +1,9 @@
 "use client";
-import React, { useState } from "react";
+import Image from "next/image";
+import React, { useState, useEffect } from "react";
 import { FiUploadCloud } from "react-icons/fi";
 import { GoChevronDown } from "react-icons/go";
-
+import { LiaTimesSolid } from "react-icons/lia";
 const Modal = ({ cat, setCat, setFormData, formData }) => {
   const cats = ["My Phones and Tablet", "My Phones and Tablet"];
   return (
@@ -25,43 +26,32 @@ const Modal = ({ cat, setCat, setFormData, formData }) => {
   );
 };
 
-function Form() {
+function Form({ id }) {
   const [disctype, SetDiscType] = useState("No Discount");
-  const [cat, setCat] = useState("My Phones $ Tablet");
   const [modal, setModal] = useState(false);
   const [disc, setDisc] = useState(0);
   const [discModal, setDiscModal] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const [formData, setFormData] = useState({
-    productTitle: "lx",
-    price: "4000",
-    category: "phone",
-    description: "eeee",
-    brand: "eee",
-    inventory: 2,
-    sku: "3ee",
-    stock: "20",
+    productTitle: "",
+    price: 0,
+    category: "",
+    description: "",
+    brand: "",
+    stock: 0,
+    sku: "",
+    inventory: 0,
     image: [],
-    review: [],
   });
-  // Handling files
-  const handleFileSelect = (e) => {
-    const files = Array.from(e.target.files).slice(0, 4);
-    // Limit to 4 files
-    if (files.length > 0) {
-      setSelectedFile(files);
-      console.log("Selected files:", files);
-      setFormData({ ...formData, image: files });
-    }
-  };
+  const [cat, setCat] = useState(formData?.cat);
 
   // Handling submit
   const handleSubmit = async () => {
     try {
       const response = await fetch(
-        "https://my-home-et-al-backend.onrender.com/api/v1/product/create-product",
+        `https://my-home-et-al-backend.onrender.com/api/v1/product/${id}`,
         {
-          method: "POST",
+          method: "PUT",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2M2YyNjdjNDMyNDg5NmFlNzg2ZjgwZSIsImVtYWlsIjoiYmFiYUBteWhvbWVldGFsLmNvbSIsInJvbGUiOiJTdXBlciBBZG1pbiIsImlhdCI6MTcxODE2MTQ5NSwiZXhwIjoxNzI2ODAxNDk1fQ.w3OuGAzZmBRQN_kQbcEAAv82dVV3n0ymvu7G6gJLY6o`,
@@ -71,11 +61,50 @@ function Form() {
       );
       const data = await response.json();
       console.log("Response from server:", data);
-      console.log("Success");
     } catch (error) {
       console.error("Error submitting data:", error);
     }
   };
+  const fetchProducts = async () => {
+    try {
+      const response = await fetch(
+        `https://my-home-et-al-backend.onrender.com/api/v1/product/${id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NjkyMDAzMzliNjhkM2QyMTg4YTQ0NSIsImlhdCI6MTcxODE4Njk2NywiZXhwIjoxNzE4MjA4NTY3fQ.buJN_l5b-35JlUmg5OxTW_39bEcimUKZUDNuxZxWfE",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(
+          `Failed to fetch admins: ${response.status} ${response.statusText} - ${errorData.message}`
+        );
+      }
+
+      const data = await response.json();
+      setFormData({
+        productTitle: data.productTitle,
+        price: data.price,
+        category: data.category,
+        description: data.description,
+        brand: data.brand,
+        inventory: data.inventory,
+        image: data.images,
+      });
+      console.log(data);
+      console.log(formData?.cat);
+    } catch (error) {
+      console.error("An error occurred while fetching admins:", error);
+    }
+  };
+  useEffect(() => {
+    fetchProducts();
+  }, []);
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -97,6 +126,7 @@ function Form() {
               <input
                 className="input"
                 name="productTitle"
+                value={formData?.productTitle}
                 onChange={handleInputChange}
                 type="text"
                 placeholder="Iphone 11 Pro"
@@ -111,6 +141,7 @@ function Form() {
               <input
                 className="input"
                 name="description"
+                value={formData?.description}
                 onChange={handleInputChange}
                 type="text"
                 placeholder="Enter Subject"
@@ -123,6 +154,7 @@ function Form() {
               <label className="inputlabel">Brand’s Name</label>
               <input
                 className="input"
+                value={formData?.brand}
                 name="brand"
                 onChange={handleInputChange}
                 type="text"
@@ -134,6 +166,7 @@ function Form() {
               <input
                 className="input"
                 name="sku"
+                value={formData?.sku}
                 onChange={handleInputChange}
                 type="text"
                 placeholder="783kl32"
@@ -143,6 +176,7 @@ function Form() {
               <label className="inputlabel">Product base price</label>
               <input
                 className="input"
+                value={formData?.price}
                 name="price"
                 onChange={handleInputChange}
                 placeholder="290,000"
@@ -155,6 +189,7 @@ function Form() {
                 <input
                   className="input"
                   name="stock"
+                  value={formData?.stock}
                   onChange={handleInputChange}
                   type="text"
                   placeholder="20"
@@ -168,7 +203,7 @@ function Form() {
               >
                 <label className="inputlabel">Category</label>
                 <div className="w-full border flex items-center h-[56px] rounded-md  justify-between px-4 ">
-                  <p>My Phones and Tablet</p>
+                  <p>{cat}</p>
                   <GoChevronDown />
                   {modal && (
                     <Modal
@@ -183,68 +218,8 @@ function Form() {
             </section>
           </section>
         </div>
-
-        {/* Image update */}
-        <div className="border bg-white rounded-xl p-4 w-auto h-[536px]">
-          <h2 className="core mb-4 ">Product Image</h2>
-          <p className="text-[14px] font-medium text-[#475367] ">
-            Set the product media gallery
-          </p>
-          <div
-            onClick={handleClick}
-            className="p-4 flex w-full border-[1.5px] rounded-md h-[417px] border-dashed border-[#D0D5DD]  items-center justify-center flex-col "
-          >
-            <div className="h-[56px] w-[56px] rounded-full center bg-[#F0F2F5] mb-6 ">
-              <FiUploadCloud size={25} />
-            </div>
-            <div>
-              <h3 className="text-[14px] text-center text-[#475367] ">
-                <span className="text-[14px] text-[#ED2224] ">
-                  Click to upload
-                </span>{" "}
-                or drag and drop
-              </h3>
-              <p className="text-[12px] text-center text-[#98A2B3]  ">
-                Max number of file 10 - SVG, PNG, JPG or GIF (max. 800x400px)
-              </p>
-            </div>
-
-            <div className="my-6 w-full bg-red-300 relative ">
-              <hr className="bg-[#F0F2F5]" />
-              <div className="w-full center ">
-                <p className="absolute px-4 text-center bg-white text-xs font-bold text-[#98A2B3]  -top-[9px] ">
-                  OR
-                </p>
-              </div>
-            </div>
-
-            <button className="w-[118px] center h-[36px] rounded-md text-[14px] font-semibold ">
-              Browse Files
-            </button>
-            <input
-              id="file-upload"
-              type="file"
-              accept=".png, .jpg, .jpeg, .svg"
-              className="hidden"
-              onChange={handleFileSelect}
-              multiple
-            />
-          </div>
-        </div>
-
-        <button
-          onClick={handleSubmit}
-          className="px-4 py-2 rounded-md w-full h-[60px]"
-        >
-          submit
-        </button>
-      </main>
-      {/* Display selected image files */}
-      <div className="w-full grid grid-cols-3 gap-4">
-        <div className="h-[400px] col-span-2 w-auto rounded-xl"></div>
-        <div className="h-[400px] w-auto flex flex-col gap-2 -translate-y-[380px] rounded-xl">
-          {selectedFile?.map((d, id) => {
-            console.log(d);
+        <div className="h-auto w-auto bg-white flex flex-col gap-2  rounded-xl">
+          {formData?.image.map((d, id) => {
             const handleRemoveFile = (fileIndex) => {
               setSelectedFile((prevFiles) =>
                 prevFiles.filter((_, index) => index !== fileIndex)
@@ -253,22 +228,33 @@ function Form() {
             return (
               <div
                 key={id}
-                className="w-full  px-4 flex justify-between items-center bg-white rounded-[10px] h-[86px]"
+                className="w-full  px-8 flex justify-between items-center bg-white rounded-[10px] h-[100px]"
               >
-                <p>{d.name}</p>
+                <img
+                  src={d}
+                  className=" h-[80px] w-[80px] object-cover "
+                  alt=""
+                />
                 <p
-                  className="pointer"
+                  className="pointer text-primary "
                   onClick={() => {
                     handleRemoveFile(id);
                   }}
                 >
-                  cancel
+                  <LiaTimesSolid size={30} />
                 </p>
               </div>
             );
           })}
         </div>
-      </div>
+        <button
+          onClick={handleSubmit}
+          className="px-4 py-2 rounded-md w-full h-[60px]"
+        >
+          Update
+        </button>
+      </main>
+      {/* Display selected image files */}
     </main>
   );
 }

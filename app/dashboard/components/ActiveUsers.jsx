@@ -25,7 +25,7 @@ function ActiveUsers() {
             size={12}
             className="border-[1px] p-[1px] rounded-sm text-[#C70E10] border-[#C70E10] "
           />
-          <p className="text-[12px] text-[#C70E10] font-medium  ">10%</p>
+          <p className="text-[12px] text-[#C70E10] font-medium  ">0%</p>
         </div>
         <p className="text-[12px] grey font-medium ">Compared to last month</p>
       </div>

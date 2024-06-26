@@ -15,7 +15,7 @@ function Revenue() {
       </div>
 
       <div>
-        <p className="title mt-8 ">₦45,823,900</p>
+        <p className="title mt-8 ">₦0</p>
       </div>
 
       <div className="flex items-center mt-[12px] gap-2 justify-center  ">
@@ -24,7 +24,7 @@ function Revenue() {
             size={12}
             className="border-[1px] p-[1px] rounded-sm text-[#036B26] border-[#036B26] "
           />
-          <p className="text-[12px] text-[#036B26] font-medium  ">10%</p>
+          <p className="text-[12px] text-[#036B26] font-medium  ">0%</p>
         </div>
         <p className="text-[12px] grey font-medium ">
           Increase Since Last Month

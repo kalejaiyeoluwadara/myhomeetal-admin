@@ -4,7 +4,7 @@ import Image from "next/image";
 import profile from "../../assets/man.svg";
 import { IoIosArrowDown, IoIosArrowUp, IoMdMore } from "react-icons/io";
 import Link from "next/link";
-function TableData({ username, email, _id, role, phone_no }) {
+function TableData({ username, email, _id, role, phone_no, employee_id }) {
   const [modal, setModal] = useState(false);
 
   return (
@@ -15,7 +15,7 @@ function TableData({ username, email, _id, role, phone_no }) {
           {username}
         </p>
       </div>
-      <p className=" truncate">#{_id}</p>
+      <p className=" truncate">#{employee_id}</p>
       <p className=" truncate col-span-2">{email}</p>
       <p className="">{phone_no}</p>
       <div className="px-2 ">

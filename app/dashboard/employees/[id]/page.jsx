@@ -15,13 +15,13 @@ function Page({ params }) {
   const fetchAdmins = async () => {
     try {
       const response = await fetch(
-        "https://my-home-et-al-backend.onrender.com/api/v1/admin/get-admins",
+        `https://my-home-et-al-backend.onrender.com/api/v1/user/${params.id}`,
         {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
             Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2M2YyNjdjNDMyNDg5NmFlNzg2ZjgwZSIsImVtYWlsIjoiYmFiYUBteWhvbWVldGFsLmNvbSIsInJvbGUiOiJTdXBlciBBZG1pbiIsImlhdCI6MTcxODE2MTQ5NSwiZXhwIjoxNzI2ODAxNDk1fQ.w3OuGAzZmBRQN_kQbcEAAv82dVV3n0ymvu7G6gJLY6o",
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NjkyMDAzMzliNjhkM2QyMTg4YTQ0NSIsImlhdCI6MTcxODE4Njk2NywiZXhwIjoxNzE4MjA4NTY3fQ.buJN_l5b-35JlUmg5OxTW_39bEcimUKZUDNuxZxWfEw",
           },
         }
       );

@@ -98,8 +98,9 @@ function Table() {
                   username={d.username}
                   email={d.email}
                   role={d.role}
-                  _id={d?.employee_id}
-                  key={d._id}
+                  employee_id={d?.employee_id}
+                  _id={d?._id}
+                  key={d?._id}
                   phone_no={d?.phone_no}
                 />
               );
