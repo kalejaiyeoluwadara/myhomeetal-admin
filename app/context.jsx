@@ -11,7 +11,7 @@ function AppProvider({ children }) {
   const [admins, setAdmins] = useState([]);
   const [clen, setClen] = useState(0);
   const [totalProd, setTotalProd] = useState(0);
-
+  const [bulk, setBulk] = useState([]);
   const fetchAdmins = async () => {
     try {
       const response = await fetch(
@@ -93,6 +93,8 @@ function AppProvider({ children }) {
         clen,
         totalProd,
         setTotalProd,
+        bulk,
+        setBulk,
       }}
     >
       {children}

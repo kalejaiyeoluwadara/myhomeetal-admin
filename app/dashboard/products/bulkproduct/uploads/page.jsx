@@ -1,6 +1,12 @@
-import React from "react";
+"use client";
+import { useGlobal } from "@/app/context";
+import React, { useEffect } from "react";
 import { FiUploadCloud } from "react-icons/fi";
 function Page() {
+  const { bulk, setBulk } = useGlobal();
+  useEffect(() => {
+    console.log(bulk);
+  }, [bulk]);
   return (
     <main className="w-full p-[36px] bg-screen  min-h-screen overflow-y-scroll ">
       <div className="flex items-center w-full justify-between mb-[60px]">
