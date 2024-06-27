@@ -13,7 +13,6 @@ import { useGlobal } from "@/app/context";
 import Link from "next/link";
 import Success from "./Success";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { storage } from "@/utils/firebase";
 const HeaderButton = ({ name, onclick, active, setActive, img }) => {
   return (
     <div
@@ -26,7 +25,7 @@ const HeaderButton = ({ name, onclick, active, setActive, img }) => {
     </div>
   );
 };
-function AddEmployee() {
+function Page() {
   const [active, setActive] = useState("Personal");
   const [gender, setGender] = useState("");
   const [gendModal, setGenModal] = useState(false);
@@ -572,4 +571,4 @@ function AddEmployee() {
   );
 }
 
-export default AddEmployee;
+export default Page;
