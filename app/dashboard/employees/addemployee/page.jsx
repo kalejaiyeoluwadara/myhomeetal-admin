@@ -11,8 +11,9 @@ import tick from "@/app/assets/tick.svg";
 import Image from "next/image";
 import { useGlobal } from "@/app/context";
 import Link from "next/link";
-import { v4 as uuidv4 } from "uuid";
 import Success from "./Success";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { storage } from "@/utils/firebase";
 const HeaderButton = ({ name, onclick, active, setActive, img }) => {
   return (
     <div
@@ -57,19 +58,39 @@ function AddEmployee() {
   const handleFileSelect = (e) => {
     const file = e.target.files[0];
     if (file) {
-      // setFormData({ ...formData, image: file });
       setSelectedFile(file);
       console.log("Selected file:", file);
-      // You can perform further operations with the selected file here
     }
   };
   const handleClick = () => {
-    // Trigger click on the file input element
     document.getElementById("file-upload").click();
   };
+
+  async function uploadFile(file) {
+    // Create a storage reference from our storage service
+    const storageRef = ref(storage, "homeetal/" + file.name);
+
+    try {
+      // Upload the file
+      const snapshot = await uploadBytes(storageRef, file);
+      console.log("Uploaded a blob or file!", snapshot);
+
+      // Get the download URL
+      const downloadURL = await getDownloadURL(storageRef);
+      console.log("File available at", downloadURL);
+      return downloadURL;
+    } catch (error) {
+      console.error("Upload failed", error);
+    }
+  }
   const handleSubmit = async () => {
     if (formData.username && formData.password) {
       try {
+        if (selectedFile) {
+          const imageUrl = await uploadFile(selectedFile);
+          formData.image = imageUrl; // Set the image URL in the formData
+        }
+
         const response = await fetch(
           "https://my-home-et-al-backend.onrender.com/api/v1/admin/create-admin",
           {
@@ -123,8 +144,10 @@ function AddEmployee() {
   // Get random id
   const genId = () => {
     const id = generateRandomId(6);
+    console.log(id);
     setRandId(id);
-    setFormData({ ...formData, employee_id: randId });
+    setFormData({ ...formData, employee_id: id });
+    console.log(formData.employee_id);
   };
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -396,7 +419,7 @@ function AddEmployee() {
             {/* Form */}
             <div className="mt-[22px] flex flex-col gap-4 ">
               {/* Employee ID */}
-              <div className="w-full ">
+              <div className="w-full border p-4 rounded-md ">
                 <label className="inputlabel">Employee ID</label>
                 <div className="w-full rounded-xl flex justify-between items-center px-4 py-2 ">
                   <p className="grey">#{randId}</p>

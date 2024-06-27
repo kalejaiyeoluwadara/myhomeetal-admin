@@ -15,7 +15,7 @@ function Page({ params }) {
   const fetchAdmin = async () => {
     try {
       const response = await fetch(
-        `https://my-home-et-al-backend.onrender.com/api/v1/user/${params.id}`,
+        `https://my-home-et-al-backend.onrender.com/api/v1/admin/${params.id}`,
         {
           method: "GET",
           headers: {

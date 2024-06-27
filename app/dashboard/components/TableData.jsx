@@ -1,16 +1,28 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
-import profile from "../../assets/man.svg";
+import profile from "../../assets/logo.svg";
 import { IoIosArrowDown, IoIosArrowUp, IoMdMore } from "react-icons/io";
 import Link from "next/link";
-function TableData({ username, email, _id, role, phone_no, employee_id }) {
+function TableData({ username, email, _id, role, phone_no, employee_id, img }) {
   const [modal, setModal] = useState(false);
 
   return (
     <div className="w-full h-[72px] border-b bg-white text-[#344054] text-[14px] px-3 items-center justify-center grid pt-2 grid-cols-8 ">
       <div className="flex w-auto col-span-2 items-center justify-start gap-2 truncate">
-        <Image className="" alt="" src={profile} />
+        {img !== undefined && img !== "" ? (
+          <img
+            className=" flex-shrink-0 object-cover h-[50px] w-[50px] bg-gray-300 rounded-full "
+            alt=""
+            src={img}
+          />
+        ) : (
+          <Image
+            src={profile}
+            alt=""
+            className=" h-[50px]  w-[50px] rounded-full  "
+          />
+        )}
         <p className="text-[14px] font-medium text-[#101928] capitalize ">
           {username}
         </p>
