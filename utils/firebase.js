@@ -2,10 +2,8 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getStorage } from "firebase/storage";
-import dotenv from "dotenv";
 
 // Load environment variables from .env file
-dotenv.config();
 
 const firebaseConfig = {
   apiKey: "AIzaSyAnoZWJWVCpKgyfKiRGeFymCoy4Ekpjapc",
