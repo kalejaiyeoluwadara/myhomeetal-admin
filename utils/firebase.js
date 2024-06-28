@@ -3,8 +3,6 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getStorage } from "firebase/storage";
 
-// Load environment variables from .env file
-
 const firebaseConfig = {
   apiKey: "AIzaSyAnoZWJWVCpKgyfKiRGeFymCoy4Ekpjapc",
   authDomain: "portfolio-f9bc1.firebaseapp.com",

@@ -1,8 +1,11 @@
 "use client";
+import Link from "next/link";
 import React, { useState } from "react";
 import { FiUploadCloud } from "react-icons/fi";
 import { GoChevronDown } from "react-icons/go";
-
+import { FaPlus } from "react-icons/fa6";
+import { FaTimes } from "react-icons/fa";
+import { LiaTimesSolid } from "react-icons/lia";
 const Modal = ({ cat, setCat, setFormData, formData }) => {
   const cats = ["My Phones and Tablet", "My Phones and Tablet"];
   return (
@@ -85,13 +88,33 @@ function Form() {
     document.getElementById("file-upload").click();
   };
   return (
-    <main className="mb-40 w-full">
+    <form className="mb-8 relative w-full">
+      {/* Nav */}
+      <div className="flex  items-center justify-between">
+        <section>
+          <h2 className="text-[24px] font-semibold ">Add New Product</h2>
+        </section>
+        <section className="flex gap-4">
+          <Link href={"/dashboard/products"}>
+            <button className=" text-[16px] border-[1.5px] border-[#ED2224] text-[#ED2224] bg-white font-semibold px-4 py-2 rounded-[8px] flex items-center justify-center gap-2 ">
+              <LiaTimesSolid size={20} />
+              Cancel
+            </button>
+          </Link>
+          <button className=" text-[16px] font-semibold px-4 py-2 rounded-[8px] flex items-center justify-center gap-2 ">
+            <FaPlus size={20} />
+            Save product
+          </button>
+        </section>
+      </div>
+
+      {/* Nav ending */}
       <main className="grid w-full grid-cols-3 mt-10  gap-6 ">
-        {/* Main form */}
-        <div className="border bg-white col-span-2 rounded-xl p-4 w-auto h-[900px]">
+        {/* General Info */}
+        <div className="border bg-white col-span-2 rounded-xl p-4 w-auto h-[800px]">
           {/* title */}
           <h2 className=" core mt-4 ">General Information</h2>
-          <section className="mt-4 flex flex-col items-start justify-center gap-6 ">
+          <div className="mt-4 flex flex-col items-start justify-center gap-6 ">
             <div className="w-full ">
               <label className="inputlabel">Product Name</label>
               <input
@@ -181,7 +204,7 @@ function Form() {
                 </div>
               </div>
             </section>
-          </section>
+          </div>
         </div>
 
         {/* Image update */}
@@ -232,44 +255,198 @@ function Form() {
           </div>
         </div>
 
-        <button
-          onClick={handleSubmit}
-          className="px-4 py-2 rounded-md w-full h-[60px]"
-        >
-          submit
-        </button>
+        {/* Product spec and key feautures */}
+        <section className="h-auto col-span-2 w-auto flex flex-col gap-3 rounded-xl ">
+          <div className="bg-white w-full rounded-xl px-6 py-8 pb-12 flex flex-col gap-3 h-auto ">
+            <h2 className=" core  ">Product Specifications</h2>
+            <div className="w-full ">
+              <label className="inputlabel">Size (L x W x H) cm</label>
+              <input
+                className="input"
+                name="productTitle"
+                onChange={handleInputChange}
+                type="number"
+                placeholder="20 15 16"
+              />
+              <p className="inputfooter ">
+                Ensure Measurements are in Centimetres
+              </p>
+            </div>
+            <div className="w-full ">
+              <label className="inputlabel">Weight (Kg)</label>
+              <input
+                className="input"
+                name=""
+                onChange={handleInputChange}
+                type="text"
+                placeholder="Enter Subject"
+              />
+            </div>
+            <div className="w-full ">
+              <label className="inputlabel">Model Number</label>
+              <input
+                className="input"
+                name=""
+                onChange={handleInputChange}
+                type="text"
+                placeholder="Enter Subject"
+              />
+            </div>
+            <div className="w-full ">
+              <label className="inputlabel">Main Material</label>
+              <input
+                className="input"
+                name=""
+                onChange={handleInputChange}
+                type="text"
+                placeholder="Enter Subject"
+              />
+            </div>
+            <div className="w-full">
+              <label className="inputlabel">Color</label>
+              <input
+                className="input"
+                name="productTitle"
+                onChange={handleInputChange}
+                type="text"
+                placeholder="Iphone 11 Pro"
+              />
+            </div>
+          </div>
+          <div className="bg-white w-full rounded-xl px-6 py-8 pb-12 flex flex-col gap-3 h-auto ">
+            <h2 className=" core  ">Key Feautres</h2>
+            <div className="w-full ">
+              <label className="inputlabel">Feature 1</label>
+              <input
+                className="input"
+                name="feature1"
+                onChange={handleInputChange}
+                type="text"
+                placeholder="Please Enter a Unique Feature that the Product Offers"
+              />
+            </div>
+            <div className="w-full ">
+              <label className="inputlabel">Feature 1</label>
+              <input
+                className="input"
+                name="feature1"
+                onChange={handleInputChange}
+                type="text"
+                placeholder="Please Enter a Unique Feature that the Product Offers"
+              />
+            </div>
+            <div className="w-full ">
+              <label className="inputlabel">Feature 1</label>
+              <input
+                className="input"
+                name="feature1"
+                onChange={handleInputChange}
+                type="text"
+                placeholder="Please Enter a Unique Feature that the Product Offers"
+              />
+            </div>
+            <div className="w-full ">
+              <label className="inputlabel">Feature 1</label>
+              <input
+                className="input"
+                name="feature1"
+                onChange={handleInputChange}
+                type="text"
+                placeholder="Please Enter a Unique Feature that the Product Offers"
+              />
+            </div>
+            <div className="w-full ">
+              <label className="inputlabel">Feature 2</label>
+              <input
+                className="input"
+                name="feature2"
+                onChange={handleInputChange}
+                type="text"
+                placeholder="Please Enter a Unique Feature that the Product Offers"
+              />
+            </div>
+            <div className="w-full ">
+              <label className="inputlabel">Feature 3</label>
+              <input
+                className="input"
+                name="feature3"
+                onChange={handleInputChange}
+                type="text"
+                placeholder="Please Enter a Unique Feature that the Product Offers"
+              />
+            </div>
+            <div className="w-full ">
+              <label className="inputlabel">Feature 4</label>
+              <input
+                className="input"
+                name="feature4"
+                onChange={handleInputChange}
+                type="text"
+                placeholder="Please Enter a Unique Feature that the Product Offers"
+              />
+            </div>
+            <div className="w-full ">
+              <label className="inputlabel">Feature 5</label>
+              <input
+                className="input"
+                name="feature5"
+                onChange={handleInputChange}
+                type="text"
+                placeholder="Please Enter a Unique Feature that the Product Offers"
+              />
+            </div>
+            <div className="w-full ">
+              <label className="inputlabel">Feature 6</label>
+              <input
+                className="input"
+                name="feature6"
+                onChange={handleInputChange}
+                type="text"
+                placeholder="Please Enter a Unique Feature that the Product Offers"
+              />
+            </div>
+            <div className="w-full ">
+              <label className="inputlabel">Feature 7</label>
+              <input
+                className="input"
+                name="feature7"
+                onChange={handleInputChange}
+                type="text"
+                placeholder="Please Enter a Unique Feature that the Product Offers"
+              />
+            </div>
+          </div>
+        </section>
       </main>
+
       {/* Display selected image files */}
-      <div className="w-full grid grid-cols-3 gap-4">
-        <div className="h-[400px] col-span-2 w-auto rounded-xl"></div>
-        <div className="h-[400px] w-auto flex flex-col gap-2 -translate-y-[380px] rounded-xl">
-          {selectedFile?.map((d, id) => {
-            console.log(d);
-            const handleRemoveFile = (fileIndex) => {
-              setSelectedFile((prevFiles) =>
-                prevFiles.filter((_, index) => index !== fileIndex)
-              );
-            };
-            return (
-              <div
-                key={id}
-                className="w-full  px-4 flex justify-between items-center bg-white rounded-[10px] h-[86px]"
-              >
-                <p>{d.name}</p>
-                <p
-                  className="pointer"
-                  onClick={() => {
-                    handleRemoveFile(id);
-                  }}
-                >
-                  cancel
-                </p>
-              </div>
+      <div className="h-[400px] w-[400px] absolute top-[40rem] -right-8 flex flex-col gap-2  col-span-1 rounded-xl">
+        {selectedFile?.map((d, id) => {
+          console.log(d);
+          const handleRemoveFile = (fileIndex) => {
+            setSelectedFile((prevFiles) =>
+              prevFiles.filter((_, index) => index !== fileIndex)
             );
-          })}
-        </div>
+          };
+          return (
+            <div
+              key={id}
+              className="w-full  px-4 flex justify-between items-center bg-white rounded-[10px] h-[86px]"
+            >
+              <p>{d.name}</p>
+              <p
+                className="pointer"
+                onClick={() => {
+                  handleRemoveFile(id);
+                }}
+              >
+                cancel
+              </p>
+            </div>
+          );
+        })}
       </div>
-    </main>
+    </form>
   );
 }
 

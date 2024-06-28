@@ -13,6 +13,7 @@ import { useGlobal } from "@/app/context";
 import Link from "next/link";
 import Success from "./Success";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { storage } from "@/utils/firebase";
 const HeaderButton = ({ name, onclick, active, setActive, img }) => {
   return (
     <div
@@ -176,7 +177,7 @@ function Page() {
 
       {/* Main form */}
       <div className="h-full  px-[71px] py-[50px]   w-full rounded-[10px] bg-white ">
-        <div className="flex gap-6">
+        <div className="flex center gap-6">
           <HeaderButton
             name={"Personal"}
             active={active}
@@ -201,16 +202,16 @@ function Page() {
 
         {/* Personal Form */}
         {active === "Personal" && (
-          <main className="mt-[32px]  ">
+          <main className="mt-[32px] flex-col center  ">
             <h2 className="text-[24px] font-semibold ">
               Create A New Employee
             </h2>
             <p className=" text-base text-[#8C94A6]  ">
-              Fill out these details to build your broadcast
+              Fill out these details to continue
             </p>
 
             {/* Form */}
-            <div className="mt-[22px] flex flex-col gap-4 ">
+            <div className="mt-[22px]  flex flex-col gap-4 ">
               {/* Full name */}
               <div className="w-full ">
                 <label className="inputlabel">Full name</label>
@@ -407,8 +408,8 @@ function Page() {
 
         {/* Employement details */}
         {active === "Employment" && (
-          <main className="mt-[32px]  ">
-            <h2 className="text-[24px] font-semibold ">
+          <main className="mt-[32px]  flex-col center  ">
+            <h2 className="text-[24px]  font-semibold ">
               Create A New Employee
             </h2>
             <p className=" text-base text-[#8C94A6]  ">
@@ -416,10 +417,10 @@ function Page() {
             </p>
 
             {/* Form */}
-            <div className="mt-[22px] flex flex-col gap-4 ">
+            <div className="mt-[22px] w-full flex flex-col gap-4 ">
               {/* Employee ID */}
+              <label className="inputlabel">Employee ID</label>
               <div className="w-full border p-4 rounded-md ">
-                <label className="inputlabel">Employee ID</label>
                 <div className="w-full rounded-xl flex justify-between items-center px-4 py-2 ">
                   <p className="grey">#{randId}</p>
                   <p onClick={genId} className="font-semibold text-gray-600 ">
@@ -522,7 +523,7 @@ function Page() {
 
         {/* Login Credentials Details */}
         {active === "Login Credentials" && (
-          <main className="mt-[32px]  ">
+          <main className="mt-[32px] flex-col center  ">
             <h2 className="text-[24px] font-semibold ">
               Create New Email Campaign
             </h2>
@@ -531,9 +532,9 @@ function Page() {
             </p>
 
             {/* Form */}
-            <div className="mt-[22px] flex flex-col gap-4 ">
+            <div className="mt-[22px] flex w-full flex-col gap-4 ">
               {/* Full name */}
-              <div className="w-full ">
+              <form className="w-full ">
                 <label className="inputlabel">User name</label>
                 <input
                   className="input"
@@ -542,7 +543,7 @@ function Page() {
                   onChange={handleInputChange}
                   placeholder="Enter surname and first name"
                 />
-              </div>
+              </form>
 
               {/* Password */}
               <div className="w-full ">
