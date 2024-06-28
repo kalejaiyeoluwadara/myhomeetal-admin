@@ -3,10 +3,11 @@ import React, { useState } from "react";
 import { IoSearch } from "react-icons/io5";
 import filter from "../../../assets/filter.svg";
 import ex from "../../../assets/export.svg";
-import date from "../../../assets/date.svg";
+import dateimg from "../../../assets/date.svg";
 import Image from "next/image";
 import profile from "../../../assets/profile.png";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import CalendarComponent from "../../components/CalendarComponent";
 import {
   HiOutlineArrowLongRight,
   HiOutlineArrowLongLeft,
@@ -24,8 +25,9 @@ function Table() {
   ]; // Sample data array
   const itemsPerPage = 8;
   const [currentPage, setCurrentPage] = useState(1);
-
+  const [cal, setCal] = useState(false);
   const totalPages = Math.ceil(data.length / itemsPerPage);
+  const [date, setDate] = useState(new Date());
 
   const handleNextPage = () => {
     if (currentPage < totalPages) {
@@ -102,10 +104,22 @@ function Table() {
             <Image src={ex} alt="" className=" " />
             <p className="text-[#344054]  ">Export data</p>
           </section>
-          <section className="w-auto px-3 h-[40px] border border-[#D0D5DD] flex items-center justify-center gap-2 sh pointer rounded-[8px] text-[14px]  ">
-            <Image src={date} alt="" className="" />
-            <p className="text-[#344054]] ">Select dates</p>
-            <IoIosArrowDown className="text-[#667185]" size={20} />
+          <section className="w-auto  relative px-3 h-[40px] border border-[#D0D5DD] flex items-center justify-center gap-2 sh pointer rounded-[8px] text-[14px]  ">
+            <Image src={dateimg} alt="" className="" />
+            <p onClick={() => setCal(true)} className="text-[#344054]] ">
+              Select dates
+            </p>
+            <IoIosArrowDown
+              onClick={() => setCal(true)}
+              className="text-[#667185]"
+              size={20}
+            />
+            <CalendarComponent
+              date={date}
+              setDate={setDate}
+              cal={cal}
+              setCal={setCal}
+            />
           </section>
         </div>
       </section>
