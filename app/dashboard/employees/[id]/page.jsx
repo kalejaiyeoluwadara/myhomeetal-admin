@@ -92,7 +92,7 @@ function Page({ params }) {
     },
     {
       title: "Salary Details",
-      item: `#${employee?.salary}`,
+      item: `#${employee.salary ? employee.salary : "  ---"}`,
     },
     {
       title: "Status",
@@ -106,19 +106,19 @@ function Page({ params }) {
         <section className="flex items-center gap-6 ">
           <div className="h-[120px] w-[120px] overflow-hidden rounded-full bg-gray-200 ">
             {employee.image === undefined ? (
-              <Image className="" alt="" src={girl} />
+              <Image className=" h-full w-full bg-white  " alt="" src={girl} />
             ) : (
               <img className="h-full w-full" src={employee.image} alt="" />
             )}
           </div>
           <div className="space-y-3  flex flex-col items-start ">
-            <h2 className=" text-[28px] font-semibold ">
+            <h2 className=" text-[28px] capitalize font-semibold ">
               {employee?.username}
             </h2>
             <div className="flex text-[16px] ">
               {" "}
               <p className=" text-[#475367] ">
-                ID{employee.employee_id ? employee.employee_id : "null"}
+                {employee.employee_id ? `ID${employee.employee_id}` : "null"}
               </p>{" "}
               {employee.employee_id && (
                 <p className="text-primary ml-2 ">Copy</p>
