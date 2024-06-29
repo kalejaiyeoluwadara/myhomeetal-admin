@@ -4,7 +4,7 @@ import filter from "../../assets/filter.svg";
 import ex from "../../assets/export.svg";
 import Image from "next/image";
 
-function Tableheader({ products, setAdmins, manipulate, setManipulate }) {
+function Tableheader({ admins, setAdmins, manipulate, setManipulate }) {
   const [list, setList] = useState("");
 
   const handleSearch = () => {
