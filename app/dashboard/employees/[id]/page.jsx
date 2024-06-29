@@ -10,7 +10,7 @@ import { IoAnalyticsOutline } from "react-icons/io5";
 import TaksComp from "./comps/TaksComp";
 import Container from "./comps/Container";
 import Permissions from "./comps/Permissions";
-import girl from "../../../assets/girl.svg";
+import girl from "../../../assets/logo.svg";
 function Page({ params }) {
   const [loading, setLoading] = useState(false);
   const [employee, setEmployee] = useState([]);
@@ -62,13 +62,22 @@ function Page({ params }) {
       title: "Phone Number",
       item: employee?.phone_no,
     },
-    {
-      title: "Date of birth",
-      item: employee?.start_date,
-    },
+
     {
       title: "Gender",
       item: employee?.gender,
+    },
+    {
+      title: "emergency contact name",
+      item: employee?.emergency_contact_name,
+    },
+    {
+      title: "Emergency contact phone",
+      item: employee?.emergency_contact_phone,
+    },
+    {
+      title: "Emergency contact relationship",
+      item: employee?.emergency_contact_relationship,
     },
   ];
   const ei = [
@@ -76,17 +85,14 @@ function Page({ params }) {
       title: "Joining Date",
       item: employee?.start_date,
     },
-    {
-      title: "Department",
-      item: "Product Development",
-    },
+
     {
       title: "Employment Type",
-      item: "Full-Time Employment",
+      item: employee?.employment_type,
     },
     {
       title: "Salary Details",
-      item: employee?.salary,
+      item: `#${employee?.salary}`,
     },
     {
       title: "Status",
@@ -98,17 +104,21 @@ function Page({ params }) {
       <Nav />
       <div className="w-full border px-[48px] py-[40px] flex items-start justify-between bg-white h-[202px] rounded-xl mt-[58px] mb-[24px] ">
         <section className="flex items-center gap-6 ">
-          <div className="h-[120px] w-[120px] rounded-full bg-gray-200 ">
-            <Image className="" alt="" src={girl} />
+          <div className="h-[120px] w-[120px] overflow-hidden rounded-full bg-gray-200 ">
+            {employee.image === undefined ? (
+              <Image className="" alt="" src={girl} />
+            ) : (
+              <img className="h-full w-full" src={employee.image} alt="" />
+            )}
           </div>
-          <div className="space-y-3">
+          <div className="space-y-3  flex flex-col items-start ">
             <h2 className=" text-[28px] font-semibold ">
               {employee?.username}
             </h2>
             <div className="flex text-[16px] ">
               {" "}
-              <p className="ml-[29px] text-[#475367] ">
-                {employee.employee_id ? employee.employee_id : "null"}
+              <p className=" text-[#475367] ">
+                ID{employee.employee_id ? employee.employee_id : "null"}
               </p>{" "}
               {employee.employee_id && (
                 <p className="text-primary ml-2 ">Copy</p>
