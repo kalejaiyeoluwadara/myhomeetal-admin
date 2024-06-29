@@ -13,7 +13,7 @@ import { useGlobal } from "@/app/context";
 import Link from "next/link";
 import Success from "./Success";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-// import { storage } from "@/utils/firebase";
+import { storage } from "@/utils/firebase";
 const HeaderButton = ({ name, onclick, active, setActive, img }) => {
   return (
     <div
