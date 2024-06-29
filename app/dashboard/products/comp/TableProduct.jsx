@@ -1,11 +1,11 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { IoSearch } from "react-icons/io5";
-import filter from "../../../assets/filter.svg";
-import ex from "../../../assets/export.svg";
-import date from "../../../assets/date.svg";
+import filter from "@/app/assets/filter.svg";
+import ex from "@/app/assets/export.svg";
+import date from "@/app/assets/date.svg";
 import Image from "next/image";
-import profile from "../../../assets/profile.png";
+import profile from "@/app/assets/profile.png";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import {
   HiOutlineArrowLongRight,
@@ -13,16 +13,19 @@ import {
 } from "react-icons/hi2";
 import TableData from "./TableData";
 import { useGlobal } from "@/app/context";
-
+import TableHeader from "./TableHeader";
 function Table() {
   const itemsPerPage = 8;
   const [currentPage, setCurrentPage] = useState(1);
   const [products, setProducts] = useState([]);
+  const [manipulate, setManipulate] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { totalProd, setTotalProd } = useGlobal();
-  const totalPages = Math.ceil(products.length / itemsPerPage);
-
+  useEffect(() => {
+    setManipulate(products);
+  }, [products]);
+  const totalPages = Math.ceil(manipulate.length / itemsPerPage);
   const handleNextPage = () => {
     if (currentPage < totalPages) {
       setCurrentPage(currentPage + 1);
@@ -35,7 +38,7 @@ function Table() {
     }
   };
 
-  const currentData = products.slice(
+  const currentData = manipulate.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
@@ -97,6 +100,7 @@ function Table() {
       }
 
       const data = await response.json();
+      console.log(data);
       setTotalProd(data.length);
       setProducts(data);
     } catch (error) {
@@ -113,8 +117,7 @@ function Table() {
   return (
     <div className="w-full overflow-hidden h-auto rounded-[10px] flex flex-col items-start justify-start border ">
       {/* Header */}
-      <section className="w-full flex items-center justify-between px-[16px] bg-white h-[68px] ">
-        {/* search and filter button */}
+      {/* <section className="w-full flex items-center justify-between px-[16px] bg-white h-[68px] ">
         <div className="flex gap-2">
           <section className="sh w-[291px] h-full  border flex items-start justify-center rounded-[6px] px-[12px] py-[10px] gap-[8px] ">
             <IoSearch className="text-[#667185]" size={20} />
@@ -135,7 +138,12 @@ function Table() {
             <p className="text-[#344054]  ">Export data</p>
           </section>
         </div>
-      </section>
+      </section> */}
+      <TableHeader
+        manipulate={manipulate}
+        setManipulate={setManipulate}
+        products={products}
+      />
       {/* Content */}
       <div className="w-full ">
         <div className="w-full h-[44px] px-3 text-[12px] font-medium pt-1 items-center justify-center grid grid-cols-9 ">

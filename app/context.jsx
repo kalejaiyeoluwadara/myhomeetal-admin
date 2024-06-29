@@ -35,7 +35,6 @@ function AppProvider({ children }) {
 
       const data = await response.json();
       setAdmins(data);
-      console.log(data);
       setClen(data.length); // Update state with fetched data
     } catch (error) {
       console.error("An error occurred while fetching admins:", error);
