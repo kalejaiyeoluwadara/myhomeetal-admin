@@ -15,7 +15,7 @@ import TableData from "./components/TableData";
 import Tableheader from "./components/Tableheader";
 import { useGlobal } from "../context";
 function Table() {
-  const { admins, setAdmins } = useGlobal();
+  const { admins, setAdmins, loading, error } = useGlobal();
   const itemsPerPage = 8;
   const [currentPage, setCurrentPage] = useState(1);
   const [manipulate, setManipulate] = useState([]);
@@ -95,25 +95,31 @@ function Table() {
           <p className="w-[20px]"></p>
         </div>
         <div className="w-full">
-          {currentData.length === 0 ? (
+          {loading ? (
+            <div className="text-center py-10">
+              <p className="text-gray-500">Loading data...</p>
+            </div>
+          ) : error ? (
+            <div className="text-center py-10">
+              <p className="text-red-500">{error}</p>
+            </div>
+          ) : currentData.length === 0 ? (
             <div className="text-center py-10">
               <p className="text-gray-500">No data available</p>
             </div>
           ) : (
-            currentData.map((d, id) => {
-              return (
-                <TableData
-                  username={d.username}
-                  email={d.email}
-                  role={d.role}
-                  employee_id={d?.employee_id}
-                  _id={d?._id}
-                  key={id}
-                  img={d?.image}
-                  phone_no={d?.phone_no}
-                />
-              );
-            })
+            currentData.map((d, id) => (
+              <TableData
+                username={d.username}
+                email={d.email}
+                role={d.role}
+                employee_id={d?.employee_id}
+                _id={d?._id}
+                key={id}
+                img={d?.image}
+                phone_no={d?.phone_no}
+              />
+            ))
           )}
         </div>
 

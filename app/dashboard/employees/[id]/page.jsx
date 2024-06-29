@@ -12,7 +12,11 @@ import Container from "./comps/Container";
 import Permissions from "./comps/Permissions";
 import girl from "../../../assets/girl.svg";
 function Page({ params }) {
+  const [loading, setLoading] = useState(false);
+  const [employee, setEmployee] = useState([]);
+  const [error, setError] = useState(null);
   const fetchAdmin = async () => {
+    setLoading(true);
     try {
       const response = await fetch(
         `https://my-home-et-al-backend.onrender.com/api/v1/admin/${params.id}`,
@@ -21,7 +25,7 @@ function Page({ params }) {
           headers: {
             "Content-Type": "application/json",
             Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NjkyMDAzMzliNjhkM2QyMTg4YTQ0NSIsImlhdCI6MTcxODE4Njk2NywiZXhwIjoxNzE4MjA4NTY3fQ.buJN_l5b-35JlUmg5OxTW_39bEcimUKZUDNuxZxWfEw",
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2M2YyNjdjNDMyNDg5NmFlNzg2ZjgwZSIsImVtYWlsIjoiYmFiYUBteWhvbWVldGFsLmNvbSIsInJvbGUiOiJTdXBlciBBZG1pbiIsImlhdCI6MTcxODE2MTQ5NSwiZXhwIjoxNzI2ODAxNDk1fQ.w3OuGAzZmBRQN_kQbcEAAv82dVV3n0ymvu7G6gJLY6o",
           },
         }
       );
@@ -35,8 +39,11 @@ function Page({ params }) {
 
       const data = await response.json();
       console.log(data);
+      setEmployee(data);
     } catch (error) {
       console.error("An error occurred while fetching admins:", error);
+    } finally {
+      setLoading(false);
     }
   };
   useEffect(() => {
@@ -45,29 +52,29 @@ function Page({ params }) {
   const pi = [
     {
       title: "Fullname",
-      item: "Olamide Akintan",
+      item: employee?.fullname,
     },
     {
       title: "Email Address",
-      item: "OlamideAkintan@myhomeetal.com",
+      item: employee?.email,
     },
     {
       title: "Phone Number",
-      item: "+234 9046505356",
+      item: employee?.phone_no,
     },
     {
       title: "Date of birth",
-      item: "14-September-2020",
+      item: employee?.start_date,
     },
     {
       title: "Gender",
-      item: "Female",
+      item: employee?.gender,
     },
   ];
   const ei = [
     {
       title: "Joining Date",
-      item: "14-September-2020",
+      item: employee?.start_date,
     },
     {
       title: "Department",
@@ -79,7 +86,7 @@ function Page({ params }) {
     },
     {
       title: "Salary Details",
-      item: "₦250,000.00",
+      item: employee?.salary,
     },
     {
       title: "Status",
@@ -95,14 +102,19 @@ function Page({ params }) {
             <Image className="" alt="" src={girl} />
           </div>
           <div className="space-y-3">
-            <h2 className=" text-[28px] font-semibold ">Olamide Akintan</h2>
+            <h2 className=" text-[28px] font-semibold ">
+              {employee?.username}
+            </h2>
             <div className="flex text-[16px] ">
               {" "}
-              <p className=" font-semibold text-[#475367] ">HR Manager</p>{" "}
-              <p className="ml-[29px] text-[#475367] ">ID3435854649</p>{" "}
-              <p className="text-primary ml-2 ">Copy</p>
+              <p className="ml-[29px] text-[#475367] ">
+                {employee.employee_id ? employee.employee_id : "null"}
+              </p>{" "}
+              {employee.employee_id && (
+                <p className="text-primary ml-2 ">Copy</p>
+              )}
             </div>
-            <p className="text-[#475367]">OlamideAkintan@myhomeetal.com</p>
+            <p className="text-[#475367]">{employee?.email}</p>
           </div>
         </section>
         <section className="space-x-4 flex ">

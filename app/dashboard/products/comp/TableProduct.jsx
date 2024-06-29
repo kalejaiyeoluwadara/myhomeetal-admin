@@ -100,7 +100,7 @@ function Table() {
       }
 
       const data = await response.json();
-      console.log(data);
+      // console.log(data);
       setTotalProd(data.length);
       setProducts(data);
     } catch (error) {

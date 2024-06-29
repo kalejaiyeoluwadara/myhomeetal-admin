@@ -12,7 +12,10 @@ function AppProvider({ children }) {
   const [clen, setClen] = useState(0);
   const [totalProd, setTotalProd] = useState(0);
   const [bulk, setBulk] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const fetchAdmins = async () => {
+    setLoading(true);
     try {
       const response = await fetch(
         "https://my-home-et-al-backend.onrender.com/api/v1/admin/get-admins",
@@ -38,6 +41,9 @@ function AppProvider({ children }) {
       setClen(data.length); // Update state with fetched data
     } catch (error) {
       console.error("An error occurred while fetching admins:", error);
+      setError(error);
+    } finally {
+      setLoading(false);
     }
   };
   const fetchCutomers = async () => {
@@ -70,7 +76,6 @@ function AppProvider({ children }) {
 
   useEffect(() => {
     fetchAdmins();
-    fetchCutomers();
   }, []);
 
   // Log admins whenever it changes
@@ -95,6 +100,8 @@ function AppProvider({ children }) {
         setTotalProd,
         bulk,
         setBulk,
+        loading,
+        error,
       }}
     >
       {children}

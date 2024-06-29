@@ -36,7 +36,7 @@ function Page() {
   const [id, setId] = useState("");
   const [success, setSuccess] = useState(false);
   const [randId, setRandId] = useState("");
-
+  const [loading, setLoading] = useState("");
   const [formData, setFormData] = useState({
     fullname: "",
     image: "",
@@ -85,10 +85,13 @@ function Page() {
   }
   const handleSubmit = async () => {
     if (formData.username && formData.password) {
+      setLoading(true);
       try {
         if (selectedFile) {
           const imageUrl = await uploadFile(selectedFile);
           formData.image = imageUrl; // Set the image URL in the formData
+        } else {
+          alert("Image file not found");
         }
 
         const response = await fetch(
@@ -126,9 +129,11 @@ function Page() {
         });
       } catch (error) {
         console.error("Error submitting data:", error);
+      } finally {
+        setLoading(false); // End loading
       }
     } else {
-      alert("Incomplete input field");
+      alert("Enter Username and password!");
     }
   };
   const generateRandomId = (length) => {
@@ -202,7 +207,12 @@ function Page() {
 
         {/* Personal Form */}
         {active === "Personal" && (
-          <main className="mt-[32px] flex-col center  ">
+          <form
+            onSubmit={() => {
+              setActive("Employment");
+            }}
+            className="mt-[32px] flex-col center  "
+          >
             <h2 className="text-[24px] font-semibold ">
               Create A New Employee
             </h2>
@@ -221,6 +231,7 @@ function Page() {
                   className="input"
                   type="text"
                   placeholder="Enter surname and first name"
+                  required
                 />
               </div>
 
@@ -250,6 +261,7 @@ function Page() {
                   </div>
                   <input
                     id="file-upload"
+                    name="user_img"
                     type="file"
                     accept=".png, .jpg, .jpeg"
                     className="hidden"
@@ -269,6 +281,7 @@ function Page() {
                   onChange={handleInputChange}
                   type="email"
                   placeholder="user@gmail.com"
+                  required
                 />
               </div>
               {/* Address */}
@@ -280,6 +293,7 @@ function Page() {
                   type="text"
                   onChange={handleInputChange}
                   placeholder="Enter address"
+                  required
                 />
               </div>
               {/* Row content */}
@@ -292,6 +306,7 @@ function Page() {
                     onChange={handleInputChange}
                     type="tel"
                     placeholder="Enter Phone Number"
+                    required
                   />
                 </div>
                 <div className="w-full ">
@@ -335,6 +350,7 @@ function Page() {
                   name="emergency_contact_name"
                   onChange={handleInputChange}
                   placeholder="Enter Subject"
+                  required
                 />
               </div>
               {/* Relationship with Emergency contact   */}
@@ -348,6 +364,7 @@ function Page() {
                   name="emergency_contact_relationship"
                   onChange={handleInputChange}
                   placeholder="Enter subject"
+                  required
                 />
               </div>
               {/* Phone number of Emergency contact   */}
@@ -361,49 +378,21 @@ function Page() {
                   type="text"
                   onChange={handleInputChange}
                   placeholder="Enter subject"
+                  required
                 />
               </div>
 
               {/* Buttons */}
               <section className=" w-full mt-[32px] gap-6 ">
                 <button
-                  onClick={() => {
-                    const {
-                      fullname,
-                      image,
-                      email,
-                      address,
-                      phone_no,
-                      gender,
-                      emergency_contact_name,
-                      emergency_contact_relationship,
-                      emergency_contact_phone,
-                    } = formData;
-                    if (
-                      fullname &&
-                      // image &&
-                      email &&
-                      address &&
-                      phone_no &&
-                      gender &&
-                      emergency_contact_name &&
-                      emergency_contact_relationship &&
-                      emergency_contact_phone
-                    ) {
-                      setActive("Employment");
-                    } else {
-                      alert("Incomplete field");
-                      console.log(formData.gender);
-                      console.log(formData.image);
-                    }
-                  }}
+                  type="submit"
                   className=" w-full col-span-2 mb-2 text-[16px] font-semibold border h-[55px]  rounded-[8px] "
                 >
                   Confirm employee
                 </button>
               </section>
             </div>
-          </main>
+          </form>
         )}
 
         {/* Employement details */}
@@ -417,7 +406,12 @@ function Page() {
             </p>
 
             {/* Form */}
-            <div className="mt-[22px] w-full flex flex-col gap-4 ">
+            <form
+              onSubmit={() => {
+                setActive("Login Credentials");
+              }}
+              className="mt-[22px] w-full flex flex-col gap-4 "
+            >
               {/* Employee ID */}
               <label className="inputlabel">Employee ID</label>
               <div className="w-full border p-4 rounded-md ">
@@ -439,6 +433,7 @@ function Page() {
                     name="start_date"
                     onChange={handleInputChange}
                     placeholder="YYYY-MM-DD"
+                    required
                   />
                 </div>
                 <div className="w-full ">
@@ -486,38 +481,20 @@ function Page() {
                   className="input"
                   type="text"
                   placeholder="Enter Subject"
+                  required
                 />
               </div>
 
               {/* Buttons */}
               <section className=" mt-[32px] w-full gap-6 ">
                 <button
-                  onClick={() => {
-                    const { employee_id, start_date, employment_type, salary } =
-                      formData;
-                    if (
-                      employee_id &&
-                      start_date &&
-                      employment_type &&
-                      salary
-                    ) {
-                      setActive("Login Credentials");
-                    } else {
-                      console.log(
-                        employee_id,
-                        start_date,
-                        employment_type,
-                        salary
-                      );
-                      alert("Incomplete field");
-                    }
-                  }}
+                  type="submit"
                   className="w-full text-[16px] font-semibold border h-[55px]  rounded-[8px] "
                 >
                   Confirm employee
                 </button>
               </section>
-            </div>
+            </form>
           </main>
         )}
 
@@ -534,7 +511,7 @@ function Page() {
             {/* Form */}
             <div className="mt-[22px] flex w-full flex-col gap-4 ">
               {/* Full name */}
-              <form className="w-full ">
+              <div className="w-full ">
                 <label className="inputlabel">User name</label>
                 <input
                   className="input"
@@ -542,8 +519,9 @@ function Page() {
                   name="username"
                   onChange={handleInputChange}
                   placeholder="Enter surname and first name"
+                  required
                 />
-              </form>
+              </div>
 
               {/* Password */}
               <div className="w-full ">
@@ -554,15 +532,18 @@ function Page() {
                   onChange={handleInputChange}
                   type="password"
                   placeholder="Enter Subject"
+                  required
                 />
               </div>
               {/* Buttons */}
 
               <button
                 onClick={handleSubmit}
-                className="w-full col-span-2 text-[16px] font-semibold border h-[55px]  rounded-[8px] "
+                className={`w-full col-span-2 text-[16px] font-semibold border h-[55px]  rounded-[8px] ${
+                  loading && "bg-gray-500"
+                } `}
               >
-                Confirm employee
+                {loading ? "Creating new employee" : "Confirm employee"}
               </button>
             </div>
           </main>

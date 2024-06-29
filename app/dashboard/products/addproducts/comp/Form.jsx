@@ -74,7 +74,6 @@ function Form() {
       );
       const data = await response.json();
       console.log("Response from server:", data);
-      console.log("Success");
     } catch (error) {
       console.error("Error submitting data:", error);
     }
@@ -88,7 +87,7 @@ function Form() {
     document.getElementById("file-upload").click();
   };
   return (
-    <form className="mb-8 relative w-full">
+    <div className="mb-8 relative w-full">
       {/* Nav */}
       <div className="flex  items-center justify-between">
         <section>
@@ -446,7 +445,10 @@ function Form() {
           );
         })}
       </div>
-    </form>
+      <button onClick={handleSubmit} className="h-[50px] rounded-xl w-[400px] ">
+        create
+      </button>
+    </div>
   );
 }
 
