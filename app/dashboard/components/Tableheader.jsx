@@ -15,6 +15,7 @@ function Tableheader({ admins, setAdmins, manipulate, setManipulate }) {
         admin.username.toLowerCase().includes(list.toLowerCase())
       );
       setManipulate(filteredAdmins);
+      setList("");
     }
   };
 
@@ -30,14 +31,14 @@ function Tableheader({ admins, setAdmins, manipulate, setManipulate }) {
             placeholder="Search here..."
             className="w-full bg-transparent h-full outline-none "
           />
-          <button onClick={handleSearch} className="text-[#667185]">
+          <button onClick={handleSearch} className="text-[#667185] bg-white ">
             <IoSearch size={20} />
           </button>
         </section>
-        <section className="px-3 h-[40px] border border-[#D0D5DD] flex items-center justify-center gap-2 rounded-[8px] sh text-[14px] font-[500] ">
+        {/* <section className="px-3 h-[40px] border border-[#D0D5DD] flex items-center justify-center gap-2 rounded-[8px] sh text-[14px] font-[500] ">
           <Image src={filter} alt="Filter" className="h-[13px] w-[13px]" />
           <p className="text-[#344054]">Filter</p>
-        </section>
+        </section> */}
       </div>
       <div className="flex w-full justify-end items-center gap-2">
         <section className="px-3 h-[40px] border border-[#D0D5DD] flex items-center justify-center gap-2 rounded-[8px] sh pointer text-[14px] font-[500] ">
