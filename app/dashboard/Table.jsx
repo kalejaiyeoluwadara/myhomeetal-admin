@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IoSearch } from "react-icons/io5";
 import filter from "../../app/assets/filter.svg";
 import ex from "../../app/assets/export.svg";
@@ -18,8 +18,11 @@ function Table() {
   const { admins, setAdmins } = useGlobal();
   const itemsPerPage = 8;
   const [currentPage, setCurrentPage] = useState(1);
-
-  const totalPages = Math.ceil(admins.length / itemsPerPage);
+  const [manipulate, setManipulate] = useState([]);
+  useEffect(() => {
+    return setManipulate(admins);
+  }, [admins]);
+  const totalPages = Math.ceil(manipulate.length / itemsPerPage);
 
   const handleNextPage = () => {
     if (currentPage < totalPages) {
@@ -33,7 +36,7 @@ function Table() {
     }
   };
 
-  const currentData = admins.slice(
+  const currentData = manipulate.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
@@ -75,7 +78,12 @@ function Table() {
   return (
     <div className="w-full overflow-hidden h-auto rounded-[10px] flex flex-col items-start justify-start border ">
       {/* Header */}
-      <Tableheader />
+      <Tableheader
+        admins={admins}
+        manipulate={manipulate}
+        setManipulate={setManipulate}
+        setAdmins={setAdmins}
+      />
       {/* Content */}
       <div className="w-full ">
         <div className="w-full h-[44px] px-3 text-[12px] font-medium pt-1 items-center justify-center grid grid-cols-8 ">
