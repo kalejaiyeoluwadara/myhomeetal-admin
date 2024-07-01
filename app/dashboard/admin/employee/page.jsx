@@ -2,18 +2,23 @@
 import React, { useState } from "react";
 import Welcome from "./comp/Welcome";
 import { GoPeople } from "react-icons/go";
+import bag from "@/app/assets/bag1.svg";
+import shop from "@/app/assets/shop.svg";
 import Table from "./comp/TableOrd";
 import Data from "./comp/Data";
+import Image from "next/image";
 
 function Page() {
   const data = [
     {
       title: "Today Sales",
       item: "20,000",
+      img: shop,
     },
     {
       title: "Weekly Sales",
       item: "175,000",
+      img: bag,
     },
   ];
   const [modal, setModal] = useState(false);
@@ -28,8 +33,12 @@ function Page() {
               className="w-auto h-[195px] flex justify-center items-start flex-col rounded-[12px] px-6 gap-8   border border-border bg-white"
             >
               <div className="flex gap-3 center">
-                <div className="h-[32px] rounded-[8px] center bg-[#FFF1F1] text-[#FF6567] w-[32px] ">
-                  <GoPeople size={15} />
+                <div
+                  className={`h-[32px] rounded-[8px] center  ${
+                    d.img === shop ? " bg-[#E7F6EC]" : "bg-[#FFF1F1]"
+                  } text-[#FF6567] w-[32px] `}
+                >
+                  <Image className="" src={d.img} alt="" />
                 </div>
                 <p className="grey">{d.title}</p>
               </div>

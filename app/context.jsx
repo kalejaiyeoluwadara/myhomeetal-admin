@@ -68,7 +68,7 @@ function AppProvider({ children }) {
       }
 
       const data = await response.json();
-      setClen(data?.length);
+      setClen(data);
     } catch (error) {
       console.log(error);
     }
@@ -76,6 +76,7 @@ function AppProvider({ children }) {
 
   useEffect(() => {
     fetchAdmins();
+    fetchCutomers();
   }, []);
 
   // Log admins whenever it changes
