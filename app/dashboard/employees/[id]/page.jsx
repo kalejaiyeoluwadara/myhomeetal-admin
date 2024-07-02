@@ -113,7 +113,7 @@ function Page({ params }) {
           </div>
           <div className="space-y-3  flex flex-col items-start ">
             <h2 className=" text-[28px] capitalize font-semibold ">
-              {employee?.username}
+              {employee?.fullname}
             </h2>
             <div className="flex text-[16px] ">
               {" "}

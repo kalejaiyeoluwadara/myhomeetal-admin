@@ -40,6 +40,7 @@ function Page() {
   const [formData, setFormData] = useState({
     fullname: "",
     image: "",
+    email: "",
     address: "",
     phone_no: "",
     gender: "",
@@ -83,7 +84,7 @@ function Page() {
     }
   }
   const handleSubmit = async () => {
-    if (formData.username && formData.password) {
+    if (formData.email && formData.password) {
       setLoading(true);
       try {
         if (selectedFile) {
@@ -112,6 +113,7 @@ function Page() {
         setFormData({
           fullname: "",
           image: "",
+          email: "",
           address: "",
           phone_no: "",
           gender: gender,
@@ -165,7 +167,7 @@ function Page() {
         <section>
           <h2 className="text-[24px] font-semibold ">Create a New Employee</h2>
           <p className="text-base font-normal text-[#475367]  ">
-            Onboarding Your New Team Member
+            It’s a sunny day today, lets see how the business is doing!
           </p>
         </section>
         <section>
@@ -497,7 +499,7 @@ function Page() {
             {/* Form */}
             <div className="mt-[22px] flex w-full flex-col gap-4 ">
               {/* Full name */}
-              <div className="w-full ">
+              {/* <div className="w-full ">
                 <label className="inputlabel">User name</label>
                 <input
                   className="input"
@@ -505,6 +507,18 @@ function Page() {
                   name="username"
                   onChange={handleInputChange}
                   placeholder="Enter surname and first name"
+                  required
+                />
+              </div> */}
+              {/* Email Address */}
+              <div className="w-full ">
+                <label className="inputlabel">Email Address</label>
+                <input
+                  name="email"
+                  className="input"
+                  onChange={handleInputChange}
+                  type="email"
+                  placeholder="user@gmail.com"
                   required
                 />
               </div>
