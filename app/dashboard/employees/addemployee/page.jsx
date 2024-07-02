@@ -84,7 +84,7 @@ function Page() {
     }
   }
   const handleSubmit = async () => {
-    if (formData.email && formData.password) {
+    if (formData.username && formData.password) {
       setLoading(true);
       try {
         if (selectedFile) {
@@ -271,6 +271,18 @@ function Page() {
                     {selectedFile ? "Change" : "Upload your document"}
                   </button>
                 </div>
+              </div>
+              {/* Email Address */}
+              <div className="w-full ">
+                <label className="inputlabel">Email Address</label>
+                <input
+                  name="email"
+                  className="input"
+                  onChange={handleInputChange}
+                  type="email"
+                  placeholder="user@gmail.com"
+                  required
+                />
               </div>
               {/* Address */}
               <div className="w-full ">
@@ -499,7 +511,7 @@ function Page() {
             {/* Form */}
             <div className="mt-[22px] flex w-full flex-col gap-4 ">
               {/* Full name */}
-              {/* <div className="w-full ">
+              <div className="w-full ">
                 <label className="inputlabel">User name</label>
                 <input
                   className="input"
@@ -507,18 +519,6 @@ function Page() {
                   name="username"
                   onChange={handleInputChange}
                   placeholder="Enter surname and first name"
-                  required
-                />
-              </div> */}
-              {/* Email Address */}
-              <div className="w-full ">
-                <label className="inputlabel">Email Address</label>
-                <input
-                  name="email"
-                  className="input"
-                  onChange={handleInputChange}
-                  type="email"
-                  placeholder="user@gmail.com"
                   required
                 />
               </div>
