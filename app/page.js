@@ -2,7 +2,7 @@
 import Image from "next/image";
 import logo from "../app/assets/logo.svg";
 import man from "../app/assets/wall.svg";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { FaCheckCircle } from "react-icons/fa";
 import { MdError } from "react-icons/md";
@@ -16,7 +16,6 @@ const Login = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { role, setRole } = useGlobal();
   const router = useRouter();
-
   const handleLogin = async () => {
     setIsLoading(true);
     setModalMessage("");
@@ -74,7 +73,6 @@ const Login = () => {
       }, 4000);
     }
   };
-
   return (
     <>
       <div className="border w-[100%] h-[400px] rounded-[24px] flex items-start justify-center px-[40px] pr-[24px] flex-col border-[#DCDCDC] gap-[16px] ">
@@ -156,15 +154,41 @@ const Login = () => {
 };
 
 export default function Page() {
+  const [isWideScreen, setIsWideScreen] = useState(true);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsWideScreen(window.innerWidth >= 1024); // Adjust the width as needed
+    };
+
+    handleResize(); // Check on initial load
+    window.addEventListener("resize", handleResize); // Add resize listener
+
+    return () => window.removeEventListener("resize", handleResize); // Clean up listener
+  }, []);
   return (
     <main className="min-h-screen w-full p-[35px] gap-[60px] flex items-start justify-center ">
-      <section className="h-full w-[40%] flex flex-col items-start ">
-        <Image className="mb-[81px]" alt="" src={logo} />
-        <Login />
-      </section>
-      <section className="h-[636px] overflow-hidden w-[50%] relative rounded-[24px] ">
-        <Image className="cover" src={man} alt="" />
-      </section>
+      {isWideScreen ? (
+        <>
+          <section className="h-full w-[40%] flex flex-col items-start ">
+            <Image className="mb-[81px]" alt="" src={logo} />
+            <Login />
+          </section>
+          <section className="h-[636px] overflow-hidden w-[50%] relative rounded-[24px] ">
+            <Image className="cover" src={man} alt="" />
+          </section>
+        </>
+      ) : (
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-75">
+          <div className="bg-white p-6 rounded-lg shadow-lg text-center">
+            <h2 className="text-2xl font-semibold mb-4">Screen Too Small</h2>
+            <p className="text-lg">
+              Please use a laptop or a device with a wider screen to view this
+              content.
+            </p>
+          </div>
+        </div>
+      )}
     </main>
   );
 }
