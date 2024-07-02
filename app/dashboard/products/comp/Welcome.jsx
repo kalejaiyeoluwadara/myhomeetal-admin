@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 import { FaPlus } from "react-icons/fa6";
 function Welcome() {
@@ -7,10 +8,12 @@ function Welcome() {
         <h2 className="text-[24px] font-semibold ">All Products</h2>
       </section>
       <section>
-        <button className=" text-[16px] font-semibold p-4 rounded-[8px] flex items-center justify-center gap-2 ">
-          <FaPlus size={20} />
-          Add Product
-        </button>
+        <Link href={"/dashboard/products/addproducts"}>
+          <button className=" text-[16px] font-semibold p-4 rounded-[8px] flex items-center justify-center gap-2 ">
+            <FaPlus size={20} />
+            Add Product
+          </button>
+        </Link>
       </section>
     </div>
   );
