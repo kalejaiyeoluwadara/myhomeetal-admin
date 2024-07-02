@@ -335,19 +335,19 @@ function Form({ isModalOpen, setIsModalOpen }) {
         <section className="h-auto col-span-2 w-auto flex flex-col gap-3 rounded-xl ">
           <div className="bg-white w-full rounded-xl px-6 py-8 pb-12 flex flex-col gap-3 h-auto ">
             <h2 className=" core  ">Product Specifications</h2>
-            <div className="w-full ">
+            {/* <div className="w-full ">
               <label className="inputlabel">Size (L x W x H) cm</label>
               <input
                 className="input"
                 name="size"
-                onChange={handleInputChange}
+                // onChange={handleInputChange}
                 type="number"
                 placeholder="20 15 16"
               />
               <p className="inputfooter ">
                 Ensure Measurements are in Centimetres
               </p>
-            </div>
+            </div> */}
             <div className="w-full ">
               <label className="inputlabel">Weight (Kg)</label>
               <input
