@@ -28,7 +28,9 @@ function Sidebar() {
     <div className="h-screen relative border-r border-border -z-40 w-full py-[24px]">
       {/* Header */}
       <section className="px-[24px]">
-        <Image src={logo} alt="" className="" />
+        <Link href={"/dashboard"}>
+          <Image src={logo} alt="" className="" />
+        </Link>
       </section>
 
       {/* Nav */}

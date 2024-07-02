@@ -116,7 +116,9 @@ function Form({ isModalOpen, setIsModalOpen }) {
       review: [],
     });
     setIsModalOpen(true);
-    router.push("/dashboard/products");
+    setTimeout(() => {
+      router.push("/dashboard/products");
+    }, 3000);
   };
   const handleInputChange = (e) => {
     const { name, value } = e.target;
