@@ -14,6 +14,16 @@ function AppProvider({ children }) {
   const [bulk, setBulk] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const l_fullname = localStorage.getItem("username");
+
+  const [userData, setUserData] = useState([
+    {
+      fullname: "",
+      email: "",
+      image: "",
+    },
+  ]);
+
   const fetchAdmins = async () => {
     setLoading(true);
     try {
@@ -75,12 +85,26 @@ function AppProvider({ children }) {
   };
 
   useEffect(() => {
+    // Fetch admins
     fetchAdmins();
-    fetchCutomers();
-  }, []);
 
+    // Retrieve user data from local storage
+    const username = localStorage.getItem("username");
+    const fullname = localStorage.getItem("fullname");
+    const email = localStorage.getItem("email");
+    const image = localStorage.getItem("image");
+
+    // Check if username exists in local storage before setting userData
+    if (email && image) {
+      setUserData({
+        fullname: fullname || "",
+        username: username || "",
+        email: email || "",
+        image: image || "",
+      });
+    }
+  }, []);
   // Log admins whenever it changes
-  useEffect(() => {}, [admins]);
 
   return (
     <AppContext.Provider
@@ -103,6 +127,8 @@ function AppProvider({ children }) {
         setBulk,
         loading,
         error,
+        userData,
+        setUserData,
       }}
     >
       {children}

@@ -14,7 +14,7 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { role, setRole } = useGlobal();
+  const { role, setRole, userData, setUserData } = useGlobal();
   const router = useRouter();
   const handleLogin = async () => {
     setIsLoading(true);
@@ -39,7 +39,11 @@ const Login = () => {
       );
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
+        localStorage.setItem("user", JSON.stringify(data.adminProfile));
+        localStorage.setItem("username", data.adminProfile?.username);
+        localStorage.setItem("email", data.adminProfile?.email);
+        localStorage.setItem("fullname", data.adminProfile?.fullname);
+        localStorage.setItem("image", data.adminProfile?.image);
         localStorage.setItem("token", data.token);
         localStorage.setItem("role", data.adminProfile.role);
         setIsLoading(false);
