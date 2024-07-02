@@ -5,6 +5,7 @@ import { FiUploadCloud } from "react-icons/fi";
 import { GoChevronDown } from "react-icons/go";
 import { FaPlus } from "react-icons/fa6";
 import { FaTimes } from "react-icons/fa";
+import { useRouter } from "next/navigation";
 import { LiaTimesSolid } from "react-icons/lia";
 const Modal = ({ cat, setCat, setFormData, formData }) => {
   const cats = ["My Phones and Tablet", "My Phones and Tablet"];
@@ -27,8 +28,7 @@ const Modal = ({ cat, setCat, setFormData, formData }) => {
     </div>
   );
 };
-
-function Form() {
+function Form({ isModalOpen, setIsModalOpen }) {
   const [disctype, SetDiscType] = useState("No Discount");
   const [cat, setCat] = useState("My Phones $ Tablet");
   const [modal, setModal] = useState(false);
@@ -36,14 +36,26 @@ function Form() {
   const [discModal, setDiscModal] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const [formData, setFormData] = useState({
-    productTitle: "lx",
-    price: "4000",
-    category: "phone",
-    description: "eeee",
-    brand: "eee",
-    inventory: 2,
-    sku: "3ee",
-    stock: "20",
+    productTitle: "",
+    price: "",
+    category: "",
+    description: "",
+    brand: "",
+    inventory: 0,
+    sku: "",
+    stock: "",
+    size: "",
+    weight: "",
+    modelno: "",
+    mainmaterial: "",
+    color: "",
+    fit1: "",
+    fit2: "",
+    fit3: "",
+    fit4: "",
+    fit5: "",
+    fit6: "",
+    weight: "",
     image: [],
     review: [],
   });
@@ -59,24 +71,52 @@ function Form() {
   };
 
   // Handling submit
-  const handleSubmit = async () => {
-    try {
-      const response = await fetch(
-        "https://my-home-et-al-backend.onrender.com/api/v1/product/create-product",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2M2YyNjdjNDMyNDg5NmFlNzg2ZjgwZSIsImVtYWlsIjoiYmFiYUBteWhvbWVldGFsLmNvbSIsInJvbGUiOiJTdXBlciBBZG1pbiIsImlhdCI6MTcxODE2MTQ5NSwiZXhwIjoxNzI2ODAxNDk1fQ.w3OuGAzZmBRQN_kQbcEAAv82dVV3n0ymvu7G6gJLY6o`,
-          },
-          body: JSON.stringify(formData),
-        }
-      );
-      const data = await response.json();
-      console.log("Response from server:", data);
-    } catch (error) {
-      console.error("Error submitting data:", error);
-    }
+  // const handleSubmit = async () => {
+  //   try {
+  //     const response = await fetch(
+  //       "https://my-home-et-al-backend.onrender.com/api/v1/product/create-product",
+  //       {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2M2YyNjdjNDMyNDg5NmFlNzg2ZjgwZSIsImVtYWlsIjoiYmFiYUBteWhvbWVldGFsLmNvbSIsInJvbGUiOiJTdXBlciBBZG1pbiIsImlhdCI6MTcxODE2MTQ5NSwiZXhwIjoxNzI2ODAxNDk1fQ.w3OuGAzZmBRQN_kQbcEAAv82dVV3n0ymvu7G6gJLY6o`,
+  //         },
+  //         body: JSON.stringify(formData),
+  //       }
+  //     );
+  //     const data = await response.json();
+  //     console.log("Response from server:", data);
+  //   } catch (error) {
+  //     console.error("Error submitting data:", error);
+  //   }
+  // };
+  const handleSubmit = () => {
+    setFormData({
+      productTitle: "",
+      price: "",
+      category: "",
+      description: "",
+      brand: "",
+      inventory: 0,
+      sku: "",
+      stock: "",
+      size: "",
+      weight: "",
+      modelno: "",
+      mainmaterial: "",
+      color: "",
+      fit1: "",
+      fit2: "",
+      fit3: "",
+      fit4: "",
+      fit5: "",
+      fit6: "",
+      weight: "",
+      image: [],
+      review: [],
+    });
+    setIsModalOpen(true);
+    router.push("/dashboard/products");
   };
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -86,6 +126,29 @@ function Form() {
     // Trigger click on the file input element
     document.getElementById("file-upload").click();
   };
+  const {
+    productTitle,
+    price,
+    categoryprice,
+    descriptionprice,
+    brandprice,
+    inventory,
+    skuprice,
+    stockprice,
+    sizeprice,
+    weightprice,
+    modelnoprice,
+    mainmaterialprice,
+    colorprice,
+    fit1price,
+    fit2price,
+    fit3price,
+    fit4price,
+    fit5price,
+    fit6price,
+    weight,
+  } = formData;
+  const router = useRouter();
   return (
     <div className="mb-8 relative w-full">
       {/* Nav */}
@@ -95,12 +158,20 @@ function Form() {
         </section>
         <section className="flex gap-4">
           <Link href={"/dashboard/products"}>
-            <button className=" text-[16px] border-[1.5px] border-[#ED2224] text-[#ED2224] bg-white font-semibold px-4 py-2 rounded-[8px] flex items-center justify-center gap-2 ">
+            <button
+              onClick={() => {
+                setIsModalOpen(false);
+              }}
+              className=" text-[16px] border-[1.5px] border-[#ED2224] text-[#ED2224] bg-white font-semibold px-4 py-2 rounded-[8px] flex items-center justify-center gap-2 "
+            >
               <LiaTimesSolid size={20} />
               Cancel
             </button>
           </Link>
-          <button className=" text-[16px] font-semibold px-4 py-2 rounded-[8px] flex items-center justify-center gap-2 ">
+          <button
+            onClick={handleSubmit}
+            className=" text-[16px] font-semibold px-4 py-2 rounded-[8px] flex items-center justify-center gap-2 "
+          >
             <FaPlus size={20} />
             Save product
           </button>
@@ -118,6 +189,7 @@ function Form() {
               <label className="inputlabel">Product Name</label>
               <input
                 className="input"
+                value={productTitle}
                 name="productTitle"
                 onChange={handleInputChange}
                 type="text"
@@ -133,6 +205,7 @@ function Form() {
               <input
                 className="input"
                 name="description"
+                // value={description}
                 onChange={handleInputChange}
                 type="text"
                 placeholder="Enter Subject"
@@ -146,6 +219,7 @@ function Form() {
               <input
                 className="input"
                 name="brand"
+                // value={description}
                 onChange={handleInputChange}
                 type="text"
                 placeholder="Samsung"
@@ -156,6 +230,7 @@ function Form() {
               <input
                 className="input"
                 name="sku"
+                // value={description}
                 onChange={handleInputChange}
                 type="text"
                 placeholder="783kl32"
@@ -166,6 +241,7 @@ function Form() {
               <input
                 className="input"
                 name="price"
+                // value={description}
                 onChange={handleInputChange}
                 placeholder="290,000"
               />
@@ -177,6 +253,7 @@ function Form() {
                 <input
                   className="input"
                   name="stock"
+                  // value={description}
                   onChange={handleInputChange}
                   type="text"
                   placeholder="20"
@@ -262,7 +339,7 @@ function Form() {
               <label className="inputlabel">Size (L x W x H) cm</label>
               <input
                 className="input"
-                name="productTitle"
+                name="size"
                 onChange={handleInputChange}
                 type="number"
                 placeholder="20 15 16"
@@ -275,7 +352,7 @@ function Form() {
               <label className="inputlabel">Weight (Kg)</label>
               <input
                 className="input"
-                name=""
+                name="weight"
                 onChange={handleInputChange}
                 type="text"
                 placeholder="Enter Subject"
@@ -285,7 +362,7 @@ function Form() {
               <label className="inputlabel">Model Number</label>
               <input
                 className="input"
-                name=""
+                name="modelno"
                 onChange={handleInputChange}
                 type="text"
                 placeholder="Enter Subject"
@@ -295,7 +372,7 @@ function Form() {
               <label className="inputlabel">Main Material</label>
               <input
                 className="input"
-                name=""
+                name="mainmaterial"
                 onChange={handleInputChange}
                 type="text"
                 placeholder="Enter Subject"
@@ -305,7 +382,7 @@ function Form() {
               <label className="inputlabel">Color</label>
               <input
                 className="input"
-                name="productTitle"
+                name="color"
                 onChange={handleInputChange}
                 type="text"
                 placeholder="Iphone 11 Pro"
@@ -318,37 +395,7 @@ function Form() {
               <label className="inputlabel">Feature 1</label>
               <input
                 className="input"
-                name="feature1"
-                onChange={handleInputChange}
-                type="text"
-                placeholder="Please Enter a Unique Feature that the Product Offers"
-              />
-            </div>
-            <div className="w-full ">
-              <label className="inputlabel">Feature 1</label>
-              <input
-                className="input"
-                name="feature1"
-                onChange={handleInputChange}
-                type="text"
-                placeholder="Please Enter a Unique Feature that the Product Offers"
-              />
-            </div>
-            <div className="w-full ">
-              <label className="inputlabel">Feature 1</label>
-              <input
-                className="input"
-                name="feature1"
-                onChange={handleInputChange}
-                type="text"
-                placeholder="Please Enter a Unique Feature that the Product Offers"
-              />
-            </div>
-            <div className="w-full ">
-              <label className="inputlabel">Feature 1</label>
-              <input
-                className="input"
-                name="feature1"
+                name="fit1"
                 onChange={handleInputChange}
                 type="text"
                 placeholder="Please Enter a Unique Feature that the Product Offers"
@@ -358,7 +405,7 @@ function Form() {
               <label className="inputlabel">Feature 2</label>
               <input
                 className="input"
-                name="feature2"
+                name="fit2"
                 onChange={handleInputChange}
                 type="text"
                 placeholder="Please Enter a Unique Feature that the Product Offers"
@@ -368,7 +415,7 @@ function Form() {
               <label className="inputlabel">Feature 3</label>
               <input
                 className="input"
-                name="feature3"
+                name="fit3"
                 onChange={handleInputChange}
                 type="text"
                 placeholder="Please Enter a Unique Feature that the Product Offers"
@@ -378,7 +425,7 @@ function Form() {
               <label className="inputlabel">Feature 4</label>
               <input
                 className="input"
-                name="feature4"
+                name="fit4"
                 onChange={handleInputChange}
                 type="text"
                 placeholder="Please Enter a Unique Feature that the Product Offers"
@@ -388,7 +435,7 @@ function Form() {
               <label className="inputlabel">Feature 5</label>
               <input
                 className="input"
-                name="feature5"
+                name="fit5"
                 onChange={handleInputChange}
                 type="text"
                 placeholder="Please Enter a Unique Feature that the Product Offers"
@@ -398,17 +445,7 @@ function Form() {
               <label className="inputlabel">Feature 6</label>
               <input
                 className="input"
-                name="feature6"
-                onChange={handleInputChange}
-                type="text"
-                placeholder="Please Enter a Unique Feature that the Product Offers"
-              />
-            </div>
-            <div className="w-full ">
-              <label className="inputlabel">Feature 7</label>
-              <input
-                className="input"
-                name="feature7"
+                name="fit6"
                 onChange={handleInputChange}
                 type="text"
                 placeholder="Please Enter a Unique Feature that the Product Offers"
@@ -445,9 +482,6 @@ function Form() {
           );
         })}
       </div>
-      <button onClick={handleSubmit} className="h-[50px] rounded-xl w-[400px] ">
-        create
-      </button>
     </div>
   );
 }
