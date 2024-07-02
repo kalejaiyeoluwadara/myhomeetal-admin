@@ -7,7 +7,6 @@ import Image from "next/image";
 import { useGlobal } from "@/app/context";
 function Footer() {
   const { logout, setLogOut, userData, setUserData } = useGlobal();
-  console.log(userData.fullname);
   return (
     <footer className="absolute w-full bottom-2  ">
       {/* <div className="w-full   px-[2px] flex flex-col justify-center items-center ">

@@ -14,7 +14,7 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { role, setRole, userData, setUserData } = useGlobal();
+  const { role, setRole, userData, setUserData, setLogOut } = useGlobal();
   const router = useRouter();
   const handleLogin = async () => {
     setIsLoading(true);
@@ -49,6 +49,7 @@ const Login = () => {
         setIsLoading(false);
         setModalMessage("Login successful! Redirecting...");
         setIsModalOpen(true);
+        setLogOut(false);
         setEmail("");
         setPassword("");
         setTimeout(() => {

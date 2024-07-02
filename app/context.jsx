@@ -87,7 +87,8 @@ function AppProvider({ children }) {
   useEffect(() => {
     // Fetch admins
     fetchAdmins();
-
+  }, []);
+  useEffect(() => {
     // Retrieve user data from local storage
     const username = localStorage.getItem("username");
     const fullname = localStorage.getItem("fullname");
@@ -103,9 +104,7 @@ function AppProvider({ children }) {
         image: image || "",
       });
     }
-  }, []);
-  // Log admins whenever it changes
-
+  }, [logout]);
   return (
     <AppContext.Provider
       value={{
