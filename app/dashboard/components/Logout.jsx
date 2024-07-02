@@ -9,6 +9,13 @@ import Image from "next/image";
 import Link from "next/link";
 function Logout() {
   const { logout, setLogOut } = useGlobal();
+  function clearAccount() {
+    localStorage.removeItem("image");
+    localStorage.removeItem("email");
+    localStorage.removeItem("fullname");
+    localStorage.removeItem("username");
+    console.log("Account cleared");
+  }
   return (
     <>
       {logout && (
@@ -24,6 +31,7 @@ function Logout() {
             <Link
               onClick={() => {
                 setLogOut(false);
+                clearAccount();
               }}
               className="w-full"
               href={"/"}

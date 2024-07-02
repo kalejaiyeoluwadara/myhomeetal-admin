@@ -87,8 +87,7 @@ function AppProvider({ children }) {
     // Fetch admins
     fetchAdmins();
   }, []);
-  useEffect(() => {
-    // Retrieve user data from local storage
+  function switchAccount() {
     const username = localStorage.getItem("username");
     const fullname = localStorage.getItem("fullname");
     const email = localStorage.getItem("email");
@@ -103,11 +102,17 @@ function AppProvider({ children }) {
         image: image || "",
       });
     }
-  }, [logout]);
+    console.log("Done!!");
+  }
+  useEffect(() => {
+    // Retrieve user data from local storage
+    switchAccount();
+  }, []);
   return (
     <AppContext.Provider
       value={{
         role,
+        switchAccount,
         setRole,
         logout,
         setLogOut,
