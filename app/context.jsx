@@ -14,7 +14,6 @@ function AppProvider({ children }) {
   const [bulk, setBulk] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const l_fullname = localStorage.getItem("username");
 
   const [userData, setUserData] = useState([
     {
