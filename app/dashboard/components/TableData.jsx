@@ -23,7 +23,7 @@ function TableData({ username, email, _id, role, phone_no, employee_id, img }) {
             className=" h-[50px]  w-[50px] rounded-full  "
           />
         )}
-        <p className="text-[14px] font-medium text-[#101928] capitalize ">
+        <p className="text-[14px] truncate bg-re-300 font-medium text-[#101928] capitalize ">
           {username}
         </p>
       </div>
