@@ -456,7 +456,7 @@ function Form({ isModalOpen, setIsModalOpen }) {
       </main>
 
       {/* Display selected image files */}
-      <div className="h-[400px] w-[400px] absolute top-[40rem] -right-8 flex flex-col gap-2  col-span-1 rounded-xl">
+      <div className="h-[400px] w-[400px] absolute items-end top-[40rem] -right-2 flex flex-col gap-2  col-span-1 rounded-xl">
         {selectedFile?.map((d, id) => {
           console.log(d);
           const handleRemoveFile = (fileIndex) => {
@@ -467,9 +467,9 @@ function Form({ isModalOpen, setIsModalOpen }) {
           return (
             <div
               key={id}
-              className="w-full  px-4 flex justify-between items-center bg-white rounded-[10px] h-[86px]"
+              className="w-[300px]   px-4 flex justify-between items-center bg-white rounded-[10px] h-[86px]"
             >
-              <p>{d.name}</p>
+              <p className="truncate">{d.name}</p>
               <p
                 className="pointer"
                 onClick={() => {
