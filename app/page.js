@@ -40,6 +40,7 @@ const Login = () => {
       );
       if (response.ok) {
         const data = await response.json();
+        console.log(data);
         localStorage.setItem("token", data.token);
         localStorage.setItem("role", data.adminProfile.role);
         setIsLoading(false);

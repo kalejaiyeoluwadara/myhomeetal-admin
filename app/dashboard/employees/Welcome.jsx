@@ -11,7 +11,7 @@ function Welcome() {
       <section>
         <h2 className="text-[24px] font-semibold ">All Employees</h2>
         <p className="grey text-[16px] font-normal ">
-          It’s a sunny day today, lets see how the business is doing!
+          Overview of All Employees
         </p>
       </section>
       <section>

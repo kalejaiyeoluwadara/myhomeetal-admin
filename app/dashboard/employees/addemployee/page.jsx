@@ -40,7 +40,6 @@ function Page() {
   const [formData, setFormData] = useState({
     fullname: "",
     image: "",
-    email: "",
     address: "",
     phone_no: "",
     gender: "",
@@ -113,7 +112,6 @@ function Page() {
         setFormData({
           fullname: "",
           image: "",
-          email: "",
           address: "",
           phone_no: "",
           gender: gender,
@@ -167,7 +165,7 @@ function Page() {
         <section>
           <h2 className="text-[24px] font-semibold ">Create a New Employee</h2>
           <p className="text-base font-normal text-[#475367]  ">
-            It’s a sunny day today, lets see how the business is doing!
+            Onboarding Your New Team Member
           </p>
         </section>
         <section>
@@ -271,18 +269,6 @@ function Page() {
                     {selectedFile ? "Change" : "Upload your document"}
                   </button>
                 </div>
-              </div>
-              {/* Email Address */}
-              <div className="w-full ">
-                <label className="inputlabel">Email Address</label>
-                <input
-                  name="email"
-                  className="input"
-                  onChange={handleInputChange}
-                  type="email"
-                  placeholder="user@gmail.com"
-                  required
-                />
               </div>
               {/* Address */}
               <div className="w-full ">
