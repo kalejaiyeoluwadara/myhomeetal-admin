@@ -15,15 +15,17 @@ function Welcome() {
         </p>
       </section>
       <section>
-        <button
-          onClick={() => {
-            setAddEmployee(true);
-          }}
-          className=" text-[16px] font-semibold p-4 rounded-[8px] flex items-center justify-center gap-2 "
-        >
-          <FaPlus size={20} />
-          Add employee
-        </button>
+        <Link href={"/dashboard/employees/addemployee"}>
+          <button
+            onClick={() => {
+              setAddEmployee(true);
+            }}
+            className=" text-[16px] font-semibold p-4 rounded-[8px] flex items-center justify-center gap-2 "
+          >
+            <FaPlus size={20} />
+            Add employee
+          </button>
+        </Link>
       </section>
     </div>
   );
