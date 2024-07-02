@@ -195,7 +195,7 @@ function Form({ isModalOpen, setIsModalOpen }) {
                 name="productTitle"
                 onChange={handleInputChange}
                 type="text"
-                placeholder="Iphone 11 Pro"
+                placeholder="Enter Subject"
               />
               <p className="inputfooter ">
                 A product name is required and recommended to be unique.

@@ -15,6 +15,38 @@ function Page({ params }) {
   const [loading, setLoading] = useState(false);
   const [employee, setEmployee] = useState([]);
   const [error, setError] = useState(null);
+  const handleDelete = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch(
+        `https://my-home-et-al-backend.onrender.com/api/v1/admin/${params.id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2M2YyNjdjNDMyNDg5NmFlNzg2ZjgwZSIsImVtYWlsIjoiYmFiYUBteWhvbWVldGFsLmNvbSIsInJvbGUiOiJTdXBlciBBZG1pbiIsImlhdCI6MTcxODE2MTQ5NSwiZXhwIjoxNzI2ODAxNDk1fQ.w3OuGAzZmBRQN_kQbcEAAv82dVV3n0ymvu7G6gJLY6o",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(
+          `Failed to delete admin: ${response.status} ${response.statusText} - ${errorData.message}`
+        );
+      }
+
+      // Handle successful deletion (e.g., redirect or show a message)
+      alert("Admin deleted successfully");
+    } catch (error) {
+      console.error("An error occurred while deleting admin:", error);
+      setError(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const fetchAdmin = async () => {
     setLoading(true);
     try {
@@ -25,7 +57,7 @@ function Page({ params }) {
           headers: {
             "Content-Type": "application/json",
             Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2M2YyNjdjNDMyNDg5NmFlNzg2ZjgwZSIsImVtYWlsIjoiYmFiYUBteWhvbWVldGFsLmNvbSIsInJvbGUiOiJTdXBlciBBZG1pbiIsImlhdCI6MTcxODE2MTQ5NSwiZXhwIjoxNzI2ODAxNDk1fQ.w3OuGAzZmBRQN_kQbcEAAv82dVV3n0ymvu7G6gJLY6o",
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2M2YyNjdjNDMyNDg5NmFlNzg2ZjgwZSIsImVtYWlsIjoiYmFiYUBteWhvbWVldGFsLmNvbSIsInJvbGUiOiJTdXBlciBBZG1pbiIsImlhdCI6MTcxODE2MTQ5NSwiZXhwIjoxNzI2ODAxNDk1fQ.w3OuGAzZmBRQN_kQbcEAAv82dVV3n0ymvu7G6gJLY6",
           },
         }
       );
@@ -38,7 +70,6 @@ function Page({ params }) {
       }
 
       const data = await response.json();
-      console.log(data);
       setEmployee(data);
     } catch (error) {
       console.error("An error occurred while fetching admins:", error);
@@ -131,7 +162,10 @@ function Page({ params }) {
           <div className=" border px-4 py-2 border-border rounded-[8px] text-blak text-[14px] font-semibold ">
             Deactivate Account
           </div>
-          <div className=" border px-4 py-2 border-border bg-[#667185] rounded-[8px] text-white text-[14px] font-semibold ">
+          <div
+            onClick={handleDelete}
+            className=" border px-4 py-2 pointer border-border bg-[#667185] rounded-[8px] text-white text-[14px] font-semibold "
+          >
             Delete Account
           </div>
         </section>
