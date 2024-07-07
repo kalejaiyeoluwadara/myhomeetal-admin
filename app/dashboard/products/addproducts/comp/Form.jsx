@@ -1,17 +1,19 @@
 "use client";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FiUploadCloud } from "react-icons/fi";
 import { GoChevronDown } from "react-icons/go";
 import { FaPlus } from "react-icons/fa6";
 import { FaTimes } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import { LiaTimesSolid } from "react-icons/lia";
-const Modal = ({ cat, setCat, setFormData, formData }) => {
+import { useGlobal } from "@/app/context";
+const Modal = ({ cat, categories, setCat, setFormData, formData }) => {
   const cats = ["My Phones and Tablet", "My Phones and Tablet"];
+
   return (
     <div className="flex flex-col h-auto top-24 p-4 right-2 w-[200px] rounded-xl border bg-white absolute z-20 ">
-      {cats.map((d, id) => {
+      {categories.map((d, id) => {
         return (
           <p
             key={id}
@@ -59,6 +61,9 @@ function Form({ isModalOpen, setIsModalOpen }) {
     image: [],
     review: [],
   });
+
+  // Handling categories fetch
+
   // Handling files
   const handleFileSelect = (e) => {
     const files = Array.from(e.target.files).slice(0, 4);
@@ -118,8 +123,10 @@ function Form({ isModalOpen, setIsModalOpen }) {
     setIsModalOpen(true);
     setTimeout(() => {
       router.push("/dashboard/products");
+      setIsModalOpen(false);
     }, 3000);
   };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -128,29 +135,37 @@ function Form({ isModalOpen, setIsModalOpen }) {
     // Trigger click on the file input element
     document.getElementById("file-upload").click();
   };
+
   const {
     productTitle,
     price,
-    categoryprice,
-    descriptionprice,
-    brandprice,
+    category,
+    description,
+    brand,
     inventory,
-    skuprice,
-    stockprice,
-    sizeprice,
-    weightprice,
-    modelnoprice,
-    mainmaterialprice,
-    colorprice,
-    fit1price,
-    fit2price,
-    fit3price,
-    fit4price,
-    fit5price,
-    fit6price,
+    sku,
+    stock,
+    size,
     weight,
+    modelno,
+    mainmaterial,
+    color,
+    fit1,
+    fit2,
+    fit3,
+    fit4,
+    fit5,
+    fit6,
   } = formData;
   const router = useRouter();
+  const { categories } = useGlobal();
+  const [catItem, setCatItem] = useState([]);
+
+  useEffect(() => {
+    setCatItem(categories.map((d) => d.name));
+    console.log("Fetched!");
+  }, [categories]);
+
   return (
     <div className="mb-8 relative w-full">
       {/* Nav */}
@@ -207,7 +222,7 @@ function Form({ isModalOpen, setIsModalOpen }) {
               <input
                 className="input"
                 name="description"
-                // value={description}
+                value={description}
                 onChange={handleInputChange}
                 type="text"
                 placeholder="Enter Subject"
@@ -221,7 +236,7 @@ function Form({ isModalOpen, setIsModalOpen }) {
               <input
                 className="input"
                 name="brand"
-                // value={description}
+                value={brand}
                 onChange={handleInputChange}
                 type="text"
                 placeholder="Samsung"
@@ -232,7 +247,7 @@ function Form({ isModalOpen, setIsModalOpen }) {
               <input
                 className="input"
                 name="sku"
-                // value={description}
+                value={sku}
                 onChange={handleInputChange}
                 type="text"
                 placeholder="783kl32"
@@ -243,7 +258,7 @@ function Form({ isModalOpen, setIsModalOpen }) {
               <input
                 className="input"
                 name="price"
-                // value={description}
+                value={price}
                 onChange={handleInputChange}
                 placeholder="290,000"
               />
@@ -255,7 +270,7 @@ function Form({ isModalOpen, setIsModalOpen }) {
                 <input
                   className="input"
                   name="stock"
-                  // value={description}
+                  value={stock}
                   onChange={handleInputChange}
                   type="text"
                   placeholder="20"
@@ -268,14 +283,15 @@ function Form({ isModalOpen, setIsModalOpen }) {
                 className="w-full relative "
               >
                 <label className="inputlabel">Category</label>
-                <div className="w-full border flex items-center h-[56px] rounded-md  justify-between px-4 ">
-                  <p>My Phones and Tablet</p>
+                <div className="w-full border cursor-pointer flex items-center h-[56px] rounded-md  justify-between px-4 ">
+                  <p>{cat ? cat : "Select Category"}</p>
                   <GoChevronDown />
                   {modal && (
                     <Modal
                       formData={formData}
                       setFormData={setFormData}
                       cat={cat}
+                      categories={catItem}
                       setCat={setCat}
                     />
                   )}
@@ -337,24 +353,26 @@ function Form({ isModalOpen, setIsModalOpen }) {
         <section className="h-auto col-span-2 w-auto flex flex-col gap-3 rounded-xl ">
           <div className="bg-white w-full rounded-xl px-6 py-8 pb-12 flex flex-col gap-3 h-auto ">
             <h2 className=" core  ">Product Specifications</h2>
-            {/* <div className="w-full ">
+            <div className="w-full ">
               <label className="inputlabel">Size (L x W x H) cm</label>
               <input
                 className="input"
                 name="size"
-                // onChange={handleInputChange}
-                type="number"
-                placeholder="20 15 16"
+                value={size}
+                onChange={handleInputChange}
+                type="text"
+                placeholder="Enter Subject"
               />
-              <p className="inputfooter ">
+              <p className="inputfooter">
                 Ensure Measurements are in Centimetres
               </p>
-            </div> */}
+            </div>
             <div className="w-full ">
               <label className="inputlabel">Weight (Kg)</label>
               <input
                 className="input"
                 name="weight"
+                value={weight}
                 onChange={handleInputChange}
                 type="text"
                 placeholder="Enter Subject"
@@ -365,6 +383,7 @@ function Form({ isModalOpen, setIsModalOpen }) {
               <input
                 className="input"
                 name="modelno"
+                value={modelno}
                 onChange={handleInputChange}
                 type="text"
                 placeholder="Enter Subject"
@@ -375,6 +394,7 @@ function Form({ isModalOpen, setIsModalOpen }) {
               <input
                 className="input"
                 name="mainmaterial"
+                value={mainmaterial}
                 onChange={handleInputChange}
                 type="text"
                 placeholder="Enter Subject"
@@ -385,6 +405,7 @@ function Form({ isModalOpen, setIsModalOpen }) {
               <input
                 className="input"
                 name="color"
+                value={color}
                 onChange={handleInputChange}
                 type="text"
                 placeholder="Iphone 11 Pro"
@@ -398,6 +419,7 @@ function Form({ isModalOpen, setIsModalOpen }) {
               <input
                 className="input"
                 name="fit1"
+                value={fit1}
                 onChange={handleInputChange}
                 type="text"
                 placeholder="Please Enter a Unique Feature that the Product Offers"
@@ -407,6 +429,7 @@ function Form({ isModalOpen, setIsModalOpen }) {
               <label className="inputlabel">Feature 2</label>
               <input
                 className="input"
+                value={fit2}
                 name="fit2"
                 onChange={handleInputChange}
                 type="text"
@@ -418,6 +441,7 @@ function Form({ isModalOpen, setIsModalOpen }) {
               <input
                 className="input"
                 name="fit3"
+                value={fit3}
                 onChange={handleInputChange}
                 type="text"
                 placeholder="Please Enter a Unique Feature that the Product Offers"
@@ -427,6 +451,7 @@ function Form({ isModalOpen, setIsModalOpen }) {
               <label className="inputlabel">Feature 4</label>
               <input
                 className="input"
+                value={fit4}
                 name="fit4"
                 onChange={handleInputChange}
                 type="text"
@@ -437,6 +462,7 @@ function Form({ isModalOpen, setIsModalOpen }) {
               <label className="inputlabel">Feature 5</label>
               <input
                 className="input"
+                value={fit5}
                 name="fit5"
                 onChange={handleInputChange}
                 type="text"
@@ -447,6 +473,7 @@ function Form({ isModalOpen, setIsModalOpen }) {
               <label className="inputlabel">Feature 6</label>
               <input
                 className="input"
+                value={fit6}
                 name="fit6"
                 onChange={handleInputChange}
                 type="text"

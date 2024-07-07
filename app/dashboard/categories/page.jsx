@@ -35,7 +35,7 @@ function Page() {
 
       const data = await response.json();
       setCategories(data);
-      console.log(data);
+      // console.log(data);
     } catch (error) {
       console.error("An error occurred while fetching categories:", error);
       setError(error.message);

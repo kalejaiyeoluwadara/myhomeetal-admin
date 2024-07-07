@@ -1,14 +1,15 @@
 "use client";
+import { useGlobal } from "@/app/context";
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import { FiUploadCloud } from "react-icons/fi";
 import { GoChevronDown } from "react-icons/go";
+
 import { LiaTimesSolid } from "react-icons/lia";
-const Modal = ({ cat, setCat, setFormData, formData }) => {
-  const cats = ["My Phones and Tablet", "My Phones and Tablet"];
+const Modal = ({ cat, categories, setCat, setFormData, formData }) => {
   return (
     <div className="flex flex-col h-auto top-24 p-4 right-2 w-[200px] rounded-xl border bg-white absolute z-20 ">
-      {cats.map((d, id) => {
+      {categories.map((d, id) => {
         return (
           <p
             key={id}
@@ -100,8 +101,6 @@ function Form({ id }) {
         inventory: data.inventory,
         image: data.images,
       });
-      console.log(data);
-      console.log(data.category);
       setCat(data.category);
     } catch (error) {
       console.error("An error occurred while fetching admins:", error);
@@ -118,6 +117,13 @@ function Form({ id }) {
     // Trigger click on the file input element
     document.getElementById("file-upload").click();
   };
+  const { categories } = useGlobal();
+  const [catItem, setCatItem] = useState([]);
+
+  useEffect(() => {
+    setCatItem(categories.map((d) => d.name));
+  }, [categories]);
+
   return (
     <main className="mb-40 w-full">
       <main className="grid w-full grid-cols-3 mt-10  gap-6 ">
@@ -208,13 +214,14 @@ function Form({ id }) {
               >
                 <label className="inputlabel">Category</label>
                 <div className="w-full border flex items-center h-[56px] rounded-md  justify-between px-4 ">
-                  <p>{cat}</p>
+                  <p>{cat ? cat : "Select Category"}</p>
                   <GoChevronDown />
                   {modal && (
                     <Modal
                       formData={formData}
                       setFormData={setFormData}
                       cat={cat}
+                      categories={catItem}
                       setCat={setCat}
                     />
                   )}
@@ -242,9 +249,9 @@ function Form({ id }) {
                 />
                 <p
                   className="pointer text-primary "
-                  onClick={() => {
-                    handleRemoveFile(id);
-                  }}
+                  // onClick={() => {
+                  //   handleRemoveFile(id);
+                  // }}
                 >
                   <LiaTimesSolid size={30} />
                 </p>

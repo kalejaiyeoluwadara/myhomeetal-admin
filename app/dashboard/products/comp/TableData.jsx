@@ -47,7 +47,7 @@ function TableData({
         </p>
         {modal && (
           <Link href={`/dashboard/products/${_id}`}>
-            <div className="h-[60px] border bg-white sh absolute top-6 -right-2 z-40 center rounded-md w-[100px] p-2 text-[14px] ">
+            <div className="h-[60px] border bg-white sh absolute top-6 -right-2 z-40 center rounded-md w-[110px] p-2 text-[14px] ">
               <p className="w-full h-full pointer hover:bg-red-50 center rounded-md ">
                 View Product
               </p>

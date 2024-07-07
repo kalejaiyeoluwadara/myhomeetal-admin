@@ -14,6 +14,7 @@ function AppProvider({ children }) {
   const [bulk, setBulk] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [categories, setCategories] = useState([]);
 
   const [userData, setUserData] = useState([
     {
@@ -82,10 +83,42 @@ function AppProvider({ children }) {
       console.log(error);
     }
   };
+  const fetchCategories = async () => {
+    try {
+      const response = await fetch(
+        "https://my-home-et-al-backend.onrender.com/api/v1/product-category/categories",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2M2YyNjdjNDMyNDg5NmFlNzg2ZjgwZSIsImVtYWlsIjoiYmFiYUBteWhvbWVldGFsLmNvbSIsInJvbGUiOiJTdXBlciBBZG1pbiIsImlhdCI6MTcxODE2MTQ5NSwiZXhwIjoxNzI2ODAxNDk1fQ.w3OuGAzZmBRQN_kQbcEAAv82dVV3n0ymvu7G6gJLY6o",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(
+          `Failed to fetch categories: ${response.status} ${response.statusText} - ${errorData.message}`
+        );
+      }
+
+      const data = await response.json();
+      setCategories(data);
+    } catch (error) {
+      console.error("An error occurred while fetching categories:", error);
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     // Fetch admins
+    switchAccount();
     fetchAdmins();
+    fetchCategories();
   }, []);
   function switchAccount() {
     const username = localStorage.getItem("username");
@@ -104,14 +137,12 @@ function AppProvider({ children }) {
     }
     console.log("Done!!");
   }
-  useEffect(() => {
-    // Retrieve user data from local storage
-    switchAccount();
-  }, []);
+
   return (
     <AppContext.Provider
       value={{
         role,
+        categories,
         switchAccount,
         setRole,
         logout,
