@@ -8,7 +8,8 @@ import { FaTimes } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import { LiaTimesSolid } from "react-icons/lia";
 import { useGlobal } from "@/app/context";
-const Modal = ({ cat, categories, setCat, setFormData, formData }) => {
+import formData from "form-data";
+const Modal = ({ cat, categories, setCat, setformContent, formContent }) => {
   const cats = ["My Phones and Tablet", "My Phones and Tablet"];
 
   return (
@@ -18,7 +19,7 @@ const Modal = ({ cat, categories, setCat, setFormData, formData }) => {
           <p
             key={id}
             onClick={() => {
-              setFormData({ ...formData, category: d });
+              setformContent({ ...formContent, category: d });
               setCat(d);
             }}
             className="px-2 text-[12px] rounded-md cursor-pointer hover:bg-red-50 py-2"
@@ -32,12 +33,12 @@ const Modal = ({ cat, categories, setCat, setFormData, formData }) => {
 };
 function Form({ isModalOpen, setIsModalOpen }) {
   const [disctype, SetDiscType] = useState("No Discount");
-  const [cat, setCat] = useState("My Phones $ Tablet");
+  const [cat, setCat] = useState("");
   const [modal, setModal] = useState(false);
   const [disc, setDisc] = useState(0);
   const [discModal, setDiscModal] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
-  const [formData, setFormData] = useState({
+  const [formContent, setformContent] = useState({
     productTitle: "",
     price: "",
     category: "",
@@ -71,65 +72,46 @@ function Form({ isModalOpen, setIsModalOpen }) {
     if (files.length > 0) {
       setSelectedFile(files);
       console.log("Selected files:", files);
-      setFormData({ ...formData, image: files });
+      setformContent({ ...formContent, image: files });
     }
   };
 
-  // Handling submit
-  // const handleSubmit = async () => {
-  //   try {
-  //     const response = await fetch(
-  //       "https://my-home-et-al-backend.onrender.com/api/v1/product/create-product",
-  //       {
-  //         method: "POST",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2M2YyNjdjNDMyNDg5NmFlNzg2ZjgwZSIsImVtYWlsIjoiYmFiYUBteWhvbWVldGFsLmNvbSIsInJvbGUiOiJTdXBlciBBZG1pbiIsImlhdCI6MTcxODE2MTQ5NSwiZXhwIjoxNzI2ODAxNDk1fQ.w3OuGAzZmBRQN_kQbcEAAv82dVV3n0ymvu7G6gJLY6o`,
-  //         },
-  //         body: JSON.stringify(formData),
-  //       }
-  //     );
-  //     const data = await response.json();
-  //     console.log("Response from server:", data);
-  //   } catch (error) {
-  //     console.error("Error submitting data:", error);
-  //   }
-  // };
-  const handleSubmit = () => {
-    setFormData({
-      productTitle: "",
-      price: "",
-      category: "",
-      description: "",
-      brand: "",
-      inventory: 0,
-      sku: "",
-      stock: "",
-      size: "",
-      weight: "",
-      modelno: "",
-      mainmaterial: "",
-      color: "",
-      fit1: "",
-      fit2: "",
-      fit3: "",
-      fit4: "",
-      fit5: "",
-      fit6: "",
-      weight: "",
-      image: [],
-      review: [],
-    });
-    setIsModalOpen(true);
-    setTimeout(() => {
-      router.push("/dashboard/products");
-      setIsModalOpen(false);
-    }, 3000);
+  const createProduct = async () => {
+    const url =
+      "https://my-home-et-al-backend.onrender.com/api/v1/product/create-product";
+    const formData = new FormData();
+    formData.append("productTitle", formContent.productTitle);
+    formData.append("price", formContent.price);
+    formData.append("category", "667aff4b3d72461c4184c5ca");
+    formData.append("description", formContent.description);
+    formData.append("brand", formContent.brand);
+    formData.append("inventory", formContent.inventory);
+
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        body: formData,
+        headers: {
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2M2YyNjdjNDMyNDg5NmFlNzg2ZjgwZSIsImVtYWlsIjoiYmFiYUBteWhvbWVldGFsLmNvbSIsInJvbGUiOiJTdXBlciBBZG1pbiIsImlhdCI6MTcxODE2MTQ5NSwiZXhwIjoxNzI2ODAxNDk1fQ.w3OuGAzZmBRQN_kQbcEAAv82dVV3n0ymvu7G6gJLY6o",
+        },
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log("Product created:", result);
+        console.log(formContent);
+      } else {
+        console.error("Failed to create product:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setformContent({ ...formContent, [name]: value });
   };
   const handleClick = () => {
     // Trigger click on the file input element
@@ -156,7 +138,7 @@ function Form({ isModalOpen, setIsModalOpen }) {
     fit4,
     fit5,
     fit6,
-  } = formData;
+  } = formContent;
   const router = useRouter();
   const { categories } = useGlobal();
   const [catItem, setCatItem] = useState([]);
@@ -186,7 +168,7 @@ function Form({ isModalOpen, setIsModalOpen }) {
             </button>
           </Link>
           <button
-            onClick={handleSubmit}
+            onClick={createProduct}
             className=" text-[16px] font-semibold px-4 py-2 rounded-[8px] flex items-center justify-center gap-2 "
           >
             <FaPlus size={20} />
@@ -288,8 +270,8 @@ function Form({ isModalOpen, setIsModalOpen }) {
                   <GoChevronDown />
                   {modal && (
                     <Modal
-                      formData={formData}
-                      setFormData={setFormData}
+                      formContent={formContent}
+                      setformContent={setformContent}
                       cat={cat}
                       categories={catItem}
                       setCat={setCat}
