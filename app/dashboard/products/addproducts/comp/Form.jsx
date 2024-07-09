@@ -10,8 +10,6 @@ import { LiaTimesSolid } from "react-icons/lia";
 import { useGlobal } from "@/app/context";
 import formData from "form-data";
 const Modal = ({ cat, categories, setCat, setformContent, formContent }) => {
-  const cats = ["My Phones and Tablet", "My Phones and Tablet"];
-
   return (
     <div className="flex flex-col h-auto top-24 p-4 right-2 w-[200px] rounded-xl border bg-white absolute z-20 ">
       {categories.map((d, id) => {
@@ -19,12 +17,12 @@ const Modal = ({ cat, categories, setCat, setformContent, formContent }) => {
           <p
             key={id}
             onClick={() => {
-              setformContent({ ...formContent, category: d });
-              setCat(d);
+              setformContent({ ...formContent, category: d._id });
+              setCat(d.name);
             }}
             className="px-2 text-[12px] rounded-md cursor-pointer hover:bg-red-50 py-2"
           >
-            {d}
+            {d.name}
           </p>
         );
       })}
@@ -58,9 +56,7 @@ function Form({ isModalOpen, setIsModalOpen }) {
     fit4: "",
     fit5: "",
     fit6: "",
-    weight: "",
     image: [],
-    review: [],
   });
 
   // Handling categories fetch
@@ -82,10 +78,24 @@ function Form({ isModalOpen, setIsModalOpen }) {
     const formData = new FormData();
     formData.append("productTitle", formContent.productTitle);
     formData.append("price", formContent.price);
-    formData.append("category", "667aff4b3d72461c4184c5ca");
+    formData.append("category", formContent.category);
     formData.append("description", formContent.description);
     formData.append("brand", formContent.brand);
     formData.append("inventory", formContent.inventory);
+    formData.append("sku", formContent.sku);
+    formData.append("stock", formContent.stock);
+    formData.append("size", formContent.size);
+    formData.append("weight", formContent.weight);
+    formData.append("modelno", formContent.modelno);
+    formData.append("mainmaterial", formContent.mainmaterial);
+    formData.append("color", formContent.color);
+    formData.append("feature1", formContent.fit1);
+    formData.append("feature2", formContent.fit2);
+    formData.append("feature3", formContent.fit3);
+    formData.append("feature4", formContent.fit4);
+    formData.append("feature5", formContent.fit5);
+    formData.append("feature6", formContent.fit6);
+    // formData.append("image", formContent.image);
 
     try {
       const response = await fetch(url, {
@@ -144,7 +154,7 @@ function Form({ isModalOpen, setIsModalOpen }) {
   const [catItem, setCatItem] = useState([]);
 
   useEffect(() => {
-    setCatItem(categories.map((d) => d.name));
+    setCatItem(categories.map((d) => ({ _id: d._id, name: d.name })));
     console.log("Fetched!");
   }, [categories]);
 
