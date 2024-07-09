@@ -29,13 +29,14 @@ const Modal = ({ cat, categories, setCat, setformContent, formContent }) => {
     </div>
   );
 };
-function Form({ isModalOpen, setIsModalOpen }) {
+function Form({ isModalOpen, setIsModalOpen, modalMessage, setModalMessage }) {
   const [disctype, SetDiscType] = useState("No Discount");
   const [cat, setCat] = useState("");
   const [modal, setModal] = useState(false);
   const [disc, setDisc] = useState(0);
   const [discModal, setDiscModal] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const [formContent, setformContent] = useState({
     productTitle: "",
     price: "",
@@ -73,6 +74,7 @@ function Form({ isModalOpen, setIsModalOpen }) {
   };
 
   const createProduct = async () => {
+    setIsLoading(true);
     const url =
       "https://my-home-et-al-backend.onrender.com/api/v1/product/create-product";
     const formData = new FormData();
@@ -110,12 +112,48 @@ function Form({ isModalOpen, setIsModalOpen }) {
       if (response.ok) {
         const result = await response.json();
         console.log("Product created:", result);
+        setformContent({
+          productTitle: "",
+          price: "",
+          category: "",
+          description: "",
+          brand: "",
+          inventory: 0,
+          sku: "",
+          stock: "",
+          size: "",
+          weight: "",
+          modelno: "",
+          mainmaterial: "",
+          color: "",
+          fit1: "",
+          fit2: "",
+          fit3: "",
+          fit4: "",
+          fit5: "",
+          fit6: "",
+          weight: "",
+          image: [],
+          review: [],
+        });
+
+        setIsModalOpen(true);
+        setModalMessage("Product Uploaded Successfully");
+        setTimeout(() => {
+          router.push("/dashboard/products");
+        }, 3000);
         console.log(formContent);
       } else {
         console.error("Failed to create product:", response.statusText);
+        setIsModalOpen(true);
+        setModalMessage("Product Upload Failed ");
       }
+      setIsLoading(false);
     } catch (error) {
+      setIsLoading(false);
       console.error("Error:", error);
+      setIsModalOpen(true);
+      setModalMessage("Product Upload Failed ");
     }
   };
 
@@ -179,7 +217,9 @@ function Form({ isModalOpen, setIsModalOpen }) {
           </Link>
           <button
             onClick={createProduct}
-            className=" text-[16px] font-semibold px-4 py-2 rounded-[8px] flex items-center justify-center gap-2 "
+            className={` text-[16px] ${
+              isLoading ? "bg-gray-500 text-white " : ""
+            } font-semibold px-4 py-2 rounded-[8px] flex items-center justify-center gap-2 `}
           >
             <FaPlus size={20} />
             Save product

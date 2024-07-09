@@ -4,8 +4,9 @@ import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import { FiUploadCloud } from "react-icons/fi";
 import { GoChevronDown } from "react-icons/go";
-
+import { FaPlus } from "react-icons/fa6";
 import { LiaTimesSolid } from "react-icons/lia";
+import Link from "next/link";
 const Modal = ({ cat, categories, setCat, setFormData, formData }) => {
   return (
     <div className="flex flex-col h-auto top-24 p-4 right-2 w-[200px] rounded-xl border bg-white absolute z-20 ">
@@ -56,7 +57,6 @@ function Form({ id }) {
         {
           method: "PUT",
           headers: {
-            "Content-Type": "application/json",
             Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2M2YyNjdjNDMyNDg5NmFlNzg2ZjgwZSIsImVtYWlsIjoiYmFiYUBteWhvbWVldGFsLmNvbSIsInJvbGUiOiJTdXBlciBBZG1pbiIsImlhdCI6MTcxODE2MTQ5NSwiZXhwIjoxNzI2ODAxNDk1fQ.w3OuGAzZmBRQN_kQbcEAAv82dVV3n0ymvu7G6gJLY6o`,
           },
           body: JSON.stringify(formData),
@@ -70,6 +70,7 @@ function Form({ id }) {
       setLoading(false);
     }
   };
+
   const fetchProducts = async () => {
     try {
       const response = await fetch(
@@ -126,6 +127,25 @@ function Form({ id }) {
 
   return (
     <main className="mb-40 w-full">
+      <div className="flex  items-center justify-between">
+        <section>
+          <h2 className="text-[24px] font-semibold ">
+            Edit an Existing Product
+          </h2>
+        </section>
+        <section className="flex gap-6">
+          <Link href={"/dashboard/products"}>
+            <button className=" text-[16px] font-semibold p-4 rounded-[8px] flex items-center justify-center bg-white border-primary border-[1.5px] text-primary gap-2 ">
+              <LiaTimesSolid size={20} />
+              Cancel
+            </button>
+          </Link>
+          <button className=" text-[16px] font-semibold p-4 rounded-[8px] flex items-center justify-center gap-2 ">
+            <FaPlus size={20} />
+            Update Product
+          </button>
+        </section>
+      </div>
       <main className="grid w-full grid-cols-3 mt-10  gap-6 ">
         {/* Main form */}
         <div className="border bg-white col-span-2 rounded-xl p-4 w-auto h-[900px]">
