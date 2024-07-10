@@ -17,7 +17,8 @@ function Page({ params }) {
   const [editMode, setEditMode] = useState(false);
   const [formData, setFormData] = useState({});
   const [error, setError] = useState(null);
-
+  const [piEdit, setPiEdit] = useState(false);
+  const [eiEdit, setEiEdit] = useState(false);
   useEffect(() => {
     if (employee) {
       setFormData({
@@ -33,7 +34,12 @@ function Page({ params }) {
         employee_id: employee.employee_id || "",
         password: "",
         username: employee.username || "",
-        active: employee.active || false,
+        start_date: employee.start_date || "",
+        employment_type: employee.employment_type || "",
+        salary: employee.salary || "",
+        email: employee.email || "",
+        gender: employee.gender || "",
+        active: employee.active || true,
       });
     }
   }, [employee]);
@@ -92,8 +98,9 @@ function Page({ params }) {
       }
 
       alert("Admin updated successfully");
+      const data = await response.json();
+      console.log(data);
       setEmployee(formData);
-      setEditMode(false);
     } catch (error) {
       console.error("An error occurred while updating admin:", error);
     } finally {
@@ -124,6 +131,7 @@ function Page({ params }) {
       }
 
       const data = await response.json();
+      console.log(data);
       setEmployee(data);
     } catch (error) {
       console.error("An error occurred while fetching admin:", error);
@@ -131,11 +139,21 @@ function Page({ params }) {
       setLoading(false);
     }
   };
-
+  const copyToClipboard = (text) => {
+    navigator.clipboard.writeText(text).then(
+      () => {
+        alert(`Copied to clipboard: ${text}`);
+        console.log(`Copied to clipboard: ${text}`);
+      },
+      (err) => {
+        console.error("Failed to copy: ", err);
+      }
+    );
+  };
   const toggleActivation = async () => {
     setLoading(true);
+    const updatedActiveStatus = !formData.active;
     try {
-      const updatedActiveStatus = !employee.active;
       const response = await fetch(
         `https://my-home-et-al-backend.onrender.com/api/v1/admin/${params.id}`,
         {
@@ -178,76 +196,78 @@ function Page({ params }) {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+    console.log("summoned!!");
   };
 
-  // const renderInfo = (title, value, name) => (
-  //   <div className="flex flex-col mb-4">
-  //     <label className="text-sm font-semibold text-gray-600">{title}</label>
-  //     {editMode ? (
-  //       <input
-  //         className="mt-1 p-2 border rounded"
-  //         name={name}
-  //         value={formData[name]}
-  //         onChange={handleInputChange}
-  //       />
-  //     ) : (
-  //       <p className="mt-1 text-gray-800">{value}</p>
-  //     )}
-  //   </div>
-  // );
   const pi = [
     {
       title: "Fullname",
-      item: employee?.fullname,
+      item: formData?.fullname,
+      formName: "fullname",
     },
     {
       title: "Email Address",
-      item: employee?.email,
+      item: formData?.email,
+      formName: "email",
     },
     {
       title: "Phone Number",
-      item: employee?.phone_no,
+      item: formData?.phone_no,
+      formName: "phone_no",
     },
     {
-      title: "Date of birth",
-      item: employee?.start_date,
+      title: "Emergency Contact Name",
+      item: formData?.emergency_contact_name,
+      formName: "emergency_contact_name",
     },
     {
-      title: "Gender",
-      item: employee?.gender,
+      title: "Emergency Contact Relationship",
+      item: formData?.emergency_contact_relationship,
+      formName: "emergency_contact_relationship",
+    },
+    {
+      title: "Emergency Contact Phone",
+      item: formData?.emergency_contact_phone,
+      formName: "emergency_contact_phone",
     },
   ];
   const ei = [
     {
       title: "Joining Date",
-      item: employee?.start_date,
+      item: formData?.start_date,
+      formName: "start_date",
     },
-    {
-      title: "Department",
-      item: "Product Development",
-    },
+
     {
       title: "Employment Type",
-      item: "Full-Time Employment",
+      item: formData?.employment_type,
+      formName: "employment_type",
     },
     {
       title: "Salary Details",
-      item: employee?.salary,
+      item: formData?.salary,
+      formName: "salary",
+    },
+    {
+      title: "Reset Password - Required",
+      item: formData?.password,
+      formName: "password",
     },
     {
       title: "Status",
-      item: "",
+      item: `active - ${formData.active}` || "",
+      formName: "active",
     },
   ];
   return (
     <main className="w-full p-[36px] bg-screen  min-h-screen overflow-y-scroll ">
       <Nav />
-      {/* <button
-        className="w-[200px] absolute right-6 top-4 h-[60px] text-white rounded-xl "
+      <button
+        className="w-[140px] absolute font-semibold right-8 top-5 h-[50px] text-white rounded-[10px] "
         onClick={handleSave}
       >
         Save
-      </button> */}
+      </button>
       <div className="w-full border px-[48px] py-[40px] flex items-start justify-between bg-white h-[202px] rounded-xl mt-[58px] mb-[24px] ">
         <section className="flex items-center gap-6 ">
           <div className="h-[120px] w-[120px] overflow-hidden rounded-full bg-gray-200 ">
@@ -267,10 +287,17 @@ function Page({ params }) {
                 {employee.employee_id ? employee.employee_id : "null"}
               </p>{" "}
               {employee.employee_id && (
-                <p className="text-primary ml-2 ">Copy</p>
+                <p
+                  onClick={() => {
+                    copyToClipboard(employee.employee_id);
+                  }}
+                  className="text-primary pointer hover:text-red-300 ml-2 "
+                >
+                  Copy
+                </p>
               )}
             </div>
-            <p className="text-[#475367]">{employee?.email}</p>
+            <p className="text-[#475367]">{formData?.email}</p>
           </div>
         </section>
         <section className="space-x-4 flex ">
@@ -278,7 +305,7 @@ function Page({ params }) {
             onClick={toggleActivation}
             className=" cursor-pointer border px-4 py-2 border-border rounded-[8px] text-blak text-[14px] font-semibold "
           >
-            {true ? "Deactivate Account" : "Activate Account"}
+            {formData?.active ? "Deactivate Account" : "Activate Account"}
           </div>
           <div
             onClick={handleDelete}
@@ -294,8 +321,24 @@ function Page({ params }) {
         <TaksComp title={" Tasks Completed"} data={"0"} />
         <TaksComp title={"Pending Task"} data={"0"} />
         <TaksComp title={"Performance Rate"} data={"0"} />
-        <Container title={"Personal information"} data={pi} />
-        <Container title={"Employment Information"} data={ei} />
+        <Container
+          handleChange={handleInputChange}
+          title={"Personal information"}
+          editController={piEdit}
+          setController={setPiEdit}
+          data={pi}
+          formData={formData}
+          setFormData={setFormData}
+        />
+        <Container
+          editController={eiEdit}
+          setController={setEiEdit}
+          handleChange={handleInputChange}
+          title={"Employment Information"}
+          data={ei}
+          formData={formData}
+          setFormData={setFormData}
+        />
         <Permissions />
       </div>
     </main>

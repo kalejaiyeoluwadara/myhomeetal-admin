@@ -32,7 +32,7 @@ function CreateCategory() {
     const formData = new FormData();
     formData.append("name", formContent.categoryName);
     if (formContent.coverImage) {
-      formData.append("coverImage", formContent.coverImage);
+      formData.append("category-image", formContent.coverImage);
     }
 
     const url =
@@ -80,7 +80,7 @@ function CreateCategory() {
         <div className="h-screen fixed -translate-x-12 top-0 z-40 w-full bg-black flex justify-start items-center bg-opacity-25">
           <div className="w-[400px] ml-[270px] h-auto p-6 bg-white rounded-2xl flex items-center justify-start flex-col">
             <h2 className="core">Create a Category</h2>
-            <div>
+            <div className="w-full">
               <p className="mt-4 text-[#475367] text-[14px]">
                 Upload a cover image
               </p>
@@ -94,21 +94,27 @@ function CreateCategory() {
                 />
                 <label
                   htmlFor="coverImage"
-                  className="h-full flex flex-col items-center justify-center"
+                  className="h-full w-full flex flex-col items-center justify-center"
                 >
-                  <div className="h-[56px] w-[56px] rounded-full center bg-[#F0F2F5] mb-6">
+                  <div className="h-[56px]  w-[56px] rounded-full center bg-[#F0F2F5] mb-6">
                     <FiUploadCloud size={25} />
                   </div>
                   <h3 className="text-[14px] text-center text-[#475367]">
-                    <span className="text-[14px] text-[#ED2224]">
-                      Click to upload
-                    </span>{" "}
-                    or drag and drop
+                    {!formContent.coverImage ? (
+                      <span className="text-[14px] text-[#ED2224]">
+                        Click to upload
+                      </span>
+                    ) : (
+                      <span className="text-[14px] text-[#ED2224]">
+                        Click to change Image
+                      </span>
+                    )}{" "}
                   </h3>
-                  <p className="text-[12px] text-center text-[#98A2B3]">
-                    Max number of file 10 - SVG, PNG, JPG or GIF (max.
-                    800x400px)
-                  </p>
+                  {!formContent.coverImage && (
+                    <p className="text-[12px] text-center text-[#98A2B3]">
+                      Image formats - SVG, PNG, JPG or GIF
+                    </p>
+                  )}
                 </label>
               </div>
             </div>

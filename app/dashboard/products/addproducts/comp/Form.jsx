@@ -57,7 +57,7 @@ function Form({ isModalOpen, setIsModalOpen, modalMessage, setModalMessage }) {
     fit4: "",
     fit5: "",
     fit6: "",
-    image: [],
+    images: [],
   });
 
   // Handling categories fetch
@@ -69,7 +69,7 @@ function Form({ isModalOpen, setIsModalOpen, modalMessage, setModalMessage }) {
     if (files.length > 0) {
       setSelectedFile(files);
       console.log("Selected files:", files);
-      setformContent({ ...formContent, image: files });
+      setformContent({ ...formContent, images: files });
     }
   };
 
@@ -97,6 +97,7 @@ function Form({ isModalOpen, setIsModalOpen, modalMessage, setModalMessage }) {
     formData.append("feature4", formContent.fit4);
     formData.append("feature5", formContent.fit5);
     formData.append("feature6", formContent.fit6);
+    formData.append("images", formContent.images);
     // formData.append("image", formContent.image);
 
     try {
@@ -133,7 +134,7 @@ function Form({ isModalOpen, setIsModalOpen, modalMessage, setModalMessage }) {
           fit5: "",
           fit6: "",
           weight: "",
-          image: [],
+          images: [],
           review: [],
         });
 

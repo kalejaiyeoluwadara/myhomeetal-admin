@@ -12,7 +12,7 @@ function Welcome() {
         onClick={() => {
           setCreateCat(true);
         }}
-        className=" w-[161px] h-[55px] rounded-lg "
+        className=" w-[161px] font-semibold h-[55px] rounded-lg "
       >
         Create Category
       </button>
