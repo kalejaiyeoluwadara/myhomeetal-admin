@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { FaCheckCircle } from "react-icons/fa";
 import { MdError } from "react-icons/md";
 import { useGlobal } from "./context";
+import Link from "next/link";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -51,7 +52,7 @@ const Login = () => {
         localStorage.setItem("token", data.token);
         localStorage.setItem("role", data.adminProfile.role);
         setIsLoading(false);
-        openModal("Login successful! Redirecting...", true);
+        // openModal("Login successful! Redirecting...", true);
         switchAccount();
         setEmail("");
         setPassword("");
@@ -61,7 +62,7 @@ const Login = () => {
       } else {
         const errorData = await response.json();
         setIsLoading(false);
-        openModal("Login failed: Incorrect password", false);
+        openModal("Incorrect information, try again!", false);
       }
     } catch (error) {
       setIsLoading(false);
@@ -71,8 +72,10 @@ const Login = () => {
   return (
     <>
       <div className="border w-[100%] h-[400px] rounded-[24px] flex items-start justify-center px-[40px] pr-[24px] flex-col border-[#DCDCDC] gap-[16px] ">
-        <h3 className="text-[25px] w-full text-center font-bold ">Login</h3>
-        <div className="flex flex-col w-full gap-2">
+        <h3 className="text-[25px] w-full text-center font-light ">
+          Admin Panel Login
+        </h3>
+        <div className="flex flex-col w-full gap-1">
           <div className="holder">
             <label className="label">Email Address</label>
             <input
@@ -93,6 +96,9 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
+          <p className="w-full text-end text-primary ">
+            <Link href={"/"}>Forgot Password</Link>
+          </p>
         </div>
         <div className="w-full">
           <div
@@ -103,12 +109,6 @@ const Login = () => {
           >
             {isLoading ? <div className="loader"></div> : "Login"}
           </div>
-          <p className="text-[16px] text-center mt-[8px] text-gray-600 font-medium ">
-            Don't have an account{" "}
-            <a href="">
-              <span className="text-primary  ">Create an account</span>
-            </a>
-          </p>
         </div>
       </div>
 
@@ -149,14 +149,14 @@ export default function Page() {
     return () => window.removeEventListener("resize", handleResize); // Clean up listener
   }, []);
   return (
-    <main className="min-h-screen w-full p-[35px] gap-[60px] flex items-start justify-center ">
+    <main className="h-screen w-full py-[10px]  px-[35px] gap-[60px] flex items-center justify-center ">
       {isWideScreen ? (
         <>
-          <section className="h-full w-[40%] flex flex-col items-start ">
-            <Image className="mb-[81px]" alt="" src={logo} />
+          <section className="h-full w-[40%] flex flex-col items-start justify-center ">
+            <Image className="mb-[31px]" alt="" src={logo} />
             <Login />
           </section>
-          <section className="h-[636px] overflow-hidden w-[50%] relative rounded-[24px] ">
+          <section className="h-[536px] overflow-hidden w-[50%] relative rounded-[24px] ">
             <Image className="cover" src={man} alt="" />
           </section>
         </>

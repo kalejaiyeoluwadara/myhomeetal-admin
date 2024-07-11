@@ -29,8 +29,9 @@ const Modal = ({ cat, categories, setCat, setformContent, formContent }) => {
     </div>
   );
 };
-function Form({ isModalOpen, setIsModalOpen, modalMessage, setModalMessage }) {
+function Form() {
   const [disctype, SetDiscType] = useState("No Discount");
+  const { openModal } = useGlobal();
   const [cat, setCat] = useState("");
   const [modal, setModal] = useState(false);
   const [disc, setDisc] = useState(0);
@@ -68,8 +69,8 @@ function Form({ isModalOpen, setIsModalOpen, modalMessage, setModalMessage }) {
     // Limit to 4 files
     if (files.length > 0) {
       setSelectedFile(files);
-      console.log("Selected files:", files);
       setformContent({ ...formContent, images: files });
+      openModal("Image Upload Completed");
     }
   };
 
@@ -135,24 +136,20 @@ function Form({ isModalOpen, setIsModalOpen, modalMessage, setModalMessage }) {
           images: [],
           review: [],
         });
-
-        setIsModalOpen(true);
-        setModalMessage("Product Uploaded Successfully");
+        openModal("Product Uploaded Successfully", true);
         setTimeout(() => {
           router.push("/dashboard/products");
         }, 3000);
-        console.log(formContent);
+        // console.log(formContent);
       } else {
         console.error("Failed to create product:", response.statusText);
-        setIsModalOpen(true);
-        setModalMessage("Product Upload Failed ");
+        openModal("Unable to Upload Product", false);
       }
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
       console.error("Error:", error);
-      setIsModalOpen(true);
-      setModalMessage("Product Upload Failed ");
+      openModal("Unable to Upload Product", false);
     }
   };
 
@@ -204,12 +201,7 @@ function Form({ isModalOpen, setIsModalOpen, modalMessage, setModalMessage }) {
         </section>
         <section className="flex gap-4">
           <Link href={"/dashboard/products"}>
-            <button
-              onClick={() => {
-                setIsModalOpen(false);
-              }}
-              className=" text-[16px] border-[1.5px] border-[#ED2224] text-[#ED2224] bg-white font-semibold px-4 py-2 rounded-[8px] flex items-center justify-center gap-2 "
-            >
+            <button className=" text-[16px] border-[1.5px] border-[#ED2224] text-[#ED2224] bg-white font-semibold px-4 py-2 rounded-[8px] flex items-center justify-center gap-2 ">
               <LiaTimesSolid size={20} />
               Cancel
             </button>
@@ -353,7 +345,7 @@ function Form({ isModalOpen, setIsModalOpen, modalMessage, setModalMessage }) {
                 or drag and drop
               </h3>
               <p className="text-[12px] text-center text-[#98A2B3]  ">
-                Max number of file 10 - SVG, PNG, JPG or GIF (max. 800x400px)
+                Max number of file 4 - SVG, PNG, JPG or GIF (max. 800x400px)
               </p>
             </div>
 
