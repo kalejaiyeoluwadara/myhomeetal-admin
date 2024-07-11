@@ -79,3 +79,21 @@ input{
   @apply text-[14px] mt-2 text-[#667185] font-normal
 }
 
+
+
+.otp-input {
+  width: 40px;
+  height: 40px;
+  margin: 0 8px;
+  font-size: 16px;
+  border: 1px solid #dcdcdc;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.otp-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 16px;
+}

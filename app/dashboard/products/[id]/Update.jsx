@@ -1,13 +1,14 @@
 "use client";
 import { useGlobal } from "@/app/context";
 import Image from "next/image";
+import formData from "form-data";
 import React, { useState, useEffect } from "react";
 import { FiUploadCloud } from "react-icons/fi";
 import { GoChevronDown } from "react-icons/go";
 import { FaPlus } from "react-icons/fa6";
 import { LiaTimesSolid } from "react-icons/lia";
 import Link from "next/link";
-const Modal = ({ cat, categories, setCat, setFormData, formData }) => {
+const Modal = ({ cat, categories, setCat, setformContent, formContent }) => {
   return (
     <div className="flex flex-col h-auto top-24 p-4 right-2 w-[200px] rounded-xl border bg-white absolute z-20 ">
       {categories.map((d, id) => {
@@ -15,7 +16,7 @@ const Modal = ({ cat, categories, setCat, setFormData, formData }) => {
           <p
             key={id}
             onClick={() => {
-              setFormData({ ...formData, category: d });
+              setformContent({ ...formContent, category: d });
               setCat(d);
             }}
             className="px-2 text-[12px] rounded-md cursor-pointer hover:bg-red-50 py-2"
@@ -34,36 +35,74 @@ function Form({ id }) {
   const [disc, setDisc] = useState(0);
   const [discModal, setDiscModal] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
-  const [formData, setFormData] = useState({
+  const [formContent, setformContent] = useState({
     productTitle: "",
-    price: 0,
+    price: "",
     category: "",
     description: "",
     brand: "",
-    stock: 0,
-    sku: "",
     inventory: 0,
-    image: [],
+    sku: "",
+    stock: "",
+    size: "",
+    weight: "",
+    modelno: "",
+    mainmaterial: "",
+    color: "",
+    fit1: "",
+    fit2: "",
+    fit3: "",
+    fit4: "",
+    fit5: "",
+    fit6: "",
+    images: [],
   });
+  const { token } = useGlobal();
   const [cat, setCat] = useState("");
   const [loading, setLoading] = useState(false);
   // Handling submit
   const handleSubmit = async () => {
     setLoading(true);
-    console.log("update");
+    const formData = new FormData();
+    formData.append("productTitle", "update");
+    formData.append("price", formContent.price);
+    formData.append("category", formContent.category);
+    formData.append("description", formContent.description);
+    formData.append("brand", formContent.brand);
+    formData.append("inventory", formContent.inventory);
+    formData.append("sku", formContent.sku);
+    formData.append("stock", formContent.stock);
+    formData.append("size", formContent.size);
+    formData.append("weight", formContent.weight);
+    formData.append("modelno", formContent.modelno);
+    formData.append("mainmaterial", formContent.mainmaterial);
+    formData.append("color", formContent.color);
+    formData.append("feature1", formContent.fit1);
+    formData.append("feature2", formContent.fit2);
+    formData.append("feature3", formContent.fit3);
+    formData.append("feature4", formContent.fit4);
+    formData.append("feature5", formContent.fit5);
+    formData.append("feature6", formContent.fit6);
+    formData.append("images", formContent.images);
     try {
       const response = await fetch(
         `https://my-home-et-al-backend.onrender.com/api/v1/product/${id}`,
         {
           method: "PUT",
           headers: {
-            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2M2YyNjdjNDMyNDg5NmFlNzg2ZjgwZSIsImVtYWlsIjoiYmFiYUBteWhvbWVldGFsLmNvbSIsInJvbGUiOiJTdXBlciBBZG1pbiIsImlhdCI6MTcxODE2MTQ5NSwiZXhwIjoxNzI2ODAxNDk1fQ.w3OuGAzZmBRQN_kQbcEAAv82dVV3n0ymvu7G6gJLY6o`,
+            Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify(formData),
+          body: formData,
         }
       );
       const data = await response.json();
       console.log("Response from server:", data);
+      console.log("====================================");
+      console.log(formContent);
+      console.log("====================================");
+      console.log("====================================");
+      console.log(formData);
+      console.log("====================================");
     } catch (error) {
       console.error("Error submitting data:", error);
     } finally {
@@ -93,14 +132,14 @@ function Form({ id }) {
       }
 
       const data = await response.json();
-      setFormData({
-        productTitle: data.productTitle,
-        price: data.price,
-        category: data.category,
-        description: data.description,
-        brand: data.brand,
-        inventory: data.inventory,
-        image: data.images,
+      setformContent({
+        productTitle: data.productTitle || "",
+        price: data.price || 0,
+        category: data.category || "",
+        description: data.description || "",
+        brand: data.brand || "",
+        inventory: data.inventory || 0,
+        images: data.images || [],
       });
       setCat(data.category);
     } catch (error) {
@@ -112,7 +151,7 @@ function Form({ id }) {
   }, []);
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setformContent({ ...formContent, [name]: value });
   };
   const handleClick = () => {
     // Trigger click on the file input element
@@ -124,7 +163,27 @@ function Form({ id }) {
   useEffect(() => {
     setCatItem(categories.map((d) => d.name));
   }, [categories]);
-
+  const {
+    productTitle,
+    price,
+    category,
+    description,
+    brand,
+    inventory,
+    sku,
+    stock,
+    size,
+    weight,
+    modelno,
+    mainmaterial,
+    color,
+    fit1,
+    fit2,
+    fit3,
+    fit4,
+    fit5,
+    fit6,
+  } = formContent;
   return (
     <main className="mb-40 w-full">
       <div className="flex  items-center justify-between">
@@ -140,7 +199,12 @@ function Form({ id }) {
               Cancel
             </button>
           </Link>
-          <button className=" text-[16px] font-semibold p-4 rounded-[8px] flex items-center justify-center gap-2 ">
+          <button
+            onClick={handleSubmit}
+            className={`text-[16px] ${
+              loading ? "bg-gray-500 text-white" : ""
+            } font-semibold p-4 rounded-[8px] flex items-center justify-center gap-2 `}
+          >
             <FaPlus size={20} />
             Update Product
           </button>
@@ -148,7 +212,7 @@ function Form({ id }) {
       </div>
       <main className="grid w-full grid-cols-3 mt-10  gap-6 ">
         {/* Main form */}
-        <div className="border bg-white col-span-2 rounded-xl p-4 w-auto h-[900px]">
+        <div className="border bg-white col-span-2 rounded-xl p-4 w-auto h-[800px]">
           {/* title */}
           <h2 className=" core mt-4 ">General Information</h2>
           <section className="mt-4 flex flex-col items-start justify-center gap-6 ">
@@ -157,7 +221,7 @@ function Form({ id }) {
               <input
                 className="input"
                 name="productTitle"
-                value={formData?.productTitle}
+                value={productTitle}
                 onChange={handleInputChange}
                 type="text"
                 placeholder="Iphone 11 Pro"
@@ -172,7 +236,7 @@ function Form({ id }) {
               <input
                 className="input"
                 name="description"
-                value={formData?.description}
+                value={description}
                 onChange={handleInputChange}
                 type="text"
                 placeholder="Enter Subject"
@@ -185,7 +249,7 @@ function Form({ id }) {
               <label className="inputlabel">Brand’s Name</label>
               <input
                 className="input"
-                value={formData?.brand}
+                value={brand}
                 name="brand"
                 onChange={handleInputChange}
                 type="text"
@@ -197,7 +261,7 @@ function Form({ id }) {
               <input
                 className="input"
                 name="sku"
-                value={formData?.sku}
+                value={sku}
                 onChange={handleInputChange}
                 type="text"
                 placeholder="783kl32"
@@ -207,10 +271,10 @@ function Form({ id }) {
               <label className="inputlabel">Product base price</label>
               <input
                 className="input"
-                value={formData?.price}
+                value={price}
                 name="price"
                 onChange={handleInputChange}
-                placeholder="290,000"
+                placeholder="290000"
               />
             </div>
             {/* Level */}
@@ -220,7 +284,7 @@ function Form({ id }) {
                 <input
                   className="input"
                   name="stock"
-                  value={formData?.stock}
+                  value={stock}
                   onChange={handleInputChange}
                   type="text"
                   placeholder="20"
@@ -238,8 +302,8 @@ function Form({ id }) {
                   <GoChevronDown />
                   {modal && (
                     <Modal
-                      formData={formData}
-                      setFormData={setFormData}
+                      formContent={formContent}
+                      setformContent={setformContent}
                       cat={cat}
                       categories={catItem}
                       setCat={setCat}
@@ -250,8 +314,9 @@ function Form({ id }) {
             </section>
           </section>
         </div>
+        {/* Image listing */}
         <div className="h-auto w-auto bg-white flex flex-col gap-2  rounded-xl">
-          {formData?.image.map((d, id) => {
+          {formContent?.images.map((d, id) => {
             const handleRemoveFile = (fileIndex) => {
               setSelectedFile((prevFiles) =>
                 prevFiles.filter((_, index) => index !== fileIndex)
@@ -279,14 +344,140 @@ function Form({ id }) {
             );
           })}
         </div>
-        <button
-          onClick={handleSubmit}
-          className="px-4 py-2 rounded-md w-full h-[60px]"
-        >
-          Update
-        </button>
+        {/* Spec */}
+        <section className="h-auto col-span-2 w-auto flex flex-col gap-3 rounded-xl ">
+          <div className="bg-white w-full rounded-xl px-6 py-8 pb-12 flex flex-col gap-3 h-auto ">
+            <h2 className=" core  ">Product Specifications</h2>
+            <div className="w-full ">
+              <label className="inputlabel">Size (L x W x H) cm</label>
+              <input
+                className="input"
+                name="size"
+                value={size}
+                onChange={handleInputChange}
+                type="text"
+                placeholder="Enter Subject"
+              />
+              <p className="inputfooter">
+                Ensure Measurements are in Centimetres
+              </p>
+            </div>
+            <div className="w-full ">
+              <label className="inputlabel">Weight (Kg)</label>
+              <input
+                className="input"
+                name="weight"
+                value={weight}
+                onChange={handleInputChange}
+                type="text"
+                placeholder="Enter Subject"
+              />
+            </div>
+            <div className="w-full ">
+              <label className="inputlabel">Model Number</label>
+              <input
+                className="input"
+                name="modelno"
+                value={modelno}
+                onChange={handleInputChange}
+                type="text"
+                placeholder="Enter Subject"
+              />
+            </div>
+            <div className="w-full ">
+              <label className="inputlabel">Main Material</label>
+              <input
+                className="input"
+                name="mainmaterial"
+                value={mainmaterial}
+                onChange={handleInputChange}
+                type="text"
+                placeholder="Enter Subject"
+              />
+            </div>
+            <div className="w-full">
+              <label className="inputlabel">Color</label>
+              <input
+                className="input"
+                name="color"
+                value={color}
+                onChange={handleInputChange}
+                type="text"
+                placeholder="Iphone 11 Pro"
+              />
+            </div>
+          </div>
+          <div className="bg-white w-full rounded-xl px-6 py-8 pb-12 flex flex-col gap-3 h-auto ">
+            <h2 className=" core  ">Key Feautres</h2>
+            <div className="w-full ">
+              <label className="inputlabel">Feature 1</label>
+              <input
+                className="input"
+                name="fit1"
+                value={fit1}
+                onChange={handleInputChange}
+                type="text"
+                placeholder="Please Enter a Unique Feature that the Product Offers"
+              />
+            </div>
+            <div className="w-full ">
+              <label className="inputlabel">Feature 2</label>
+              <input
+                className="input"
+                value={fit2}
+                name="fit2"
+                onChange={handleInputChange}
+                type="text"
+                placeholder="Please Enter a Unique Feature that the Product Offers"
+              />
+            </div>
+            <div className="w-full ">
+              <label className="inputlabel">Feature 3</label>
+              <input
+                className="input"
+                name="fit3"
+                value={fit3}
+                onChange={handleInputChange}
+                type="text"
+                placeholder="Please Enter a Unique Feature that the Product Offers"
+              />
+            </div>
+            <div className="w-full ">
+              <label className="inputlabel">Feature 4</label>
+              <input
+                className="input"
+                value={fit4}
+                name="fit4"
+                onChange={handleInputChange}
+                type="text"
+                placeholder="Please Enter a Unique Feature that the Product Offers"
+              />
+            </div>
+            <div className="w-full ">
+              <label className="inputlabel">Feature 5</label>
+              <input
+                className="input"
+                value={fit5}
+                name="fit5"
+                onChange={handleInputChange}
+                type="text"
+                placeholder="Please Enter a Unique Feature that the Product Offers"
+              />
+            </div>
+            <div className="w-full ">
+              <label className="inputlabel">Feature 6</label>
+              <input
+                className="input"
+                value={fit6}
+                name="fit6"
+                onChange={handleInputChange}
+                type="text"
+                placeholder="Please Enter a Unique Feature that the Product Offers"
+              />
+            </div>
+          </div>
+        </section>
       </main>
-      {/* Display selected image files */}
     </main>
   );
 }

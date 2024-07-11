@@ -55,11 +55,12 @@ const Login = () => {
         setPassword("");
         setTimeout(() => {
           setIsModalOpen(false);
-          if (data.adminProfile.role === "Super Admin") {
-            router.push("/dashboard");
-          } else {
-            router.push("/dashboard/admin/employee");
-          }
+          // if (data.adminProfile.role === "Super Admin") {
+          //   router.push("/dashboard");
+          // } else {
+          //   router.push("/dashboard/admin/employee");
+          // }
+          router.push("/verify");
         }, 4000);
       } else {
         const errorData = await response.json();

@@ -98,8 +98,6 @@ function Form({ isModalOpen, setIsModalOpen, modalMessage, setModalMessage }) {
     formData.append("feature5", formContent.fit5);
     formData.append("feature6", formContent.fit6);
     formData.append("images", formContent.images);
-    // formData.append("image", formContent.image);
-
     try {
       const response = await fetch(url, {
         method: "POST",
