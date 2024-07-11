@@ -12,6 +12,7 @@ import Permissions from "./comps/Permissions";
 import girl from "../../../assets/logo.svg";
 import { useGlobal } from "@/app/context";
 import { useRouter } from "next/navigation";
+import Loading from "../../components/Loading";
 function Page({ params }) {
   const [loading, setLoading] = useState(false);
   const [employee, setEmployee] = useState({});
@@ -274,83 +275,93 @@ function Page({ params }) {
       >
         Save
       </button>
-      <div className="w-full border px-[48px] py-[40px] flex items-start justify-between bg-white h-[202px] rounded-xl mt-[58px] mb-[24px] ">
-        <section className="flex items-center gap-6 ">
-          <div className="h-[120px] w-[120px]  overflow-hidden rounded-full bg-gray-200 ">
-            {employee.image === undefined ? (
-              <Image className=" h-full w-full bg-white  " alt="" src={girl} />
-            ) : (
-              <img
-                className="h-full object-left w-full"
-                src={employee.image}
-                alt=""
-              />
-            )}
+      {loading ? (
+        <Loading loading={loading} />
+      ) : (
+        <>
+          <div className="w-full border px-[48px] py-[40px] flex items-start justify-between bg-white h-[202px] rounded-xl mt-[58px] mb-[24px] ">
+            <section className="flex items-center gap-6 ">
+              <div className="h-[120px] w-[120px]  overflow-hidden rounded-full bg-gray-200 ">
+                {employee.image === undefined ? (
+                  <Image
+                    className=" h-full w-full bg-white  "
+                    alt=""
+                    src={girl}
+                  />
+                ) : (
+                  <img
+                    className="h-full object-left w-full"
+                    src={employee.image}
+                    alt=""
+                  />
+                )}
+              </div>
+              <div className="space-y-3">
+                <h2 className=" text-[28px] capitalize font-semibold ">
+                  {employee?.username}
+                </h2>
+                <div className="flex text-[16px] ">
+                  {" "}
+                  <p className="ml-[29px] text-[#475367] ">
+                    {employee.employee_id ? employee.employee_id : "null"}
+                  </p>{" "}
+                  {employee.employee_id && (
+                    <p
+                      onClick={() => {
+                        copyToClipboard(employee.employee_id);
+                      }}
+                      className="text-primary pointer hover:text-red-300 ml-2 "
+                    >
+                      Copy
+                    </p>
+                  )}
+                </div>
+                <p className="text-[#475367]">{formData?.email}</p>
+              </div>
+            </section>
+            <section className="space-x-4 flex ">
+              <div
+                onClick={toggleActivation}
+                className=" cursor-pointer border px-4 py-2 border-border rounded-[8px] text-blak text-[14px] font-semibold "
+              >
+                {formData?.active ? "Deactivate Account" : "Activate Account"}
+              </div>
+              <div
+                onClick={handleDelete}
+                className=" border px-4 py-2 pointer border-border bg-[#667185] rounded-[8px] text-white text-[14px] font-semibold "
+              >
+                Delete Account
+              </div>
+            </section>
           </div>
-          <div className="space-y-3">
-            <h2 className=" text-[28px] capitalize font-semibold ">
-              {employee?.username}
-            </h2>
-            <div className="flex text-[16px] ">
-              {" "}
-              <p className="ml-[29px] text-[#475367] ">
-                {employee.employee_id ? employee.employee_id : "null"}
-              </p>{" "}
-              {employee.employee_id && (
-                <p
-                  onClick={() => {
-                    copyToClipboard(employee.employee_id);
-                  }}
-                  className="text-primary pointer hover:text-red-300 ml-2 "
-                >
-                  Copy
-                </p>
-              )}
-            </div>
-            <p className="text-[#475367]">{formData?.email}</p>
-          </div>
-        </section>
-        <section className="space-x-4 flex ">
-          <div
-            onClick={toggleActivation}
-            className=" cursor-pointer border px-4 py-2 border-border rounded-[8px] text-blak text-[14px] font-semibold "
-          >
-            {formData?.active ? "Deactivate Account" : "Activate Account"}
-          </div>
-          <div
-            onClick={handleDelete}
-            className=" border px-4 py-2 pointer border-border bg-[#667185] rounded-[8px] text-white text-[14px] font-semibold "
-          >
-            Delete Account
-          </div>
-        </section>
-      </div>
 
-      {/* Boxes */}
-      <div className="grid gap-4 grid-cols-3 ">
-        <TaksComp title={" Tasks Completed"} data={"0"} />
-        <TaksComp title={"Pending Task"} data={"0"} />
-        <TaksComp title={"Performance Rate"} data={"0"} />
-        <Container
-          handleChange={handleInputChange}
-          title={"Personal information"}
-          editController={piEdit}
-          setController={setPiEdit}
-          data={pi}
-          formData={formData}
-          setFormData={setFormData}
-        />
-        <Container
-          editController={eiEdit}
-          setController={setEiEdit}
-          handleChange={handleInputChange}
-          title={"Employment Information"}
-          data={ei}
-          formData={formData}
-          setFormData={setFormData}
-        />
-        <Permissions />
-      </div>
+          {/* Boxes */}
+          <div className="grid gap-4 grid-cols-3 ">
+            <TaksComp title={" Tasks Completed"} data={"0"} />
+            <TaksComp title={"Pending Task"} data={"0"} />
+            <TaksComp title={"Performance Rate"} data={"0"} />
+            <Container
+              handleChange={handleInputChange}
+              title={"Personal information"}
+              editController={piEdit}
+              setController={setPiEdit}
+              data={pi}
+              formData={formData}
+              setFormData={setFormData}
+            />
+            <Container
+              editController={eiEdit}
+              setController={setEiEdit}
+              handleChange={handleInputChange}
+              title={"Employment Information"}
+              data={ei}
+              formData={formData}
+              setFormData={setFormData}
+            />
+            <Permissions />
+          </div>
+        </>
+      )}
     </main>
   );
 }
