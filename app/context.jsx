@@ -15,6 +15,9 @@ function AppProvider({ children }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [categories, setCategories] = useState([]);
+  const [modalMessage, setModalMessage] = useState("");
+  const [isSuccessful, setIsSuccessful] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const token =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2M2YyNjdjNDMyNDg5NmFlNzg2ZjgwZSIsImVtYWlsIjoiYmFiYUBteWhvbWVldGFsLmNvbSIsInJvbGUiOiJTdXBlciBBZG1pbiIsImlhdCI6MTcxODE2MTQ5NSwiZXhwIjoxNzI2ODAxNDk1fQ.w3OuGAzZmBRQN_kQbcEAAv82dVV3n0ymvu7G6gJLY6o";
   const [userData, setUserData] = useState([
@@ -111,7 +114,11 @@ function AppProvider({ children }) {
       setLoading(false);
     }
   };
-
+  const openModal = (msg, success) => {
+    setIsModalOpen(true);
+    setModalMessage(msg);
+    setIsSuccessful(success);
+  };
   useEffect(() => {
     // Fetch admins
     switchAccount();
@@ -139,6 +146,7 @@ function AppProvider({ children }) {
   return (
     <AppContext.Provider
       value={{
+        openModal,
         role,
         categories,
         switchAccount,
@@ -162,6 +170,13 @@ function AppProvider({ children }) {
         userData,
         setUserData,
         token,
+        modalMessage,
+        isSuccessful,
+        isModalOpen,
+        setIsModalOpen,
+        setModalMessage,
+        setIsModalOpen,
+        setIsSuccessful,
       }}
     >
       {children}

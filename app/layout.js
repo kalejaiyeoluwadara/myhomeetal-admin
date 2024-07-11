@@ -1,5 +1,6 @@
 import AppProvider from "./context";
 import "./globals.css";
+import Modal from "./Modal";
 
 export const metadata = {
   title: "Dashboard - Admin | My home etal",
@@ -24,7 +25,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <AppProvider>
-        <body className="overflow-x-hidden w-screen ">{children}</body>
+        <body className="overflow-x-hidden w-screen ">
+          <Modal />
+          {children}
+        </body>
       </AppProvider>
     </html>
   );

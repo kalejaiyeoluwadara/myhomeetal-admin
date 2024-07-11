@@ -12,15 +12,18 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [modalMessage, setModalMessage] = useState("");
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const { role, setRole, userData, setUserData, setLogOut, switchAccount } =
-    useGlobal();
+  const {
+    role,
+    setRole,
+    userData,
+    openModal,
+    setUserData,
+    setLogOut,
+    switchAccount,
+  } = useGlobal();
   const router = useRouter();
   const handleLogin = async () => {
     setIsLoading(true);
-    setModalMessage("");
-    setIsModalOpen(false);
 
     try {
       const payload = {
@@ -48,36 +51,21 @@ const Login = () => {
         localStorage.setItem("token", data.token);
         localStorage.setItem("role", data.adminProfile.role);
         setIsLoading(false);
-        setModalMessage("Login successful! Redirecting...");
-        setIsModalOpen(true);
+        openModal("Login successful! Redirecting...", true);
         switchAccount();
         setEmail("");
         setPassword("");
         setTimeout(() => {
-          setIsModalOpen(false);
-          // if (data.adminProfile.role === "Super Admin") {
-          //   router.push("/dashboard");
-          // } else {
-          //   router.push("/dashboard/admin/employee");
-          // }
           router.push("/verify");
-        }, 4000);
+        }, 3000);
       } else {
         const errorData = await response.json();
         setIsLoading(false);
-        setModalMessage(`Login failed: Incorrect password`);
-        setIsModalOpen(true);
-        setTimeout(() => {
-          setIsModalOpen(false);
-        }, 4000);
+        openModal("Login failed: Incorrect password", false);
       }
     } catch (error) {
       setIsLoading(false);
-      setModalMessage("An error occurred during login. Please try again.");
-      setIsModalOpen(true);
-      setTimeout(() => {
-        setIsModalOpen(false);
-      }, 4000);
+      openModal("Login failed: Incorrect password", false);
     }
   };
   return (
@@ -123,19 +111,6 @@ const Login = () => {
           </p>
         </div>
       </div>
-
-      {isModalOpen && (
-        <div className="w-screen fixed z-40 top-0 left-0 center">
-          <div className="w-auto px-6 h-[60px] gap-4 center bg-white rounded-xl ">
-            {modalMessage === "Login successful! Redirecting..." ? (
-              <FaCheckCircle className=" text-green-500 " size={30} />
-            ) : (
-              <MdError className="text-primary  " />
-            )}
-            <p className="text-[16px] text-black ">{modalMessage}</p>
-          </div>
-        </div>
-      )}
 
       <style jsx>{`
         .loader {

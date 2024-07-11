@@ -1,15 +1,28 @@
+"use client";
+
 import React, { useState } from "react";
 import OtpInput from "react-otp-input";
-
+import { useRouter } from "next/navigation";
+import { useGlobal } from "../context";
 const OtpVerification = ({ email }) => {
   const [otp, setOtp] = useState("");
-
+  const router = useRouter();
+  const { openModal } = useGlobal();
   const handleChange = (otp) => {
     setOtp(otp);
   };
-
+  const getRole = () => {
+    const role = localStorage.getItem("role");
+    openModal("Verification Successful", true);
+    if (role === "Super Admin") {
+      router.push("/dashboard");
+    } else {
+      router.push("/dashboard/admin/employee");
+    }
+  };
   const handleVerify = () => {
     console.log("OTP:", otp);
+    getRole();
     // Add your OTP verification logic here
   };
 
