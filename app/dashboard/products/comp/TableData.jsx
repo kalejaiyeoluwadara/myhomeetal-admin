@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import sport from "../../../assets/sport.svg";
 import { IoMdMore } from "react-icons/io";
@@ -15,6 +15,14 @@ function TableData({
   images,
 }) {
   const [modal, setModal] = useState(false);
+  useEffect(() => {
+    if (modal) {
+      const timer = setTimeout(() => {
+        setModal(false);
+      }, 1500);
+      return () => clearTimeout(timer);
+    }
+  }, [modal]);
   const img = images[0];
 
   const handleDelete = async (id) => {
@@ -36,6 +44,9 @@ function TableData({
       console.error("Error submitting data:", error);
     }
   };
+  const formatNumberWithCommas = (number) => {
+    return new Intl.NumberFormat("en-US").format(number);
+  };
 
   return (
     <div className="w-full h-[72px] border-b bg-white text-[#344054] text-[14px] px-3 items-center justify-center grid pt-2 grid-cols-9 ">
@@ -50,7 +61,7 @@ function TableData({
         </p>
       </div>
       <p className=" col-span-2 truncate ">-</p>
-      <p>#{price}</p>
+      <p>#{formatNumberWithCommas(price)}</p>
       <p className=" ">-</p>
       <p className="truncate ">{category}</p>
       <div className="px-2 ">

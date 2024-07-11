@@ -1,9 +1,48 @@
+"use client";
 import React from "react";
-import prod from "../../../../assets/prod.svg";
 import Image from "next/image";
+import { useGlobal } from "@/app/context";
 
-function ItemCard({ brand, description, price, productTitle, images }) {
+function ItemCard({
+  brand,
+  description,
+  price,
+  productTitle,
+  images,
+  id,
+  fetchCategory,
+}) {
   const img = images[0];
+  const { openModal } = useGlobal();
+  const handleDelete = async () => {
+    try {
+      const response = await fetch(
+        `https://my-home-et-al-backend.onrender.com/api/v1/product/${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2M2YyNjdjNDMyNDg5NmFlNzg2ZjgwZSIsImVtYWlsIjoiYmFiYUBteWhvbWVldGFsLmNvbSIsInJvbGUiOiJTdXBlciBBZG1pbiIsImlhdCI6MTcxODE2MTQ5NSwiZXhwIjoxNzI2ODAxNDk1fQ.w3OuGAzZmBRQN_kQbcEAAv82dVV3n0ymvu7G6gJLY6o`,
+          },
+        }
+      );
+
+      if (response.ok) {
+        console.log("Product deleted!");
+        openModal("Product deleted successfully.", true);
+        fetchCategory();
+      } else {
+        const errorData = await response.json();
+        console.error("Error deleting data:", errorData);
+        openModal("Error encountered, product does not exist.", false);
+      }
+    } catch (error) {
+      console.error("Error deleting data:", error);
+      openModal("Error encountered.", false);
+    }
+  };
+  const formatNumberWithCommas = (number) => {
+    return new Intl.NumberFormat("en-US").format(number);
+  };
   return (
     <div className="border relative w-full flex px-6 gap-20 h-[271px] rounded-xl items-center justify-start ">
       <div className="h-[173px] relative w-[173px] center bg-white rounded-xl ">
@@ -12,12 +51,15 @@ function ItemCard({ brand, description, price, productTitle, images }) {
       <div className="text[16px] space-y-4 font-light ">
         <p>Product Name: {productTitle}</p>
         <p>Prod Description: {description}</p>
-        <p>Prod Price: ₦{price}</p>
+        <p>Prod Price: ₦{formatNumberWithCommas(price)}</p>
         <p className="flex gap-4">
           <span>SKU</span>
           <span></span>
         </p>
-        <p className="absolute bottom-4 right-4 cursor-pointer text-[#FF0000] ">
+        <p
+          onClick={handleDelete}
+          className="absolute bottom-4 right-4 cursor-pointer text-[#FF0000] "
+        >
           Remove Product
         </p>
       </div>

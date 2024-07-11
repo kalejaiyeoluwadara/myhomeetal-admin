@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Welcome from "./comp/Welcome";
 import ItemCard from "./comp/ItemCard";
+import Loading from "../../components/Loading";
 function Page({ params }) {
   const [category, setCategory] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -48,10 +49,8 @@ function Page({ params }) {
           `Failed to fetch categories: ${response.status} ${response.statusText} - ${errorData.message}`
         );
       }
-
       const data = await response.json();
       setCategory(data);
-      console.log(category);
     } catch (error) {
       console.error("An error occurred while fetching categories:", error);
       setError(error.message);
@@ -59,28 +58,34 @@ function Page({ params }) {
       setLoading(false);
     }
   };
-
   useEffect(() => {
     fetchCategory();
   }, []);
+
   return (
     <div className="w-full  p-[36px] bg-screen min-h-screen overflow-y-scroll ">
       <Welcome handleDelete={handleDelete} id={params.id} />
-      <div className="w-full flex flex-col gap-6 my-[34px] ">
-        {category.map((d, id) => {
-          const { brand, description, price, productTitle, images } = d;
-          return (
-            <ItemCard
-              key={id}
-              brand={brand}
-              description={description}
-              price={price}
-              productTitle={productTitle}
-              images={images}
-            />
-          );
-        })}
-      </div>
+      {loading ? (
+        <Loading loading={true} />
+      ) : (
+        <div className="w-full flex flex-col gap-6 my-[34px] ">
+          {category.map((d, id) => {
+            const { brand, description, price, productTitle, images, _id } = d;
+            return (
+              <ItemCard
+                key={id}
+                fetchCategory={fetchCategory}
+                brand={brand}
+                description={description}
+                price={price}
+                productTitle={productTitle}
+                images={images}
+                id={_id}
+              />
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }
