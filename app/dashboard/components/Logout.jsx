@@ -37,20 +37,20 @@ function Logout() {
               href={"/"}
             >
               {" "}
-              <div className="bg-red-600 text-white mt-6 mb-2 gap-2 text-[16px] center w-full h-[44px] rounded-[8px] ">
+              <div className="bg-red-600  text-white mt-6 mb-2 gap-2 text-[16px] center w-full h-[44px] rounded-[8px] ">
                 <Image src={logouts} alt="" className="" />
                 <p>Yes, Logout</p>
               </div>
             </Link>
-            <button
+            <div
               onClick={() => {
                 setLogOut(false);
               }}
-              className="bg-red-50 text-black gap-2 center w-full h-[44px] rounded-[8px] "
+              className="bg-red-50 text-black cursor-pointer gap-2 center w-full h-[44px] rounded-[8px] "
             >
               <Image src={cancel} className="" alt="" />
               Cancel
-            </button>
+            </div>
           </div>
         </div>
       )}

@@ -70,7 +70,9 @@ function Form() {
     if (files.length > 0) {
       setSelectedFile(files);
       setformContent({ ...formContent, images: files });
-      openModal("Image Upload Completed");
+      openModal("Image Upload Completed", true);
+    } else {
+      openModal("Error Encountered", true);
     }
   };
 
@@ -104,8 +106,7 @@ function Form() {
         method: "POST",
         body: formData,
         headers: {
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2M2YyNjdjNDMyNDg5NmFlNzg2ZjgwZSIsImVtYWlsIjoiYmFiYUBteWhvbWVldGFsLmNvbSIsInJvbGUiOiJTdXBlciBBZG1pbiIsImlhdCI6MTcxODE2MTQ5NSwiZXhwIjoxNzI2ODAxNDk1fQ.w3OuGAzZmBRQN_kQbcEAAv82dVV3n0ymvu7G6gJLY6o",
+          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -184,7 +185,7 @@ function Form() {
     fit6,
   } = formContent;
   const router = useRouter();
-  const { categories } = useGlobal();
+  const { categories, token } = useGlobal();
   const [catItem, setCatItem] = useState([]);
 
   useEffect(() => {
@@ -510,7 +511,6 @@ function Form() {
       {/* Display selected image files */}
       <div className="h-[400px] w-[400px] absolute items-end top-[40rem] -right-2 flex flex-col gap-2  col-span-1 rounded-xl">
         {selectedFile?.map((d, id) => {
-          console.log(d);
           const handleRemoveFile = (fileIndex) => {
             setSelectedFile((prevFiles) =>
               prevFiles.filter((_, index) => index !== fileIndex)
