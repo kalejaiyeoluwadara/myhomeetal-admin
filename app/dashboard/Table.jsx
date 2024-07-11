@@ -14,6 +14,7 @@ import {
 import TableData from "./components/TableData";
 import Tableheader from "./components/Tableheader";
 import { useGlobal } from "../context";
+import Loading from "./components/Loading";
 function Table() {
   const { admins, setAdmins, loading, error } = useGlobal();
   const itemsPerPage = 8;
@@ -96,9 +97,7 @@ function Table() {
         </div>
         <div className="w-full">
           {loading ? (
-            <div className="text-center py-10">
-              <p className="text-gray-500">Loading data...</p>
-            </div>
+            <Loading loading={loading} />
           ) : error ? (
             <div className="text-center py-10">
               <p className="text-red-500">{error}</p>

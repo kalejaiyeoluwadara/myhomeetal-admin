@@ -1,9 +1,11 @@
+// Page.js
 "use client";
 import React, { useState, useEffect } from "react";
 import Welcome from "./comp/Welcome";
 import CatCard from "./comp/CatCard";
 import CreateCategory from "./CreateCategory";
 import { useGlobal } from "@/app/context";
+import Loading from "@/app/dashboard/components/Loading"; // Import the Loading component
 
 function Page() {
   const [categories, setCategories] = useState([]);
@@ -52,7 +54,7 @@ function Page() {
     <div className="w-full p-[36px] bg-screen min-h-screen overflow-y-scroll">
       <Welcome />
       {loading ? (
-        <p className="h-[60vh] w-full center">Loading...</p>
+        <Loading loading={loading} />
       ) : error ? (
         <p>Error: {error}</p>
       ) : (

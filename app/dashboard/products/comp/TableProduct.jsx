@@ -14,6 +14,7 @@ import {
 import TableData from "./TableData";
 import { useGlobal } from "@/app/context";
 import TableHeader from "./TableHeader";
+import Loading from "../../components/Loading";
 function Table() {
   const itemsPerPage = 8;
   const [currentPage, setCurrentPage] = useState(1);
@@ -156,9 +157,7 @@ function Table() {
           <p className="">Action</p>
         </div>
         {loading ? (
-          <div className="text-center py-10">
-            <p className="text-gray-500">Loading...</p>
-          </div>
+          <Loading loading={loading} />
         ) : error ? (
           <div className="text-center py-10">
             <p className="text-red-500">{error}</p>
