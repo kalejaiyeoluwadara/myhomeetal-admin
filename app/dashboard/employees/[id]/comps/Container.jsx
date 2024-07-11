@@ -46,6 +46,8 @@ function Container({
                   name={d.formName}
                   type={d.formName === "password" ? "password" : "text"}
                   onChange={handleInputChange}
+                  autoComplete={false}
+                  autoSave={false}
                   placeholder={`${
                     d.formName === "password"
                       ? "Enter New Password"

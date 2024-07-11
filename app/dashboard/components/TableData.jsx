@@ -1,12 +1,19 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import profile from "../../assets/logo.svg";
 import { IoIosArrowDown, IoIosArrowUp, IoMdMore } from "react-icons/io";
 import Link from "next/link";
 function TableData({ username, email, _id, role, phone_no, employee_id, img }) {
   const [modal, setModal] = useState(false);
-
+  useEffect(() => {
+    if (modal) {
+      const timer = setTimeout(() => {
+        setModal(false);
+      }, 1500);
+      return () => clearTimeout(timer);
+    }
+  }, [modal]);
   return (
     <div className="w-full h-[72px] border-b bg-white text-[#344054] text-[14px] px-3 items-center justify-center grid pt-2 grid-cols-8 ">
       <div className="flex w-auto col-span-2 items-center justify-start gap-2 truncate">

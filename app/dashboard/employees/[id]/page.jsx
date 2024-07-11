@@ -10,7 +10,8 @@ import TaksComp from "./comps/TaksComp";
 import Container from "./comps/Container";
 import Permissions from "./comps/Permissions";
 import girl from "../../../assets/logo.svg";
-
+import { useGlobal } from "@/app/context";
+import { useRouter } from "next/navigation";
 function Page({ params }) {
   const [loading, setLoading] = useState(false);
   const [employee, setEmployee] = useState({});
@@ -19,6 +20,8 @@ function Page({ params }) {
   const [error, setError] = useState(null);
   const [piEdit, setPiEdit] = useState(false);
   const [eiEdit, setEiEdit] = useState(false);
+  const { openModal } = useGlobal();
+  const router = useRouter();
   useEffect(() => {
     if (employee) {
       setFormData({
@@ -60,14 +63,16 @@ function Page({ params }) {
 
       if (!response.ok) {
         const errorData = await response.json();
+        openModal("Failed to delete admin", false);
         throw new Error(
           `Failed to delete admin: ${response.status} ${response.statusText} - ${errorData.message}`
         );
       }
 
-      alert("Admin deleted successfully");
+      openModal("Admin deleted successfully", true);
     } catch (error) {
       console.error("An error occurred while deleting admin:", error);
+      openModal("An error occurred while deleting admin", false);
       setError(error);
     } finally {
       setLoading(false);
@@ -89,15 +94,16 @@ function Page({ params }) {
           body: JSON.stringify(formData),
         }
       );
-
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(
           `Failed to update admin: ${response.status} ${response.statusText} - ${errorData.message}`
         );
       }
-
-      alert("Admin updated successfully");
+      openModal("Admin Updated successfully", true);
+      setTimeout(() => {
+        router.push("/dashboard");
+      }, 3000);
       const data = await response.json();
       console.log(data);
       setEmployee(formData);
@@ -142,8 +148,7 @@ function Page({ params }) {
   const copyToClipboard = (text) => {
     navigator.clipboard.writeText(text).then(
       () => {
-        alert(`Copied to clipboard: ${text}`);
-        console.log(`Copied to clipboard: ${text}`);
+        openModal(`Copied to clipboard: ${text}`, true);
       },
       (err) => {
         console.error("Failed to copy: ", err);
@@ -174,10 +179,11 @@ function Page({ params }) {
         );
       }
 
-      alert(
+      openModal(
         `Admin ${
           updatedActiveStatus ? "activated" : "deactivated"
-        } successfully`
+        } successfully`,
+        true
       );
       const data = await response.json();
       console.log(data);
@@ -270,15 +276,19 @@ function Page({ params }) {
       </button>
       <div className="w-full border px-[48px] py-[40px] flex items-start justify-between bg-white h-[202px] rounded-xl mt-[58px] mb-[24px] ">
         <section className="flex items-center gap-6 ">
-          <div className="h-[120px] w-[120px] overflow-hidden rounded-full bg-gray-200 ">
+          <div className="h-[120px] w-[120px]  overflow-hidden rounded-full bg-gray-200 ">
             {employee.image === undefined ? (
               <Image className=" h-full w-full bg-white  " alt="" src={girl} />
             ) : (
-              <img className="h-full w-full" src={employee.image} alt="" />
+              <img
+                className="h-full object-left w-full"
+                src={employee.image}
+                alt=""
+              />
             )}
           </div>
           <div className="space-y-3">
-            <h2 className=" text-[28px] font-semibold ">
+            <h2 className=" text-[28px] capitalize font-semibold ">
               {employee?.username}
             </h2>
             <div className="flex text-[16px] ">
@@ -309,7 +319,7 @@ function Page({ params }) {
           </div>
           <div
             onClick={handleDelete}
-            className=" border px-4 py-2 border-border bg-[#667185] rounded-[8px] text-white text-[14px] font-semibold "
+            className=" border px-4 py-2 pointer border-border bg-[#667185] rounded-[8px] text-white text-[14px] font-semibold "
           >
             Delete Account
           </div>
