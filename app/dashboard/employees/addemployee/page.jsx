@@ -14,6 +14,7 @@ import Link from "next/link";
 import Success from "./Success";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "@/utils/firebase";
+import { TbCurrencyNaira } from "react-icons/tb";
 const HeaderButton = ({ name, onclick, active, setActive, img }) => {
   return (
     <div
@@ -37,6 +38,7 @@ function Page() {
   const [success, setSuccess] = useState(false);
   const [randId, setRandId] = useState("");
   const [loading, setLoading] = useState("");
+  const { openModal } = useGlobal();
   const [formData, setFormData] = useState({
     fullname: "",
     image: "",
@@ -144,6 +146,7 @@ function Page() {
     for (let i = 0; i < length; i++) {
       result += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
+    openModal("Employee ID Generated", true);
     return result;
   };
   // Get random id
@@ -167,7 +170,7 @@ function Page() {
         <section>
           <h2 className="text-[24px] font-semibold ">Create a New Employee</h2>
           <p className="text-base font-normal text-[#475367]  ">
-            It’s a sunny day today, lets see how the business is doing!
+            Onboarding Your New Team Member
           </p>
         </section>
         <section>
@@ -253,7 +256,7 @@ function Page() {
                           ? selectedFile.name
                           : "Upload your document"}
                       </h2>
-                      <p className="text-sm text-[#98A2B3]">
+                      <p className="text-sm text-primary font-medium ">
                         JPG/PNG/ JPEG format{" "}
                         <span className="text-[#475367]">&#8226;</span> Max. 5MB
                       </p>
@@ -388,7 +391,7 @@ function Page() {
                   type="submit"
                   className=" w-full col-span-2 mb-2 text-[16px] font-semibold border h-[55px]  rounded-[8px] "
                 >
-                  Confirm employee
+                  Next Step
                 </button>
               </section>
             </div>
@@ -417,7 +420,10 @@ function Page() {
               <div className="w-full border p-4 rounded-md ">
                 <div className="w-full rounded-xl flex justify-between items-center px-4 py-2 ">
                   <p className="grey">#{randId}</p>
-                  <p onClick={genId} className="font-semibold text-gray-600 ">
+                  <p
+                    onClick={genId}
+                    className="font-semibold pointer text-gray-600 "
+                  >
                     Generate
                   </p>
                 </div>
@@ -475,14 +481,17 @@ function Page() {
               {/* Salary Details  */}
               <div className="w-full ">
                 <label className="inputlabel">Salary Details </label>
-                <input
-                  name="salary"
-                  onChange={handleInputChange}
-                  className="input"
-                  type="text"
-                  placeholder="Enter Subject"
-                  required
-                />
+                <div className="w-full border outline-[1.5px] transition-all  outline-[#FFC5C6] active:border-[#FFC5C6] active:outline border-[#D0D5DD] px-2 flex items-center focus:border-[#FFC5C6] h-[56px] gap-2 rounded-md">
+                  <TbCurrencyNaira size={20} />
+                  <input
+                    name="salary"
+                    onChange={handleInputChange}
+                    className="w-full outline-none h-full "
+                    type="text"
+                    placeholder="Enter Subject"
+                    required
+                  />
+                </div>
               </div>
 
               {/* Buttons */}
@@ -491,7 +500,7 @@ function Page() {
                   type="submit"
                   className="w-full text-[16px] font-semibold border h-[55px]  rounded-[8px] "
                 >
-                  Confirm employee
+                  Next Step
                 </button>
               </section>
             </form>
