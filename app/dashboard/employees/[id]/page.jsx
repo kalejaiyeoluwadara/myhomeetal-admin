@@ -36,7 +36,6 @@ function Page({ params }) {
           employee.emergency_contact_relationship || "",
         emergency_contact_phone: employee.emergency_contact_phone || "",
         employee_id: employee.employee_id || "",
-        password: "",
         username: employee.username || "",
         start_date: employee.start_date || "",
         employment_type: employee.employment_type || "",
@@ -223,19 +222,9 @@ function Page({ params }) {
       formName: "phone_no",
     },
     {
-      title: "Emergency Contact Name",
-      item: formData?.emergency_contact_name,
-      formName: "emergency_contact_name",
-    },
-    {
-      title: "Emergency Contact Relationship",
-      item: formData?.emergency_contact_relationship,
-      formName: "emergency_contact_relationship",
-    },
-    {
-      title: "Emergency Contact Phone",
-      item: formData?.emergency_contact_phone,
-      formName: "emergency_contact_phone",
+      title: "Gender",
+      item: formData?.gender,
+      formName: "gender",
     },
   ];
   const ei = [
@@ -252,13 +241,8 @@ function Page({ params }) {
     },
     {
       title: "Salary Details",
-      item: formData?.salary,
+      item: `₦ ${formData?.salary}`,
       formName: "salary",
-    },
-    {
-      title: "Reset Password - Required",
-      item: formData?.password,
-      formName: "password",
     },
     {
       title: "Status",
@@ -266,15 +250,34 @@ function Page({ params }) {
       formName: "active",
     },
   ];
+
+  const oi = [
+    {
+      title: "Emergency Contact Name",
+      item: formData?.emergency_contact_name,
+      formName: "emergency_contact_name",
+    },
+    {
+      title: "Emergency Contact Relationship",
+      item: formData?.emergency_contact_relationship,
+      formName: "emergency_contact_relationship",
+    },
+    {
+      title: "Emergency Contact Phone",
+      item: formData?.emergency_contact_phone,
+      formName: "emergency_contact_phone",
+    },
+  ];
+
   return (
     <main className="w-full p-[36px] bg-screen  min-h-screen overflow-y-scroll ">
       <Nav />
-      <button
+      {/* <button
         className="w-[140px] absolute font-semibold right-8 top-5 h-[50px] text-white rounded-[10px] "
         onClick={handleSave}
       >
         Save
-      </button>
+      </button> */}
       {loading ? (
         <Loading loading={loading} />
       ) : (
@@ -359,6 +362,16 @@ function Page({ params }) {
               setFormData={setFormData}
             />
             <Permissions />
+            <Container
+              editController={eiEdit}
+              setController={setEiEdit}
+              handleChange={handleInputChange}
+              title={"Other Informations"}
+              data={oi}
+              formData={formData}
+              setFormData={setFormData}
+              otherStyles={"col-span-3"}
+            />
           </div>
         </>
       )}
