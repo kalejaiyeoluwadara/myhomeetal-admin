@@ -3,7 +3,7 @@ import { useGlobal } from "@/app/context";
 import Link from "next/link";
 import React from "react";
 import { FaPlus } from "react-icons/fa6";
-
+import { GoPeople } from "react-icons/go";
 function Welcome() {
   const { addEmployee, setAddEmployee } = useGlobal();
   return (
@@ -20,9 +20,9 @@ function Welcome() {
             onClick={() => {
               setAddEmployee(true);
             }}
-            className=" text-[16px] font-semibold p-4 rounded-[8px] flex items-center justify-center gap-2 "
+            className=" text-[16px] w-[300px] h-[50px] font-medium p-4 rounded-[10px] flex items-center justify-center gap-2 "
           >
-            <FaPlus size={20} />
+            <GoPeople size={20} />
             Add employee
           </button>
         </Link>

@@ -245,10 +245,10 @@ function Page() {
                 >
                   <div className="flex gap-2 items-center">
                     <div className="h-[48px] w-[48px] flex items-center justify-center rounded-full bg-[#F0F2F5] text-[#475367] cursor-pointer">
-                      <FiUploadCloud />
+                      <FiUploadCloud size={20} />
                     </div>
                     <div>
-                      <h2 className="font-semibold">
+                      <h2 className="font-semibold text-[#BEC5CF] ">
                         {selectedFile
                           ? selectedFile.name
                           : "Upload your document"}
@@ -267,8 +267,8 @@ function Page() {
                     className="hidden"
                     onChange={handleFileSelect}
                   />
-                  <button className="px-4 py-2 rounded-xl text-base font-semibold">
-                    {selectedFile ? "Change" : "Upload your document"}
+                  <button className="w-[81px] h-[36px] rounded-[38px] text-sm font-semibold">
+                    {selectedFile ? "Change" : "Upload"}
                   </button>
                 </div>
               </div>

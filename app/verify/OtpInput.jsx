@@ -25,8 +25,13 @@ const OtpVerification = ({ email }) => {
   };
 
   const handleVerify = () => {
-    getRole();
-    // Add your OTP verification logic here
+    const role = localStorage.getItem("role");
+    openModal("Login Successful, Welcome Back!", true);
+    if (role === "Super Admin") {
+      router.push("/dashboard");
+    } else {
+      router.push("/dashboard/admin/employee");
+    }
   };
 
   const handleKeyDown = useCallback(
