@@ -450,29 +450,22 @@ function Page() {
 
         {/* Employement details */}
         {active === "Employment" && (
-          <main className="mt-[32px]  flex-col center  ">
-            <h2 className="text-[24px]  font-semibold ">
-              Create A New Employee
-            </h2>
-            <p className=" text-base text-[#8C94A6]  ">
+          <main className="mt-[32px] flex-col center">
+            <h2 className="text-[24px] font-semibold">Create A New Employee</h2>
+            <p className="text-base text-[#8C94A6]">
               Fill out these details to build your broadcast
             </p>
 
             {/* Form */}
-            <form
-              onSubmit={() => {
-                setActive("Login Credentials");
-              }}
-              className="mt-[22px] w-full flex flex-col gap-4 "
-            >
+            <div className="mt-[22px] w-full flex flex-col gap-4">
               {/* Employee ID */}
               <label className="inputlabel">Employee ID</label>
-              <div className="w-full border p-4 rounded-md ">
-                <div className="w-full rounded-xl flex justify-between items-center px-4 py-2 ">
+              <div className="w-full border p-4 rounded-md">
+                <div className="w-full rounded-xl flex justify-between items-center px-4 py-2">
                   <p className="grey">#{randId}</p>
                   <p
                     onClick={genId}
-                    className="font-semibold pointer text-gray-600 "
+                    className="font-semibold pointer text-gray-600"
                   >
                     Generate
                   </p>
@@ -481,7 +474,7 @@ function Page() {
 
               {/* Row content */}
               <section className="grid grid-cols-2 gap-4">
-                <div className="w-full ">
+                <div className="w-full">
                   <label className="inputlabel">Date of joining</label>
                   <input
                     className="input"
@@ -489,71 +482,85 @@ function Page() {
                     name="start_date"
                     onChange={handleInputChange}
                     placeholder="YYYY-MM-DD"
-                    required
                   />
                 </div>
-                <div className="w-full ">
+                <div className="w-full">
                   <label className="inputlabel">Employment type</label>
                   <div
                     onClick={() => {
                       setEmpModal((prev) => !prev);
                       setFormData({ ...formData, employment_type: emp });
                     }}
-                    className="w-full active:border-[1.5px] active:border-red-500 pointer h-[56px] flex justify-between items-center px-4 border relative rounded-xl "
+                    className="w-full active:border-[1.5px] active:border-red-500 pointer h-[56px] flex justify-between items-center px-4 border relative rounded-xl"
                   >
                     <p>{emp === "" ? "Select Employment type" : emp}</p>
                     <IoChevronDown size={20} />
 
                     {empModal && (
-                      <div className="absolute h-auto flex pointer flex-col gap-2 w-[200px] px-1 py-4 rounded-xl bg-white border top-16 ">
-                        {["On-Site", "Remote"].map((d, id) => {
-                          return (
-                            <p
-                              onClick={() => {
-                                setEmp(d);
-                                setFormData({
-                                  ...formData,
-                                  employment_type: d,
-                                });
-                              }}
-                              className="w-full h-[40px] rounded-md hover:bg-red-50 p-2 "
-                            >
-                              {d}
-                            </p>
-                          );
-                        })}
+                      <div className="absolute h-auto flex pointer flex-col gap-2 w-[200px] px-1 py-4 rounded-xl bg-white border top-16">
+                        {["On-Site", "Remote"].map((d, id) => (
+                          <p
+                            onClick={() => {
+                              setEmp(d);
+                              setFormData({
+                                ...formData,
+                                employment_type: d,
+                              });
+                            }}
+                            className="w-full h-[40px] rounded-md hover:bg-red-50 p-2"
+                          >
+                            {d}
+                          </p>
+                        ))}
                       </div>
                     )}
                   </div>
                 </div>
               </section>
 
-              {/* Salary Details  */}
-              <div className="w-full ">
-                <label className="inputlabel">Salary Details </label>
-                <div className="w-full border outline-[1.5px] transition-all  outline-[#FFC5C6] active:border-[#FFC5C6] active:outline border-[#D0D5DD] px-2 flex items-center focus:border-[#FFC5C6] h-[56px] gap-2 rounded-md">
+              {/* Salary Details */}
+              <div className="w-full">
+                <label className="inputlabel">Salary Details</label>
+                <div className="w-full border outline-[1.5px] transition-all outline-[#FFC5C6] active:border-[#FFC5C6] active:outline border-[#D0D5DD] px-2 flex items-center focus:border-[#FFC5C6] h-[56px] gap-2 rounded-md">
                   <TbCurrencyNaira size={20} />
                   <input
                     name="salary"
                     onChange={handleInputChange}
-                    className="w-full outline-none h-full "
+                    className="w-full outline-none h-full"
                     type="text"
                     placeholder="Enter Subject"
-                    required
                   />
                 </div>
               </div>
 
               {/* Buttons */}
-              <section className=" mt-[32px] w-full gap-6 ">
+              <section className="mt-[32px] w-full gap-6">
                 <button
-                  type="submit"
-                  className="w-full text-[16px] font-semibold border h-[55px]  rounded-[8px] "
+                  onClick={() => {
+                    if (formData.employee_id !== "") {
+                      if (formData.start_date !== "") {
+                        if (formData.employment_type !== "") {
+                          if (formData.salary !== "") {
+                            setActive("Login Credentials");
+                          } else {
+                            openModal("Enter salary details!", false);
+                          }
+                        } else {
+                          openModal("Select employment type!", false);
+                        }
+                      } else {
+                        openModal("Enter date of joining!", false);
+                      }
+                    } else {
+                      openModal("Generate Employee ID!", false);
+                    }
+                  }}
+                  className="w-full text-[16px] font-semibold border h-[55px] rounded-[8px]"
                 >
                   Next Step
                 </button>
               </section>
-            </form>
+            </div>
           </main>
         )}
 
