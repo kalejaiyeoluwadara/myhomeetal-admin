@@ -38,7 +38,7 @@ function Page() {
   const [success, setSuccess] = useState(false);
   const [randId, setRandId] = useState("");
   const [loading, setLoading] = useState("");
-  const { openModal } = useGlobal();
+  const { openModal, token } = useGlobal();
   const [formData, setFormData] = useState({
     fullname: "",
     image: "",
@@ -61,7 +61,7 @@ function Page() {
     const file = e.target.files[0];
     if (file) {
       setSelectedFile(file);
-      console.log("Selected file:", file);
+      openModal("Image file selected", true);
     }
   };
   const handleClick = () => {
@@ -82,18 +82,38 @@ function Page() {
       console.log("File available at", downloadURL);
       return downloadURL;
     } catch (error) {
+      openModal("Error uploading image", false);
       console.error("Upload failed", error);
     }
   }
+  const resetForm = () => {
+    setFormData({
+      fullname: "",
+      image: "",
+      email: "",
+      address: "",
+      phone_no: "",
+      gender: gender,
+      emergency_contact_name: "",
+      emergency_contact_relationship: "",
+      emergency_contact_phone: "",
+      employee_id: "",
+      password: "",
+      username: "",
+      start_date: "",
+      employment_type: emp,
+      salary: "",
+    });
+  };
   const handleSubmit = async () => {
-    if (formData.username && formData.password) {
+    if (formData.email && formData.password) {
       setLoading(true);
       try {
         if (selectedFile) {
           const imageUrl = await uploadFile(selectedFile);
           formData.image = imageUrl; // Set the image URL in the formData
         } else {
-          alert("Image file not found");
+          openModal("Image file not found", false);
         }
 
         const response = await fetch(
@@ -102,40 +122,31 @@ function Page() {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
-              Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2M2YyNjdjNDMyNDg5NmFlNzg2ZjgwZSIsImVtYWlsIjoiYmFiYUBteWhvbWVldGFsLmNvbSIsInJvbGUiOiJTdXBlciBBZG1pbiIsImlhdCI6MTcxODE2MTQ5NSwiZXhwIjoxNzI2ODAxNDk1fQ.w3OuGAzZmBRQN_kQbcEAAv82dVV3n0ymvu7G6gJLY6o`,
+              Authorization: `Bearer ${token}`,
             },
             body: JSON.stringify(formData),
           }
         );
-        const data = await response.json();
-        console.log("Response from server:", data);
-        console.log("Success");
-        setId(formData.employee_id);
-        setSuccess(true);
-        setFormData({
-          fullname: "",
-          image: "",
-          email: "",
-          address: "",
-          phone_no: "",
-          gender: gender,
-          emergency_contact_name: "",
-          emergency_contact_relationship: "",
-          emergency_contact_phone: "",
-          employee_id: "",
-          password: "",
-          username: "",
-          start_date: "",
-          employment_type: emp,
-          salary: "",
-        });
+        if (response.ok) {
+          const data = await response.json();
+          console.log("Response from server:", data);
+          console.log("Success");
+          setId(formData.employee_id);
+          setSuccess(true);
+          resetForm();
+        } else {
+          openModal("Error creating Employee", false);
+          setLoading(false);
+        }
       } catch (error) {
+        openModal("Error creating Employee", false);
         console.error("Error submitting data:", error);
+        setLoading(false);
       } finally {
         setLoading(false); // End loading
       }
     } else {
-      alert("Enter Username and password!");
+      openModal("Enter Work email and password", false);
     }
   };
   const generateRandomId = (length) => {
@@ -210,23 +221,16 @@ function Page() {
 
         {/* Personal Form */}
         {active === "Personal" && (
-          <form
-            onSubmit={() => {
-              setActive("Employment");
-            }}
-            className="mt-[32px] flex-col center  "
-          >
-            <h2 className="text-[24px] font-semibold ">
-              Create A New Employee
-            </h2>
-            <p className=" text-base text-[#8C94A6]  ">
+          <div className="mt-[32px] flex-col center">
+            <h2 className="text-[24px] font-semibold">Create A New Employee</h2>
+            <p className="text-base text-[#8C94A6]">
               Fill out these details to continue
             </p>
 
             {/* Form */}
-            <div className="mt-[22px]  flex flex-col gap-4 ">
+            <div className="mt-[22px] flex flex-col gap-4">
               {/* Full name */}
-              <div className="w-full ">
+              <div className="w-full">
                 <label className="inputlabel">Full name</label>
                 <input
                   name="fullname"
@@ -234,7 +238,6 @@ function Page() {
                   className="input"
                   type="text"
                   placeholder="Enter surname and first name"
-                  required
                 />
               </div>
 
@@ -251,12 +254,12 @@ function Page() {
                       <FiUploadCloud size={20} />
                     </div>
                     <div>
-                      <h2 className="font-semibold text-[#BEC5CF] ">
+                      <h2 className="font-semibold text-[#BEC5CF]">
                         {selectedFile
                           ? selectedFile.name
                           : "Upload your document"}
                       </h2>
-                      <p className="text-sm text-primary font-medium ">
+                      <p className="text-sm text-primary font-medium">
                         JPG/PNG/ JPEG format{" "}
                         <span className="text-[#475367]">&#8226;</span> Max. 5MB
                       </p>
@@ -275,20 +278,19 @@ function Page() {
                   </button>
                 </div>
               </div>
-              {/* Email Address */}
-              <div className="w-full ">
-                <label className="inputlabel">Email Address</label>
+              {/* User name */}
+              <div className="w-full">
+                <label className="inputlabel">User name</label>
                 <input
-                  name="email"
                   className="input"
+                  type="text"
+                  name="username"
                   onChange={handleInputChange}
-                  type="email"
-                  placeholder="user@gmail.com"
-                  required
+                  placeholder="Enter surname and first name"
                 />
               </div>
               {/* Address */}
-              <div className="w-full ">
+              <div className="w-full">
                 <label className="inputlabel">Address</label>
                 <input
                   name="address"
@@ -296,12 +298,11 @@ function Page() {
                   type="text"
                   onChange={handleInputChange}
                   placeholder="Enter address"
-                  required
                 />
               </div>
               {/* Row content */}
               <section className="grid grid-cols-2 gap-4">
-                <div className="w-full ">
+                <div className="w-full">
                   <label className="inputlabel">Phone Number</label>
                   <input
                     name="phone_no"
@@ -309,30 +310,30 @@ function Page() {
                     onChange={handleInputChange}
                     type="tel"
                     placeholder="Enter Phone Number"
-                    required
                   />
                 </div>
-                <div className="w-full ">
+                <div className="w-full">
                   <label className="inputlabel">Gender</label>
                   <div
                     onClick={() => {
                       setGenModal((prev) => !prev);
                     }}
-                    className="w-full pointer h-[56px] flex justify-between items-center px-4 border relative rounded-xl "
+                    className="w-full pointer h-[56px] flex justify-between items-center px-4 border relative rounded-xl"
                   >
                     <p>{gender === "" ? "Select a gender" : gender}</p>
                     <IoChevronDown size={20} />
 
                     {gendModal && (
-                      <div className="absolute h-auto flex pointer flex-col gap-2 w-[200px] px-1 py-4 rounded-xl bg-white border top-16 ">
+                      <div className="absolute h-auto flex pointer flex-col gap-2 w-[200px] px-1 py-4 rounded-xl bg-white border top-16">
                         {["Male", "Female"].map((d, id) => {
                           return (
                             <p
+                              key={id}
                               onClick={() => {
                                 setGender(d);
                                 setFormData({ ...formData, gender: d });
                               }}
-                              className="w-full h-[40px] rounded-md hover:bg-red-50 p-2 "
+                              className="w-full h-[40px] rounded-md hover:bg-red-50 p-2"
                             >
                               {d}
                             </p>
@@ -345,57 +346,106 @@ function Page() {
               </section>
 
               {/* Emergency  */}
-              <div className="w-full ">
-                <label className="inputlabel">Name of Emergency contact </label>
+              <div className="w-full">
+                <label className="inputlabel">Name of Emergency contact</label>
                 <input
                   className="input"
                   type="text"
                   name="emergency_contact_name"
                   onChange={handleInputChange}
-                  placeholder="Enter Subject"
-                  required
+                  placeholder="Enter name"
                 />
               </div>
-              {/* Relationship with Emergency contact   */}
-              <div className="w-full ">
+              {/* Relationship with Emergency contact */}
+              <div className="w-full">
                 <label className="inputlabel">
-                  Relationship with Emergency contact{" "}
+                  Relationship with Emergency contact
                 </label>
                 <input
                   className="input"
                   type="text"
                   name="emergency_contact_relationship"
                   onChange={handleInputChange}
-                  placeholder="Enter subject"
-                  required
+                  placeholder="Enter relationship"
                 />
               </div>
-              {/* Phone number of Emergency contact   */}
-              <div className="w-full ">
+              {/* Phone number of Emergency contact */}
+              <div className="w-full">
                 <label className="inputlabel">
-                  Phone number of Emergency contact{" "}
+                  Phone number of Emergency contact
                 </label>
                 <input
                   className="input"
                   name="emergency_contact_phone"
                   type="text"
                   onChange={handleInputChange}
-                  placeholder="Enter subject"
-                  required
+                  placeholder="Enter phone number"
                 />
               </div>
 
               {/* Buttons */}
-              <section className=" w-full mt-[32px] gap-6 ">
+              <section className="w-full mt-[32px] gap-6">
                 <button
-                  type="submit"
-                  className=" w-full col-span-2 mb-2 text-[16px] font-semibold border h-[55px]  rounded-[8px] "
+                  onClick={() => {
+                    if (formData.fullname !== "") {
+                      if (formData.username !== "") {
+                        if (formData.address !== "") {
+                          if (formData.phone_no !== "") {
+                            if (gender) {
+                              if (selectedFile) {
+                                if (formData.emergency_contact_name !== "") {
+                                  if (
+                                    formData.emergency_contact_relationship !==
+                                    ""
+                                  ) {
+                                    if (
+                                      formData.emergency_contact_phone !== ""
+                                    ) {
+                                      setActive("Employment");
+                                    } else {
+                                      openModal(
+                                        "Enter emergency contact phone number!",
+                                        false
+                                      );
+                                    }
+                                  } else {
+                                    openModal(
+                                      "Enter emergency contact relationship!",
+                                      false
+                                    );
+                                  }
+                                } else {
+                                  openModal(
+                                    "Enter emergency contact name!",
+                                    false
+                                  );
+                                }
+                              } else {
+                                openModal("Select Image!", false);
+                              }
+                            } else {
+                              openModal("Select gender!", false);
+                            }
+                          } else {
+                            openModal("Enter phone number!", false);
+                          }
+                        } else {
+                          openModal("Enter address!", false);
+                        }
+                      } else {
+                        openModal("Enter username!", false);
+                      }
+                    } else {
+                      openModal("Enter full name!", false);
+                    }
+                  }}
+                  className="w-full col-span-2 mb-2 text-[16px] font-semibold border h-[55px] rounded-[8px]"
                 >
                   Next Step
                 </button>
               </section>
             </div>
-          </form>
+          </div>
         )}
 
         {/* Employement details */}
@@ -519,19 +569,18 @@ function Page() {
 
             {/* Form */}
             <div className="mt-[22px] flex w-full flex-col gap-4 ">
-              {/* Full name */}
+              {/*Email */}
               <div className="w-full ">
-                <label className="inputlabel">User name</label>
+                <label className="inputlabel">Work Email Address</label>
                 <input
+                  name="email"
                   className="input"
-                  type="text"
-                  name="username"
                   onChange={handleInputChange}
-                  placeholder="Enter surname and first name"
+                  type="email"
+                  placeholder="user@myhomeetal.com"
                   required
                 />
               </div>
-
               {/* Password */}
               <div className="w-full ">
                 <label className="inputlabel">Password</label>

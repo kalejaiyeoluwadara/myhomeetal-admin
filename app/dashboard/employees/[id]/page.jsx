@@ -23,6 +23,9 @@ function Page({ params }) {
   const [eiEdit, setEiEdit] = useState(false);
   const { openModal } = useGlobal();
   const router = useRouter();
+  const formatNumberWithCommas = (number) => {
+    return new Intl.NumberFormat("en-US").format(number);
+  };
   useEffect(() => {
     if (employee) {
       setFormData({
@@ -241,7 +244,7 @@ function Page({ params }) {
     },
     {
       title: "Salary Details",
-      item: `₦ ${formData?.salary}`,
+      item: `₦ ${formatNumberWithCommas(formData?.salary)}`,
       formName: "salary",
     },
     {
