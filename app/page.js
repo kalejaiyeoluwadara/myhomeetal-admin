@@ -149,14 +149,14 @@ export default function Page() {
     return () => window.removeEventListener("resize", handleResize); // Clean up listener
   }, []);
   return (
-    <main className="h-screen w-full py-[10px]  px-[35px] gap-[60px] flex items-center justify-center ">
+    <main className="h-screen w-full  pl-[35px] gap-[60px] flex items-center justify-between ">
       {isWideScreen ? (
         <>
-          <section className="h-full w-[40%] flex flex-col items-start justify-center ">
-            <Image className="mb-[31px]" alt="" src={logo} />
+          <section className="h-full  w-[40%] flex flex-col items-start justify-evenly ">
+            <Image className="" alt="" src={logo} />
             <Login />
           </section>
-          <section className="h-[536px] overflow-hidden w-[50%] relative rounded-[24px] ">
+          <section className="h-screen overflow-hidden w-[50%] relative ">
             <Image className="cover" src={man} alt="" />
           </section>
         </>
