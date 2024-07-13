@@ -44,6 +44,7 @@ function Page() {
     image: "",
     email: "",
     address: "",
+    normal_email: "",
     phone_no: "",
     gender: "",
     emergency_contact_name: "",
@@ -91,6 +92,7 @@ function Page() {
       fullname: "",
       image: "",
       email: "",
+      normal_email: "",
       address: "",
       phone_no: "",
       gender: gender,
@@ -278,15 +280,15 @@ function Page() {
                   </button>
                 </div>
               </div>
-              {/* User name */}
+              {/* Normal Email */}
               <div className="w-full">
-                <label className="inputlabel">User name</label>
+                <label className="inputlabel">Email</label>
                 <input
                   className="input"
-                  type="text"
-                  name="username"
+                  type="email"
+                  name="normal_email"
                   onChange={handleInputChange}
-                  placeholder="Enter surname and first name"
+                  placeholder="Enter subject"
                 />
               </div>
               {/* Address */}
@@ -388,7 +390,7 @@ function Page() {
                 <button
                   onClick={() => {
                     if (formData.fullname !== "") {
-                      if (formData.username !== "") {
+                      if (formData.normal_email !== "") {
                         if (formData.address !== "") {
                           if (formData.phone_no !== "") {
                             if (gender) {
@@ -433,7 +435,7 @@ function Page() {
                           openModal("Enter address!", false);
                         }
                       } else {
-                        openModal("Enter username!", false);
+                        openModal("Enter email!", false);
                       }
                     } else {
                       openModal("Enter full name!", false);
