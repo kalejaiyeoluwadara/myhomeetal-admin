@@ -1,8 +1,8 @@
 "use client";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { FiUploadCloud } from "react-icons/fi";
-import { GoChevronDown } from "react-icons/go";
+import { GoChevronDown, GoChevronUp } from "react-icons/go";
 import { FaPlus } from "react-icons/fa6";
 import { FaTimes } from "react-icons/fa";
 import { useRouter } from "next/navigation";
@@ -11,24 +11,23 @@ import { useGlobal } from "@/app/context";
 import formData from "form-data";
 const Modal = ({ cat, categories, setCat, setformContent, formContent }) => {
   return (
-    <div className="flex flex-col h-auto top-24 p-4 right-2 w-[200px] rounded-xl border bg-white absolute z-20 ">
-      {categories.map((d, id) => {
-        return (
-          <p
-            key={id}
-            onClick={() => {
-              setformContent({ ...formContent, category: d._id });
-              setCat(d.name);
-            }}
-            className="px-2 text-[12px] rounded-md cursor-pointer hover:bg-red-50 py-2"
-          >
-            {d.name}
-          </p>
-        );
-      })}
+    <div className="flex flex-col h-[250px] overflow-y-scroll no-scrollbar top-[87px] p-4 right-6 w-[250px] rounded-xl border bg-white absolute z-20">
+      {categories.map((d, id) => (
+        <p
+          key={id}
+          onClick={() => {
+            setformContent({ ...formContent, category: d._id });
+            setCat(d.name);
+          }}
+          className="px-2 text-base rounded-md cursor-pointer hover:bg-red-50 py-2"
+        >
+          {d.name}
+        </p>
+      ))}
     </div>
   );
 };
+
 function Form() {
   const [disctype, SetDiscType] = useState("No Discount");
   const { openModal } = useGlobal();
@@ -307,19 +306,19 @@ function Form() {
                 className="w-full relative "
               >
                 <label className="inputlabel">Category</label>
-                <div className="w-full border cursor-pointer flex items-center h-[56px] rounded-md  justify-between px-4 ">
+                <div className="w-[250px] border cursor-pointer flex items-center h-[56px] rounded-md  justify-between px-4 ">
                   <p>{cat ? cat : "Select Category"}</p>
-                  <GoChevronDown />
-                  {modal && (
-                    <Modal
-                      formContent={formContent}
-                      setformContent={setformContent}
-                      cat={cat}
-                      categories={catItem}
-                      setCat={setCat}
-                    />
-                  )}
+                  {!modal ? <GoChevronDown /> : <GoChevronUp />}
                 </div>
+                {modal && (
+                  <Modal
+                    formContent={formContent}
+                    setformContent={setformContent}
+                    cat={cat}
+                    categories={catItem}
+                    setCat={setCat}
+                  />
+                )}
               </div>
             </section>
           </div>
