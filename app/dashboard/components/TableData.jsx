@@ -42,16 +42,17 @@ function TableData({ username, email, _id, role, phone_no, employee_id, img }) {
           active
         </p>
       </div>
-      <div className="flex items-center relative justify-center ">
-        <p
-          onClick={() => {
-            setModal((prev) => !prev);
-          }}
-          className="w-[32px] h-[32px] pointer border rounded-[8px] flex items-center justify-center "
-        >
-          <IoMdMore size={20} />{" "}
-        </p>
-        {modal && (
+      <Link href={`/dashboard/employees/${_id}`}>
+        <div className="flex items-center relative justify-center ">
+          <p
+            onClick={() => {
+              setModal((prev) => !prev);
+            }}
+            className="w-[32px] h-[32px] pointer border rounded-[8px] flex items-center justify-center "
+          >
+            <IoMdMore size={20} />{" "}
+          </p>
+          {/* {modal && (
           <Link href={`/dashboard/employees/${_id}`}>
             <div className="h-[60px] border bg-white sh absolute top-6 -right-2 z-40 center rounded-md w-[100px] p-2 text-[14px] ">
               <p className="w-full h-full pointer hover:bg-red-50 center rounded-md ">
@@ -59,8 +60,9 @@ function TableData({ username, email, _id, role, phone_no, employee_id, img }) {
               </p>
             </div>
           </Link>
-        )}
-      </div>
+        )} */}
+        </div>
+      </Link>
     </div>
   );
 }
