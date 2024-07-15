@@ -10,6 +10,7 @@ import profile2 from "@/app/assets/profile2.svg";
 import tick from "@/app/assets/tick.svg";
 import Image from "next/image";
 import { useGlobal } from "@/app/context";
+import FormData from "form-data";
 import Link from "next/link";
 import Success from "./Success";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
@@ -39,7 +40,7 @@ function Page() {
   const [randId, setRandId] = useState("");
   const [loading, setLoading] = useState("");
   const { openModal, token } = useGlobal();
-  const [formData, setFormData] = useState({
+  const [formContent, setformContent] = useState({
     fullname: "",
     image: "",
     email: "",
@@ -62,6 +63,8 @@ function Page() {
     const file = e.target.files[0];
     if (file) {
       setSelectedFile(file);
+      formContent.image = file;
+      console.log(formContent.image);
       openModal("Image file selected", true);
     }
   };
@@ -69,26 +72,8 @@ function Page() {
     document.getElementById("file-upload").click();
   };
 
-  async function uploadFile(file) {
-    // Create a storage reference from our storage service
-    const storageRef = ref(storage, "homeetal/" + file.name);
-
-    try {
-      // Upload the file
-      const snapshot = await uploadBytes(storageRef, file);
-      console.log("Uploaded a blob or file!", snapshot);
-
-      // Get the download URL
-      const downloadURL = await getDownloadURL(storageRef);
-      console.log("File available at", downloadURL);
-      return downloadURL;
-    } catch (error) {
-      openModal("Error uploading image", false);
-      console.error("Upload failed", error);
-    }
-  }
   const resetForm = () => {
-    setFormData({
+    setformContent({
       fullname: "",
       image: "",
       email: "",
@@ -108,32 +93,51 @@ function Page() {
     });
   };
   const handleSubmit = async () => {
-    if (formData.email && formData.password) {
+    if (formContent.email && formContent.password) {
       setLoading(true);
-      try {
-        if (selectedFile) {
-          const imageUrl = await uploadFile(selectedFile);
-          formData.image = imageUrl; // Set the image URL in the formData
-        } else {
-          openModal("Image file not found", false);
-        }
+      const formData = new FormData();
+      formData.append("fullname", formContent.fullname);
+      formData.append("admin-image", formContent.image);
+      formData.append("email", formContent.email);
+      formData.append("address", formContent.address);
+      formData.append("phone_no", formContent.phone_no);
+      formData.append("gender", formContent.gender);
+      formData.append(
+        "emergency_contact_name",
+        formContent.emergency_contact_name
+      );
+      formData.append(
+        "emergency_contact_relationship",
+        formContent.emergency_contact_relationship
+      );
+      formData.append(
+        "emergency_contact_phone",
+        formContent.emergency_contact_phone
+      );
+      formData.append("employee_id", formContent.employee_id);
+      formData.append("username", formContent.normal_email);
+      formData.append("position", "");
+      formData.append("start_date", formContent.start_date);
+      formData.append("employment_type", formContent.employment_type);
+      formData.append("salary", formContent.salary);
+      formData.append("password", formContent.password);
 
+      try {
         const response = await fetch(
           "https://my-home-et-al-backend.onrender.com/api/v1/admin/create-admin",
           {
             method: "POST",
             headers: {
-              "Content-Type": "application/json",
               Authorization: `Bearer ${token}`,
             },
-            body: JSON.stringify(formData),
+            body: formData,
           }
         );
         if (response.ok) {
           const data = await response.json();
           console.log("Response from server:", data);
           console.log("Success");
-          setId(formData.employee_id);
+          setId(formContent.employee_id);
           setSuccess(true);
           resetForm();
         } else {
@@ -167,12 +171,12 @@ function Page() {
     const id = generateRandomId(6);
     console.log(id);
     setRandId(id);
-    setFormData({ ...formData, employee_id: id });
-    console.log(formData.employee_id);
+    setformContent({ ...formContent, employee_id: id });
+    console.log(formContent.employee_id);
   };
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setformContent({ ...formContent, [name]: value });
   };
 
   return (
@@ -333,7 +337,7 @@ function Page() {
                               key={id}
                               onClick={() => {
                                 setGender(d);
-                                setFormData({ ...formData, gender: d });
+                                setformContent({ ...formContent, gender: d });
                               }}
                               className="w-full h-[40px] rounded-md hover:bg-red-50 p-2"
                             >
@@ -389,19 +393,19 @@ function Page() {
               <section className="w-full mt-[32px] gap-6">
                 <button
                   onClick={() => {
-                    if (formData.fullname !== "") {
-                      if (formData.normal_email !== "") {
-                        if (formData.address !== "") {
-                          if (formData.phone_no !== "") {
+                    if (formContent.fullname !== "") {
+                      if (formContent.normal_email !== "") {
+                        if (formContent.address !== "") {
+                          if (formContent.phone_no !== "") {
                             if (gender) {
                               if (selectedFile) {
-                                if (formData.emergency_contact_name !== "") {
+                                if (formContent.emergency_contact_name !== "") {
                                   if (
-                                    formData.emergency_contact_relationship !==
+                                    formContent.emergency_contact_relationship !==
                                     ""
                                   ) {
                                     if (
-                                      formData.emergency_contact_phone !== ""
+                                      formContent.emergency_contact_phone !== ""
                                     ) {
                                       setActive("Employment");
                                     } else {
@@ -491,7 +495,7 @@ function Page() {
                   <div
                     onClick={() => {
                       setEmpModal((prev) => !prev);
-                      setFormData({ ...formData, employment_type: emp });
+                      setformContent({ ...formContent, employment_type: emp });
                     }}
                     className="w-full active:border-[1.5px] active:border-red-500 pointer h-[56px] flex justify-between items-center px-4 border relative rounded-xl"
                   >
@@ -504,8 +508,8 @@ function Page() {
                           <p
                             onClick={() => {
                               setEmp(d);
-                              setFormData({
-                                ...formData,
+                              setformContent({
+                                ...formContent,
                                 employment_type: d,
                               });
                             }}
@@ -539,10 +543,10 @@ function Page() {
               <section className="mt-[32px] w-full gap-6">
                 <button
                   onClick={() => {
-                    if (formData.employee_id !== "") {
-                      if (formData.start_date !== "") {
-                        if (formData.employment_type !== "") {
-                          if (formData.salary !== "") {
+                    if (formContent.employee_id !== "") {
+                      if (formContent.start_date !== "") {
+                        if (formContent.employment_type !== "") {
+                          if (formContent.salary !== "") {
                             setActive("Login Credentials");
                           } else {
                             openModal("Enter salary details!", false);
