@@ -4,7 +4,15 @@ import Image from "next/image";
 import profile from "../../assets/logo.svg";
 import { IoIosArrowDown, IoIosArrowUp, IoMdMore } from "react-icons/io";
 import Link from "next/link";
-function TableData({ username, email, _id, role, phone_no, employee_id, img }) {
+function TableData({
+  username,
+  fullname,
+  email,
+  _id,
+  phone_no,
+  employee_id,
+  img,
+}) {
   const [modal, setModal] = useState(false);
   useEffect(() => {
     if (modal) {
@@ -31,7 +39,7 @@ function TableData({ username, email, _id, role, phone_no, employee_id, img }) {
           />
         )}
         <p className="text-[14px] truncate bg-re-300 font-medium text-[#101928] capitalize ">
-          {username}
+          {fullname ? fullname.split(" ")[0] : username}
         </p>
       </div>
       <p className=" truncate">#{employee_id}</p>

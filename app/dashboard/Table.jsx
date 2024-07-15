@@ -22,6 +22,7 @@ function Table() {
   const [manipulate, setManipulate] = useState([]);
   useEffect(() => {
     return setManipulate(admins);
+    console.log(manipulate);
   }, [admins]);
   const totalPages = Math.ceil(manipulate.length / itemsPerPage);
 
@@ -111,6 +112,7 @@ function Table() {
               <TableData
                 username={d.username}
                 email={d.email}
+                fullname={d.fullname}
                 role={d.role}
                 employee_id={d?.employee_id}
                 _id={d?._id}
