@@ -109,7 +109,7 @@ function Page({ params }) {
         router.push("/dashboard");
       }, 3000);
       const data = await response.json();
-      console.log(data);
+      // console.log(data);
       setEmployee(formData);
     } catch (error) {
       console.error("An error occurred while updating admin:", error);
@@ -141,7 +141,7 @@ function Page({ params }) {
       }
 
       const data = await response.json();
-      console.log(data);
+      // console.log(data);
       setEmployee(data);
     } catch (error) {
       console.error("An error occurred while fetching admin:", error);

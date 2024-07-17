@@ -50,7 +50,8 @@ const OtpVerification = ({ email }) => {
       document.removeEventListener("keydown", handleKeyDown);
     };
   }, [handleKeyDown]);
-
+  const mail = localStorage.getItem("email");
+  console.log(mail);
   return (
     <div className="border w-full h-auto py-[14px] rounded-[24px] flex items-start justify-center px-[40px] pr-[24px] flex-col border-[#DCDCDC] gap-[16px]">
       <h3 className="text-[25px] w-full text-center font-light">
@@ -58,7 +59,7 @@ const OtpVerification = ({ email }) => {
       </h3>
       <div className="w-full center">
         <p className="w-[275px] text-[15px] text-center">
-          We have sent a verification code to {email}
+          We have sent a verification code to {mail}
         </p>
       </div>
       <p className="mt-[10px] mb-[5px] text-center w-full">5 digit code</p>

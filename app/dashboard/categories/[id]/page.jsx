@@ -3,16 +3,18 @@ import React, { useState, useEffect } from "react";
 import Welcome from "./comp/Welcome";
 import ItemCard from "./comp/ItemCard";
 import Loading from "../../components/Loading";
+import { useGlobal } from "@/app/context";
+import { useRouter } from "next/navigation";
 function Page({ params }) {
   const [category, setCategory] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2M2YyNjdjNDMyNDg5NmFlNzg2ZjgwZSIsImVtYWlsIjoiYmFiYUBteWhvbWVldGFsLmNvbSIsInJvbGUiOiJTdXBlciBBZG1pbiIsImlhdCI6MTcxODE2MTQ5NSwiZXhwIjoxNzI2ODAxNDk1fQ.w3OuGAzZmBRQN_kQbcEAAv82dVV3n0ymvu7G6gJLY6o";
+  const { token, openModal } = useGlobal();
+  const router = useRouter();
   const handleDelete = async () => {
     try {
       const response = await fetch(
-        `https://my-home-et-al-backend.onrender.com/api/v1/product/category/${params.id}`,
+        `https://my-home-et-al-backend.onrender.com/api/v1/product-category/delete-category/${params.id}`,
         {
           method: "DELETE",
           headers: {
@@ -20,12 +22,18 @@ function Page({ params }) {
           },
         }
       );
+      if (!response.ok) {
+        openModal("Error deleting category", false);
+      }
       const data = await response.json();
-      console.log("Category deleted!");
       console.log("Response from server:", data);
-      alert("Category Deleted!");
+      openModal("Category Deleted!", true);
+      setTimeout(() => {
+        router.push("/dashboard/categories");
+      }, 2000);
     } catch (error) {
       console.error("Error submitting data:", error);
+      openModal("Error deleting category", false);
     }
   };
   const fetchCategory = async () => {
@@ -63,12 +71,16 @@ function Page({ params }) {
   }, []);
 
   return (
-    <div className="w-full  p-[36px] bg-screen min-h-screen overflow-y-scroll ">
+    <div className="w-full p-[36px] bg-screen min-h-screen overflow-y-scroll">
       <Welcome handleDelete={handleDelete} id={params.id} />
       {loading ? (
         <Loading loading={true} />
+      ) : category.length === 0 ? (
+        <div className="w-full flex justify-center mt-20 items-center my-[34px]">
+          <p>No items available</p>
+        </div>
       ) : (
-        <div className="w-full flex flex-col gap-6 my-[34px] ">
+        <div className="w-full flex flex-col gap-6 my-[34px]">
           {category.map((d, id) => {
             const { brand, description, price, productTitle, images, _id } = d;
             return (
