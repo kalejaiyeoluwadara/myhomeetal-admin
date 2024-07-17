@@ -50,8 +50,20 @@ const OtpVerification = ({ email }) => {
       document.removeEventListener("keydown", handleKeyDown);
     };
   }, [handleKeyDown]);
-  const mail = localStorage.getItem("email");
-  console.log(mail);
+
+  const [userDetails, setUserDetails] = useState({
+    email: "",
+    image: "",
+    username: "",
+  });
+
+  useEffect(() => {
+    const email = localStorage.getItem("email");
+    setUserDetails({
+      email: email || "N/A",
+    });
+  }, []);
+  const { email: mail, image, username } = userDetails;
   return (
     <div className="border w-full h-auto py-[14px] rounded-[24px] flex items-start justify-center px-[40px] pr-[24px] flex-col border-[#DCDCDC] gap-[16px]">
       <h3 className="text-[25px] w-full text-center font-light">
