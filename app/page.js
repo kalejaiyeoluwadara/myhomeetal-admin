@@ -77,7 +77,7 @@ const Login = () => {
         </h3>
         <div className="flex flex-col w-full gap-1">
           <div className="holder">
-            <label className="label">Email Address</label>
+            <label className="label">Work Email Address</label>
             <input
               className="inputa"
               placeholder="Enter Email Address"
