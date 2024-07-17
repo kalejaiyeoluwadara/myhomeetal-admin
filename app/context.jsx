@@ -119,11 +119,12 @@ function AppProvider({ children }) {
     setModalMessage(msg);
     setIsSuccessful(success);
   };
+  // switchAccount();
   useEffect(() => {
-    // Fetch admins
-    switchAccount();
-    fetchAdmins();
     fetchCategories();
+  }, [categories]);
+  useEffect(() => {
+    fetchAdmins();
   }, []);
   function switchAccount() {
     const username = localStorage.getItem("username");
@@ -167,6 +168,7 @@ function AppProvider({ children }) {
         setBulk,
         loading,
         error,
+        fetchAdmins,
         userData,
         setUserData,
         token,

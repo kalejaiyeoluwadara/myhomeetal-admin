@@ -21,7 +21,7 @@ function Page({ params }) {
   const [error, setError] = useState(null);
   const [piEdit, setPiEdit] = useState(false);
   const [eiEdit, setEiEdit] = useState(false);
-  const { openModal } = useGlobal();
+  const { openModal, token, fetchAdmin: getAdmins } = useGlobal();
   const router = useRouter();
   const formatNumberWithCommas = (number) => {
     return new Intl.NumberFormat("en-US").format(number);
@@ -58,8 +58,7 @@ function Page({ params }) {
         {
           method: "DELETE",
           headers: {
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2M2YyNjdjNDMyNDg5NmFlNzg2ZjgwZSIsImVtYWlsIjoiYmFiYUBteWhvbWVldGFsLmNvbSIsInJvbGUiOiJTdXBlciBBZG1pbiIsImlhdCI6MTcxODE2MTQ5NSwiZXhwIjoxNzI2ODAxNDk1fQ.w3OuGAzZmBRQN_kQbcEAAv82dVV3n0ymvu7G6gJLY6o",
+            Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -73,6 +72,8 @@ function Page({ params }) {
       }
 
       openModal("Admin deleted successfully", true);
+      router.push("/dashboard/employees");
+      getAdmins();
     } catch (error) {
       console.error("An error occurred while deleting admin:", error);
       openModal("An error occurred while deleting admin", false);

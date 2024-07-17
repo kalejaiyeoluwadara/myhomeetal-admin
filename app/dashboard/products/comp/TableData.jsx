@@ -25,25 +25,25 @@ function TableData({
   }, [modal]);
   const img = images[0];
 
-  const handleDelete = async (id) => {
-    try {
-      const response = await fetch(
-        `https://my-home-et-al-backend.onrender.com/api/v1/product/${id}`,
-        {
-          method: "DELETE",
-          headers: {
-            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2M2YyNjdjNDMyNDg5NmFlNzg2ZjgwZSIsImVtYWlsIjoiYmFiYUBteWhvbWVldGFsLmNvbSIsInJvbGUiOiJTdXBlciBBZG1pbiIsImlhdCI6MTcxODE2MTQ5NSwiZXhwIjoxNzI2ODAxNDk1fQ.w3OuGAzZmBRQN_kQbcEAAv82dVV3n0ymvu7G6gJLY6o`,
-          },
-        }
-      );
-      const data = await response.json();
-      console.log("Product deleted!");
-      console.log("Response from server:", data);
-      alert("Product Deleted! Refresh Page");
-    } catch (error) {
-      console.error("Error submitting data:", error);
-    }
-  };
+  // const handleDelete = async (id) => {
+  //   try {
+  //     const response = await fetch(
+  //       `https://my-home-et-al-backend.onrender.com/api/v1/product/${id}`,
+  //       {
+  //         method: "DELETE",
+  //         headers: {
+  //           Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2M2YyNjdjNDMyNDg5NmFlNzg2ZjgwZSIsImVtYWlsIjoiYmFiYUBteWhvbWVldGFsLmNvbSIsInJvbGUiOiJTdXBlciBBZG1pbiIsImlhdCI6MTcxODE2MTQ5NSwiZXhwIjoxNzI2ODAxNDk1fQ.w3OuGAzZmBRQN_kQbcEAAv82dVV3n0ymvu7G6gJLY6o`,
+  //         },
+  //       }
+  //     );
+  //     const data = await response.json();
+  //     console.log("Product deleted!");
+  //     console.log("Response from server:", data);
+  //     alert("Product Deleted! Refresh Page");
+  //   } catch (error) {
+  //     console.error("Error submitting data:", error);
+  //   }
+  // };
   const formatNumberWithCommas = (number) => {
     return new Intl.NumberFormat("en-US").format(number);
   };
@@ -86,7 +86,7 @@ function TableData({
               </p>
             </Link>
 
-            <p
+            {/* <p
               onClick={() => {
                 handleDelete(_id);
                 setModal(false);
@@ -94,7 +94,7 @@ function TableData({
               className="w-full h-[30px] pointer hover:bg-red-50 center rounded-md "
             >
               Delete Product
-            </p>
+            </p> */}
           </div>
         )}
       </div>
