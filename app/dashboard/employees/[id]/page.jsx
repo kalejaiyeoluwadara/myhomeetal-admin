@@ -9,7 +9,7 @@ import { IoAnalyticsOutline } from "react-icons/io5";
 import TaksComp from "./comps/TaksComp";
 import Container from "./comps/Container";
 import Permissions from "./comps/Permissions";
-import girl from "../../../assets/logo.svg";
+import logo from "../../../assets/logo.svg";
 import { useGlobal } from "@/app/context";
 import { useRouter } from "next/navigation";
 import Loading from "../../components/Loading";
@@ -293,7 +293,7 @@ function Page({ params }) {
                   <Image
                     className=" h-full w-full bg-white  "
                     alt=""
-                    src={girl}
+                    src={logo}
                   />
                 ) : (
                   <img
@@ -305,7 +305,9 @@ function Page({ params }) {
               </div>
               <div className="space-y-3">
                 <h2 className=" text-[28px] capitalize font-semibold ">
-                  {employee?.username}
+                  {employee.fullname
+                    ? employee.fullname.split(" ")[0]
+                    : employee.email}
                 </h2>
                 <div className="flex text-[16px] ">
                   {" "}
