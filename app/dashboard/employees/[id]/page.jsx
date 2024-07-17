@@ -21,7 +21,7 @@ function Page({ params }) {
   const [error, setError] = useState(null);
   const [piEdit, setPiEdit] = useState(false);
   const [eiEdit, setEiEdit] = useState(false);
-  const { openModal, token, fetchAdmin: getAdmins } = useGlobal();
+  const { openModal, token, fetchAdmins: getAdmins } = useGlobal();
   const router = useRouter();
   const formatNumberWithCommas = (number) => {
     return new Intl.NumberFormat("en-US").format(number);
