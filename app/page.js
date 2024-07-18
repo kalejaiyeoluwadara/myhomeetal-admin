@@ -13,15 +13,8 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const {
-    role,
-    setRole,
-    userData,
-    openModal,
-    setUserData,
-    setLogOut,
-    switchAccount,
-  } = useGlobal();
+  const { role, setRole, userData, openModal, setUserData, setLogOut } =
+    useGlobal();
   const router = useRouter();
   const handleLogin = async () => {
     setIsLoading(true);
@@ -52,23 +45,22 @@ const Login = () => {
         localStorage.setItem("token", data.token);
         localStorage.setItem("role", data.adminProfile.role);
         setIsLoading(false);
-        // openModal("Login successful! Redirecting...", true);
-        switchAccount();
         setEmail("");
         setPassword("");
         setTimeout(() => {
           router.push("/verify");
-        }, 3000);
+        }, 2000);
       } else {
+        openModal("Incorrect information, try again!", false);
         const errorData = await response.json();
         setIsLoading(false);
-        openModal("Incorrect information, try again!", false);
       }
     } catch (error) {
       setIsLoading(false);
-      openModal("Login failed: Incorrect password", false);
+      openModal("Login failed.", false);
     }
   };
+
   return (
     <>
       <div className="border w-[100%] h-[400px] rounded-[24px] flex items-start justify-center px-[40px] pr-[24px] flex-col border-[#DCDCDC] gap-[16px] ">

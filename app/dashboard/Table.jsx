@@ -16,10 +16,59 @@ import Tableheader from "./components/Tableheader";
 import { useGlobal } from "../context";
 import Loading from "./components/Loading";
 function Table() {
-  const { admins, setAdmins, loading, error } = useGlobal();
+  const [error, setError] = useState(null);
+  const [admins, setAdmins] = useState([]);
+  const [loading, setLoading] = useState(false);
   const itemsPerPage = 8;
   const [currentPage, setCurrentPage] = useState(1);
   const [manipulate, setManipulate] = useState([]);
+
+  // Fetch admins
+  const fetchAdmins = async () => {
+    setLoading(true);
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      console.error("Token not found");
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        "https://my-home-et-al-backend.onrender.com/api/v1/admin/get-admins",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        setAdmins([]);
+        throw new Error(
+          `Failed to fetch admins: ${response.status} ${response.statusText} - ${errorData.message}`
+        );
+      }
+
+      const data = await response.json();
+      setAdmins(data);
+    } catch (error) {
+      setAdmins([]);
+      setError(error);
+      console.error("An error occurred while fetching admins:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchAdmins();
+  }, []);
+
   useEffect(() => {
     return setManipulate(admins);
     console.log(manipulate);

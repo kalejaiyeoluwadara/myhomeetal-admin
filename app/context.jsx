@@ -18,8 +18,7 @@ function AppProvider({ children }) {
   const [modalMessage, setModalMessage] = useState("");
   const [isSuccessful, setIsSuccessful] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2M2YyNjdjNDMyNDg5NmFlNzg2ZjgwZSIsImVtYWlsIjoiYmFiYUBteWhvbWVldGFsLmNvbSIsInJvbGUiOiJTdXBlciBBZG1pbiIsImlhdCI6MTcxODE2MTQ5NSwiZXhwIjoxNzI2ODAxNDk1fQ.w3OuGAzZmBRQN_kQbcEAAv82dVV3n0ymvu7G6gJLY6o";
+  const [token, setToken] = useState("");
   const [userData, setUserData] = useState([
     {
       fullname: "",
@@ -30,33 +29,39 @@ function AppProvider({ children }) {
 
   const fetchAdmins = async () => {
     setLoading(true);
-    try {
-      const response = await fetch(
-        "https://my-home-et-al-backend.onrender.com/api/v1/admin/get-admins",
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(
-          `Failed to fetch admins: ${response.status} ${response.statusText} - ${errorData.message}`
+    if (token !== "") {
+      try {
+        const response = await fetch(
+          "https://my-home-et-al-backend.onrender.com/api/v1/admin/get-admins",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
-      }
 
-      const data = await response.json();
-      setAdmins(data);
-      setClen(data.length); // Update state with fetched data
-    } catch (error) {
-      console.error("An error occurred while fetching admins:", error);
-      setError(error);
-    } finally {
-      setLoading(false);
+        if (!response.ok) {
+          const errorData = await response.json();
+          setAdmins([]);
+          throw new Error(
+            `Failed to fetch admins: ${response.status} ${response.statusText} - ${errorData.message}`
+          );
+        }
+
+        const data = await response.json();
+        setAdmins(data);
+        setClen(data.length); // Update state with fetched data
+      } catch (error) {
+        setAdmins([]);
+        console.error("An error occurred while fetching admins:", error);
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
+    } else {
+      console.log("token is empty");
     }
   };
   const fetchCutomers = async () => {
@@ -124,25 +129,10 @@ function AppProvider({ children }) {
     fetchCategories();
   }, [categories]);
   useEffect(() => {
-    fetchAdmins();
+    const local_token = localStorage.getItem("token");
+    setToken(local_token);
+    console.log(token);
   }, []);
-  function switchAccount() {
-    const username = localStorage.getItem("username");
-    const fullname = localStorage.getItem("fullname");
-    const email = localStorage.getItem("email");
-    const image = localStorage.getItem("image");
-
-    // Check if username exists in local storage before setting userData
-    if (email && image) {
-      setUserData({
-        fullname: fullname || "",
-        username: username || "",
-        email: email || "",
-        image: image || "",
-      });
-    }
-    console.log("Done!!");
-  }
 
   return (
     <AppContext.Provider
@@ -150,7 +140,6 @@ function AppProvider({ children }) {
         openModal,
         role,
         categories,
-        switchAccount,
         setRole,
         logout,
         setLogOut,
@@ -167,6 +156,7 @@ function AppProvider({ children }) {
         bulk,
         setBulk,
         loading,
+        setLoading,
         error,
         fetchAdmins,
         userData,

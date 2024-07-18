@@ -109,7 +109,6 @@ function Page({ params }) {
         router.push("/dashboard");
       }, 3000);
       const data = await response.json();
-      // console.log(data);
       setEmployee(formData);
     } catch (error) {
       console.error("An error occurred while updating admin:", error);
@@ -127,8 +126,7 @@ function Page({ params }) {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2M2YyNjdjNDMyNDg5NmFlNzg2ZjgwZSIsImVtYWlsIjoiYmFiYUBteWhvbWVldGFsLmNvbSIsInJvbGUiOiJTdXBlciBBZG1pbiIsImlhdCI6MTcxODE2MTQ5NSwiZXhwIjoxNzI2ODAxNDk1fQ.w3OuGAzZmBRQN_kQbcEAAv82dVV3n0ymvu7G6gJLY6o",
+            Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -141,7 +139,6 @@ function Page({ params }) {
       }
 
       const data = await response.json();
-      // console.log(data);
       setEmployee(data);
     } catch (error) {
       console.error("An error occurred while fetching admin:", error);

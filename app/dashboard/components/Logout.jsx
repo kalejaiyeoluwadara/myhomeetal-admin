@@ -14,6 +14,8 @@ function Logout() {
     localStorage.removeItem("email");
     localStorage.removeItem("fullname");
     localStorage.removeItem("username");
+    localStorage.removeItem("token");
+    localStorage.removeItem("role");
     console.log("Account cleared");
   }
   return (
