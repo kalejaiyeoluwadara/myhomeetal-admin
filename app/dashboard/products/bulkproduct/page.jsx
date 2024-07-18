@@ -7,7 +7,7 @@ import { GoChevronDown } from "react-icons/go";
 import { useRouter } from "next/navigation";
 function Page() {
   const [selectedFile, setSelectedFile] = useState(null);
-  const { bulk, setBulk } = useGlobal();
+  const { bulk, setBulk, token } = useGlobal();
   const router = useRouter();
   const handleClick = () => {
     document.getElementById("file-upload").click();
@@ -38,7 +38,7 @@ function Page() {
         {
           method: "POST",
           headers: {
-            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2M2YyNjdjNDMyNDg5NmFlNzg2ZjgwZSIsImVtYWlsIjoiYmFiYUBteWhvbWVldGFsLmNvbSIsInJvbGUiOiJTdXBlciBBZG1pbiIsImlhdCI6MTcxODE2MTQ5NSwiZXhwIjoxNzI2ODAxNDk1fQ.w3OuGAzZmBRQN_kQbcEAAv82dVV3n0ymvu7G6gJLY6o`,
+            Authorization: `Bearer ${token}`,
           },
           body: formData,
         }

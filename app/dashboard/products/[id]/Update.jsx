@@ -97,12 +97,6 @@ function Form({ id }) {
       );
       const data = await response.json();
       console.log("Response from server:", data);
-      console.log("====================================");
-      console.log(formContent);
-      console.log("====================================");
-      console.log("====================================");
-      console.log(formData);
-      console.log("====================================");
     } catch (error) {
       console.error("Error submitting data:", error);
     } finally {
