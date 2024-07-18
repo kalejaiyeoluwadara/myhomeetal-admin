@@ -57,7 +57,7 @@ function Form({ id }) {
     fit6: "",
     images: [],
   });
-  const { token } = useGlobal();
+  const { token, openModal } = useGlobal();
   const [cat, setCat] = useState("");
   const [loading, setLoading] = useState(false);
   // Handling submit
@@ -95,10 +95,15 @@ function Form({ id }) {
           body: formData,
         }
       );
-      const data = await response.json();
-      console.log("Response from server:", data);
+      if (response.ok) {
+        const data = await response.json();
+        openModal("Product updated!", true);
+        console.log("Response from server:", data);
+      }
+      openModal("Error updating product!");
     } catch (error) {
       console.error("Error submitting data:", error);
+      openModal("Error updating product!");
     } finally {
       setLoading(false);
     }
@@ -312,28 +317,37 @@ function Form({ id }) {
         <div className="h-auto w-auto bg-white flex flex-col gap-2  rounded-xl">
           {formContent?.images.map((d, id) => {
             const handleRemoveFile = (fileIndex) => {
-              setSelectedFile((prevFiles) =>
-                prevFiles.filter((_, index) => index !== fileIndex)
-              );
+              setformContent((prevContent) => ({
+                ...prevContent,
+                images: prevContent.images.filter(
+                  (_, index) => index !== fileIndex
+                ),
+              }));
             };
             return (
-              <div
-                key={id}
-                className="w-full  px-8 flex justify-between items-center bg-white rounded-[10px] h-[100px]"
-              >
-                <img
-                  src={d}
-                  className=" h-[60px] w-[60px] rounded-md object-cover "
-                  alt=""
-                />
-                <p
-                  className="pointer text-primary "
-                  // onClick={() => {
-                  //   handleRemoveFile(id);
-                  // }}
-                >
-                  <LiaTimesSolid size={30} />
-                </p>
+              <div className="h-auto w-auto bg-white flex flex-col gap-2 rounded-xl">
+                {formContent?.images.map((d, id) => {
+                  return (
+                    <div
+                      key={id}
+                      className="w-full px-8 flex justify-between items-center bg-white rounded-[10px] h-[100px]"
+                    >
+                      <img
+                        src={d}
+                        className="h-[60px] w-[60px] rounded-md object-cover"
+                        alt=""
+                      />
+                      <p
+                        className="pointer text-primary"
+                        onClick={() => {
+                          handleRemoveFile(id);
+                        }}
+                      >
+                        <LiaTimesSolid size={30} />
+                      </p>
+                    </div>
+                  );
+                })}
               </div>
             );
           })}
