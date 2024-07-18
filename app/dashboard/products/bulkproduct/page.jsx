@@ -7,7 +7,7 @@ import { GoChevronDown } from "react-icons/go";
 import { useRouter } from "next/navigation";
 function Page() {
   const [selectedFile, setSelectedFile] = useState(null);
-  const { bulk, setBulk, token } = useGlobal();
+  const { bulk, setBulk, token, openModal } = useGlobal();
   const router = useRouter();
   const handleClick = () => {
     document.getElementById("file-upload").click();
@@ -16,16 +16,16 @@ function Page() {
   const handleFileSelect = (e) => {
     const file = e.target.files[0];
     if (file) {
-      console.log("File selected: ", file);
+      openModal("File Selected", true);
       setSelectedFile(file);
     } else {
-      console.log("No file selected");
+      openModal("No file selected", false);
     }
   };
 
   const handleUpload = async () => {
     if (!selectedFile) {
-      console.log("No file selected for upload");
+      openModal("No file selected for upload", false);
       return;
     }
 
@@ -47,10 +47,11 @@ function Page() {
       const data = await response.json();
       console.log("Response from server:", data);
       setBulk(data);
+      console.log(data);
       router.push("/dashboard/products/bulkproduct/uploads");
-      console.log("Success");
+      openModal("Success", true);
     } catch (e) {
-      console.log(e);
+      openModal("An error occured", false);
     }
   };
 

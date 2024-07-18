@@ -71,7 +71,6 @@ function Table() {
 
   useEffect(() => {
     return setManipulate(admins);
-    console.log(manipulate);
   }, [admins]);
   const totalPages = Math.ceil(manipulate.length / itemsPerPage);
 

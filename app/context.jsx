@@ -29,39 +29,35 @@ function AppProvider({ children }) {
 
   const fetchAdmins = async () => {
     setLoading(true);
-    if (token !== "") {
-      try {
-        const response = await fetch(
-          "https://my-home-et-al-backend.onrender.com/api/v1/admin/get-admins",
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-
-        if (!response.ok) {
-          const errorData = await response.json();
-          setAdmins([]);
-          throw new Error(
-            `Failed to fetch admins: ${response.status} ${response.statusText} - ${errorData.message}`
-          );
+    try {
+      const response = await fetch(
+        "https://my-home-et-al-backend.onrender.com/api/v1/admin/get-admins",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
         }
+      );
 
-        const data = await response.json();
-        setAdmins(data);
-        setClen(data.length); // Update state with fetched data
-      } catch (error) {
+      if (!response.ok) {
+        const errorData = await response.json();
         setAdmins([]);
-        console.error("An error occurred while fetching admins:", error);
-        setError(error);
-      } finally {
-        setLoading(false);
+        throw new Error(
+          `Failed to fetch admins: ${response.status} ${response.statusText} - ${errorData.message}`
+        );
       }
-    } else {
-      console.log("token is empty");
+
+      const data = await response.json();
+      setAdmins(data);
+      setClen(data.length); // Update state with fetched data
+    } catch (error) {
+      setAdmins([]);
+      console.error("An error occurred while fetching admins:", error);
+      setError(error);
+    } finally {
+      setLoading(false);
     }
   };
   const fetchCutomers = async () => {
@@ -131,7 +127,6 @@ function AppProvider({ children }) {
   useEffect(() => {
     const local_token = localStorage.getItem("token");
     setToken(local_token);
-    console.log(token);
   }, []);
 
   return (

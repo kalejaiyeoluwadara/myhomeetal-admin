@@ -70,15 +70,13 @@ function TableData({
         </p>
       </div>
       <div className="flex items-center relative justify-center ">
-        <p
-          onClick={() => {
-            setModal((prev) => !prev);
-          }}
-          className="w-[32px] h-[32px] pointer border rounded-[8px] flex items-center justify-center "
-        >
-          <IoMdMore size={20} />{" "}
-        </p>
-        {modal && (
+        <Link href={`/dashboard/products/${_id}`}>
+          {" "}
+          <p className="w-[32px] h-[32px] pointer border rounded-[8px] flex items-center justify-center ">
+            <IoMdMore size={20} />{" "}
+          </p>
+        </Link>
+        {/* {modal && (
           <div className="h-auto border bg-white flex flex-col items-start justify-start sh absolute top-6 -right-2 z-40 center rounded-md w-[120px] px-1 py-2 text-[14px] ">
             <Link href={`/dashboard/products/${_id}`}>
               <p className="w-full h-[30px] px-2 pointer hover:bg-red-50 center rounded-md ">
@@ -86,7 +84,7 @@ function TableData({
               </p>
             </Link>
 
-            {/* <p
+            <p
               onClick={() => {
                 handleDelete(_id);
                 setModal(false);
@@ -94,9 +92,9 @@ function TableData({
               className="w-full h-[30px] pointer hover:bg-red-50 center rounded-md "
             >
               Delete Product
-            </p> */}
+            </p>
           </div>
-        )}
+        )} */}
       </div>
     </div>
   );

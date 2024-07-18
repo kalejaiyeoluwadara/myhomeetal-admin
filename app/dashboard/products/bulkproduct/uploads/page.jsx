@@ -25,7 +25,7 @@ function Modal({ message, success, onClose }) {
 }
 
 function Page() {
-  const { bulk, setBulk } = useGlobal();
+  const { bulk, setBulk, openModal } = useGlobal();
   const router = useRouter();
   const [modalMessage, setModalMessage] = useState(null);
   const [modalSuccess, setModalSuccess] = useState(false);
@@ -71,8 +71,11 @@ function Page() {
   const handleRemove = (index) => {
     const updatedBulk = bulk.filter((_, i) => i !== index);
     setBulk(updatedBulk);
+    openModal("Product removed", true);
   };
-
+  const formatNumberWithCommas = (number) => {
+    return new Intl.NumberFormat("en-US").format(number);
+  };
   return (
     <main className="w-full p-[36px] bg-screen min-h-screen overflow-y-scroll">
       <div className="flex items-center w-full justify-between mb-[60px]">
@@ -99,9 +102,13 @@ function Page() {
             key={id}
             className="h-[250px] my-4 relative flex gap-6 px-6 py-6 rounded-[20px] border w-[900px]"
           >
-            <div className="w-[235px] flex-shrink-0 border py-3 flex-col center rounded-xl h-full">
-              <div className="h-[50px] w-[50px] rounded-full center bg-[#F0F2F5] mb-6">
-                <FiUploadCloud size={25} />
+            <div className="w-[235px] relative overflow-hidden flex-shrink-0 border py-3 flex-col center rounded-xl h-full">
+              <div className="h-[50px]  w-[50px] rounded-full center bg-[#F0F2F5] mb-6">
+                {!images ? (
+                  <FiUploadCloud size={25} />
+                ) : (
+                  <img className="cover" src={images[0]} alt="" />
+                )}
               </div>
               {/* <p className="text-[14px] text-center text-[#ED2224]">
                 Click to upload
@@ -116,7 +123,10 @@ function Page() {
                   <p className="text-base truncate font-light">
                     Product Description: {description}
                   </p>
-                  <p className="text-base font-light">Prod Price: #{price}</p>
+                  <p className="text-base font-light">
+                    Prod Price: <span className="font-bold">₦</span>
+                    {formatNumberWithCommas(price)}
+                  </p>
                   <p className="text-base font-light">SKU </p>
                 </div>
               </div>
