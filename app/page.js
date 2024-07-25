@@ -48,8 +48,14 @@ const Login = () => {
         setEmail("");
         setPassword("");
         setTimeout(() => {
-          router.push("/verify");
-        }, 2000);
+          const role = localStorage.getItem("role");
+          openModal("Login Successful, Welcome Back!", true);
+          if (role === "Super Admin") {
+            router.push("/dashboard");
+          } else {
+            router.push("/dashboard/admin/employee");
+          }
+        }, 1500);
       } else {
         openModal("Incorrect information, try again!", false);
         const errorData = await response.json();
