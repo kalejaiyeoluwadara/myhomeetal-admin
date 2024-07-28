@@ -14,12 +14,50 @@ import {
 import TableData from "./TableData";
 import { useGlobal } from "@/app/context";
 function Table() {
-  const [customers, setCustomers] = useState([1, 2, 3]);
+  const [customers, setCustomers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { token } = useGlobal();
   const itemsPerPage = 8;
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = Math.ceil(customers.length / itemsPerPage);
+
+  const fetchCustomers = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await fetch(
+        "https://my-home-et-al-backend.onrender.com/api/v1/user/all-users",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(
+          `Failed to fetch categories: ${response.status} ${response.statusText} - ${errorData.message}`
+        );
+      }
+
+      const data = await response.json();
+      setCustomers(data);
+      console.log(data);
+    } catch (error) {
+      console.error("An error occurred while fetching categories:", error);
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchCustomers();
+  }, []);
 
   const handleNextPage = () => {
     if (currentPage < totalPages) {
@@ -136,13 +174,13 @@ function Table() {
       <div className="w-full ">
         <div className="w-full h-[44px] px-3 text-[12px] font-medium pt-1 items-center justify-center grid grid-cols-9 ">
           <p className=" col-span-2 ">Customer Name</p>
-          <p className="col-span-2">Email Address </p>
-          <p className="col-span-2">Phone Number</p>
-          <p className="">Amount Spent</p>
-          <p className="">Last Order Date</p>
+          <p className=" col-span-2">Email Address </p>
+          <p className="text-center ">Refferal code</p>
+          <p className="text-center">Points</p>
+          <p className="col-span-2 text-center  ">Verified</p>
           <p className="pl-2">Action</p>
         </div>
-        {/* {loading ? (
+        {loading ? (
           <div className="text-center py-10">
             <p className="text-gray-500">Loading...</p>
           </div>
@@ -156,18 +194,29 @@ function Table() {
           </div>
         ) : (
           currentData.map((d, id) => {
-            const { _id, firstname, lastname, email } = d;
+            const {
+              _id,
+              firstname,
+              lastname,
+              email,
+              points,
+              referralCode,
+              isVerified,
+            } = d;
             return (
               <TableData
                 key={d._id}
                 firstname={firstname}
                 lastname={lastname}
                 email={email}
+                points={points}
+                referralCode={referralCode}
+                isVerified={isVerified}
                 _id={d._id}
               />
             );
           })
-        )} */}
+        )}
 
         {/* Footer */}
         <footer className="w-full flex items-center justify-between px-4 h-[68px] bg-white">

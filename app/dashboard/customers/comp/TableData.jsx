@@ -4,30 +4,50 @@ import Image from "next/image";
 import sport from "../../../assets/bessie.svg";
 import { IoIosArrowDown, IoIosArrowUp, IoMdMore } from "react-icons/io";
 import Link from "next/link";
-function TableData({ _id, firstname, lastname, email }) {
+function TableData({
+  _id,
+  firstname,
+  lastname,
+  email,
+  points,
+  referralCode,
+  isVerified,
+}) {
   const [modal, setModal] = useState(false);
   return (
     <div className="w-full h-[72px] border-b bg-white text-[#344054] text-[14px] px-3 items-center justify-center grid pt-2 grid-cols-9 ">
-      <div className="flex w-auto col-span-2 items-center justify-start gap-2 truncate">
-        <Image className="" alt="" src={sport} />
+      <div className="flex w-auto col-span-2 items-center  justify-start gap-2 truncate">
+        {/* <Image className="" alt="" src={sport} /> */}
         <p className="text-[14px] font-medium text-[#101928] ">
           {lastname}, {firstname}
         </p>
       </div>
       <p className=" col-span-2 truncate ">{email} </p>
-      <p className="col-span-2 truncate">(252) 555-0126</p>
-      <p className=" ">$854.08</p>
-      <p className=" ">24 May, 2020</p>
-      <div className="flex items-center relative justify-center ">
+      <p className=" text-center ">{referralCode}</p>
+      <p className=" text-center ">{points}</p>
+      <div className="flex items-center justify-center col-span-2 ">
         <p
-          onClick={() => {
-            setModal((prev) => !prev);
-          }}
-          className="w-[32px] h-[32px] pointer border rounded-[8px] flex items-center justify-center "
+          className={`px-3 font-medium w-[60px] rounded-[12px] py-[2px] flex items-center justify-center ${
+            isVerified
+              ? "text-green-600 bg-green-200"
+              : " bg-red-200 text-red-600 "
+          } `}
         >
-          <IoMdMore size={20} />{" "}
+          {isVerified ? "true" : "false"}
         </p>
-        {modal && (
+      </div>
+      <div className="flex items-start relative justify-start ">
+        <Link href={`/dashboard/customers/${_id}`}>
+          <p
+            onClick={() => {
+              setModal((prev) => !prev);
+            }}
+            className="w-[32px] h-[32px] pointer border rounded-[8px] flex items-center justify-center "
+          >
+            <IoMdMore size={20} />{" "}
+          </p>
+        </Link>
+        {/* {modal && (
           <Link href={"/dashboard/customers/1"}>
             <div
               onClick={() => {
@@ -40,7 +60,7 @@ function TableData({ _id, firstname, lastname, email }) {
               </p>
             </div>
           </Link>
-        )}
+        )} */}
       </div>
     </div>
   );
