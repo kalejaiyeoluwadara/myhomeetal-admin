@@ -40,18 +40,46 @@ const Modal = ({ setStatus }) => {
   );
 };
 
+const fetchProduct = async (productId, token) => {
+  try {
+    const response = await fetch(
+      `https://my-home-et-al-backend.onrender.com/api/v1/product/${productId}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(
+        `Failed to fetch product: ${response.status} ${response.statusText} - ${errorData.message}`
+      );
+    }
+
+    const data = await response.json();
+    return data.productTitle;
+  } catch (error) {
+    console.error("An error occurred while fetching product:", error);
+    return null;
+  }
+};
+
 function Page({ params: { id } }) {
   const [modal, setModal] = useState(false);
   const [status, setStatus] = useState("Pending");
   const [order, setOrder] = useState({});
   const [user, setUser] = useState({});
+  const [orderItems, setOrderItems] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const { token } = useGlobal();
 
-  const fetchUser = async (userId, token) => {
+  const fetchUser = async (userId) => {
     try {
-      console.log("Fetching user with token:", token);
       const response = await fetch(
         `https://my-home-et-al-backend.onrender.com/api/v1/user/${userId}`,
         {
@@ -64,16 +92,17 @@ function Page({ params: { id } }) {
       );
 
       if (!response.ok) {
+        const errorData = await response.json();
         throw new Error(
-          `Failed to fetch user: ${response.status} - ${response.statusText}`
+          `Failed to fetch user: ${response.status} ${response.statusText} - ${errorData.message}`
         );
       }
 
       const data = await response.json();
-      return data;
+      setUser(data);
+      console.log(data);
     } catch (error) {
       console.error("An error occurred while fetching user:", error);
-      throw error;
     }
   };
 
@@ -103,7 +132,16 @@ function Page({ params: { id } }) {
       console.log(data);
 
       // Fetch the user details
-      fetchUser(data.user, token);
+      fetchUser(data.user);
+
+      // Fetch the product details for each order item
+      const orderItemsWithProductNames = await Promise.all(
+        data.orderItems.map(async (item) => {
+          const productTitle = await fetchProduct(item.product, token);
+          return { ...item, productTitle };
+        })
+      );
+      setOrderItems(orderItemsWithProductNames);
     } catch (error) {
       console.error("An error occurred while fetching order:", error);
     } finally {
@@ -180,8 +218,19 @@ function Page({ params: { id } }) {
             <Box title={"Payment Method"} item={order.paymentMethod} />
             <Box
               title={"Total Price"}
-              item={formatNumberWithCommas(order.orderPrice)}
+              item={`₦${formatNumberWithCommas(order.orderPrice)}`}
             />
+            {/* orderitems */}
+            <h2 className="text-2xl mt-4 mb-2 ">Order Items</h2>
+            <div>
+              {orderItems.map((item, id) => (
+                <div key={id} className="border p-4 mb-2 rounded-md">
+                  <p>Product: {item.productTitle}</p>
+                  <p>Quantity: {item.qty}</p>
+                  <p>Price: {item.price}</p>
+                </div>
+              ))}
+            </div>
           </div>
 
           <div className="center w-full mt-[62px]  ">

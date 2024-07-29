@@ -117,8 +117,7 @@ function Form({ id }) {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2M2YyNjdjNDMyNDg5NmFlNzg2ZjgwZSIsImVtYWlsIjoiYmFiYUBteWhvbWVldGFsLmNvbSIsInJvbGUiOiJTdXBlciBBZG1pbiIsImlhdCI6MTcxODE2MTQ5NSwiZXhwIjoxNzI2ODAxNDk1fQ.w3OuGAzZmBRQN_kQbcEAAv82dVV3n0ymvu7G6gJLY6o",
+            Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -126,7 +125,7 @@ function Form({ id }) {
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(
-          `Failed to fetch admins: ${response.status} ${response.statusText} - ${errorData.message}`
+          `Failed to fetch product: ${response.status} ${response.statusText} - ${errorData.message}`
         );
       }
 
@@ -142,7 +141,7 @@ function Form({ id }) {
       });
       setCat(data.category);
     } catch (error) {
-      console.error("An error occurred while fetching admins:", error);
+      console.error("An error occurred while fetching product:", error);
     }
   };
   useEffect(() => {
