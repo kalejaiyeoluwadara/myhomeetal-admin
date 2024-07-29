@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { IoSearch } from "react-icons/io5";
 import filter from "../../../assets/filter.svg";
 import ex from "../../../assets/export.svg";
@@ -13,20 +13,52 @@ import {
   HiOutlineArrowLongLeft,
 } from "react-icons/hi2";
 import TableData from "./TableData";
-
+import { useGlobal } from "@/app/context";
 function Table() {
-  const data = [
-    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
-    22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
-    41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59,
-    60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78,
-    79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97,
-    98, 99, 100,
-  ]; // Sample data array
+  const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const { token } = useGlobal();
+
+  const fetchOrders = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await fetch(
+        "https://my-home-et-al-backend.onrender.com/api/v1/order",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(
+          `Failed to fetch Orders: ${response.status} ${response.statusText} - ${errorData.message}`
+        );
+      }
+
+      const data = await response.json();
+      setOrders(data);
+    } catch (error) {
+      console.error("An error occurred while fetching Orders:", error);
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchOrders();
+  }, []);
   const itemsPerPage = 8;
   const [currentPage, setCurrentPage] = useState(1);
   const [cal, setCal] = useState(false);
-  const totalPages = Math.ceil(data.length / itemsPerPage);
+  const totalPages = Math.ceil(orders.length / itemsPerPage);
   const [date, setDate] = useState(new Date());
 
   const handleNextPage = () => {
@@ -41,7 +73,7 @@ function Table() {
     }
   };
 
-  const currentData = data.slice(
+  const currentData = orders.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
@@ -134,7 +166,7 @@ function Table() {
           <p className="pl-2">Action</p>
         </div>
         {currentData.map((d, id) => {
-          return <TableData key={id} />;
+          return <TableData {...d} key={id} />;
         })}
 
         {/* Footer */}

@@ -1,7 +1,10 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Nav from "./Nav";
 import { GoPeople } from "react-icons/go";
+import { useGlobal } from "@/app/context";
+import Loading from "../../components/Loading";
+import Box from "./Box";
 
 const Modal = ({ setStatus }) => {
   return (
@@ -36,102 +39,158 @@ const Modal = ({ setStatus }) => {
     </div>
   );
 };
-function Page({ params }) {
+
+function Page({ params: { id } }) {
   const [modal, setModal] = useState(false);
   const [status, setStatus] = useState("Pending");
+  const [order, setOrder] = useState({});
+  const [user, setUser] = useState({});
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const { token } = useGlobal();
+
+  const fetchUser = async (userId, token) => {
+    try {
+      console.log("Fetching user with token:", token);
+      const response = await fetch(
+        `https://my-home-et-al-backend.onrender.com/api/v1/user/${userId}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(
+          `Failed to fetch user: ${response.status} - ${response.statusText}`
+        );
+      }
+
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error("An error occurred while fetching user:", error);
+      throw error;
+    }
+  };
+
+  const fetchOrders = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch(
+        `https://my-home-et-al-backend.onrender.com/api/v1/order/${id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(
+          `Failed to fetch order: ${response.status} ${response.statusText} - ${errorData.message}`
+        );
+      }
+
+      const data = await response.json();
+      setOrder(data);
+      console.log(data);
+
+      // Fetch the user details
+      fetchUser(data.user, token);
+    } catch (error) {
+      console.error("An error occurred while fetching order:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchOrders();
+  }, []);
+
+  const formatNumberWithCommas = (number) => {
+    return new Intl.NumberFormat("en-US").format(number);
+  };
+
   return (
     <main className="w-full p-[36px] bg-screen  min-h-screen overflow-y-scroll ">
       <Nav />
       <h2 className="my-[33px] text-[24px] font-semibold text- ">
-        Order Details - {params.id}
+        Order Details - {id}
       </h2>
       <div className="h-[319px]  w-full rounded-xl border bg-white p-6  ">
         <h3 className="text-base mb-[34px] font-semibold ">Order Summary</h3>
-        {[
-          {
-            title: "Fullname",
-            item: "Olamide Akintan",
-          },
-          {
-            title: "Email Address",
-            item: "OlamideAkintan@myhomeetal.com",
-          },
-          {
-            title: "Phone Number",
-            item: "+234 9046505356",
-          },
-        ].map((d, id) => {
-          return (
-            <div
-              key={id}
-              className="flex h-[69px] border-b border-[#F7F9FC] p-[14px] gap-4 items-center justify-start "
-            >
-              <div>
-                <GoPeople size={20} className="text-[#98A2B3]" />
-              </div>
-              <div className=" w-full ">
-                <p className="text-[12px] font-normal text-[#667185]  ">
-                  {d.title}
-                </p>
-                <p className="text-[14px] w-[93%] truncate font-medium text-black ">
-                  {d.item}
-                </p>
-              </div>
-            </div>
-          );
-        })}
+        {loading ? (
+          <Loading loading={loading} />
+        ) : (
+          <>
+            <Box title={"Fullname"} item={user.fullname} />
+            <Box title={"Email Address"} item={user.email} />
+            <Box title={"Phone Number"} item={user.phone} />
+          </>
+        )}
       </div>
 
       {/* more info */}
-      <div className="h-[300px] relative  my-6 w-full rounded-xl border bg-white p-6  ">
-        <h2 className="core ">Delivery Status</h2>
-        {/* Option */}
-        <div className="flex items-center justify-between mt-6 gap-4 h-[69px] w-full border-b py-[14px] border-[#F7F9FC] ">
-          <div className="flex items-center   gap-4">
-            <GoPeople />
-            <div className="">
-              <p className="text-[12px] text-[#667185] ">Status</p>
-              <p
-                className={`text-[14px] ${
-                  status === "Pending"
-                    ? "text-c7"
-                    : status === "Ongoing"
-                    ? "text-[#04326B]"
-                    : "text-[#1F7C3F]"
-                } text-medium `}
+      {loading ? (
+        <Loading loading={loading} />
+      ) : (
+        <>
+          <div className="min-h-[300px] relative  my-6 w-full rounded-xl border bg-white p-6  ">
+            <h2 className="core ">Delivery Status</h2>
+            {/* Option */}
+            <div className="flex items-center justify-between mt-6 gap-4 h-[69px] w-full border-b py-[14px] border-[#F7F9FC] ">
+              <div className="flex items-center   gap-4">
+                <GoPeople />
+                <div className="">
+                  <p className="text-[12px] text-[#667185] ">Status</p>
+                  <p
+                    className={`text-[14px] ${
+                      status === "Pending"
+                        ? "text-c7"
+                        : status === "Ongoing"
+                        ? "text-[#04326B]"
+                        : "text-[#1F7C3F]"
+                    } text-medium `}
+                  >
+                    {order.status}
+                  </p>
+                </div>
+              </div>
+              <div
+                onClick={() => {
+                  setModal((prev) => !prev);
+                }}
+                className="relative"
               >
-                {status}
-              </p>
+                <p className="text-[14px] pointer ">Change status</p>
+                {modal && <Modal setStatus={setStatus} />}
+              </div>
             </div>
-          </div>
-          <div
-            onClick={() => {
-              setModal((prev) => !prev);
-            }}
-            className="relative"
-          >
-            <p className="text-[14px] pointer ">Change status</p>
-            {modal && <Modal setStatus={setStatus} />}
-          </div>
-        </div>
-        <div className="flex items-center gap-4 h-[69px] w-full border-b py-[14px] border-[#F7F9FC] ">
-          <div className="flex items-center   gap-4">
-            <GoPeople />
-            <div className="">
-              <p className="text-[12px] text-[#667185] ">Delivery Address</p>
-              <p className="text-[14px] text-medium ">
-                20, Livery street, Ikeja, Lagos
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <div className="center w-full mt-[62px]  ">
-        <button className="w-[435px] core rounded-xl flex items-center justify-center h-[63px]  ">
-          Generate QR
-        </button>
-      </div>
+            <Box title={"Delivery Address"} item={order.address} />
+            <Box title={"OrderId"} item={order.orderId} />
+            <Box title={"Payment Method"} item={order.paymentMethod} />
+            <Box
+              title={"Total Price"}
+              item={formatNumberWithCommas(order.orderPrice)}
+            />
+          </div>
+
+          <div className="center w-full mt-[62px]  ">
+            <button className="w-[435px] core rounded-xl flex items-center justify-center h-[63px]  ">
+              Generate QR
+            </button>
+          </div>
+        </>
+      )}
     </main>
   );
 }
