@@ -224,10 +224,10 @@ function Page({ params: { id } }) {
             <h2 className="text-2xl mt-4 mb-2 ">Order Items</h2>
             <div>
               {orderItems.map((item, id) => (
-                <div key={id} className="border p-4 mb-2 rounded-md">
+                <div key={id} className="border p-4 text-sm mb-2 rounded-md">
                   <p>Product: {item.productTitle}</p>
                   <p>Quantity: {item.qty}</p>
-                  <p>Price: {item.price}</p>
+                  <p>Price: {`₦${formatNumberWithCommas(item.price)}`}</p>
                 </div>
               ))}
             </div>
