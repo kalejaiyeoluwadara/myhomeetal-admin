@@ -1,9 +1,11 @@
 "use client";
-import { useGlobal } from "@/app/context";
+import useData from "@/hooks/useData";
 import React from "react";
 import { GoPeople } from "react-icons/go";
 function Status() {
-  const { admins } = useGlobal();
+  const { data: admins } = useData(
+    "https://my-home-et-al-backend.onrender.com/api/v1/admin/get-admins"
+  );
   const data = [
     {
       title: "Total employee",
