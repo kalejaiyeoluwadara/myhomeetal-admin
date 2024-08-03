@@ -13,51 +13,20 @@ import {
 } from "react-icons/hi2";
 import TableData from "./TableData";
 import { useGlobal } from "@/app/context";
+import useData from "@/hooks/useData";
 function Table() {
-  const [customers, setCustomers] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
   const { token } = useGlobal();
   const itemsPerPage = 8;
   const [currentPage, setCurrentPage] = useState(1);
+  const {
+    data: customers,
+    loading,
+    error,
+    setdata: setCustomers,
+  } = useData(
+    "https://my-home-et-al-backend.onrender.com/api/v1/user/all-users"
+  );
   const totalPages = Math.ceil(customers.length / itemsPerPage);
-
-  const fetchCustomers = async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      const response = await fetch(
-        "https://my-home-et-al-backend.onrender.com/api/v1/user/all-users",
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(
-          `Failed to fetch categories: ${response.status} ${response.statusText} - ${errorData.message}`
-        );
-      }
-
-      const data = await response.json();
-      setCustomers(data);
-      console.log(data);
-    } catch (error) {
-      console.error("An error occurred while fetching categories:", error);
-      setError(error.message);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchCustomers();
-  }, []);
 
   const handleNextPage = () => {
     if (currentPage < totalPages) {

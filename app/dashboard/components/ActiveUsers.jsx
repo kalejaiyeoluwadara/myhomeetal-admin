@@ -4,8 +4,11 @@ import { PiMoneyWavy } from "react-icons/pi";
 import { IoPersonOutline } from "react-icons/io5";
 import { IoAnalyticsOutline } from "react-icons/io5";
 import { useGlobal } from "@/app/context";
+import useData from "@/hooks/useData";
 function ActiveUsers() {
-  const { clen } = useGlobal();
+  const { data } = useData(
+    "https://my-home-et-al-backend.onrender.com/api/v1/user/all-users"
+  );
   return (
     <div className="box">
       <div className="flex gap-2 items-center justify-center">
@@ -16,7 +19,7 @@ function ActiveUsers() {
       </div>
 
       <div>
-        <p className="title mt-8 ">1</p>
+        <p className="title mt-8 ">{data.length}</p>
       </div>
 
       <div className="flex items-center mt-[12px] gap-2 justify-center  ">
