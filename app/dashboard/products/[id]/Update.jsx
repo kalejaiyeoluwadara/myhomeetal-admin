@@ -64,25 +64,27 @@ function Form({ id }) {
   const handleSubmit = async () => {
     setLoading(true);
     const formData = new FormData();
-    formData.append("productTitle", "update");
+    formData.append("productTitle", formContent.productTitle);
     formData.append("price", formContent.price);
-    formData.append("category", formContent.category);
+    formData.append("category", {
+      ...formContent.category,
+      name: formContent.category.name,
+    });
     formData.append("description", formContent.description);
     formData.append("brand", formContent.brand);
     formData.append("inventory", formContent.inventory);
-    formData.append("sku", formContent.sku);
-    formData.append("stock", formContent.stock);
-    formData.append("size", formContent.size);
     formData.append("weight", formContent.weight);
-    formData.append("modelno", formContent.modelno);
-    formData.append("mainmaterial", formContent.mainmaterial);
+    formData.append("modelNumber", formContent.modelno);
+    formData.append("mainMaterial", formContent.mainmaterial);
     formData.append("color", formContent.color);
-    formData.append("feature1", formContent.fit1);
-    formData.append("feature2", formContent.fit2);
-    formData.append("feature3", formContent.fit3);
-    formData.append("feature4", formContent.fit4);
-    formData.append("feature5", formContent.fit5);
-    formData.append("feature6", formContent.fit6);
+    formData.append("keyFeatures", [
+      formContent.fit1,
+      formContent.fit2,
+      formContent.fit3,
+      formContent.fit4,
+      formContent.fit5,
+      formContent.fit6,
+    ]);
     formData.append("images", formContent.images);
     try {
       const response = await fetch(
@@ -194,7 +196,7 @@ function Form({ id }) {
     fit6,
   } = formContent;
   return (
-    <main className="mb-40 w-full">
+    <main key={id} className="mb-40 w-full">
       <div className="flex  items-center justify-between">
         <section>
           <h2 className="text-[24px] font-semibold ">
@@ -335,29 +337,25 @@ function Form({ id }) {
               }));
             };
             return (
-              <div className="h-auto w-auto bg-white flex flex-col gap-2 rounded-xl">
-                {formContent?.images.map((d, id) => {
-                  return (
-                    <div
-                      key={id}
-                      className="w-full px-8 flex justify-between items-center bg-white rounded-[10px] h-[100px]"
-                    >
-                      <img
-                        src={d}
-                        className="h-[60px] w-[60px] rounded-md object-cover"
-                        alt=""
-                      />
-                      <p
-                        className="pointer text-primary"
-                        onClick={() => {
-                          handleRemoveFile(id);
-                        }}
-                      >
-                        <LiaTimesSolid size={30} />
-                      </p>
-                    </div>
-                  );
-                })}
+              <div
+                key={id}
+                className="h-auto w-auto bg-white flex flex-col gap-2 rounded-xl"
+              >
+                <div className="w-full px-8 flex justify-between items-center bg-white rounded-[10px] h-[100px]">
+                  <img
+                    src={d}
+                    className="h-[60px] w-[60px] rounded-md object-cover"
+                    alt=""
+                  />
+                  <p
+                    className="pointer text-primary"
+                    onClick={() => {
+                      handleRemoveFile(id);
+                    }}
+                  >
+                    <LiaTimesSolid size={30} />
+                  </p>
+                </div>
               </div>
             );
           })}
