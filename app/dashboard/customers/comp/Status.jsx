@@ -1,15 +1,20 @@
+"use client";
+import useData from "@/hooks/useData";
 import React from "react";
 import { GoPeople } from "react-icons/go";
 import { SiHackthebox } from "react-icons/si";
 function Status() {
+  const { data: customers } = useData(
+    "https://my-home-et-al-backend.onrender.com/api/v1/user/all-users"
+  );
   const data = [
     {
       title: "Total Customer",
-      count: "0",
+      count: customers.length,
     },
     {
       title: "Active Customers",
-      count: "0",
+      count: customers.length,
     },
     {
       title: "Unregistered Customers",

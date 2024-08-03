@@ -5,17 +5,14 @@ import filter from "../../../assets/filter.svg";
 import ex from "../../../assets/export.svg";
 import date from "../../../assets/date.svg";
 import Image from "next/image";
-import profile from "../../../assets/profile.png";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import {
   HiOutlineArrowLongRight,
   HiOutlineArrowLongLeft,
 } from "react-icons/hi2";
 import TableData from "./TableData";
-import { useGlobal } from "@/app/context";
 import useData from "@/hooks/useData";
 function Table() {
-  const { token } = useGlobal();
   const itemsPerPage = 8;
   const [currentPage, setCurrentPage] = useState(1);
   const {
