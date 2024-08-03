@@ -136,10 +136,21 @@ function Form({ id }) {
         category: data.category || "",
         description: data.description || "",
         brand: data.brand || "",
-        inventory: data.inventory || 0,
+        inventory: data.inventory || "",
         images: data.images || [],
+        mainmaterial: data.mainMaterial || "",
+        weight: data.weight || "",
+        color: data.color || "",
+        size: data.size || "",
+        modelno: data.modelNumber || "",
+        fit1: data.keyFeatures[0] || "",
+        fit2: data.keyFeatures[1] || "",
+        fit3: data.keyFeatures[2] || "",
+        fit4: data.keyFeatures[3] || "",
+        fit5: data.keyFeatures[4] || "",
+        fit6: data.keyFeatures[5] || "",
       });
-      setCat(data.category);
+      setCat(data.category.name);
     } catch (error) {
       console.error("An error occurred while fetching product:", error);
     }
