@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import logo from "@/app/assets/logo.svg";
-import man from "@/app/assets/wall.svg";
+import man from "@/app/assets/log.png";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { FaCheckCircle } from "react-icons/fa";
