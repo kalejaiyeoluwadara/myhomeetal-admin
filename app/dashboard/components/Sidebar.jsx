@@ -28,7 +28,11 @@ function Sidebar() {
     <div className="h-screen relative border-r border-border -z-40 w-full py-[24px]">
       {/* Header */}
       <section className="px-[24px]">
-        <Link href={"/dashboard"}>
+        <Link
+          href={`${
+            role === "Super Admin" ? "/dashboard" : "/dashboard/admin/employee"
+          }`}
+        >
           <Image src={logo} alt="" className="" />
         </Link>
       </section>
