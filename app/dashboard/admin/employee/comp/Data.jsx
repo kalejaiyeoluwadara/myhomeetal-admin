@@ -7,7 +7,7 @@ function Data() {
     <div className="flex justify-between px-4 h-[68px] items-center">
       <Image src={sport} className="" alt="" />
       <h3>Sporty Running Shoe</h3>
-      <button className="pill cursor-text ">Low</button>
+      <span className="pill  cursor-text ">Low</span>
     </div>
   );
 }

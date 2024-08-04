@@ -7,23 +7,28 @@ import shop from "@/app/assets/shop.svg";
 import Table from "./comp/TableOrd";
 import Data from "./comp/Data";
 import Image from "next/image";
+import useData from "@/hooks/useData";
 
 function Page() {
+  const { stock } = useData(
+    "https://my-home-et-al-backend.onrender.com/api/v1/product/all-products"
+  );
+  const low = stock.map();
   const data = [
     {
       title: "Today Sales",
-      item: "20,000",
+      item: "0",
       img: shop,
     },
     {
       title: "Weekly Sales",
-      item: "175,000",
+      item: "0",
       img: bag,
     },
   ];
   const [modal, setModal] = useState(false);
   return (
-    <main className="w-full p-[36px] bg-screen min-h-screen overflow-y-scroll ">
+    <main className="w-full p-6 bg-screen min-h-screen overflow-y-scroll ">
       <Welcome />
       <section className=" mt-6 gap-6 grid grid-cols-2 w-full ">
         {data.map((d, id) => {
@@ -52,7 +57,7 @@ function Page() {
 
       <section className="grid grid-cols-3 mt-6 w-full h-[568px] gap-4">
         <Table />
-        {/* Stock aller */}
+        {/* Stock alert */}
         <div className="w-auto  bg-white border rounded-xl h-full ">
           <section className="w-full flex items-center justify-between px-[16px]  h-[68px] ">
             <h2 className="font-semibold text-base ">Stock Alert</h2>
