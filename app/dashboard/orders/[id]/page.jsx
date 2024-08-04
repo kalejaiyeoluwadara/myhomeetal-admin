@@ -5,6 +5,8 @@ import { GoPeople } from "react-icons/go";
 import { useGlobal } from "@/app/context";
 import Loading from "../../components/Loading";
 import Box from "./Box";
+import { location, messages, profile, shoppingCart } from "@/utils/icons";
+import Image from "next/image";
 
 const Modal = ({ setStatus }) => {
   return (
@@ -161,17 +163,22 @@ function Page({ params: { id } }) {
     <main className="w-full p-[36px] bg-screen  min-h-screen overflow-y-scroll ">
       <Nav />
       <h2 className="my-[33px] text-[24px] font-semibold text- ">
-        Order Details - {id}
+        Order Details - #{order.orderId}
       </h2>
-      <div className="h-[319px]  w-full rounded-xl border bg-white p-6  ">
+      <div className="min-h-[319px]  w-full rounded-xl border bg-white p-6  ">
         <h3 className="text-base mb-[34px] font-semibold ">Order Summary</h3>
         {loading ? (
           <Loading loading={loading} />
         ) : (
           <>
-            <Box title={"Fullname"} item={user.fullname} />
-            <Box title={"Email Address"} item={user.email} />
-            <Box title={"Phone Number"} item={user.phone} />
+            <Box title={"Fullname"} item={user.fullname} image={profile} />
+            <Box title={"Email Address"} item={user.email} image={messages} />
+            <Box
+              title={"Delivery Address"}
+              item={order.address}
+              image={location}
+            />
+            <Box title={"Phone Number"} item={user.phone} image={profile} />
           </>
         )}
       </div>
@@ -186,7 +193,7 @@ function Page({ params: { id } }) {
             {/* Option */}
             <div className="flex items-center justify-between mt-6 gap-4 h-[69px] w-full border-b py-[14px] border-[#F7F9FC] ">
               <div className="flex items-center   gap-4">
-                <GoPeople />
+                <Image src={shoppingCart} alt="cart" />
                 <div className="">
                   <p className="text-[12px] text-[#667185] ">Status</p>
                   <p
@@ -213,7 +220,6 @@ function Page({ params: { id } }) {
               </div>
             </div>
 
-            <Box title={"Delivery Address"} item={order.address} />
             <Box title={"OrderId"} item={order.orderId} />
             <Box title={"Payment Method"} item={order.paymentMethod} />
             <Box

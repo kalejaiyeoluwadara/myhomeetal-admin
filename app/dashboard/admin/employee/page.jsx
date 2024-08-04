@@ -13,7 +13,7 @@ function Page() {
   const { stock } = useData(
     "https://my-home-et-al-backend.onrender.com/api/v1/product/all-products"
   );
-  const low = stock.map();
+  // const low = stock.map();
   const data = [
     {
       title: "Today Sales",
