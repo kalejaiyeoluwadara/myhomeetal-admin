@@ -13,6 +13,7 @@ import {
 } from "react-icons/hi2";
 import TableData from "./TableData";
 import useData from "@/hooks/useData";
+import Loading from "@/app/dashboard/components/Loading";
 function Table() {
   const { data, loading } = useData(
     "https://my-home-et-al-backend.onrender.com/api/v1/order"
@@ -72,6 +73,7 @@ function Table() {
     }
     return pages;
   };
+
   const [modal, setModal] = useState(false);
   const [filt, setFilt] = useState("this week");
   return (
@@ -118,9 +120,15 @@ function Table() {
       </section>
       {/* Content */}
       <div className="w-full ">
-        {currentData.map((d, id) => {
-          return <TableData {...d} key={id} />;
-        })}
+        {loading ? (
+          <Loading loading={loading} />
+        ) : (
+          <>
+            {currentData.map((d, id) => {
+              return <TableData {...d} key={id} />;
+            })}
+          </>
+        )}
 
         {/* Footer */}
         <footer className="w-full absolute bottom-0 flex items-center justify-between px-4 h-[68px] ">
