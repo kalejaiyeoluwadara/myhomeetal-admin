@@ -21,6 +21,7 @@ function AppProvider({ children }) {
   const [token, setToken] = useState("");
   const [userData, setUserData] = useState([
     {
+      username: "",
       fullname: "",
       email: "",
       image: "",

@@ -41,7 +41,7 @@ function NavBar() {
         </div>
         {image ? (
           <img
-            className="flex-shrink-0 object-cover h-[50px] w-[50px] bg-gray-300 rounded-full"
+            className="flex-shrink-0 object-cover h-[40px] w-[40px] bg-gray-300 rounded-full"
             alt="Profile"
             src={image}
           />

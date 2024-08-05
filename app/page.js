@@ -44,6 +44,7 @@ const Login = () => {
         localStorage.setItem("image", data.adminProfile?.image);
         localStorage.setItem("token", data.token);
         localStorage.setItem("role", data.adminProfile.role);
+        localStorage.setItem("id", data.adminProfile?.id);
         setIsLoading(false);
         setEmail("");
         setPassword("");

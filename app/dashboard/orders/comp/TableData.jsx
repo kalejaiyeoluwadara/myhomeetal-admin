@@ -42,32 +42,16 @@ function TableData({
         </p>
       </div>
       <div className="flex items-center relative justify-center ">
-        <p
-          onClick={() => {
-            setModal((prev) => !prev);
-          }}
-          className="w-[32px] h-[32px] pointer border rounded-[8px] flex items-center justify-center "
-        >
-          <IoMdMore size={20} />{" "}
-        </p>
-        {modal && (
-          <div
-            onClick={() => setModal((prev) => !prev)}
-            className="h-auto border flex flex-col bg-white sh absolute top-6 -right-2 z-40 center rounded-md w-[130px] items-start px-2 py-2 text-[14px] "
+        <Link href={`/dashboard/orders/${_id}`}>
+          <p
+            onClick={() => {
+              setModal((prev) => !prev);
+            }}
+            className="w-[32px] h-[32px] pointer border rounded-[8px] flex items-center justify-center "
           >
-            <Link className="w-full" href={`/dashboard/orders/${_id}`}>
-              <p className="w-full px-2 h-[40px]  pointer hover:bg-red-50 flex items-center rounded-md ">
-                See Details
-              </p>
-            </Link>
-            <p className="w-full px-2 h-[40px]  pointer hover:bg-red-50 flex items-center rounded-md ">
-              Change Status
-            </p>
-            <p className="w-full px-2 h-[40px]  pointer hover:bg-red-50 flex items-center rounded-md ">
-              Cancel Order
-            </p>
-          </div>
-        )}
+            <IoMdMore size={20} />{" "}
+          </p>
+        </Link>
       </div>
     </div>
   );

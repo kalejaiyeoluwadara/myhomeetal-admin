@@ -1,5 +1,4 @@
-"use client";
-import React, { useEffect } from "react";
+import React from "react";
 import Welcome from "./Welcome";
 import Details from "./Details";
 import Chart from "./Chart";
