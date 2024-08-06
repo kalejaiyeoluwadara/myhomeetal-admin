@@ -58,6 +58,7 @@ function Page({ params }) {
         );
       }
       const data = await response.json();
+      console.log(data);
       setCategory(data);
     } catch (error) {
       console.error("An error occurred while fetching categories:", error);
@@ -72,7 +73,11 @@ function Page({ params }) {
 
   return (
     <div className="w-full p-[36px] bg-screen min-h-screen overflow-y-scroll">
-      <Welcome handleDelete={handleDelete} id={params.id} />
+      <Welcome
+        category={category}
+        handleDelete={handleDelete}
+        id={category[0]?.category.name}
+      />
       {loading ? (
         <Loading loading={true} />
       ) : category.length === 0 ? (
