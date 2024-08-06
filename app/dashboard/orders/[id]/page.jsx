@@ -83,7 +83,7 @@ function Page({ params: { id } }) {
   const fetchUser = async (userId) => {
     try {
       const response = await fetch(
-        `https://my-home-et-al-backend.onrender.com/api/v1/user/${userId}`,
+        `https://my-home-et-al.onrender.com/api/v1/user/${userId}`,
         {
           method: "GET",
           headers: {

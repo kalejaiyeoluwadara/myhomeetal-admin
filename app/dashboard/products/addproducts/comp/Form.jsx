@@ -78,7 +78,7 @@ function Form() {
   const createProduct = async () => {
     setIsLoading(true);
     const url =
-      "https://my-home-et-al-backend.onrender.com/api/v1/product/create-product";
+      "https://my-home-et-al.onrender.com/api/v1/product/create-product";
     const formData = new FormData();
     formData.append("productTitle", formContent.productTitle);
     formData.append("price", formContent.price);

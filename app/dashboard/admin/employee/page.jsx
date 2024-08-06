@@ -11,7 +11,7 @@ import useData from "@/hooks/useData";
 
 function Page() {
   const { stock } = useData(
-    "https://my-home-et-al-backend.onrender.com/api/v1/product/all-products"
+    "https://my-home-et-al.onrender.com/api/v1/product/all-products"
   );
   // const low = stock.map();
   const data = [

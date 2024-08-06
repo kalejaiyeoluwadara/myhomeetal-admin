@@ -16,7 +16,7 @@ import useData from "@/hooks/useData";
 import Loading from "@/app/dashboard/components/Loading";
 function Table() {
   const { data, loading } = useData(
-    "https://my-home-et-al-backend.onrender.com/api/v1/order"
+    "https://my-home-et-al.onrender.com/api/v1/order"
   );
   const itemsPerPage = 6;
   const [currentPage, setCurrentPage] = useState(1);

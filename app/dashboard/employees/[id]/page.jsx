@@ -54,7 +54,7 @@ function Page({ params }) {
     setLoading(true);
     try {
       const response = await fetch(
-        `https://my-home-et-al-backend.onrender.com/api/v1/admin/${params.id}`,
+        `https://my-home-et-al.onrender.com/api/v1/admin/${params.id}`,
         {
           method: "DELETE",
           headers: {
@@ -87,7 +87,7 @@ function Page({ params }) {
     setLoading(true);
     try {
       const response = await fetch(
-        `https://my-home-et-al-backend.onrender.com/api/v1/admin/${params.id}`,
+        `https://my-home-et-al.onrender.com/api/v1/admin/${params.id}`,
         {
           method: "PUT",
           headers: {
@@ -121,7 +121,7 @@ function Page({ params }) {
     setLoading(true);
     try {
       const response = await fetch(
-        `https://my-home-et-al-backend.onrender.com/api/v1/admin/${params.id}`,
+        `https://my-home-et-al.onrender.com/api/v1/admin/${params.id}`,
         {
           method: "GET",
           headers: {
@@ -161,7 +161,7 @@ function Page({ params }) {
     const updatedActiveStatus = !formData.active;
     try {
       const response = await fetch(
-        `https://my-home-et-al-backend.onrender.com/api/v1/admin/${params.id}`,
+        `https://my-home-et-al.onrender.com/api/v1/admin/${params.id}`,
         {
           method: "PUT",
           headers: {

@@ -36,7 +36,7 @@ function Table() {
 
     try {
       const response = await fetch(
-        "https://my-home-et-al-backend.onrender.com/api/v1/admin/get-admins",
+        "https://my-home-et-al.onrender.com/api/v1/admin/get-admins",
         {
           method: "GET",
           headers: {

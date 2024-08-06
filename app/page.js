@@ -26,7 +26,7 @@ const Login = () => {
       };
 
       const response = await fetch(
-        "https://my-home-et-al-backend.onrender.com/api/v1/admin/sign-in",
+        "https://my-home-et-al.onrender.com/api/v1/admin/sign-in",
         {
           method: "POST",
           headers: {

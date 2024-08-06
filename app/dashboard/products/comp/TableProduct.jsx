@@ -83,7 +83,7 @@ function Table() {
     try {
       setLoading(true);
       const response = await fetch(
-        "https://my-home-et-al-backend.onrender.com/api/v1/product/all-products",
+        "https://my-home-et-al.onrender.com/api/v1/product/all-products",
         {
           method: "GET",
           headers: {

@@ -25,7 +25,7 @@ function Table() {
     setError(null);
     try {
       const response = await fetch(
-        "https://my-home-et-al-backend.onrender.com/api/v1/order",
+        "https://my-home-et-al.onrender.com/api/v1/order",
         {
           method: "GET",
           headers: {

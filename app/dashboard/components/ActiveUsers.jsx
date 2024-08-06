@@ -7,7 +7,7 @@ import { useGlobal } from "@/app/context";
 import useData from "@/hooks/useData";
 function ActiveUsers() {
   const { data } = useData(
-    "https://my-home-et-al-backend.onrender.com/api/v1/user/all-users"
+    "https://my-home-et-al.onrender.com/api/v1/user/all-users"
   );
   return (
     <div className="box">
