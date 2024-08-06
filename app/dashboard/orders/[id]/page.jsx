@@ -189,7 +189,7 @@ function Page({ params: { id } }) {
       ) : (
         <>
           <div className="min-h-[300px] relative  my-6 w-full rounded-xl border bg-white p-6  ">
-            <h2 className="core ">Delivery Status</h2>
+            <h2 className="text-base font-semibold  ">Delivery Status</h2>
             {/* Option */}
             <div className="flex items-center justify-between mt-6 gap-4 h-[69px] w-full border-b py-[14px] border-[#F7F9FC] ">
               <div className="flex items-center   gap-4">
@@ -215,7 +215,9 @@ function Page({ params: { id } }) {
                 }}
                 className="relative"
               >
-                <p className="text-[14px] pointer ">Change status</p>
+                <p className="text-[14px] bg-primary px-4 py-3 text-white text-center rounded-full pointer cursor-pointer ">
+                  Change status
+                </p>
                 {modal && <Modal setStatus={setStatus} />}
               </div>
             </div>
@@ -226,23 +228,35 @@ function Page({ params: { id } }) {
               title={"Total Price"}
               item={`₦${formatNumberWithCommas(order.orderPrice)}`}
             />
-            {/* orderitems */}
-            <h2 className="text-2xl mt-4 mb-2 ">Order Items</h2>
-            <div>
+          </div>
+          <div className="min-h-[300px] relative  my-6 w-full rounded-xl border bg-white p-6  ">
+            <h2 className="font-semibold text-lg mb-4 ">Order Summary</h2>
+            <div className="border rounded-2xl space-y-6  p-6 ">
               {orderItems.map((item, id) => (
-                <div key={id} className="border p-4 text-sm mb-2 rounded-md">
-                  <p>Product: {item.productTitle}</p>
-                  <p>Quantity: {item.qty}</p>
+                <div
+                  key={id}
+                  className=" flex items-center  justify-between text-sm mb-2"
+                >
+                  <div className="flex items-center gap-5">
+                    <div className="h-[95px] w-[95px] bg-gray-200 rounded-2xl "></div>
+                    <div className="  ">
+                      <p className=" w-[375px] text-wrap mb-4 text-sm font-semibold">
+                        {" "}
+                        Samsung Galaxy A14 6.6" 4GB RAM/64GB ROM Android 13 -
+                        Light Green {item.productTitle}
+                      </p>
+                      <p className="flex font-light text-sm justify-start items-center gap-2">
+                        Quantity{" "}
+                        <span className="bg-red-50 rounded-full w-[56px] h-[31px] text-black center ">
+                          {item.qty}
+                        </span>
+                      </p>
+                    </div>
+                  </div>
                   <p>Price: {`₦${formatNumberWithCommas(item.price)}`}</p>
                 </div>
               ))}
             </div>
-          </div>
-
-          <div className="center w-full mt-[62px]  ">
-            <button className="w-[435px] core rounded-xl flex items-center justify-center h-[63px]  ">
-              Generate QR
-            </button>
           </div>
         </>
       )}

@@ -73,41 +73,7 @@ function Table() {
     }
     return pages;
   };
-  // const fetchCutomers = async () => {
-  //   try {
-  //     setLoading(true);
-  //     const response = await fetch(
-  //       "https://my-home-et-al-backend.onrender.com/api/v1/admin/all-users",
-  //       {
-  //         method: "GET",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           Authorization:
-  //             "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2M2YyNjdjNDMyNDg5NmFlNzg2ZjgwZSIsImVtYWlsIjoiYmFiYUBteWhvbWVldGFsLmNvbSIsInJvbGUiOiJTdXBlciBBZG1pbiIsImlhdCI6MTcxODE2MTQ5NSwiZXhwIjoxNzI2ODAxNDk1fQ.w3OuGAzZmBRQN_kQbcEAAv82dVV3n0ymvu7G6gJLY6o",
-  //         },
-  //       }
-  //     );
 
-  //     if (!response.ok) {
-  //       const errorData = await response.json();
-  //       throw new Error(
-  //         `Failed to fetch products: ${response.status} ${response.statusText} - ${errorData.message}`
-  //       );
-  //     }
-
-  //     const data = await response.json();
-  //     setCustomers(data);
-  //     console.log(data);
-  //   } catch (error) {
-  //     setError(error.message);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   fetchCutomers();
-  // }, []);
   return (
     <div className="w-full overflow-hidden h-auto rounded-[10px] flex flex-col items-start justify-start border ">
       {/* Header */}
@@ -136,13 +102,12 @@ function Table() {
       </section>
       {/* Content */}
       <div className="w-full ">
-        <div className="w-full h-[44px] px-3 text-[12px] font-medium pt-1 items-center justify-center grid grid-cols-9 ">
+        <div className="w-full h-[44px] px-3 text-[12px] font-medium pt-1 items-center justify-center grid grid-cols-8 ">
           <p className=" col-span-2 ">Customer Name</p>
           <p className=" col-span-2">Email Address </p>
           <p className="text-center ">Refferal code</p>
           <p className="text-center">Points</p>
           <p className="col-span-2 text-center  ">Verified</p>
-          <p className="pl-2">Action</p>
         </div>
         {loading ? (
           <div className="text-center py-10">

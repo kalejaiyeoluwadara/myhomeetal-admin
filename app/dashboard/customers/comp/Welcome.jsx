@@ -13,7 +13,7 @@ function Welcome() {
         className="flex gap-4 pointer "
       >
         <h2 className="text-[24px] font-semibold ">All Customers</h2>
-        <div className="flex relative border rounded-[8px] center grey gap-2 px-3 py-[6px]">
+        {/* <div className="flex relative border rounded-[8px] center grey gap-2 px-3 py-[6px]">
           <p className="text-[14px] capitalize font-medium  ">{filter}</p>
           <BsChevronDown size={20} />
 
@@ -34,7 +34,7 @@ function Welcome() {
               })}
             </div>
           )}
-        </div>
+        </div> */}
       </section>
     </div>
   );

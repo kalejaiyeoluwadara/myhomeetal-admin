@@ -7,8 +7,8 @@ function Welcome() {
         <h2 className="text-[24px] font-semibold ">Transaction Overview</h2>
       </section>
       <section className="flex gap-4">
-        <button className=" text-[16px] font-semibold py-2 px-3 rounded-[8px] flex items-center justify-center gap-2 ">
-          withdraw
+        <button className=" text-base font-semibold py-4 px-6 rounded-[99px] flex items-center justify-center gap-2 ">
+          Withdraw
         </button>
       </section>
     </div>
