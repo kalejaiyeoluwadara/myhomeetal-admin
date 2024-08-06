@@ -35,8 +35,7 @@ function CreateCategory() {
       formData.append("category-image", formContent.coverImage);
     }
 
-    const url =
-      "https://my-home-et-al-backend.onrender.com/api/v1/product-category";
+    const url = "https://my-home-et-al.onrender.com/api/v1/product-category";
 
     try {
       const response = await fetch(url, {
