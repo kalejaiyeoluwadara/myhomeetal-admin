@@ -22,8 +22,9 @@ function Success({ id, success, setSuccess }) {
               setSuccess(false);
             }}
           >
-            <button className="w-[475px] h-[60px] rounded-[10px] ">
-              Return to home
+            <button className="w-[475px] h-[60px] rounded-[99px] ">
+              {" "}
+              Return to Home
             </button>
           </Link>
         </div>

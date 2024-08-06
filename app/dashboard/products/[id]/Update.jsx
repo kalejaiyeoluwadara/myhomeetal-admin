@@ -205,19 +205,19 @@ function Form({ id }) {
         </section>
         <section className="flex gap-6">
           <Link href={"/dashboard/products"}>
-            <div className=" text-[16px] font-semibold p-4 rounded-[8px] flex items-center justify-center bg-white border-primary border-[1.5px] text-primary gap-2 ">
+            <div className=" text-[16px] font-medium p-4 rounded-[99px] flex items-center justify-center bg-white border-primary border-[1.5px] text-primary gap-2 ">
               <LiaTimesSolid size={20} />
               Cancel
             </div>
           </Link>
           <button
             onClick={handleSubmit}
-            className={`text-[16px] ${
+            className={`text-base ${
               loading ? "bg-gray-500 text-white" : ""
-            } font-semibold p-4 rounded-[8px] flex items-center justify-center gap-2 `}
+            } font-medium p-4 rounded-[99px] w-[166px] flex items-center justify-center gap-2 `}
           >
-            <FaPlus size={20} />
-            Update Product
+            {/* <FaPlus size={20} /> */}
+            Save Product
           </button>
         </section>
       </div>
@@ -225,7 +225,7 @@ function Form({ id }) {
         {/* Main form */}
         <div className="border bg-white col-span-2 rounded-xl p-4 w-auto h-[800px]">
           {/* title */}
-          <h2 className=" core mt-4 ">General Information</h2>
+          <h2 className=" core mt-4 ">Product Information</h2>
           <section className="mt-4 flex flex-col items-start justify-center gap-6 ">
             <div className="w-full ">
               <label className="inputlabel">Product Name</label>

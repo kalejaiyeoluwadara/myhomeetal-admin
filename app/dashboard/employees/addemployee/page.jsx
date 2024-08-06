@@ -445,7 +445,7 @@ function Page() {
                       openModal("Enter full name!", false);
                     }
                   }}
-                  className="w-full col-span-2 mb-2 text-[16px] font-semibold border h-[55px] rounded-[8px]"
+                  className="w-full col-span-2 mb-2 text-[16px] font-semibold border h-[55px] rounded-[99px]"
                 >
                   Next Step
                 </button>
@@ -561,7 +561,7 @@ function Page() {
                       openModal("Generate Employee ID!", false);
                     }
                   }}
-                  className="w-full text-[16px] font-semibold border h-[55px] rounded-[8px]"
+                  className="w-full text-[16px] font-semibold border h-[55px] rounded-[99px]"
                 >
                   Next Step
                 </button>
@@ -610,7 +610,7 @@ function Page() {
 
               <button
                 onClick={handleSubmit}
-                className={`w-full col-span-2 text-[16px] font-semibold border h-[55px]  rounded-[8px] ${
+                className={`w-full col-span-2 text-[16px] font-semibold border h-[55px]  rounded-[99px] ${
                   loading && "bg-gray-500"
                 } `}
               >

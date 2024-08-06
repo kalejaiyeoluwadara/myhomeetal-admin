@@ -9,7 +9,7 @@ function Welcome() {
       </section>
       <section>
         <Link href={"/dashboard/products/addproducts"}>
-          <button className=" text-[16px] font-semibold p-4 rounded-[8px] flex items-center justify-center gap-2 ">
+          <button className=" text-lg font-medium h-[50px] w-[300px] rounded-[99px] flex items-center justify-center gap-2 ">
             <FaPlus size={20} />
             Add Product
           </button>
