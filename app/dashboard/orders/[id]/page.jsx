@@ -259,7 +259,9 @@ function Page({ params: { id } }) {
                       </p>
                     </div>
                   </div>
-                  <p>Price: {`₦${formatNumberWithCommas(item.price)}`}</p>
+                  <p className="font-medium text-base">{`₦${formatNumberWithCommas(
+                    item.price
+                  )}`}</p>
                 </div>
               ))}
             </div>
