@@ -57,14 +57,14 @@ function Page() {
         setModalSuccess(false);
       } else {
         console.log("Success");
-        setModalMessage("Product uploaded successfully");
-        setModalSuccess(true);
-        router.push("/dashboard/products");
+        setTimeout(() => {
+          openModal("Products added successfully.", true);
+          router.push("/dashboard/products");
+        }, 3000);
       }
     } catch (e) {
       console.log("Error during upload:", e);
-      setModalMessage("Product upload failed");
-      setModalSuccess(false);
+      openModal("Product upload failed.", false);
     }
   };
 
