@@ -165,33 +165,16 @@ function Page({ params: { id } }) {
       <h2 className="my-[33px] text-[24px] font-semibold text- ">
         Order Details - #{order.orderId}
       </h2>
-      <div className="min-h-[319px]  w-full rounded-xl border bg-white p-6  ">
-        <h3 className="text-base mb-[34px] font-semibold ">Order Summary</h3>
-        {loading ? (
-          <Loading loading={loading} />
-        ) : (
-          <>
-            <Box title={"Fullname"} item={user.fullname} image={profile} />
-            <Box title={"Email Address"} item={user.email} image={messages} />
-            <Box
-              title={"Delivery Address"}
-              item={order.address}
-              image={location}
-            />
-            <Box title={"Phone Number"} item={user.phone} image={profile} />
-          </>
-        )}
-      </div>
 
       {/* more info */}
       {loading ? (
         <Loading loading={loading} />
       ) : (
         <>
-          <div className="min-h-[300px] relative  my-6 w-full rounded-xl border bg-white p-6  ">
-            <h2 className="text-base font-semibold  ">Delivery Status</h2>
+          <div className="h-auto relative my-6 center  w-full rounded-xl border bg-white py-8 px-4  ">
+            {/* <h2 className="text-base font-semibold  ">Delivery Status</h2> */}
             {/* Option */}
-            <div className="flex items-center justify-between mt-6 gap-4 h-[69px] w-full border-b py-[14px] border-[#F7F9FC] ">
+            <div className="flex items-center justify-between  gap-4 w-full border-b border-[#F7F9FC] ">
               <div className="flex items-center   gap-4">
                 <Image src={shoppingCart} alt="cart" />
                 <div className="">
@@ -222,12 +205,35 @@ function Page({ params: { id } }) {
               </div>
             </div>
 
-            <Box title={"OrderId"} item={order.orderId} />
+            {/* <Box title={"OrderId"} item={order.orderId} />
             <Box title={"Payment Method"} item={order.paymentMethod} />
             <Box
               title={"Total Price"}
               item={`₦${formatNumberWithCommas(order.orderPrice)}`}
-            />
+            /> */}
+          </div>
+          <div className="min-h-[319px]  w-full rounded-xl border bg-white p-6  ">
+            <h3 className="text-base mb-[34px] font-semibold ">
+              Order Summary
+            </h3>
+            {loading ? (
+              <Loading loading={loading} />
+            ) : (
+              <>
+                <Box title={"Fullname"} item={user.fullname} image={profile} />
+                <Box
+                  title={"Email Address"}
+                  item={user.email}
+                  image={messages}
+                />
+                <Box
+                  title={"Delivery Address"}
+                  item={order.address}
+                  image={location}
+                />
+                <Box title={"Phone Number"} item={user.phone} image={profile} />
+              </>
+            )}
           </div>
           <div className="min-h-[300px] relative  my-6 w-full rounded-xl border bg-white p-6  ">
             <h2 className="font-semibold text-lg mb-4 ">Order Summary</h2>
