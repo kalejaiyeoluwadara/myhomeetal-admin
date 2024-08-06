@@ -25,7 +25,7 @@ function Modal({ message, success, onClose }) {
 }
 
 function Page() {
-  const { bulk, setBulk, openModal } = useGlobal();
+  const { bulk, setBulk, openModal, token } = useGlobal();
   const router = useRouter();
   const [modalMessage, setModalMessage] = useState(null);
   const [modalSuccess, setModalSuccess] = useState(false);
@@ -43,7 +43,7 @@ function Page() {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2M2YyNjdjNDMyNDg5NmFlNzg2ZjgwZSIsImVtYWlsIjoiYmFiYUBteWhvbWVldGFsLmNvbSIsInJvbGUiOiJTdXBlciBBZG1pbiIsImlhdCI6MTcxODE2MTQ5NSwiZXhwIjoxNzI2ODAxNDk1fQ.w3OuGAzZmBRQN_kQbcEAAv82dVV3n0ymvu7G6gJLY6o`,
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify(bulk),
         }

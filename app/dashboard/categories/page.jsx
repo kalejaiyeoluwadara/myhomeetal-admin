@@ -17,7 +17,7 @@ function Page() {
     setError(null);
     try {
       const response = await fetch(
-        "https://my-home-et-al-backend.onrender.com/api/v1/product-category/categories",
+        "https://my-home-et-al.onrender.com/api/v1/product-category/categories",
         {
           method: "GET",
           headers: {
