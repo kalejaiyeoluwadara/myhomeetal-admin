@@ -70,13 +70,15 @@ const Login = () => {
 
   return (
     <>
-      <div className="border w-[100%] h-[400px] rounded-[24px] flex items-start justify-center px-[40px] pr-[24px] flex-col border-[#DCDCDC] gap-[16px] ">
-        <h3 className="text-[25px] w-full text-center font-light ">
-          Admin Panel Login
-        </h3>
+      <div className=" w-[100%] h-[400px] rounded-[24px] flex items-start justify-center px-[40px] pr-[24px] flex-col border-[#DCDCDC] gap-[16px] ">
+        <div className="w-full center mb-4">
+          <h3 className="text-xl w-[238px] font-semibold text-center ">
+            Myhomeetal Admin Panel Login
+          </h3>
+        </div>
         <div className="flex flex-col w-full gap-1">
           <div className="holder">
-            <label className="label">Work Email Address</label>
+            <label className="label font-semibold ">Work Email Address</label>
             <input
               className="inputa"
               placeholder="Enter Email Address"
@@ -86,7 +88,7 @@ const Login = () => {
             />
           </div>
           <div className="holder mt-4 ">
-            <label className="label">Password</label>
+            <label className="label semibold">Password</label>
             <input
               className="inputa"
               placeholder="Enter Password"
@@ -95,7 +97,7 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-          <p className="w-full text-end text-primary ">
+          <p className="w-full text-start mt-2 ml-1 text-primary ">
             <Link href={"/"}>Forgot Password</Link>
           </p>
         </div>
