@@ -17,7 +17,7 @@ function UpdateOrder({ id, setModal, modal }) {
         <p className="text-center text-[#292929] mt-4 text-sm font-light w-[277px]  ">
           Once the status is updated, the process cannot be reversed.
         </p>
-        <div onClick={() => {}} className="w-full">
+        <div onClick={() => {}} className="w-full cursor-pointer">
           {" "}
           <div className="bg-red-600  text-white mt-6 mb-2 gap-2 text-[16px] center w-full h-[44px] rounded-[8px] ">
             <Image src={logouts} alt="" className="" />
