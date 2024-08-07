@@ -65,6 +65,7 @@ function Page() {
                 name={name}
                 product_category_image={product_category_image}
                 amt={products.length}
+                fetchCategories={fetchCategories}
                 _id={_id}
                 key={_id}
                 category={d}

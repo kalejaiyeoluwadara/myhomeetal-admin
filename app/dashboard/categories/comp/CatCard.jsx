@@ -6,7 +6,7 @@ import { WiCloudUp } from "react-icons/wi";
 import logo from "@/app/assets/logo.svg";
 import formData from "form-data";
 import { useGlobal } from "@/app/context";
-function CatCard({ name, amt, _id, product_category_image }) {
+function CatCard({ name, amt, _id, product_category_image, fetchCategories }) {
   const [loading, setLoading] = useState(false);
   const { token, openModal } = useGlobal();
   const [formContent, setFormContent] = useState({
@@ -25,6 +25,7 @@ function CatCard({ name, amt, _id, product_category_image }) {
   useEffect(() => {
     if (formContent.coverImage) {
       handleUpdate();
+      // fetchCategories();
     }
   }, [formContent.coverImage]);
 
