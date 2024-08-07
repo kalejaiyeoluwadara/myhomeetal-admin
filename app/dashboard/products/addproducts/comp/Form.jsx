@@ -198,7 +198,6 @@ function Form() {
 
   useEffect(() => {
     setCatItem(categories.map((d) => ({ _id: d._id, name: d.name })));
-    console.log("Fetched!");
   }, []);
 
   return (
