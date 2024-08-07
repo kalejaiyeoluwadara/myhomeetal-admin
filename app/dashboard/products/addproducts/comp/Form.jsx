@@ -227,109 +227,246 @@ function Form() {
       </div>
 
       {/* Nav ending */}
+
       <main className="grid w-full grid-cols-3 mt-10  gap-6 ">
         {/* General Info */}
-        <div className="border bg-white col-span-2 rounded-xl p-4 w-auto h-[800px]">
-          {/* title */}
-          <h2 className=" core mt-4 ">General Information</h2>
-          <div className="mt-4 flex flex-col items-start justify-center gap-6 ">
-            <div className="w-full ">
-              <label className="inputlabel">Product Name</label>
-              <input
-                className="input"
-                value={productTitle}
-                name="productTitle"
-                onChange={handleInputChange}
-                type="text"
-                placeholder="Enter Subject"
-              />
-              <p className="inputfooter ">
-                A product name is required and recommended to be unique.
-              </p>
-            </div>
-
-            <div className="w-full ">
-              <label className="inputlabel">Product Description</label>
-              <input
-                className="input"
-                name="description"
-                value={description}
-                onChange={handleInputChange}
-                type="text"
-                placeholder="Enter Subject"
-              />
-              <p className="inputfooter ">
-                Set a description to the product for better visibility.
-              </p>
-            </div>
-            <div className="w-full ">
-              <label className="inputlabel">Brand’s Name</label>
-              <input
-                className="input"
-                name="brand"
-                value={brand}
-                onChange={handleInputChange}
-                type="text"
-                placeholder="Enter Subject"
-              />
-            </div>
-            <div className="w-full ">
-              <label className="inputlabel">SKU (Stock Keeping Unit)</label>
-              <input
-                className="input"
-                name="sku"
-                value={sku}
-                onChange={handleInputChange}
-                type="text"
-                placeholder="Enter Subject"
-              />
-            </div>
-            <div className="w-full ">
-              <label className="inputlabel">Product base price</label>
-              <input
-                className="input"
-                name="price"
-                value={price}
-                onChange={handleInputChange}
-                placeholder="Enter Subject"
-              />
-            </div>
-            {/* Level */}
-            <section className="flex gap-[18px]">
+        {/* scrollable */}
+        <div className="col-span-2 h-[80vh] no-scrollbar overflow-y-scroll ">
+          <div className="border bg-white  rounded-xl p-4 w-auto h-[800px]">
+            {/* title */}
+            <h2 className=" core mt-4 ">General Information</h2>
+            <div className="mt-4 flex flex-col items-start justify-center gap-6 ">
               <div className="w-full ">
-                <label className="inputlabel">Stock Level</label>
+                <label className="inputlabel">Product Name</label>
                 <input
                   className="input"
-                  name="stock"
-                  value={stock}
+                  value={productTitle}
+                  name="productTitle"
+                  onChange={handleInputChange}
+                  type="text"
+                  placeholder="Enter Subject"
+                />
+                <p className="inputfooter ">
+                  A product name is required and recommended to be unique.
+                </p>
+              </div>
+
+              <div className="w-full ">
+                <label className="inputlabel">Product Description</label>
+                <input
+                  className="input"
+                  name="description"
+                  value={description}
+                  onChange={handleInputChange}
+                  type="text"
+                  placeholder="Enter Subject"
+                />
+                <p className="inputfooter ">
+                  Set a description to the product for better visibility.
+                </p>
+              </div>
+              <div className="w-full ">
+                <label className="inputlabel">Brand’s Name</label>
+                <input
+                  className="input"
+                  name="brand"
+                  value={brand}
                   onChange={handleInputChange}
                   type="text"
                   placeholder="Enter Subject"
                 />
               </div>
-              <div
-                onClick={() => {
-                  setModal((prev) => !prev);
-                }}
-                className="w-full relative "
-              >
-                <label className="inputlabel">Category</label>
-                <div className="w-[250px] border cursor-pointer flex items-center h-[56px] rounded-md  justify-between px-4 ">
-                  <p>{cat ? cat : "Select Category"}</p>
-                  {!modal ? <GoChevronDown /> : <GoChevronUp />}
-                </div>
-                {modal && (
-                  <Modal
-                    formContent={formContent}
-                    setformContent={setformContent}
-                    cat={cat}
-                    categories={catItem}
-                    setCat={setCat}
-                  />
-                )}
+              <div className="w-full ">
+                <label className="inputlabel">SKU (Stock Keeping Unit)</label>
+                <input
+                  className="input"
+                  name="sku"
+                  value={sku}
+                  onChange={handleInputChange}
+                  type="text"
+                  placeholder="Enter Subject"
+                />
               </div>
-            </section>
+              <div className="w-full ">
+                <label className="inputlabel">Product base price</label>
+                <input
+                  className="input"
+                  name="price"
+                  value={price}
+                  onChange={handleInputChange}
+                  placeholder="Enter Subject"
+                />
+              </div>
+              {/* Level */}
+              <section className="flex gap-[18px]">
+                <div className="w-full ">
+                  <label className="inputlabel">Stock Level</label>
+                  <input
+                    className="input"
+                    name="stock"
+                    value={stock}
+                    onChange={handleInputChange}
+                    type="text"
+                    placeholder="Enter Subject"
+                  />
+                </div>
+                <div
+                  onClick={() => {
+                    setModal((prev) => !prev);
+                  }}
+                  className="w-full relative "
+                >
+                  <label className="inputlabel">Category</label>
+                  <div className="w-[250px] border cursor-pointer flex items-center h-[56px] rounded-md  justify-between px-4 ">
+                    <p>{cat ? cat : "Select Category"}</p>
+                    {!modal ? <GoChevronDown /> : <GoChevronUp />}
+                  </div>
+                  {modal && (
+                    <Modal
+                      formContent={formContent}
+                      setformContent={setformContent}
+                      cat={cat}
+                      categories={catItem}
+                      setCat={setCat}
+                    />
+                  )}
+                </div>
+              </section>
+            </div>
           </div>
+          {/* Product spec and key feautures */}
+          <section className="h-auto mt-8 w-full flex flex-col gap-3 rounded-xl ">
+            <div className="bg-white w-full rounded-xl px-6 py-8 pb-12 flex flex-col gap-3 h-auto ">
+              <h2 className=" core  ">Product Specifications</h2>
+              <div className="w-full ">
+                <label className="inputlabel">Size (L x W x H) cm</label>
+                <input
+                  className="input"
+                  name="size"
+                  value={size}
+                  onChange={handleInputChange}
+                  type="text"
+                  placeholder="Enter Subject"
+                />
+                <p className="inputfooter">
+                  Ensure Measurements are in Centimetres
+                </p>
+              </div>
+              <div className="w-full ">
+                <label className="inputlabel">Weight (Kg)</label>
+                <input
+                  className="input"
+                  name="weight"
+                  value={weight}
+                  onChange={handleInputChange}
+                  type="text"
+                  placeholder="Enter Subject"
+                />
+              </div>
+              <div className="w-full ">
+                <label className="inputlabel">Model Number</label>
+                <input
+                  className="input"
+                  name="modelno"
+                  value={modelno}
+                  onChange={handleInputChange}
+                  type="text"
+                  placeholder="Enter Subject"
+                />
+              </div>
+              <div className="w-full ">
+                <label className="inputlabel">Main Material</label>
+                <input
+                  className="input"
+                  name="mainmaterial"
+                  value={mainmaterial}
+                  onChange={handleInputChange}
+                  type="text"
+                  placeholder="Enter Subject"
+                />
+              </div>
+              <div className="w-full">
+                <label className="inputlabel">Color</label>
+                <input
+                  className="input"
+                  name="color"
+                  value={color}
+                  onChange={handleInputChange}
+                  type="text"
+                  placeholder="Enter Subject"
+                />
+              </div>
+            </div>
+            <div className="bg-white mt-8 w-full rounded-xl px-6 py-8 pb-12 flex flex-col gap-3 h-auto ">
+              <h2 className=" core  ">Key Feautres</h2>
+              <div className="w-full ">
+                <label className="inputlabel">Feature 1</label>
+                <input
+                  className="input"
+                  name="fit1"
+                  value={fit1}
+                  onChange={handleInputChange}
+                  type="text"
+                  placeholder="Please Enter a Unique Feature that the Product Offers"
+                />
+              </div>
+              <div className="w-full ">
+                <label className="inputlabel">Feature 2</label>
+                <input
+                  className="input"
+                  value={fit2}
+                  name="fit2"
+                  onChange={handleInputChange}
+                  type="text"
+                  placeholder="Please Enter a Unique Feature that the Product Offers"
+                />
+              </div>
+              <div className="w-full ">
+                <label className="inputlabel">Feature 3</label>
+                <input
+                  className="input"
+                  name="fit3"
+                  value={fit3}
+                  onChange={handleInputChange}
+                  type="text"
+                  placeholder="Please Enter a Unique Feature that the Product Offers"
+                />
+              </div>
+              <div className="w-full ">
+                <label className="inputlabel">Feature 4</label>
+                <input
+                  className="input"
+                  value={fit4}
+                  name="fit4"
+                  onChange={handleInputChange}
+                  type="text"
+                  placeholder="Please Enter a Unique Feature that the Product Offers"
+                />
+              </div>
+              <div className="w-full ">
+                <label className="inputlabel">Feature 5</label>
+                <input
+                  className="input"
+                  value={fit5}
+                  name="fit5"
+                  onChange={handleInputChange}
+                  type="text"
+                  placeholder="Please Enter a Unique Feature that the Product Offers"
+                />
+              </div>
+              <div className="w-full ">
+                <label className="inputlabel">Feature 6</label>
+                <input
+                  className="input"
+                  value={fit6}
+                  name="fit6"
+                  onChange={handleInputChange}
+                  type="text"
+                  placeholder="Please Enter a Unique Feature that the Product Offers"
+                />
+              </div>
+            </div>
+          </section>
         </div>
 
         {/* Image update */}
@@ -379,140 +516,6 @@ function Form() {
             />
           </div>
         </div>
-
-        {/* Product spec and key feautures */}
-        <section className="h-auto col-span-2 w-auto flex flex-col gap-3 rounded-xl ">
-          <div className="bg-white w-full rounded-xl px-6 py-8 pb-12 flex flex-col gap-3 h-auto ">
-            <h2 className=" core  ">Product Specifications</h2>
-            <div className="w-full ">
-              <label className="inputlabel">Size (L x W x H) cm</label>
-              <input
-                className="input"
-                name="size"
-                value={size}
-                onChange={handleInputChange}
-                type="text"
-                placeholder="Enter Subject"
-              />
-              <p className="inputfooter">
-                Ensure Measurements are in Centimetres
-              </p>
-            </div>
-            <div className="w-full ">
-              <label className="inputlabel">Weight (Kg)</label>
-              <input
-                className="input"
-                name="weight"
-                value={weight}
-                onChange={handleInputChange}
-                type="text"
-                placeholder="Enter Subject"
-              />
-            </div>
-            <div className="w-full ">
-              <label className="inputlabel">Model Number</label>
-              <input
-                className="input"
-                name="modelno"
-                value={modelno}
-                onChange={handleInputChange}
-                type="text"
-                placeholder="Enter Subject"
-              />
-            </div>
-            <div className="w-full ">
-              <label className="inputlabel">Main Material</label>
-              <input
-                className="input"
-                name="mainmaterial"
-                value={mainmaterial}
-                onChange={handleInputChange}
-                type="text"
-                placeholder="Enter Subject"
-              />
-            </div>
-            <div className="w-full">
-              <label className="inputlabel">Color</label>
-              <input
-                className="input"
-                name="color"
-                value={color}
-                onChange={handleInputChange}
-                type="text"
-                placeholder="Enter Subject"
-              />
-            </div>
-          </div>
-          <div className="bg-white w-full rounded-xl px-6 py-8 pb-12 flex flex-col gap-3 h-auto ">
-            <h2 className=" core  ">Key Feautres</h2>
-            <div className="w-full ">
-              <label className="inputlabel">Feature 1</label>
-              <input
-                className="input"
-                name="fit1"
-                value={fit1}
-                onChange={handleInputChange}
-                type="text"
-                placeholder="Please Enter a Unique Feature that the Product Offers"
-              />
-            </div>
-            <div className="w-full ">
-              <label className="inputlabel">Feature 2</label>
-              <input
-                className="input"
-                value={fit2}
-                name="fit2"
-                onChange={handleInputChange}
-                type="text"
-                placeholder="Please Enter a Unique Feature that the Product Offers"
-              />
-            </div>
-            <div className="w-full ">
-              <label className="inputlabel">Feature 3</label>
-              <input
-                className="input"
-                name="fit3"
-                value={fit3}
-                onChange={handleInputChange}
-                type="text"
-                placeholder="Please Enter a Unique Feature that the Product Offers"
-              />
-            </div>
-            <div className="w-full ">
-              <label className="inputlabel">Feature 4</label>
-              <input
-                className="input"
-                value={fit4}
-                name="fit4"
-                onChange={handleInputChange}
-                type="text"
-                placeholder="Please Enter a Unique Feature that the Product Offers"
-              />
-            </div>
-            <div className="w-full ">
-              <label className="inputlabel">Feature 5</label>
-              <input
-                className="input"
-                value={fit5}
-                name="fit5"
-                onChange={handleInputChange}
-                type="text"
-                placeholder="Please Enter a Unique Feature that the Product Offers"
-              />
-            </div>
-            <div className="w-full ">
-              <label className="inputlabel">Feature 6</label>
-              <input
-                className="input"
-                value={fit6}
-                name="fit6"
-                onChange={handleInputChange}
-                type="text"
-                placeholder="Please Enter a Unique Feature that the Product Offers"
-              />
-            </div>
-          </div>
-        </section>
       </main>
 
       {/* Display selected image files */}
