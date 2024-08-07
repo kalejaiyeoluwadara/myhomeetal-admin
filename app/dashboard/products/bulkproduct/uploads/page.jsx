@@ -79,10 +79,10 @@ function Page() {
   return (
     <main className="w-full p-[36px] bg-screen min-h-screen overflow-y-scroll">
       <div className="flex items-center w-full justify-between mb-[60px]">
-        <h2 className="core">Bulk Product</h2>
+        <h2 className="font-semibold text-2xl ">Bulk Product</h2>
         <button
           onClick={handleUpload}
-          className="w-[200px] h-[50px] rounded-[10px] text-base"
+          className="w-[258px] h-[50px] rounded-[99px] text-base"
         >
           Upload Products
         </button>
@@ -102,12 +102,22 @@ function Page() {
             key={id}
             className="h-[250px] my-4 relative flex gap-6 px-6 py-6 rounded-[20px] border w-[900px]"
           >
-            <div className="w-[235px] relative overflow-hidden flex-shrink-0 border py-3 flex-col center rounded-xl h-full">
-              <div className="h-[50px]  w-[50px] rounded-full center bg-[#F0F2F5] mb-6">
-                {!images ? (
+            <div className="w-[235px] relative overflow-hidden flex-shrink-0  py-3 flex-col center rounded-xl h-full">
+              <div className="h-[183px]  w-[183px] rounded-full center  mb-6">
+                {!images.length > 0 ? (
                   <FiUploadCloud size={25} />
                 ) : (
-                  <img className="cover" src={images[0]} alt="" />
+                  <div className="gap-2 grid grid-cols-2">
+                    {images.map((item, id) => {
+                      return (
+                        <img
+                          className=" h-[81px] w-[81p] "
+                          src={images[id]}
+                          alt=""
+                        />
+                      );
+                    })}
+                  </div>
                 )}
               </div>
               {/* <p className="text-[14px] text-center text-[#ED2224]">
@@ -116,26 +126,29 @@ function Page() {
             </div>
             <div className="flex justify-between h-full">
               <div className="flex py-3 flex-col gap-4 w-[97%] h-full">
-                <div>
+                <div className="space-y-4">
                   <p className="text-base truncate font-light">
                     Product Name: {productTitle}
                   </p>
-                  <p className="text-base truncate font-light">
+                  <p className="text-base text-wrap font-light">
                     Product Description: {description}
                   </p>
                   <p className="text-base font-light">
                     Prod Price: <span className="font-bold">₦</span>
                     {formatNumberWithCommas(price)}
                   </p>
-                  <p className="text-base font-light">SKU </p>
+                  <p className="text-base font-light">Brand: {brand}</p>
                 </div>
               </div>
               <div className="h-[200px] absolute right-4 justify-between items-end flex flex-col">
-                <div className="h-[30px] w-[30px] center bg-[#ED2224] rounded-full text-white font-semibold">
+                <div className="h-[30px] w-[30px] center bg-black rounded-full text-white font-semibold">
                   {id + 1}
                 </div>
                 <div className="flex text-[14px] text-nowrap w-full gap-4">
-                  <p onClick={() => handleRemove(id)} className="pointer">
+                  <p
+                    onClick={() => handleRemove(id)}
+                    className=" text-primary pointer"
+                  >
                     Remove
                   </p>
                 </div>
