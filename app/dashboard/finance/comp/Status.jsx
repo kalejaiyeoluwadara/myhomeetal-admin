@@ -1,9 +1,14 @@
+"use client";
 import React from "react";
 import card from "../../../assets/card.svg";
 import Image from "next/image";
 import { BsEye } from "react-icons/bs";
 import eye from "../../../assets/eye.svg";
+import useData from "@/hooks/useData";
 function Status() {
+  // const { data, loading } = useData(
+  //   "https://my-home-et-al.onrender.com/api/v1/admin-wallet"
+  // );
   return (
     <div className="w-full relative mt-10 mb-6 overflow-hidden h-[184px] rounded-xl ">
       <Image src={card} alt="" className=" cover " />

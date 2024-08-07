@@ -1,0 +1,41 @@
+"use client";
+import { useGlobal } from "@/app/context";
+import React from "react";
+import { FiLogOut } from "react-icons/fi";
+import logouts from "@/app/assets/logout.svg";
+import cancel from "@/app/assets/cancel.svg";
+import Image from "next/image";
+import Link from "next/link";
+function UpdateOrder({ id, setModal, modal }) {
+  return (
+    <div className="fixed bg-black bg-opacity-40 z-50 w-screen center h-screen  top-0 right-0 ">
+      <div className="w-[400px] h-[400px] p-[40px] bg-white rounded-2xl flex items-center justify-center flex-col ">
+        <div className="h-[68px]  w-[68px] bg-[#FFC5C6] rounded-full " />
+        <h2 className="text-2xl  mt-4 font-bold text-center w-[277px]  ">
+          Are you sure you want Update Status?
+        </h2>
+        <p className="text-center text-[#292929] mt-4 text-sm font-light w-[277px]  ">
+          Once the status is updated, the process cannot be reversed.
+        </p>
+        <div onClick={() => {}} className="w-full">
+          {" "}
+          <div className="bg-red-600  text-white mt-6 mb-2 gap-2 text-[16px] center w-full h-[44px] rounded-[8px] ">
+            <Image src={logouts} alt="" className="" />
+            <p>Yes, Update</p>
+          </div>
+        </div>
+        <div
+          onClick={() => {
+            setModal(false);
+          }}
+          className="bg-red-50 text-black cursor-pointer gap-2 center w-full h-[44px] rounded-[8px] "
+        >
+          <Image src={cancel} className="" alt="" />
+          No, Cancel
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default UpdateOrder;
