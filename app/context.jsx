@@ -124,7 +124,8 @@ function AppProvider({ children }) {
   // switchAccount();
   useEffect(() => {
     fetchCategories();
-  }, [categories]);
+    console.log("fetched");
+  }, []);
   useEffect(() => {
     const local_token = localStorage.getItem("token");
     setToken(local_token);

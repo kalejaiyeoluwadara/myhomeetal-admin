@@ -173,7 +173,7 @@ function Form({ id }) {
 
   useEffect(() => {
     setCatItem(categories.map((d) => d.name));
-  }, [categories]);
+  }, []);
   const {
     productTitle,
     price,
