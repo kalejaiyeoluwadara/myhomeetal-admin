@@ -18,6 +18,7 @@ function AppProvider({ children }) {
   const [modalMessage, setModalMessage] = useState("");
   const [isSuccessful, setIsSuccessful] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
   const [token, setToken] = useState("");
   const [userData, setUserData] = useState([
     {
@@ -166,6 +167,8 @@ function AppProvider({ children }) {
         setModalMessage,
         setIsModalOpen,
         setIsSuccessful,
+        isConfirmOpen,
+        setIsConfirmOpen,
       }}
     >
       {children}
