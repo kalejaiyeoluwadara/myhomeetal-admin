@@ -70,10 +70,14 @@ function Form() {
       setSelectedFile(files);
       setformContent({ ...formContent, images: files });
       openModal("Image Upload Completed", true);
+      console.log(formContent.images);
     } else {
       openModal("Error Encountered", true);
     }
   };
+  useEffect(() => {
+    console.log(formContent.images);
+  }, [formContent.images.length]);
 
   const createProduct = async () => {
     setIsLoading(true);
@@ -81,6 +85,9 @@ function Form() {
       "https://my-home-et-al.onrender.com/api/v1/product/create-product";
     const formData = new FormData();
     formData.append("productTitle", formContent.productTitle);
+    formData.append("images", [
+      "https://tse1.mm.bing.net/th?id=OIP._GCVhLmCRPm_W4TOyBrIuQHaEK&pid=Api&P=0&h=220",
+    ]);
     formData.append("price", formContent.price);
     formData.append("category", formContent.category);
     formData.append("description", formContent.description);
@@ -93,13 +100,15 @@ function Form() {
     formData.append("modelno", formContent.modelno);
     formData.append("mainmaterial", formContent.mainmaterial);
     formData.append("color", formContent.color);
-    formData.append("feature1", formContent.fit1);
-    formData.append("feature2", formContent.fit2);
-    formData.append("feature3", formContent.fit3);
-    formData.append("feature4", formContent.fit4);
-    formData.append("feature5", formContent.fit5);
-    formData.append("feature6", formContent.fit6);
-    formData.append("images", formContent.images);
+    formData.append("keyFeatures", [
+      formContent.fit1,
+      formContent.fit2,
+      formContent.fit3,
+      formContent.fit4,
+      formContent.fit5,
+      formContent.fit6,
+    ]);
+
     try {
       const response = await fetch(url, {
         method: "POST",
@@ -190,7 +199,7 @@ function Form() {
   useEffect(() => {
     setCatItem(categories.map((d) => ({ _id: d._id, name: d.name })));
     console.log("Fetched!");
-  }, [categories]);
+  }, []);
 
   return (
     <div className="mb-8 relative w-full">
@@ -262,7 +271,7 @@ function Form() {
                 value={brand}
                 onChange={handleInputChange}
                 type="text"
-                placeholder="Samsung"
+                placeholder="Enter Subject"
               />
             </div>
             <div className="w-full ">
@@ -273,7 +282,7 @@ function Form() {
                 value={sku}
                 onChange={handleInputChange}
                 type="text"
-                placeholder="783kl32"
+                placeholder="Enter Subject"
               />
             </div>
             <div className="w-full ">
@@ -283,7 +292,7 @@ function Form() {
                 name="price"
                 value={price}
                 onChange={handleInputChange}
-                placeholder="290,000"
+                placeholder="Enter Subject"
               />
             </div>
             {/* Level */}
@@ -296,7 +305,7 @@ function Form() {
                   value={stock}
                   onChange={handleInputChange}
                   type="text"
-                  placeholder="20"
+                  placeholder="Enter Subject"
                 />
               </div>
               <div
@@ -330,10 +339,7 @@ function Form() {
           <p className="text-[14px] font-medium text-[#475367] ">
             Set the product media gallery
           </p>
-          <div
-            onClick={handleClick}
-            className="p-4 flex w-full border-[1.5px] rounded-md h-[417px] border-dashed border-[#D0D5DD]  items-center justify-center flex-col "
-          >
+          <div className="p-4 flex w-full border-[1.5px] rounded-md h-[417px] border-dashed border-[#D0D5DD]  items-center justify-center flex-col ">
             <div className="h-[56px] w-[56px] rounded-full center bg-[#F0F2F5] mb-6 ">
               <FiUploadCloud size={25} />
             </div>
@@ -358,7 +364,10 @@ function Form() {
               </div>
             </div>
 
-            <button className="w-[118px] center h-[36px] rounded-md text-[14px] font-semibold ">
+            <button
+              onClick={handleClick}
+              className="w-[118px] center h-[36px] rounded-md text-[14px] font-semibold "
+            >
               Browse Files
             </button>
             <input
@@ -431,7 +440,7 @@ function Form() {
                 value={color}
                 onChange={handleInputChange}
                 type="text"
-                placeholder="Iphone 11 Pro"
+                placeholder="Enter Subject"
               />
             </div>
           </div>

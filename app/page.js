@@ -105,7 +105,9 @@ const Login = () => {
           <div
             onClick={handleLogin}
             className={`cursor-pointer mt-4 w-full h-[52px] flex items-center justify-center rounded-[99px] text-[16px] font-bold ${
-              isLoading ? "bg-gray-400" : "bg-primary text-white"
+              isLoading
+                ? "bg-gray-400"
+                : "bg-primary hover:bg-red-700 text-white"
             }`}
           >
             {isLoading ? <div className="loader"></div> : "Login"}
