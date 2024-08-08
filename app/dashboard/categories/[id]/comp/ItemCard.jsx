@@ -13,7 +13,7 @@ function ItemCard({
   fetchCategory,
 }) {
   const img = images[0];
-  const { openModal } = useGlobal();
+  const { openModal, token } = useGlobal();
   const handleDelete = async () => {
     try {
       const response = await fetch(
@@ -21,7 +21,7 @@ function ItemCard({
         {
           method: "DELETE",
           headers: {
-            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2M2YyNjdjNDMyNDg5NmFlNzg2ZjgwZSIsImVtYWlsIjoiYmFiYUBteWhvbWVldGFsLmNvbSIsInJvbGUiOiJTdXBlciBBZG1pbiIsImlhdCI6MTcxODE2MTQ5NSwiZXhwIjoxNzI2ODAxNDk1fQ.w3OuGAzZmBRQN_kQbcEAAv82dVV3n0ymvu7G6gJLY6o`,
+            Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -49,13 +49,12 @@ function ItemCard({
         <img src={img} alt="" className=" object-cover h-[131px] w-[131px] " />
       </div>
       <div className="text[16px] space-y-4 font-light ">
-        <p>Product Name: {productTitle}</p>
-        <p>Prod Description: {description}</p>
+        <p className="text-wrap">Product Name: {productTitle}</p>
+        <p className="text-wrap">Prod Description: {description}</p>
         <p>Prod Price: ₦{formatNumberWithCommas(price)}</p>
-        <p className="flex gap-4">
-          <span>SKU</span>
-          <span></span>
-        </p>
+        <p>Stock Level: {"-"}</p>
+        <p>Brand: {brand}</p>
+
         <p
           onClick={handleDelete}
           className="absolute bottom-4 right-4 cursor-pointer text-[#FF0000] "
