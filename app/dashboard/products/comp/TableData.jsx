@@ -1,7 +1,5 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import Image from "next/image";
-import sport from "../../../assets/sport.svg";
 import { IoMdMore } from "react-icons/io";
 import Link from "next/link";
 
@@ -24,26 +22,6 @@ function TableData({
     }
   }, [modal]);
   const img = images[0];
-
-  // const handleDelete = async (id) => {
-  //   try {
-  //     const response = await fetch(
-  //       `https://my-home-et-al-backend.onrender.com/api/v1/product/${id}`,
-  //       {
-  //         method: "DELETE",
-  //         headers: {
-  //           Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2M2YyNjdjNDMyNDg5NmFlNzg2ZjgwZSIsImVtYWlsIjoiYmFiYUBteWhvbWVldGFsLmNvbSIsInJvbGUiOiJTdXBlciBBZG1pbiIsImlhdCI6MTcxODE2MTQ5NSwiZXhwIjoxNzI2ODAxNDk1fQ.w3OuGAzZmBRQN_kQbcEAAv82dVV3n0ymvu7G6gJLY6o`,
-  //         },
-  //       }
-  //     );
-  //     const data = await response.json();
-  //     console.log("Product deleted!");
-  //     console.log("Response from server:", data);
-  //     alert("Product Deleted! Refresh Page");
-  //   } catch (error) {
-  //     console.error("Error submitting data:", error);
-  //   }
-  // };
   const formatNumberWithCommas = (number) => {
     return new Intl.NumberFormat("en-US").format(number);
   };
@@ -63,7 +41,7 @@ function TableData({
       {/* <p className=" col-span-2 truncate ">-</p> */}
       <p>#{formatNumberWithCommas(price)}</p>
       <p className=" ">-</p>
-      <p className="truncate col-span-2 ">{category}</p>
+      <p className="truncate col-span-2 ">{category.name}</p>
       <div className="px-2 ">
         <p className="px-3 font-medium bg-green-200 rounded-[12px] py-[2px] flex items-center justify-center text-green-600 ">
           active

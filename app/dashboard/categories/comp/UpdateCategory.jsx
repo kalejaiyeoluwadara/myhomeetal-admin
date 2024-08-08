@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import { FiUploadCloud } from "react-icons/fi";
 import { useGlobal } from "@/app/context";
-import Image from "next/image";
 import FormData from "form-data";
 import { useRouter } from "next/navigation";
 function UpdateCategory({

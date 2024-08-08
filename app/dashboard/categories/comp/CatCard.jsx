@@ -1,11 +1,8 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
-import { WiCloudUp } from "react-icons/wi";
+import React, { useState } from "react";
 import logo from "@/app/assets/logo.svg";
-import formData from "form-data";
-import { useGlobal } from "@/app/context";
 function CatCard({
   name,
   amt,
