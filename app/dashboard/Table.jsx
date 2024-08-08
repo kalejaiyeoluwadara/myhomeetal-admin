@@ -158,13 +158,14 @@ function Table() {
           ) : (
             currentData.map((d, id) => (
               <TableData
-                username={d.username}
-                email={d.email}
+                username={d?.username}
+                email={d?.email}
                 fullname={d.fullname}
-                role={d.role}
+                role={d?.role}
                 employee_id={d?.employee_id}
                 _id={d?._id}
                 key={id}
+                isActive={d?.isActive}
                 img={d?.image}
                 phone_no={d?.phone_no}
               />

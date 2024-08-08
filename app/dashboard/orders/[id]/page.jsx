@@ -138,7 +138,7 @@ function Page({ params: { id } }) {
                 />
                 <Box
                   title={"Phone Number"}
-                  item={order?.user?.phone}
+                  item={order?.user?.phone_number}
                   image={profile}
                 />
               </>

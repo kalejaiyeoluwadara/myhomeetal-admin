@@ -105,9 +105,6 @@ function Page({ params }) {
         openModal("Admin Update Failed", false);
       }
       openModal("Admin Updated successfully", true);
-      setTimeout(() => {
-        router.push("/dashboard");
-      }, 3000);
       const data = await response.json();
       setEmployee(formData);
     } catch (error) {
@@ -158,40 +155,68 @@ function Page({ params }) {
     );
   };
 
-  const toggleActivation = async () => {
+  const Deactivate = async () => {
     setLoading(true);
-    const updatedActiveStatus = !formData?.isActive;
     try {
       const response = await fetch(
-        `https://my-home-et-al.onrender.com/api/v1/admin/${params.id}`,
+        `https://my-home-et-al.onrender.com/api/v1/admin/deactivate/${params.id}`,
         {
-          method: "PUT",
+          method: "PATCH",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify({ ...employee, isActive: updatedActiveStatus }),
         }
       );
 
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(
-          `Failed to update admin: ${response.status} ${response.statusText} - ${errorData.message}`
+          `Failed to Deactivate admin: ${response.status} ${response.statusText} - ${errorData.message}`
         );
+        openModal(`An error occurred while deactivating admin`, false);
       }
 
-      openModal(
-        `Admin ${
-          updatedActiveStatus ? "activated" : "deactivated"
-        } successfully`,
-        true
-      );
+      openModal(`Admin deactivated successfully`, true);
       const data = await response.json();
       console.log(data);
-      setEmployee((prev) => ({ ...prev, active: updatedActiveStatus }));
+      fetchAdmin();
     } catch (error) {
-      console.error("An error occurred while updating admin:", error);
+      console.error("An error occurred while deactivating admin:", error);
+      openModal(`An error occurred while deactivating admin`, false);
+    } finally {
+      setLoading(false);
+    }
+  };
+  const Activate = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch(
+        `https://my-home-et-al.onrender.com/api/v1/admin/activate/${params.id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(
+          `Failed to Deactivate admin: ${response.status} ${response.statusText} - ${errorData.message}`
+        );
+        openModal(`An error occurred while activating admin`, false);
+      }
+
+      const data = await response.json();
+      console.log(data);
+      openModal(`Admin account activated successfully`, true);
+      fetchAdmin();
+    } catch (error) {
+      console.error("An error occurred while Activating admin:", error);
+      openModal(`An error occurred while Activating admin`, false);
     } finally {
       setLoading(false);
     }
@@ -243,7 +268,7 @@ function Page({ params }) {
     },
     {
       title: "Salary Details",
-      item: `₦ ${formatNumberWithCommas(formData?.salary)}`,
+      item: `${formData?.salary}`,
       formName: "salary",
     },
     {
@@ -321,12 +346,21 @@ function Page({ params }) {
               </div>
             </section>
             <section className="space-x-4 flex ">
-              <div
-                onClick={toggleActivation}
-                className=" cursor-pointer border px-4 py-2 border-border rounded-[8px] text-blak text-[14px] font-semibold "
-              >
-                {formData?.isActive ? "Deactivate Account" : "Activate Account"}
-              </div>
+              {formData?.isActive ? (
+                <div
+                  onClick={Deactivate}
+                  className=" cursor-pointer border px-4 py-2 border-border rounded-[8px] text-blak text-[14px] font-semibold "
+                >
+                  Deactivate Account
+                </div>
+              ) : (
+                <div
+                  onClick={Activate}
+                  className=" cursor-pointer border px-4 py-2 border-border rounded-[8px] text-blak text-[14px] font-semibold "
+                >
+                  Activate Account
+                </div>
+              )}
               <div
                 onClick={handleDelete}
                 className=" border px-4 py-2 pointer border-border bg-[#667185] rounded-[8px] text-white text-[14px] font-semibold "
