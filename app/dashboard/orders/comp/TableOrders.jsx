@@ -1,12 +1,10 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { IoSearch } from "react-icons/io5";
-import filter from "../../../assets/filter.svg";
 import ex from "../../../assets/export.svg";
 import dateimg from "../../../assets/date.svg";
 import Image from "next/image";
-import profile from "../../../assets/profile.png";
-import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import { IoIosArrowDown } from "react-icons/io";
 import CalendarComponent from "../../components/CalendarComponent";
 import {
   HiOutlineArrowLongRight,
@@ -14,11 +12,14 @@ import {
 } from "react-icons/hi2";
 import TableData from "./TableData";
 import { useGlobal } from "@/app/context";
+import Filter from "../../components/Filter";
+import { filterDataByDate } from "@/utils/FilterByDate";
 function Table() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { token } = useGlobal();
+  const [filt, setFilt] = useState("all time");
 
   const fetchOrders = async () => {
     setLoading(true);
@@ -72,8 +73,8 @@ function Table() {
       setCurrentPage(currentPage - 1);
     }
   };
-
-  const currentData = orders.slice(
+  const filteredOrders = filterDataByDate(orders, filt);
+  const currentData = filteredOrders.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
@@ -126,10 +127,7 @@ function Table() {
               className="w-full bg-transparent h-full outline-none "
             />
           </section>
-          <section className="px-3 h-[40px] border border-[#D0D5DD] flex items-center justify-center gap-2 rounded-[8px] sh text-[14px] font-[500] ">
-            <Image src={filter} alt="" className="h-[13px] w-[13px] " />
-            <p className="text-[#344054]">Filter</p>
-          </section>
+          <Filter filt={filt} setFilt={setFilt} />
         </div>
         <div className="flex  w-full  justify-end items-center gap-2">
           <section className="px-3 h-[40px] border border-[#D0D5DD] flex items-center justify-center gap-2 rounded-[8px] sh pointer text-[14px] font-[500] ">
