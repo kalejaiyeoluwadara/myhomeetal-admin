@@ -105,7 +105,7 @@ function Table() {
       setTotalProd(data.length);
       setProducts(data);
     } catch (error) {
-      setError(error.message);
+      console.error(error.message);
     } finally {
       setLoading(false);
     }
