@@ -40,6 +40,7 @@ function ItemCard({
       openModal("Error encountered.", false);
     }
   };
+
   const formatNumberWithCommas = (number) => {
     return new Intl.NumberFormat("en-US").format(number);
   };

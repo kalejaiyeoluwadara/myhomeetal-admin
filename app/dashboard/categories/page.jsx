@@ -6,12 +6,14 @@ import CatCard from "./comp/CatCard";
 import CreateCategory from "./CreateCategory";
 import { useGlobal } from "@/app/context";
 import Loading from "@/app/dashboard/components/Loading"; // Import the Loading component
+import UpdateCategory from "./comp/UpdateCategory";
 
 function Page() {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const { token } = useGlobal();
+  const [itemId, setItemId] = useState("");
   const fetchCategories = async () => {
     setLoading(true);
     setError(null);
@@ -65,9 +67,9 @@ function Page() {
                 name={name}
                 product_category_image={product_category_image}
                 amt={products.length}
-                fetchCategories={fetchCategories}
                 _id={_id}
                 key={_id}
+                setItemId={setItemId}
                 category={d}
               />
             );
@@ -75,6 +77,11 @@ function Page() {
         </div>
       )}
       <CreateCategory />
+      <UpdateCategory
+        setItemId={setItemId}
+        itemId={itemId}
+        fetchCategories={fetchCategories}
+      />
     </div>
   );
 }
