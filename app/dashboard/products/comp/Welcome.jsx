@@ -1,6 +1,5 @@
 import Link from "next/link";
-import React from "react";
-import { FaPlus } from "react-icons/fa6";
+import { CiShoppingCart } from "react-icons/ci";
 function Welcome() {
   return (
     <div className="flex  items-center justify-between">
@@ -10,7 +9,7 @@ function Welcome() {
       <section>
         <Link href={"/dashboard/products/addproducts"}>
           <button className=" text-lg font-medium h-[50px] w-[300px] rounded-[99px] flex items-center justify-center gap-2 ">
-            <FaPlus size={20} />
+            <CiShoppingCart className="text-white" size={30} />
             Add Product
           </button>
         </Link>

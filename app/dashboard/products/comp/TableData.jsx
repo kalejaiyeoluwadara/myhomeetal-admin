@@ -40,8 +40,8 @@ function TableData({
       </div>
       {/* <p className=" col-span-2 truncate ">-</p> */}
       <p>#{formatNumberWithCommas(price)}</p>
-      <p className=" ">-</p>
-      <p className="truncate col-span-2 ">{category.name}</p>
+      <p className="text-center ">-</p>
+      <p className="truncate text-center col-span-2 ">{category.name}</p>
       <div className="px-2 ">
         <p className="px-3 font-medium bg-green-200 rounded-[12px] py-[2px] flex items-center justify-center text-green-600 ">
           active
@@ -54,25 +54,6 @@ function TableData({
             <IoMdMore size={20} />{" "}
           </p>
         </Link>
-        {/* {modal && (
-          <div className="h-auto border bg-white flex flex-col items-start justify-start sh absolute top-6 -right-2 z-40 center rounded-md w-[120px] px-1 py-2 text-[14px] ">
-            <Link href={`/dashboard/products/${_id}`}>
-              <p className="w-full h-[30px] px-2 pointer hover:bg-red-50 center rounded-md ">
-                View Product
-              </p>
-            </Link>
-
-            <p
-              onClick={() => {
-                handleDelete(_id);
-                setModal(false);
-              }}
-              className="w-full h-[30px] pointer hover:bg-red-50 center rounded-md "
-            >
-              Delete Product
-            </p>
-          </div>
-        )} */}
       </div>
     </div>
   );
