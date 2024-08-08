@@ -1,21 +1,5 @@
-import Link from "next/link";
 import React from "react";
 import { BsChevronRight, BsArrowUp, BsArrowDown } from "react-icons/bs";
-const Header = () => {
-  return (
-    <header className="flex -top-10 left-0 absolute justify-between items-center w-full">
-      <h2 className="text-[16px] font-semibold text-[#101928] ">
-        Recent Transactions
-      </h2>
-      <Link href={"/dashboard/finance/recent-transactions"}>
-        {" "}
-        <p className="text-[#ED2224] font-semibold items-center justify-center flex gap-[6px] text-[14px] ">
-          See all <BsChevronRight size={15} />{" "}
-        </p>
-      </Link>
-    </header>
-  );
-};
 const Debit = ({ amount = 0.0, name = "Market Square" }) => {
   return (
     <section className="w-full h-[40px] flex justify-between items-center ">
@@ -56,12 +40,12 @@ const Credit = ({ amount = 0.0, name = "Market Square" }) => {
     </section>
   );
 };
-function Transact() {
+function Page() {
   return (
-    <main>
-      <div className="grid grid-cols-1 mt-20 h-[388px] w-full gap-4 ">
+    <main className="min-h-screen w-full py-10 bg-[#F9FAFB] ">
+      <div className="grid  grid-cols-1 px-9 text-2xl font-semibold w-full gap-[31px] ">
+        <h2 className="text-black">Recent Transactions</h2>
         <section className="bg-white  px-5 py-6 flex flex-col gap-5 relative w-auto h-full rounded-xl  ">
-          <Header />
           {[
             { name: "", amount: "", type: "debit" },
             { name: "Aliya Cornrad", amount: "", type: "credit" },
@@ -87,4 +71,4 @@ function Transact() {
   );
 }
 
-export default Transact;
+export default Page;
