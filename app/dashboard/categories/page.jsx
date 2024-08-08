@@ -82,7 +82,7 @@ function Page() {
           })}
         </div>
       )}
-      <CreateCategory />
+      <CreateCategory fetchCategories={fetchCategories} />
       <UpdateCategory
         setItemId={setItemId}
         itemId={itemId}

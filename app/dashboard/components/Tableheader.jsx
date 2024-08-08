@@ -28,7 +28,7 @@ function Tableheader({ admins, setAdmins, manipulate, setManipulate }) {
             value={list}
             onChange={(e) => setList(e.target.value)}
             type="text"
-            placeholder="Search here..."
+            placeholder="Search here"
             className="w-full bg-transparent h-full outline-none "
           />
           <div

@@ -84,7 +84,7 @@ function Table() {
             <IoSearch className="text-[#667185]" size={20} />
             <input
               type="text"
-              placeholder="Search here..."
+              placeholder="Search here"
               className="w-full bg-transparent h-full outline-none "
             />
           </section>

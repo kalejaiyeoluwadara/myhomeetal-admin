@@ -5,8 +5,8 @@ import { useGlobal } from "@/app/context";
 import Image from "next/image";
 import FormData from "form-data";
 
-function CreateCategory() {
-  const { createCat, setCreateCat, token } = useGlobal();
+function CreateCategory({ fetchCategories }) {
+  const { createCat, setCreateCat, token, openModal } = useGlobal();
   const [formContent, setFormContent] = useState({
     categoryName: "",
     coverImage: null,
@@ -54,14 +54,19 @@ function CreateCategory() {
           categoryName: "",
           coverImage: null,
         });
+        setCreateCat(false);
+        openModal("Created category successfully.", true);
+        fetchCategories();
       } else {
         const result = await response.json();
         console.log("Error encountered:", result);
         setError(result.message || "Failed to create category");
+        openModal("Failed to create category", false);
       }
     } catch (error) {
       console.log("Error:", error);
       setError("An error occurred while creating category");
+      openModal("Failed to create category", false);
     } finally {
       setLoading(false);
     }

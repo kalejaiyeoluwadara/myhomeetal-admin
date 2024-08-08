@@ -28,12 +28,15 @@ function Tableheader({ products, manipulate, setManipulate }) {
             value={list}
             onChange={(e) => setList(e.target.value)}
             type="text"
-            placeholder="Search here..."
+            placeholder="Search here"
             className="w-full bg-transparent h-full outline-none "
           />
-          <button onClick={handleSearch} className="text-[#667185] bg-white ">
+          <div
+            onClick={handleSearch}
+            className="text-[#667185] cursor-pointer hover:text-black bg-white "
+          >
             <IoSearch size={20} />
-          </button>
+          </div>
         </section>
         {/* <section className="px-3 h-[40px] border border-[#D0D5DD] flex items-center justify-center gap-2 rounded-[8px] sh text-[14px] font-[500] ">
           <Image src={filter} alt="Filter" className="h-[13px] w-[13px]" />
