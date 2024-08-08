@@ -59,7 +59,9 @@ function Table() {
   const itemsPerPage = 8;
   const [currentPage, setCurrentPage] = useState(1);
   const [cal, setCal] = useState(false);
-  const totalPages = Math.ceil(orders.length / itemsPerPage);
+  const filteredOrders = filterDataByDate(orders, filt);
+
+  const totalPages = Math.ceil(filteredOrders.length / itemsPerPage);
   const [date, setDate] = useState(new Date());
 
   const handleNextPage = () => {
@@ -73,7 +75,6 @@ function Table() {
       setCurrentPage(currentPage - 1);
     }
   };
-  const filteredOrders = filterDataByDate(orders, filt);
   const currentData = filteredOrders.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
