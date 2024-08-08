@@ -121,20 +121,24 @@ function Page({ params: { id } }) {
               <Loading loading={loading} />
             ) : (
               <>
-                <Box title={"Fullname"} item={order.user} image={profile} />
+                <Box
+                  title={"Fullname"}
+                  item={`${order?.user.firstname} ${order?.user.lastname}`}
+                  image={profile}
+                />
                 <Box
                   title={"Email Address"}
-                  item={order.email}
+                  item={order?.user.email}
                   image={messages}
                 />
                 <Box
                   title={"Delivery Address"}
-                  item={order.address}
+                  item={order?.address}
                   image={location}
                 />
                 <Box
                   title={"Phone Number"}
-                  item={order.phone}
+                  item={order?.user.phone}
                   image={profile}
                 />
               </>
