@@ -16,7 +16,7 @@ function Status() {
   useEffect(() => {
     if (orders) {
       const completed = orders.filter(
-        (order) => order.status === "Completed"
+        (order) => order.status === "Delivered"
       ).length;
       const pending = orders.filter(
         (order) => order.status !== "Pending"
