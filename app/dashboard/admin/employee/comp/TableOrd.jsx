@@ -14,14 +14,17 @@ import {
 import TableData from "./TableData";
 import useData from "@/hooks/useData";
 import Loading from "@/app/dashboard/components/Loading";
+import Filter from "@/app/dashboard/components/Filter";
+import { filterDataByDate } from "@/utils/FilterByDate";
 function Table() {
+  const [filt, setFilt] = useState("all time");
   const { data, loading } = useData(
     "https://my-home-et-al.onrender.com/api/v1/order"
   );
   const itemsPerPage = 6;
   const [currentPage, setCurrentPage] = useState(1);
-
-  const totalPages = Math.ceil(data.length / itemsPerPage);
+  const filteredOrders = filterDataByDate(data, filt);
+  const totalPages = Math.ceil(filteredOrders.length / itemsPerPage);
 
   const handleNextPage = () => {
     if (currentPage < totalPages) {
@@ -35,7 +38,7 @@ function Table() {
     }
   };
 
-  const currentData = data.slice(
+  const currentData = filteredOrders.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
@@ -74,49 +77,12 @@ function Table() {
     return pages;
   };
 
-  const [modal, setModal] = useState(false);
-  const [filt, setFilt] = useState("this week");
   return (
     <div className="w-auto relative col-span-2 bg-white overflow-hidden h-full rounded-[10px] flex flex-col items-start justify-start border ">
       {/* Header */}
       <section className="w-full flex items-center justify-between px-[16px]  h-[68px] ">
         <h2 className="font-semibold text-base ">Orders</h2>
-        <section
-          onClick={() => {
-            setModal((prev) => !prev);
-          }}
-          className="px-3 relative  h-[40px] border border-[#D0D5DD] flex items-center justify-center gap-2 rounded-[8px] sh text-[14px] font-[500] "
-        >
-          <Image src={filter} alt="" className="h-[13px] w-[13px] " />
-          <p className="text-[#344054] pointer capitalize ">{filt}</p>
-          {/* Modal */}
-          {modal && (
-            <div className=" h-auto w-[180px] flex flex-col items-start justify-center p-2  bg-white border top-12 right-3  rounded-xl absolute z-40  ">
-              {[
-                "today",
-                "yesterday",
-                "this week",
-                "this month",
-                "this quarter",
-                "yearly",
-                "all time",
-              ].map((d, id) => {
-                return (
-                  <p
-                    onClick={() => {
-                      setFilt(d);
-                      // setModal(!modal);
-                    }}
-                    key={id}
-                    className=" w-full p-3 capitalize rounded-md hover:bg-red-50 pointer text-sm"
-                  >
-                    {d}
-                  </p>
-                );
-              })}
-            </div>
-          )}
-        </section>
+        <Filter filt={filt} setFilt={setFilt} />
       </section>
       {/* Content */}
       <div className="w-full ">
