@@ -123,12 +123,12 @@ function Page({ params: { id } }) {
               <>
                 <Box
                   title={"Fullname"}
-                  item={`${order?.user.firstname} ${order?.user.lastname}`}
+                  item={`${order?.user?.firstname} ${order?.user?.lastname}`}
                   image={profile}
                 />
                 <Box
                   title={"Email Address"}
-                  item={order?.user.email}
+                  item={order?.user?.email}
                   image={messages}
                 />
                 <Box
@@ -138,7 +138,7 @@ function Page({ params: { id } }) {
                 />
                 <Box
                   title={"Phone Number"}
-                  item={order?.user.phone}
+                  item={order?.user?.phone}
                   image={profile}
                 />
               </>
