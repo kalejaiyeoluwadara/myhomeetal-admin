@@ -3,6 +3,7 @@ import { IoSearch } from "react-icons/io5";
 import filter from "../../assets/filter.svg";
 import ex from "../../assets/export.svg";
 import Image from "next/image";
+import Export from "./Export";
 
 function Tableheader({ admins, setAdmins, manipulate, setManipulate }) {
   const [list, setList] = useState("");
@@ -44,10 +45,7 @@ function Tableheader({ admins, setAdmins, manipulate, setManipulate }) {
         </section> */}
       </div>
       <div className="flex w-full justify-end items-center gap-2">
-        <section className="px-3 h-[40px] border border-[#D0D5DD] flex items-center justify-center gap-2 rounded-[8px] sh pointer text-[14px] font-[500] ">
-          <Image src={ex} alt="Export data" />
-          <p className="text-[#344054]">Export data</p>
-        </section>
+        <Export data={admins} />
       </div>
     </section>
   );

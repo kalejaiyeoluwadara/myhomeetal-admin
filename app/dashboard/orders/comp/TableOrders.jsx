@@ -14,6 +14,7 @@ import TableData from "./TableData";
 import { useGlobal } from "@/app/context";
 import Filter from "../../components/Filter";
 import { filterDataByDate } from "@/utils/FilterByDate";
+import Export from "../../components/Export";
 function Table() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -131,10 +132,7 @@ function Table() {
           <Filter filt={filt} setFilt={setFilt} />
         </div>
         <div className="flex  w-full  justify-end items-center gap-2">
-          <section className="px-3 h-[40px] border border-[#D0D5DD] flex items-center justify-center gap-2 rounded-[8px] sh pointer text-[14px] font-[500] ">
-            <Image src={ex} alt="" className=" " />
-            <p className="text-[#344054]  ">Export data</p>
-          </section>
+          <Export data={orders} />
           <section className="w-auto  relative px-3 h-[40px] border border-[#D0D5DD] flex items-center justify-center gap-2 sh pointer rounded-[8px] text-[14px]  ">
             <Image src={dateimg} alt="" className="" />
             <p onClick={() => setCal(true)} className="text-[#344054]] ">
