@@ -14,6 +14,10 @@ function Page() {
   const [error, setError] = useState(null);
   const { token } = useGlobal();
   const [itemId, setItemId] = useState("");
+  const [details, setDetails] = useState({
+    name: "",
+    image: "",
+  });
   const fetchCategories = async () => {
     setLoading(true);
     setError(null);
@@ -71,6 +75,8 @@ function Page() {
                 key={_id}
                 setItemId={setItemId}
                 category={d}
+                setDetails={setDetails}
+                details={details}
               />
             );
           })}
@@ -81,6 +87,8 @@ function Page() {
         setItemId={setItemId}
         itemId={itemId}
         fetchCategories={fetchCategories}
+        details={details}
+        setDetails={setDetails}
       />
     </div>
   );

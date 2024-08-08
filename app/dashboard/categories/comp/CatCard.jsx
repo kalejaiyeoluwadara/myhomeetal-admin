@@ -6,7 +6,15 @@ import { WiCloudUp } from "react-icons/wi";
 import logo from "@/app/assets/logo.svg";
 import formData from "form-data";
 import { useGlobal } from "@/app/context";
-function CatCard({ name, amt, _id, product_category_image, setItemId }) {
+function CatCard({
+  name,
+  amt,
+  _id,
+  product_category_image,
+  setItemId,
+  setDetails,
+  details,
+}) {
   const [loading, setLoading] = useState(false);
   return (
     <section className="flex relative h-[158px] bg-white w-full justify-between items-center rounded-[22px] px-6">
@@ -14,6 +22,10 @@ function CatCard({ name, amt, _id, product_category_image, setItemId }) {
         <div
           onClick={() => {
             setItemId(_id);
+            setDetails({
+              name: name,
+              image: product_category_image,
+            });
           }}
           className="h-[109px] cursor-pointer bg-[#D9D9D9] relative overflow-hidden w-[109px] rounded-[23px] flex items-center justify-center"
         >

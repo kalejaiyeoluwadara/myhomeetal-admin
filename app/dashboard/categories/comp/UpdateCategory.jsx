@@ -4,17 +4,21 @@ import { FiUploadCloud } from "react-icons/fi";
 import { useGlobal } from "@/app/context";
 import Image from "next/image";
 import FormData from "form-data";
-
-function UpdateCategory({ itemId, setItemId, fetchCategories }) {
-  const { createCat, setCreateCat, token } = useGlobal();
+import { useRouter } from "next/navigation";
+function UpdateCategory({
+  itemId,
+  setItemId,
+  fetchCategories,
+  details,
+  setDetails,
+}) {
+  const router = useRouter();
+  const { createCat, setCreateCat, token, openModal } = useGlobal();
   const [formContent, setFormContent] = useState({
-    categoryName: "",
-    coverImage: null,
+    categoryName: details?.name,
+    coverImage: details?.image,
   });
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [success, setSuccess] = useState(null);
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormContent({ ...formContent, [name]: value });
@@ -26,9 +30,6 @@ function UpdateCategory({ itemId, setItemId, fetchCategories }) {
 
   const handleUpdate = async () => {
     setLoading(true);
-    setError(null);
-    setSuccess(null);
-
     const formData = new FormData();
     formData.append("name", formContent.categoryName);
     if (formContent.coverImage) {
@@ -48,21 +49,20 @@ function UpdateCategory({ itemId, setItemId, fetchCategories }) {
 
       if (response.ok) {
         const result = await response.json();
-        console.log("Category Updated:", result);
-        setSuccess("Category Updated successfully");
+        openModal("Category Updated, refresh page", true);
         setFormContent({
           categoryName: "",
           coverImage: null,
         });
         setItemId("");
+        setDetails({});
       } else {
         const result = await response.json();
         console.log("Error encountered:", result);
-        setError(result.message || "Failed to Update category");
+        openModal("Category Update Failed!", true);
       }
     } catch (error) {
       console.log("Error:", error);
-      setError("An error occurred while Updating category");
     } finally {
       setLoading(false);
     }
@@ -70,8 +70,7 @@ function UpdateCategory({ itemId, setItemId, fetchCategories }) {
 
   const closeForm = () => {
     setItemId("");
-    setError(null);
-    setSuccess(null);
+    setDetails({});
   };
 
   return (
@@ -128,8 +127,8 @@ function UpdateCategory({ itemId, setItemId, fetchCategories }) {
               className="h-[70px] mt-3 w-full bg-[#F4F4F4] px-4 mb-[20px] rounded-[10px]"
               placeholder="Category Name"
             />
-            {error && <p className="text-red-500 mb-2">{error}</p>}
-            {success && <p className="text-green-500 mb-2">{success}</p>}
+            {/* {error && <p className="text-red-500 mb-2">{error}</p>}
+            {success && <p className="text-green-500 mb-2">{success}</p>} */}
             <div className="flex w-full gap-2">
               <button
                 type="button"
@@ -143,7 +142,7 @@ function UpdateCategory({ itemId, setItemId, fetchCategories }) {
                 className="w-full h-[44px] rounded-[8px] bg-primary text-white"
                 disabled={loading}
               >
-                {loading ? "Creating..." : "Update Category"}
+                {loading ? "Updating..." : "Update Category"}
               </button>
             </div>
           </div>
