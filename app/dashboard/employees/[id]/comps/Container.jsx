@@ -8,6 +8,7 @@ function Container({
   formData,
   setFormData,
   otherStyles,
+  handleSave,
 }) {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -19,14 +20,28 @@ function Container({
     >
       <div className="flex justify-between items-center">
         <h2 className=" text-[16px] font-semibold ">{title}</h2>
-        <div
-          // onClick={() => {
-          //   setController(!editController);
-          // }}
-          className="border px-4 py-2 pointer border-border rounded-[8px] text-blak text-[14px] font-semibold"
-        >
-          {!editController ? "Edit" : "Done"}
-        </div>
+        <>
+          {!editController ? (
+            <div
+              onClick={() => {
+                setController(true);
+              }}
+              className="border px-4 py-2 pointer border-border rounded-[8px] text-blak text-[14px] font-semibold"
+            >
+              Edit
+            </div>
+          ) : (
+            <div
+              onClick={() => {
+                handleSave();
+                setController(false);
+              }}
+              className="border px-4 py-2 pointer border-border rounded-[8px] text-blak text-[14px] font-semibold"
+            >
+              Save
+            </div>
+          )}
+        </>
       </div>
 
       <section className="flex flex-col w-full">
@@ -49,8 +64,6 @@ function Container({
                   name={d.formName}
                   type="text"
                   onChange={handleInputChange}
-                  autoComplete={false}
-                  autoSave={false}
                   placeholder="Enter Subject"
                   className="text-[14px] outline-none border-none w-full bg-transparent truncate font-medium text-black "
                 />

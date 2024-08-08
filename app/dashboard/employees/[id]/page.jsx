@@ -45,7 +45,7 @@ function Page({ params }) {
         salary: employee.salary || "",
         email: employee.email || "",
         gender: employee.gender || "",
-        active: employee.active || true,
+        isActive: employee?.isActive,
       });
     }
   }, [employee]);
@@ -102,6 +102,7 @@ function Page({ params }) {
         throw new Error(
           `Failed to update admin: ${response.status} ${response.statusText} - ${errorData.message}`
         );
+        openModal("Admin Update Failed", false);
       }
       openModal("Admin Updated successfully", true);
       setTimeout(() => {
@@ -111,6 +112,7 @@ function Page({ params }) {
       setEmployee(formData);
     } catch (error) {
       console.error("An error occurred while updating admin:", error);
+      openModal("Admin Update Failed", false);
     } finally {
       setLoading(false);
     }
@@ -155,9 +157,10 @@ function Page({ params }) {
       }
     );
   };
+
   const toggleActivation = async () => {
     setLoading(true);
-    const updatedActiveStatus = !formData.active;
+    const updatedActiveStatus = !formData?.isActive;
     try {
       const response = await fetch(
         `https://my-home-et-al.onrender.com/api/v1/admin/${params.id}`,
@@ -167,7 +170,7 @@ function Page({ params }) {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify({ ...employee, active: updatedActiveStatus }),
+          body: JSON.stringify({ ...employee, isActive: updatedActiveStatus }),
         }
       );
 
@@ -245,7 +248,7 @@ function Page({ params }) {
     },
     {
       title: "Status",
-      item: `active - ${formData.active}` || "",
+      item: `active - ${formData?.isActive}` || "",
       formName: "active",
     },
   ];
@@ -271,12 +274,6 @@ function Page({ params }) {
   return (
     <main className="w-full p-[36px] bg-screen  min-h-screen overflow-y-scroll ">
       <Nav />
-      {/* <button
-        className="w-[140px] absolute font-semibold right-8 top-5 h-[50px] text-white rounded-[10px] "
-        onClick={handleSave}
-      >
-        Save
-      </button> */}
       {loading ? (
         <Loading loading={loading} />
       ) : (
@@ -328,7 +325,7 @@ function Page({ params }) {
                 onClick={toggleActivation}
                 className=" cursor-pointer border px-4 py-2 border-border rounded-[8px] text-blak text-[14px] font-semibold "
               >
-                {formData?.active ? "Deactivate Account" : "Activate Account"}
+                {formData?.isActive ? "Deactivate Account" : "Activate Account"}
               </div>
               <div
                 onClick={handleDelete}
@@ -347,6 +344,7 @@ function Page({ params }) {
             <Container
               handleChange={handleInputChange}
               title={"Personal information"}
+              handleSave={handleSave}
               editController={piEdit}
               setController={setPiEdit}
               data={pi}
@@ -356,6 +354,7 @@ function Page({ params }) {
             <Container
               editController={eiEdit}
               setController={setEiEdit}
+              handleSave={handleSave}
               handleChange={handleInputChange}
               title={"Employment Information"}
               data={ei}
