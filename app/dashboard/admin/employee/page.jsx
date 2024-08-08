@@ -8,21 +8,23 @@ import Table from "./comp/TableOrd";
 import Data from "./comp/Data";
 import Image from "next/image";
 import useData from "@/hooks/useData";
-
+import { filterDataByDate } from "@/utils/FilterByDate";
 function Page() {
-  const { stock } = useData(
-    "https://my-home-et-al.onrender.com/api/v1/product/all-products"
+  const { data: order, loading } = useData(
+    "https://my-home-et-al.onrender.com/api/v1/order"
   );
+  const today = filterDataByDate(order, "today");
+  const week = filterDataByDate(order, "this week");
   // const low = stock.map();
   const data = [
     {
       title: "Today Sales",
-      item: "0",
+      item: today?.length,
       img: shop,
     },
     {
       title: "Weekly Sales",
-      item: "0",
+      item: week?.length,
       img: bag,
     },
   ];
