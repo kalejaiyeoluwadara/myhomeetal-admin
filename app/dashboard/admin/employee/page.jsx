@@ -9,46 +9,23 @@ import Image from "next/image";
 import useData from "@/hooks/useData";
 import { filterDataByDate } from "@/utils/FilterByDate";
 import { useGlobal } from "@/app/context";
+import TableAlert from "./comp/TableAlert";
 function Page() {
   const { token } = useGlobal();
   const { data: order, loading } = useData(
     "https://my-home-et-al.onrender.com/api/v1/order"
   );
-  const [products, setProducts] = useState([]);
+  const {
+    data: products,
+    setData: setProducts,
+    loading: prodLoading,
+  } = useData("https://my-home-et-al.onrender.com/api/v1/product/all-products");
   const [lowStockProducts, setLowStockProducts] = useState([]);
-  const fetchProducts = async () => {
-    try {
-      const response = await fetch(
-        "https://my-home-et-al.onrender.com/api/v1/product/all-products",
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(
-          `Failed to fetch products: ${response.status} ${response.statusText} - ${errorData.message}`
-        );
-      }
-
-      const data = await response.json();
-      setProducts(data);
-    } catch (error) {
-      console.error(error.message);
-    }
-  };
-  useEffect(() => {
-    fetchProducts();
-  }, []);
   useEffect(() => {
     if (products && products.length > 0) {
       const low = products.filter((product) => product.inventory?.quantity < 5);
       setLowStockProducts(low);
+      console.log(lowStockProducts);
     } else {
       console.log("none");
     }
@@ -68,7 +45,7 @@ function Page() {
     },
   ];
   return (
-    <main className="w-full p-6 bg-screen min-h-screen overflow-y-scroll ">
+    <main className="w-full p-6 bg-screen min-h-[1200px] overflow-y-scroll ">
       <Welcome />
       <section className=" mt-6 gap-6 grid grid-cols-2 w-full ">
         {data.map((d, id) => {
@@ -103,15 +80,7 @@ function Page() {
             <h2 className="font-semibold text-base ">Stock Alert</h2>
           </section>
           {/* data */}
-          <section className="mt-3">
-            {lowStockProducts.length > 0 ? (
-              lowStockProducts.map((d, id) => {
-                return <Data {...d} key={id} />;
-              })
-            ) : (
-              <p className="text-center">No Stock Alert</p>
-            )}
-          </section>
+          <TableAlert data={lowStockProducts} loading={prodLoading} />
         </div>
       </section>
     </main>

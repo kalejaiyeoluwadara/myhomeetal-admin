@@ -31,7 +31,7 @@ const useData = (url) => {
         const data = await response.json();
         setData(data);
       } catch (error) {
-        setError(error.message);
+        console.log(error.message);
       } finally {
         setLoading(false);
       }
