@@ -15,6 +15,7 @@ import { useGlobal } from "@/app/context";
 import Filter from "../../components/Filter";
 import { filterDataByDate } from "@/utils/FilterByDate";
 import Export from "../../components/Export";
+import Loading from "../../components/Loading";
 function Table() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -164,9 +165,13 @@ function Table() {
           <p className="">Status</p>
           <p className="pl-2">Action</p>
         </div>
-        {currentData.map((d, id) => {
-          return <TableData {...d} key={id} />;
-        })}
+        {currentData.length < 0 ? (
+          <Loading loading={loading} />
+        ) : (
+          currentData.map((d, id) => {
+            return <TableData {...d} key={id} />;
+          })
+        )}
 
         {/* Footer */}
         <footer className="w-full flex items-center justify-between px-4 h-[68px] bg-white">
