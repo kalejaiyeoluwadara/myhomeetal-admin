@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { LiaTimesSolid } from "react-icons/lia";
 import { useGlobal } from "@/app/context";
 import formData from "form-data";
+import useData from "@/hooks/useData";
 const Modal = ({ cat, categories, setCat, setformContent, formContent }) => {
   return (
     <div className="flex flex-col h-[250px] overflow-y-scroll no-scrollbar top-[87px] p-4 right-6 w-[250px] rounded-xl border bg-white absolute z-20">
@@ -202,12 +203,17 @@ function Form() {
     fit6,
   } = formContent;
   const router = useRouter();
-  const { categories, token } = useGlobal();
   const [catItem, setCatItem] = useState([]);
+  const { token } = useGlobal();
+  const { data: categories } = useData(
+    "https://my-home-et-al.onrender.com/api/v1/product-category/categories"
+  );
 
   useEffect(() => {
-    setCatItem(categories.map((d) => ({ _id: d._id, name: d.name })));
-  }, []);
+    if (categories) {
+      setCatItem(categories.map((d) => ({ _id: d._id, name: d.name })));
+    }
+  }, [categories]); // Use categories as a dependency
 
   return (
     <div className="mb-8 relative w-full">
@@ -312,8 +318,8 @@ function Form() {
                   <label className="inputlabel">Stock Level</label>
                   <input
                     className="input"
-                    name="stock"
-                    value={stock}
+                    name="inventory"
+                    value={inventory}
                     onChange={handleInputChange}
                     type="text"
                     placeholder="Enter Subject"

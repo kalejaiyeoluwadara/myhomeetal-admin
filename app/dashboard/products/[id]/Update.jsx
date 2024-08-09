@@ -145,12 +145,7 @@ function Form({ id }) {
         color: data.color || "",
         size: data.size || "",
         modelno: data.modelNumber || "",
-        fit1: data.keyFeatures[0] || "",
-        fit2: data.keyFeatures[1] || "",
-        fit3: data.keyFeatures[2] || "",
-        fit4: data.keyFeatures[3] || "",
-        fit5: data.keyFeatures[4] || "",
-        fit6: data.keyFeatures[5] || "",
+        keyFeatures: data.keyFeatures,
       });
       setCat(data.category.name);
     } catch (error) {
@@ -173,7 +168,7 @@ function Form({ id }) {
 
   useEffect(() => {
     setCatItem(categories.map((d) => d.name));
-  }, []);
+  }, [modal]);
   const {
     productTitle,
     price,
