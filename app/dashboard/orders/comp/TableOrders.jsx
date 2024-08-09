@@ -169,7 +169,19 @@ function Table() {
           <Loading loading={loading} />
         ) : (
           currentData.map((d, id) => {
-            return <TableData {...d} key={id} />;
+            return (
+              <TableData
+                date={d?.date}
+                address={d?.address}
+                deliveryMethod={d?.deliveryMethod}
+                orderId={d?.orderId}
+                orderPrice={d?.orderPrice}
+                status={d?.status}
+                user={d?.status}
+                _id={d?._id}
+                key={id}
+              />
+            );
           })
         )}
 

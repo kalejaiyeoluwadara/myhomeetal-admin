@@ -42,7 +42,7 @@ function TableData({
       {/* <p className=" col-span-2 truncate ">-</p> */}
       <p>#{formatNumberWithCommas(price)}</p>
       <p className="text-center ">{inventory}</p>
-      <p className="truncate text-center col-span-2 ">{category.name}</p>
+      <p className="truncate text-center col-span-2 ">{category?.name}</p>
       <div className="px-2 ">
         <p className="px-3 font-medium bg-green-200 rounded-[12px] py-[2px] flex items-center justify-center text-green-600 ">
           active
