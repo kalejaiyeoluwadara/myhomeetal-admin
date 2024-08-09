@@ -1,10 +1,21 @@
 "use client";
 import { useGlobal } from "@/app/context";
+import useData from "@/hooks/useData";
 import React from "react";
 import { GoPeople } from "react-icons/go";
 import { SiHackthebox } from "react-icons/si";
 function Status() {
   const { totalProd } = useGlobal();
+  const { data: products = [] } = useData(
+    "https://my-home-et-al.onrender.com/api/v1/product/all-products"
+  );
+  const outOfStockCount = products.reduce((count, product) => {
+    if (product.inventory?.quantity < 5) {
+      return count + 1;
+    }
+    return count;
+  }, 0);
+
   const data = [
     {
       title: "Total products",
@@ -12,12 +23,12 @@ function Status() {
     },
     {
       title: "Out of Stock Products ",
-      count: 0,
+      count: outOfStockCount,
     },
-    {
-      title: "Most Viewed Product",
-      count: 0,
-    },
+    // {
+    //   title: "Most Viewed Product",
+    //   count: 0,
+    // },
   ];
   return (
     <main className="w-full grid gap-2 mt-[45px]  mb-[24px] grid-cols-3">

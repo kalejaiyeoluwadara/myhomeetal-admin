@@ -43,7 +43,7 @@ function Form({ id }) {
     brand: "",
     inventory: 0,
     sku: "",
-    stock: "",
+
     size: "",
     weight: "",
     modelno: "",
@@ -182,7 +182,6 @@ function Form({ id }) {
     brand,
     inventory,
     sku,
-    stock,
     size,
     weight,
     modelno,
@@ -294,8 +293,8 @@ function Form({ id }) {
                 <label className="inputlabel">Stock Level</label>
                 <input
                   className="input"
-                  name="stock"
-                  value={stock}
+                  name="inventory"
+                  value={inventory}
                   onChange={handleInputChange}
                   type="text"
                   placeholder="Enter Subject"
