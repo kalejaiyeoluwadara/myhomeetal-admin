@@ -45,7 +45,9 @@ function Table() {
       }
 
       const data = await response.json();
-      setOrders(data);
+      // Filter out orders with status 'Not paid'
+      const paidOrders = data.filter((order) => order.status !== "Not paid");
+      setOrders(paidOrders);
     } catch (error) {
       console.error("An error occurred while fetching Orders:", error);
       setError(error.message);
