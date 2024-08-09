@@ -15,7 +15,10 @@ function Welcome() {
   return (
     <div>
       <h2 className="text-2xl font-semibold ">
-        Welcome {data.fullname ? data.fullname.split(" ")[0] : "admin"}
+        Welcome{" "}
+        <span className="capitalize">
+          {data?.fullname ? data.fullname.split(" ")[0] : "admin"}
+        </span>
       </h2>
       <p className="text-base text-[#475367] font-medium ">
         What task do you have to do today?
