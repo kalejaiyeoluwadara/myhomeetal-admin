@@ -152,6 +152,7 @@ function Table() {
               category,
               description,
               brand,
+              inventory,
               images,
             } = d;
             return (
@@ -161,6 +162,7 @@ function Table() {
                 price={price}
                 productTitle={productTitle}
                 description={description}
+                inventory={inventory?.quantity}
                 brand={brand}
                 _id={d._id}
                 images={images}

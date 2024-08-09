@@ -9,15 +9,15 @@ function Tableheader({ products, manipulate, setManipulate }) {
   const [list, setList] = useState("");
 
   const handleSearch = () => {
-    if (list === "") {
-      setManipulate(products);
-    } else {
-      const filteredProducts = products.filter((product) =>
-        product.productTitle.toLowerCase().includes(list.toLowerCase())
-      );
-      setManipulate(filteredProducts);
-      setList("");
-    }
+    const filteredProducts = list
+      ? products.filter((product) => {
+          const regex = new RegExp(list, "i"); // 'i' makes the search case-insensitive
+          return regex.test(product.productTitle);
+        })
+      : products;
+
+    setManipulate(filteredProducts);
+    setList("");
   };
 
   return (

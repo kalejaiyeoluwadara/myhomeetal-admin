@@ -138,7 +138,7 @@ function Form({ id }) {
         category: data.category || "",
         description: data.description || "",
         brand: data.brand || "",
-        inventory: data.inventory || "",
+        inventory: data.inventory.quantity || "",
         images: data.images || [],
         mainmaterial: data.mainMaterial || "",
         weight: data.weight || "",
@@ -235,7 +235,7 @@ function Form({ id }) {
                 value={productTitle}
                 onChange={handleInputChange}
                 type="text"
-                placeholder="Iphone 11 Pro"
+                placeholder="Enter Subject"
               />
               <p className="inputfooter ">
                 A product name is required and recommended to be unique.
@@ -264,7 +264,7 @@ function Form({ id }) {
                 name="brand"
                 onChange={handleInputChange}
                 type="text"
-                placeholder="Samsung"
+                placeholder="Enter Subject"
               />
             </div>
             <div className="w-full ">
@@ -275,7 +275,7 @@ function Form({ id }) {
                 value={sku}
                 onChange={handleInputChange}
                 type="text"
-                placeholder="783kl32"
+                placeholder="Enter Subject"
               />
             </div>
             <div className="w-full ">
@@ -285,7 +285,7 @@ function Form({ id }) {
                 value={price}
                 name="price"
                 onChange={handleInputChange}
-                placeholder="290000"
+                placeholder="Enter Subject"
               />
             </div>
             {/* Level */}
@@ -298,7 +298,7 @@ function Form({ id }) {
                   value={stock}
                   onChange={handleInputChange}
                   type="text"
-                  placeholder="20"
+                  placeholder="Enter Subject"
                 />
               </div>
               <div
