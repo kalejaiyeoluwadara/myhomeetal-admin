@@ -417,75 +417,30 @@ function Form({ id }) {
               />
             </div>
           </div>
-          <div className="bg-white w-full rounded-xl px-6 py-8 pb-12 flex flex-col gap-3 h-auto ">
+          {/* <div className="bg-white w-full rounded-xl px-6 py-8 pb-12 flex flex-col gap-3 h-auto ">
             <h2 className=" core  ">Key Feautres</h2>
-            <div className="w-full ">
-              <label className="inputlabel">Feature 1</label>
-              <input
-                className="input"
-                name="fit1"
-                value={fit1}
-                onChange={handleInputChange}
-                type="text"
-                placeholder="Please Enter a Unique Feature that the Product Offers"
-              />
-            </div>
-            <div className="w-full ">
-              <label className="inputlabel">Feature 2</label>
-              <input
-                className="input"
-                value={fit2}
-                name="fit2"
-                onChange={handleInputChange}
-                type="text"
-                placeholder="Please Enter a Unique Feature that the Product Offers"
-              />
-            </div>
-            <div className="w-full ">
-              <label className="inputlabel">Feature 3</label>
-              <input
-                className="input"
-                name="fit3"
-                value={fit3}
-                onChange={handleInputChange}
-                type="text"
-                placeholder="Please Enter a Unique Feature that the Product Offers"
-              />
-            </div>
-            <div className="w-full ">
-              <label className="inputlabel">Feature 4</label>
-              <input
-                className="input"
-                value={fit4}
-                name="fit4"
-                onChange={handleInputChange}
-                type="text"
-                placeholder="Please Enter a Unique Feature that the Product Offers"
-              />
-            </div>
-            <div className="w-full ">
-              <label className="inputlabel">Feature 5</label>
-              <input
-                className="input"
-                value={fit5}
-                name="fit5"
-                onChange={handleInputChange}
-                type="text"
-                placeholder="Please Enter a Unique Feature that the Product Offers"
-              />
-            </div>
-            <div className="w-full ">
-              <label className="inputlabel">Feature 6</label>
-              <input
-                className="input"
-                value={fit6}
-                name="fit6"
-                onChange={handleInputChange}
-                type="text"
-                placeholder="Please Enter a Unique Feature that the Product Offers"
-              />
-            </div>
-          </div>
+            {formContent.keyFeatures.length > 0 ? (
+              formContent.keyFeatures.map((feature, id) => {
+                return (
+                  <div className="w-full ">
+                    <label className="inputlabel">Feature 1</label>
+                    <input
+                      className="input"
+                      name="fit1"
+                      value={feature}
+                      // onChange={handleInputChange}
+                      type="text"
+                      placeholder="Please Enter a Unique Feature that the Product Offers"
+                    />
+                  </div>
+                );
+              })
+            ) : (
+              <div>
+                <p>No Key Features</p>
+              </div>
+            )}
+          </div> */}
         </section>
       </main>
     </main>
