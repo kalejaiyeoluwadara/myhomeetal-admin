@@ -64,8 +64,7 @@ function Form() {
 
   // Handling files
   const handleFileSelect = (e) => {
-    const files = Array.from(e.target.files).slice(0, 4);
-    // Limit to 4 files
+    const files = Array.from(e.target.files).slice(0, 4); // Limit to 4 files
     if (files.length > 0) {
       setSelectedFile(files);
       setformContent({ ...formContent, images: files });
@@ -75,6 +74,7 @@ function Form() {
       openModal("Error Encountered", true);
     }
   };
+
   useEffect(() => {
     console.log(formContent.images);
   }, [formContent.images.length]);
@@ -83,11 +83,9 @@ function Form() {
     setIsLoading(true);
     const url =
       "https://my-home-et-al.onrender.com/api/v1/product/create-product";
+
     const formData = new FormData();
     formData.append("productTitle", formContent.productTitle);
-    formData.append("images", [
-      "https://tse1.mm.bing.net/th?id=OIP._GCVhLmCRPm_W4TOyBrIuQHaEK&pid=Api&P=0&h=220",
-    ]);
     formData.append("price", formContent.price);
     formData.append("category", formContent.category);
     formData.append("description", formContent.description);
@@ -100,14 +98,21 @@ function Form() {
     formData.append("modelno", formContent.modelno);
     formData.append("mainmaterial", formContent.mainmaterial);
     formData.append("color", formContent.color);
-    formData.append("keyFeatures", [
-      formContent.fit1,
-      formContent.fit2,
-      formContent.fit3,
-      formContent.fit4,
-      formContent.fit5,
-      formContent.fit6,
-    ]);
+    formData.append(
+      "keyFeatures",
+      JSON.stringify([
+        formContent.fit1,
+        formContent.fit2,
+        formContent.fit3,
+        formContent.fit4,
+        formContent.fit5,
+        formContent.fit6,
+      ])
+    );
+
+    formContent.images.forEach((file, index) => {
+      formData.append("images", file); // Field name should match 'images'
+    });
 
     try {
       const response = await fetch(url, {
@@ -149,16 +154,20 @@ function Form() {
         setTimeout(() => {
           router.push("/dashboard/products");
         }, 3000);
-        // console.log(formContent);
       } else {
-        console.error("Failed to create product:", response.statusText);
-        openModal("Unable to Upload Product", false);
+        // Extract and handle error message from response
+        const errorData = await response.json();
+        console.error(
+          "Failed to create product:",
+          errorData.error || response.statusText
+        );
+        openModal(errorData.error || "Unable to Upload Product", false);
       }
-      setIsLoading(false);
     } catch (error) {
-      setIsLoading(false);
       console.error("Error:", error);
       openModal("Unable to Upload Product", false);
+    } finally {
+      setIsLoading(false);
     }
   };
 

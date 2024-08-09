@@ -133,12 +133,17 @@ function Page({ params: { id } }) {
                 />
                 <Box
                   title={"Delivery Address"}
-                  item={order?.address}
+                  item={order?.address?.deliveryAddress}
+                  image={location}
+                />
+                <Box
+                  title={"City"}
+                  item={order?.address?.city}
                   image={location}
                 />
                 <Box
                   title={"Phone Number"}
-                  item={order?.user?.phone_number}
+                  item={order?.address?.phone_number}
                   image={profile}
                 />
               </>
