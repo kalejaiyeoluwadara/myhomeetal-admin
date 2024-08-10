@@ -29,7 +29,7 @@ function Page() {
   const router = useRouter();
   const [modalMessage, setModalMessage] = useState(null);
   const [modalSuccess, setModalSuccess] = useState(false);
-
+  const [loading, setLoading] = useState(false);
   const handleUpload = async () => {
     if (!Array.isArray(bulk) || bulk.length === 0) {
       console.log("Bulk data is not properly formatted or is empty");
@@ -37,6 +37,7 @@ function Page() {
     }
 
     try {
+      setLoading(true);
       const response = await fetch(
         "https://my-home-et-al.onrender.com/api/v1/product/bulk-publish",
         {
@@ -65,6 +66,8 @@ function Page() {
     } catch (e) {
       console.log("Error during upload:", e);
       openModal("Product upload failed.", false);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -82,7 +85,11 @@ function Page() {
         <h2 className="font-semibold text-2xl ">Bulk Product</h2>
         <button
           onClick={handleUpload}
-          className="w-[258px] h-[50px] rounded-[99px] text-base"
+          className={`w-[354px] ${
+            !loading
+              ? "bg-primary cursor-pointer hover:bg-red-700  "
+              : "bg-gray-500"
+          } center h-[52px] cursor-not-allowed rounded-[10px] text-[16px] font-medium`}
         >
           Upload Products
         </button>

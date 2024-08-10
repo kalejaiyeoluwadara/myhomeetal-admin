@@ -2,6 +2,7 @@
 
 import { useGlobal } from "@/app/context";
 import { useState, useEffect } from "react";
+import axios from "axios";
 
 const useData = (url) => {
   const { token } = useGlobal();
@@ -13,24 +14,20 @@ const useData = (url) => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const response = await fetch(url, {
-          method: "GET",
+        const response = await axios.get(url, {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
         });
 
-        if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(
-            `Failed to fetch products: ${response.status} ${response.statusText} - ${errorData.message}`
-          );
-        }
-
-        const data = await response.json();
-        setData(data);
+        setData(response.data);
       } catch (error) {
+        setError(
+          error.response
+            ? `Failed to fetch products: ${error.response.status} ${error.response.statusText} - ${error.response.data.message}`
+            : error.message
+        );
         console.log(error.message);
       } finally {
         setLoading(false);

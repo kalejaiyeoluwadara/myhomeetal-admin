@@ -7,6 +7,7 @@ import { GoChevronDown } from "react-icons/go";
 import { useRouter } from "next/navigation";
 function Page() {
   const [selectedFile, setSelectedFile] = useState(null);
+  const [loading, setLoading] = useState(false);
   const { bulk, setBulk, token, openModal } = useGlobal();
   const router = useRouter();
   const handleClick = () => {
@@ -33,6 +34,7 @@ function Page() {
     formData.append("csvFile", selectedFile);
 
     try {
+      setLoading(true);
       const response = await fetch(
         "https://my-home-et-al.onrender.com/api/v1/product/bulk-create",
         {
@@ -52,6 +54,8 @@ function Page() {
       openModal("Success", true);
     } catch (e) {
       openModal("An error occured", false);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -98,12 +102,16 @@ function Page() {
               Browse Files
             </button>
           ) : (
-            <button
+            <div
               onClick={handleUpload}
-              className="w-[354px] center h-[52px] rounded-[10px] text-[16px] font-medium"
+              className={`w-[354px] ${
+                !loading
+                  ? "bg-primary cursor-pointer hover:bg-red-700  "
+                  : "bg-gray-500"
+              } center h-[52px] cursor-not-allowed rounded-[10px] text-[16px] font-medium`}
             >
               Upload
-            </button>
+            </div>
           )}
           <input
             id="file-upload"
