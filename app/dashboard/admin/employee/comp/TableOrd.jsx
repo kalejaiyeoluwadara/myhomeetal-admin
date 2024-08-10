@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { IoSearch } from "react-icons/io5";
 import filter from "../../../../assets/filter.svg";
 import ex from "../../../../assets/export.svg";
@@ -16,14 +16,52 @@ import useData from "@/hooks/useData";
 import Loading from "@/app/dashboard/components/Loading";
 import Filter from "@/app/dashboard/components/Filter";
 import { filterDataByDate } from "@/utils/FilterByDate";
+import { useGlobal } from "@/app/context";
 function Table() {
   const [filt, setFilt] = useState("all time");
-  const { data, loading } = useData(
-    "https://my-home-et-al.onrender.com/api/v1/order"
-  );
+  const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const { token } = useGlobal();
+  const fetchOrders = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await fetch(
+        "https://my-home-et-al.onrender.com/api/v1/order",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(
+          `Failed to fetch Orders: ${response.status} ${response.statusText} - ${errorData.message}`
+        );
+      }
+
+      const data = await response.json();
+      // Filter out orders with status 'Not paid'
+      const paidOrders = data.filter((order) => order.status !== "Not paid");
+      setOrders(paidOrders.reverse());
+    } catch (error) {
+      console.error("An error occurred while fetching Orders:", error);
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+  useEffect(() => {
+    fetchOrders();
+  }, []);
   const itemsPerPage = 6;
   const [currentPage, setCurrentPage] = useState(1);
-  const filteredOrders = filterDataByDate(data, filt);
+  const filteredOrders = filterDataByDate(orders, filt);
   const totalPages = Math.ceil(filteredOrders.length / itemsPerPage);
 
   const handleNextPage = () => {
