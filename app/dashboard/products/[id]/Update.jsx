@@ -144,6 +144,7 @@ function Form({ id }) {
         weight: data.weight || "",
         color: data.color || "",
         size: data.size || "",
+        sku: data.sku || "",
         modelno: data.modelNumber || "",
         fit1: data.keyFeatures[0] || "",
         fit2: data.keyFeatures[1] || "",

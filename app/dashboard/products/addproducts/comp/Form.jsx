@@ -99,14 +99,12 @@ function Form() {
     formData.append("modelno", formContent.modelno);
     formData.append("mainmaterial", formContent.mainmaterial);
     formData.append("color", formContent.color);
-    formData.append("keyFeatures", [
-      formContent.fit1,
-      formContent.fit2,
-      formContent.fit3,
-      formContent.fit4,
-      formContent.fit5,
-      formContent.fit6,
-    ]);
+    formData.append("keyFeatures", [formContent.fit1]);
+    formData.append("keyFeatures", [formContent.fit2]);
+    formData.append("keyFeatures", [formContent.fit3]);
+    formData.append("keyFeatures", [formContent.fit4]);
+    formData.append("keyFeatures", [formContent.fit5]);
+    formData.append("keyFeatures", [formContent.fit6]);
 
     formContent.images.forEach((file, index) => {
       formData.append("images", file); // Field name should match 'images'
