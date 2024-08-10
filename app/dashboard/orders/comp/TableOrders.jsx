@@ -48,7 +48,7 @@ function Table() {
       const data = await response.json();
       // Filter out orders with status 'Not paid'
       const paidOrders = data.filter((order) => order.status !== "Not paid");
-      setOrders(paidOrders);
+      setOrders(paidOrders.reverse());
     } catch (error) {
       console.error("An error occurred while fetching Orders:", error);
       setError(error.message);
@@ -165,7 +165,7 @@ function Table() {
           <p className="">Status</p>
           <p className="pl-2">Action</p>
         </div>
-        {currentData.length < 0 ? (
+        {loading ? (
           <Loading loading={loading} />
         ) : (
           currentData.map((d, id) => {

@@ -106,9 +106,9 @@ function Page() {
               onClick={handleUpload}
               className={`w-[354px] ${
                 !loading
-                  ? "bg-primary cursor-pointer hover:bg-red-700  "
+                  ? "bg-primary cursor-pointer  hover:bg-red-700  "
                   : "bg-gray-500"
-              } center h-[52px] cursor-not-allowed rounded-[10px] text-[16px] font-medium`}
+              } center h-[52px] cursor-not-allowed text-white rounded-[10px] text-[16px] font-medium`}
             >
               Upload
             </div>

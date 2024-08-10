@@ -29,7 +29,7 @@ function Table() {
   const { totalProd, setTotalProd, token } = useGlobal();
 
   useEffect(() => {
-    setManipulate(products);
+    setManipulate(products.reverse());
     setTotalProd(products.length);
   }, [products]);
   const totalPages = Math.ceil(manipulate.length / itemsPerPage);

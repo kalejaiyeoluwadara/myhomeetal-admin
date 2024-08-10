@@ -55,7 +55,7 @@ function Table() {
       }
 
       const data = await response.json();
-      setAdmins(data);
+      setAdmins(data.reverse());
     } catch (error) {
       setAdmins([]);
       setError(error);

@@ -137,7 +137,7 @@ function Page() {
                   <p className="text-base truncate font-light">
                     Product Name: {productTitle}
                   </p>
-                  <p className="text-base text-wrap font-light">
+                  <p className="text-base truncate font-light">
                     Product Description: {description}
                   </p>
                   <p className="text-base font-light">
