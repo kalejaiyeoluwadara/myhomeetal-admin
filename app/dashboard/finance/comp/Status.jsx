@@ -50,11 +50,16 @@ function Status() {
         </div>
 
         <div
+          className="cursor-pointer"
           onClick={() => {
             setVisible((prev) => !prev);
           }}
         >
-          <Image src={eye} alt="" className="relative z-20" />
+          {visible ? (
+            <Image src={eye} alt="" className="relative z-20" />
+          ) : (
+            <BsEye size={30} className="text-white" />
+          )}
         </div>
       </div>
     </div>
