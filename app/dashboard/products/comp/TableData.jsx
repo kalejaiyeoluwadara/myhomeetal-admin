@@ -35,7 +35,7 @@ function TableData({
           alt=""
           src={img}
         />
-        <p className="text-[14px] font-medium text-[#101928] ">
+        <p className="text-[14px] truncate font-medium text-[#101928] ">
           {productTitle}
         </p>
       </div>

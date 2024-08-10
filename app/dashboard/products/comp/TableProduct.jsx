@@ -15,17 +15,22 @@ import TableData from "./TableData";
 import { useGlobal } from "@/app/context";
 import TableHeader from "./TableHeader";
 import Loading from "../../components/Loading";
+import useData from "@/hooks/useData";
 function Table() {
   const itemsPerPage = 8;
   const [currentPage, setCurrentPage] = useState(1);
-  const [products, setProducts] = useState([]);
+  const {
+    data: products,
+    setData: setProducts,
+    loading,
+  } = useData("https://my-home-et-al.onrender.com/api/v1/product/all-products");
   const [manipulate, setManipulate] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { totalProd, setTotalProd, token } = useGlobal();
 
   useEffect(() => {
     setManipulate(products);
+    setTotalProd(products.length);
   }, [products]);
   const totalPages = Math.ceil(manipulate.length / itemsPerPage);
   const handleNextPage = () => {
@@ -78,43 +83,6 @@ function Table() {
     }
     return pages;
   };
-
-  const fetchProducts = async () => {
-    try {
-      setLoading(true);
-      const response = await fetch(
-        "https://my-home-et-al.onrender.com/api/v1/product/all-products",
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(
-          `Failed to fetch products: ${response.status} ${response.statusText} - ${errorData.message}`
-        );
-      }
-
-      const data = await response.json();
-      // console.log(data);
-      setTotalProd(data.length);
-      setProducts(data);
-    } catch (error) {
-      console.error(error.message);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchProducts();
-  }, []);
-
   return (
     <div className="w-full overflow-hidden h-auto rounded-[10px] flex flex-col items-start justify-start border ">
       <TableHeader
