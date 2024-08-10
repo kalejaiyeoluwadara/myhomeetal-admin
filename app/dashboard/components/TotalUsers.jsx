@@ -4,10 +4,7 @@ import { PiUsersThree } from "react-icons/pi";
 import { IoAnalyticsOutline } from "react-icons/io5";
 import { useGlobal } from "@/app/context";
 import useData from "@/hooks/useData";
-function TotalUsers() {
-  const { data } = useData(
-    "https://my-home-et-al.onrender.com/api/v1/user/all-users"
-  );
+function TotalUsers({ data }) {
   return (
     <div className="box">
       <div className="flex gap-2 items-center justify-center">

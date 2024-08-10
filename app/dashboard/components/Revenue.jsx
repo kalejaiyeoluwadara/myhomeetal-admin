@@ -1,10 +1,20 @@
-import React from "react";
+"use client";
 import { PiMoneyWavy } from "react-icons/pi";
 import { IoPersonOutline } from "react-icons/io5";
 import { PiUsersThree } from "react-icons/pi";
 import { MdOutlineAccessAlarms } from "react-icons/md";
 import { IoAnalyticsOutline } from "react-icons/io5";
+import useData from "@/hooks/useData";
+import { useGlobal } from "@/app/context";
 function Revenue() {
+  const { data } = useData(
+    "https://my-home-et-al.onrender.com/api/v1/admin-wallet"
+  );
+  const { formatNumberWithCommas } = useGlobal();
+  const totalSales = (data?.userPayments || []).reduce(
+    (acc, payment) => acc + payment?.amount,
+    0
+  );
   return (
     <div className="box">
       <div className="flex gap-2 items-center justify-center">
@@ -15,7 +25,9 @@ function Revenue() {
       </div>
 
       <div>
-        <p className="title mt-8 ">₦0</p>
+        <p className="title mt-8 ">{`₦${formatNumberWithCommas(
+          totalSales
+        )}`}</p>
       </div>
 
       <div className="flex items-center mt-[12px] gap-2 justify-center  ">
