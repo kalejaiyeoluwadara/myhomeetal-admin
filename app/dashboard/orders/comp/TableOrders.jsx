@@ -177,7 +177,7 @@ function Table() {
                 orderId={d?.orderId}
                 orderPrice={d?.orderPrice}
                 status={d?.status}
-                user={d?.status}
+                user={d?.user}
                 _id={d?._id}
                 key={id}
               />

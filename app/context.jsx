@@ -20,6 +20,9 @@ function AppProvider({ children }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
   const [token, setToken] = useState("");
+  const formatNumberWithCommas = (number) => {
+    return new Intl.NumberFormat("en-US").format(number);
+  };
   const [userData, setUserData] = useState([
     {
       username: "",
@@ -169,6 +172,7 @@ function AppProvider({ children }) {
         setIsSuccessful,
         isConfirmOpen,
         setIsConfirmOpen,
+        formatNumberWithCommas,
       }}
     >
       {children}
