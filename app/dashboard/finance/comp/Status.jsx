@@ -7,12 +7,9 @@ import eye from "../../../assets/eye.svg";
 import useData from "@/hooks/useData";
 import { GoDotFill } from "react-icons/go";
 import { useGlobal } from "@/app/context";
-function Status() {
+function Status({ data, loading }) {
   const { formatNumberWithCommas } = useGlobal();
   const [visible, setVisible] = useState(false);
-  const { data, loading } = useData(
-    "https://my-home-et-al.onrender.com/api/v1/admin-wallet"
-  );
   return (
     <div className="w-full relative mt-10 mb-6 overflow-hidden h-[184px] rounded-xl ">
       <Image src={card} alt="" className=" cover " />

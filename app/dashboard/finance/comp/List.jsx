@@ -3,11 +3,8 @@ import { useGlobal } from "@/app/context";
 import useData from "@/hooks/useData";
 import React from "react";
 
-function List() {
+function List({ data, loading }) {
   const { formatNumberWithCommas } = useGlobal();
-  const { data, loading } = useData(
-    "https://my-home-et-al.onrender.com/api/v1/admin-wallet"
-  );
 
   // Check if data is loading or undefined
   if (loading || !data) {

@@ -1,6 +1,10 @@
 import Link from "next/link";
 import React from "react";
 import { BsChevronRight, BsArrowUp, BsArrowDown } from "react-icons/bs";
+import Loading from "../../components/Loading";
+import { useGlobal } from "@/app/context";
+import Credit from "../Components/Credit";
+
 const Header = () => {
   return (
     <header className="flex -top-10 left-0 absolute justify-between items-center w-full">
@@ -8,7 +12,6 @@ const Header = () => {
         Recent Transactions
       </h2>
       <Link href={"/dashboard/finance/recent-transactions"}>
-        {" "}
         <p className="text-[#ED2224] font-semibold items-center justify-center flex gap-[6px] text-[14px] ">
           See all <BsChevronRight size={15} />{" "}
         </p>
@@ -16,7 +19,8 @@ const Header = () => {
     </header>
   );
 };
-const Debit = ({ amount = 0.0, name = "Market Square" }) => {
+
+const Debit = ({ amount, name }) => {
   return (
     <section className="w-full h-[40px] flex justify-between items-center ">
       <div className="flex gap-6 items-center justify-center ">
@@ -31,57 +35,35 @@ const Debit = ({ amount = 0.0, name = "Market Square" }) => {
         </div>
       </div>
       <div>
-        <p className="font-semibold text-blak text-[16px] ">-#{amount}</p>
+        <p className="font-semibold text-black text-[16px] ">-#{amount}</p>
       </div>
     </section>
   );
 };
-const Credit = ({ amount = 0.0, name = "Market Square" }) => {
-  return (
-    <section className="w-full h-[40px] flex justify-between items-center ">
-      <div className="flex gap-6 items-center justify-center ">
-        <div className="h-10 w-10 center text-[#0F973D] font-semibold bg-[#E7F6EC] rounded-full ">
-          <BsArrowDown size={20} />
-        </div>
-        <div>
-          <p className="text-[16px]  ">
-            from<span className="font-medium truncate "> {name}</span>
-          </p>
-          <p className="text-[#98A2B3] text-[12px] ">Transfer</p>
-        </div>
-      </div>
-      <div>
-        <p className="font-semibold text-blak text-[16px] ">+#{amount}</p>
-      </div>
-    </section>
-  );
-};
-function Transact() {
+
+function Transact({ data, loading }) {
+  // Get the first 10 items
+  const recentPayments = data?.userPayments?.slice(0, 5) || [];
+
   return (
     <main>
-      <div className="grid grid-cols-1 mt-20 h-[388px] w-full gap-4 ">
-        <section className="bg-white  px-5 py-6 flex flex-col gap-5 relative w-auto h-full rounded-xl  ">
+      <div className="grid grid-cols-1 mt-20 h-auto w-full gap-4 ">
+        <section className="bg-white px-5 py-6 flex flex-col gap-5 relative w-auto h-full rounded-xl">
           <Header />
-          {[
-            { name: "", amount: "", type: "debit" },
-            { name: "Aliya Cornrad", amount: "", type: "credit" },
-            { name: "Martin Stanford", amount: "", type: "debit" },
-            { name: "", amount: "", type: "debit" },
-            { name: "Gabriella Mark", amount: "", type: "credit" },
-            { name: "", amount: "", type: "debit" },
-          ].map((d, id) => {
-            return (
-              <>
-                {d.type === "debit" ? (
-                  <Debit name={d.name !== "" ? d.name : "Market Square"} />
-                ) : (
-                  <Credit name={d.name} />
-                )}
-              </>
-            );
-          })}
+          {!loading ? (
+            recentPayments.map((d, id) => {
+              return (
+                <Credit
+                  name={d?.userId?.firstname || "user"}
+                  method={d?.method}
+                  amount={d?.amount}
+                />
+              );
+            })
+          ) : (
+            <Loading loading={loading} />
+          )}
         </section>
-        {/* <section className="bg-[#F0F2F5] w-auto h-full rounded-xl  "></section> */}
       </div>
     </main>
   );
