@@ -77,6 +77,7 @@ function Form({ id }) {
     formData.append("modelNumber", formContent.modelno);
     formData.append("mainMaterial", formContent.mainmaterial);
     formData.append("color", formContent.color);
+    formData.append("sku", formContent.sku);
     formData.append("keyFeatures", [formContent.fit1]);
     formData.append("keyFeatures", [formContent.fit2]);
     formData.append("keyFeatures", [formContent.fit3]);
