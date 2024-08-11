@@ -100,9 +100,9 @@ function Form({ id }) {
       if (response.ok) {
         const data = await response.json();
         openModal("Product updated!", true);
-        // setTimeout(()=>{
-        //   router.push("dashboard/products");
-        // },1000)
+        setTimeout(() => {
+          router.push("/dashboard/products");
+        }, 1000);
         console.log("Response from server:", data);
         console.log(formContent.category);
       } else {
@@ -181,6 +181,9 @@ function Form({ id }) {
       if (response.ok) {
         console.log("Product deleted!");
         openModal("Product deleted successfully.", true);
+        setTimeout(() => {
+          router.push("/dashboard/products");
+        }, 1000);
       } else {
         const errorData = await response.json();
         console.error("Error deleting data:", errorData);
