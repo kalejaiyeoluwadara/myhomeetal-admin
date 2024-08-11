@@ -77,14 +77,12 @@ function Form({ id }) {
     formData.append("modelNumber", formContent.modelno);
     formData.append("mainMaterial", formContent.mainmaterial);
     formData.append("color", formContent.color);
-    formData.append("keyFeatures", [
-      formContent.fit1,
-      formContent.fit2,
-      formContent.fit3,
-      formContent.fit4,
-      formContent.fit5,
-      formContent.fit6,
-    ]);
+    formData.append("keyFeatures", [formContent.fit1]);
+    formData.append("keyFeatures", [formContent.fit2]);
+    formData.append("keyFeatures", [formContent.fit3]);
+    formData.append("keyFeatures", [formContent.fit4]);
+    formData.append("keyFeatures", [formContent.fit5]);
+    formData.append("keyFeatures", [formContent.fit6]);
     formData.append("images", formContent.images);
     try {
       const response = await fetch(
@@ -156,6 +154,32 @@ function Form({ id }) {
       setCat(data.category.name);
     } catch (error) {
       console.error("An error occurred while fetching product:", error);
+    }
+  };
+  const handleDelete = async () => {
+    try {
+      const response = await fetch(
+        `https://my-home-et-al.onrender.com/api/v1/product/${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.ok) {
+        console.log("Product deleted!");
+        openModal("Product deleted successfully.", true);
+        fetchCategory();
+      } else {
+        const errorData = await response.json();
+        console.error("Error deleting data:", errorData);
+        openModal("Error encountered, product does not exist.", false);
+      }
+    } catch (error) {
+      console.error("Error deleting data:", error);
+      openModal("Error encountered.", false);
     }
   };
   useEffect(() => {
