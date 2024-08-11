@@ -143,7 +143,7 @@ function Form({ id }) {
       setformContent({
         productTitle: data.productTitle || "",
         price: data.price || 0,
-        category: data.category || "",
+        category: data.category._id || "",
         description: data.description || "",
         brand: data.brand || "",
         inventory: data.inventory.quantity || "",
@@ -238,7 +238,7 @@ function Form({ id }) {
           <h2 className="text-2xl font-semibold ">Edit an Existing Product</h2>
           <p
             onClick={handleDelete}
-            className="text-primary text-lg font-semibold "
+            className="text-primary cursor-pointer text-lg font-semibold "
           >
             Delete Product
           </p>
