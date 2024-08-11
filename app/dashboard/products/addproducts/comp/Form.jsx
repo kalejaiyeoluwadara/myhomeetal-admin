@@ -76,10 +76,6 @@ function Form() {
     }
   };
 
-  useEffect(() => {
-    console.log(formContent.images);
-  }, [formContent.images.length]);
-
   const createProduct = async () => {
     setIsLoading(true);
     const url =

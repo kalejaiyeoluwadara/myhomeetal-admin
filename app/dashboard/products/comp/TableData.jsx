@@ -22,7 +22,7 @@ function TableData({
       return () => clearTimeout(timer);
     }
   }, [modal]);
-  const img = images[0];
+  const img = images[images.length - 1];
   const formatNumberWithCommas = (number) => {
     return new Intl.NumberFormat("en-US").format(number);
   };

@@ -31,7 +31,7 @@ function NavBar() {
         <IoSearch size={20} />
         <input
           type="text"
-          placeholder="Search here..."
+          placeholder="Search here"
           className="w-[605px] bg-transparent h-full outline-none "
         />
       </section>

@@ -6,7 +6,6 @@ import React, { useState, useEffect } from "react";
 import { FiUploadCloud } from "react-icons/fi";
 import { GoChevronDown } from "react-icons/go";
 import { FaPlus } from "react-icons/fa6";
-
 import { LiaTimesSolid } from "react-icons/lia";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -37,6 +36,7 @@ function Form({ id }) {
   const [disc, setDisc] = useState(0);
   const [discModal, setDiscModal] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
+
   const [formContent, setformContent] = useState({
     productTitle: "",
     price: "",
@@ -84,9 +84,9 @@ function Form({ id }) {
     formData.append("keyFeatures", [formContent.fit4]);
     formData.append("keyFeatures", [formContent.fit5]);
     formData.append("keyFeatures", [formContent.fit6]);
-    // formContent.images.forEach((file, index) => {
-    //    formData.append("images", file); // Field name should match 'images'
-    //  });
+    formContent.images.forEach((file, index) => {
+      formData.append("images", file); // Field name should match 'images'
+    });
     try {
       const response = await fetch(
         `https://my-home-et-al.onrender.com/api/v1/product/${id}`,
@@ -206,6 +206,16 @@ function Form({ id }) {
     // Trigger click on the file input element
     document.getElementById("file-upload").click();
   };
+  const handleFileSelect = (e) => {
+    const files = Array.from(e.target.files).slice(0, 4); // Limit to 4 files
+    if (files.length > 0) {
+      setSelectedFile(files);
+      setformContent({ ...formContent, images: files });
+      openModal("Image Upload Completed", true);
+    } else {
+      openModal("Error Encountered", true);
+    }
+  };
   const { categories } = useGlobal();
   const [catItem, setCatItem] = useState([]);
 
@@ -264,277 +274,356 @@ function Form({ id }) {
       </div>
       <main className="grid w-full grid-cols-3 mt-10  gap-6 ">
         {/* Main form */}
-        <div className="border bg-white col-span-2 rounded-xl p-4 w-auto h-[800px]">
-          {/* title */}
-          <h2 className=" core mt-4 ">Product Information</h2>
-          <section className="mt-4 flex flex-col items-start justify-center gap-6 ">
-            <div className="w-full ">
-              <label className="inputlabel">Product Name</label>
-              <input
-                className="input"
-                name="productTitle"
-                value={productTitle}
-                onChange={handleInputChange}
-                type="text"
-                placeholder="Enter Subject"
-              />
-              <p className="inputfooter ">
-                A product name is required and recommended to be unique.
-              </p>
-            </div>
-
-            <div className="w-full ">
-              <label className="inputlabel">Product Description</label>
-              <input
-                className="input"
-                name="description"
-                value={description}
-                onChange={handleInputChange}
-                type="text"
-                placeholder="Enter Subject"
-              />
-              <p className="inputfooter ">
-                Set a description to the product for better visibility.
-              </p>
-            </div>
-            <div className="w-full ">
-              <label className="inputlabel">Brand’s Name</label>
-              <input
-                className="input"
-                value={brand}
-                name="brand"
-                onChange={handleInputChange}
-                type="text"
-                placeholder="Enter Subject"
-              />
-            </div>
-            <div className="w-full ">
-              <label className="inputlabel">SKU (Stock Keeping Unit)</label>
-              <input
-                className="input"
-                name="sku"
-                value={sku}
-                onChange={handleInputChange}
-                type="text"
-                placeholder="Enter Subject"
-              />
-            </div>
-            <div className="w-full ">
-              <label className="inputlabel">Product base price</label>
-              <input
-                className="input"
-                value={price}
-                name="price"
-                onChange={handleInputChange}
-                placeholder="Enter Subject"
-              />
-            </div>
-            {/* Level */}
-            <section className="flex gap-[18px]">
+        <article className="col-span-2 h-[80vh] flex flex-col gap-4 no-scrollbar overflow-y-scroll  ">
+          <div className="border bg-white  rounded-xl p-4 w-auto h-[800px]">
+            {/* title */}
+            <h2 className=" core mt-4 ">Product Information</h2>
+            <section className="mt-4 flex flex-col items-start justify-center gap-6 ">
               <div className="w-full ">
-                <label className="inputlabel">Stock Level</label>
+                <label className="inputlabel">Product Name</label>
                 <input
                   className="input"
-                  name="inventory"
-                  value={inventory}
+                  name="productTitle"
+                  value={productTitle}
+                  onChange={handleInputChange}
+                  type="text"
+                  placeholder="Enter Subject"
+                />
+                <p className="inputfooter ">
+                  A product name is required and recommended to be unique.
+                </p>
+              </div>
+              <div className="w-full ">
+                <label className="inputlabel">Product Description</label>
+                <input
+                  className="input"
+                  name="description"
+                  value={description}
+                  onChange={handleInputChange}
+                  type="text"
+                  placeholder="Enter Subject"
+                />
+                <p className="inputfooter ">
+                  Set a description to the product for better visibility.
+                </p>
+              </div>
+              <div className="w-full ">
+                <label className="inputlabel">Brand’s Name</label>
+                <input
+                  className="input"
+                  value={brand}
+                  name="brand"
                   onChange={handleInputChange}
                   type="text"
                   placeholder="Enter Subject"
                 />
               </div>
-              <div
-                onClick={() => {
-                  setModal((prev) => !prev);
-                }}
-                className="w-full relative "
-              >
-                <label className="inputlabel">Category</label>
-                <div className="w-full border flex items-center h-[56px] rounded-md  justify-between px-4 ">
-                  <p>{cat ? cat : "Select Category"}</p>
-                  <GoChevronDown />
-                  {modal && (
-                    <Modal
-                      formContent={formContent}
-                      setformContent={setformContent}
-                      cat={cat}
-                      categories={catItem}
-                      setCat={setCat}
-                    />
-                  )}
+              <div className="w-full ">
+                <label className="inputlabel">SKU (Stock Keeping Unit)</label>
+                <input
+                  className="input"
+                  name="sku"
+                  value={sku}
+                  onChange={handleInputChange}
+                  type="text"
+                  placeholder="Enter Subject"
+                />
+              </div>
+              <div className="w-full ">
+                <label className="inputlabel">Product base price</label>
+                <input
+                  className="input"
+                  value={price}
+                  name="price"
+                  onChange={handleInputChange}
+                  placeholder="Enter Subject"
+                />
+              </div>
+              {/* Level */}
+              <section className="flex gap-[18px]">
+                <div className="w-full ">
+                  <label className="inputlabel">Stock Level</label>
+                  <input
+                    className="input"
+                    name="inventory"
+                    value={inventory}
+                    onChange={handleInputChange}
+                    type="text"
+                    placeholder="Enter Subject"
+                  />
+                </div>
+                <div
+                  onClick={() => {
+                    setModal((prev) => !prev);
+                  }}
+                  className="w-full relative "
+                >
+                  <label className="inputlabel">Category</label>
+                  <div className="w-full border flex items-center h-[56px] rounded-md  justify-between px-4 ">
+                    <p>{cat ? cat : "Select Category"}</p>
+                    <GoChevronDown />
+                    {modal && (
+                      <Modal
+                        formContent={formContent}
+                        setformContent={setformContent}
+                        cat={cat}
+                        categories={catItem}
+                        setCat={setCat}
+                      />
+                    )}
+                  </div>
+                </div>
+              </section>
+            </section>
+          </div>
+          {/* Spec */}
+          <>
+            <section className="h-auto col-span-2 w-auto flex flex-col gap-3 rounded-xl ">
+              <div className="bg-white w-full rounded-xl px-6 py-8 pb-12 flex flex-col gap-3 h-auto ">
+                <h2 className=" core  ">Product Specifications</h2>
+                <div className="w-full ">
+                  <label className="inputlabel">Size (L x W x H) cm</label>
+                  <input
+                    className="input"
+                    name="size"
+                    value={size}
+                    onChange={handleInputChange}
+                    type="text"
+                    placeholder="Enter Subject"
+                  />
+                  <p className="inputfooter">
+                    Ensure Measurements are in Centimetres
+                  </p>
+                </div>
+                <div className="w-full ">
+                  <label className="inputlabel">Weight (Kg)</label>
+                  <input
+                    className="input"
+                    name="weight"
+                    value={weight}
+                    onChange={handleInputChange}
+                    type="text"
+                    placeholder="Enter Subject"
+                  />
+                </div>
+                <div className="w-full ">
+                  <label className="inputlabel">Model Number</label>
+                  <input
+                    className="input"
+                    name="modelno"
+                    value={modelno}
+                    onChange={handleInputChange}
+                    type="text"
+                    placeholder="Enter Subject"
+                  />
+                </div>
+                <div className="w-full ">
+                  <label className="inputlabel">Main Material</label>
+                  <input
+                    className="input"
+                    name="mainmaterial"
+                    value={mainmaterial}
+                    onChange={handleInputChange}
+                    type="text"
+                    placeholder="Enter Subject"
+                  />
+                </div>
+                <div className="w-full">
+                  <label className="inputlabel">Color</label>
+                  <input
+                    className="input"
+                    name="color"
+                    value={color}
+                    onChange={handleInputChange}
+                    type="text"
+                    placeholder="Iphone 11 Pro"
+                  />
+                </div>
+              </div>
+              <div className="bg-white w-full rounded-xl px-6 py-8 pb-12 flex flex-col gap-3 h-auto ">
+                <h2 className=" core  ">Key Feautres</h2>
+                <div className="w-full ">
+                  <label className="inputlabel">Feature 1</label>
+                  <input
+                    className="input"
+                    name="fit1"
+                    value={fit1}
+                    onChange={handleInputChange}
+                    type="text"
+                    placeholder="Please Enter a Unique Feature that the Product Offers"
+                  />
+                </div>
+                <div className="w-full ">
+                  <label className="inputlabel">Feature 2</label>
+                  <input
+                    className="input"
+                    value={fit2}
+                    name="fit2"
+                    onChange={handleInputChange}
+                    type="text"
+                    placeholder="Please Enter a Unique Feature that the Product Offers"
+                  />
+                </div>
+                <div className="w-full ">
+                  <label className="inputlabel">Feature 3</label>
+                  <input
+                    className="input"
+                    name="fit3"
+                    value={fit3}
+                    onChange={handleInputChange}
+                    type="text"
+                    placeholder="Please Enter a Unique Feature that the Product Offers"
+                  />
+                </div>
+                <div className="w-full ">
+                  <label className="inputlabel">Feature 4</label>
+                  <input
+                    className="input"
+                    value={fit4}
+                    name="fit4"
+                    onChange={handleInputChange}
+                    type="text"
+                    placeholder="Please Enter a Unique Feature that the Product Offers"
+                  />
+                </div>
+                <div className="w-full ">
+                  <label className="inputlabel">Feature 5</label>
+                  <input
+                    className="input"
+                    value={fit5}
+                    name="fit5"
+                    onChange={handleInputChange}
+                    type="text"
+                    placeholder="Please Enter a Unique Feature that the Product Offers"
+                  />
+                </div>
+                <div className="w-full ">
+                  <label className="inputlabel">Feature 6</label>
+                  <input
+                    className="input"
+                    value={fit6}
+                    name="fit6"
+                    onChange={handleInputChange}
+                    type="text"
+                    placeholder="Please Enter a Unique Feature that the Product Offers"
+                  />
                 </div>
               </div>
             </section>
-          </section>
-        </div>
-        {/* Image listing */}
-        <div className="h-auto w-auto bg-white flex flex-col gap-2  rounded-xl">
-          {formContent?.images.map((d, id) => {
-            const handleRemoveFile = (fileIndex) => {
-              setformContent((prevContent) => ({
-                ...prevContent,
-                images: prevContent.images.filter(
-                  (_, index) => index !== fileIndex
-                ),
-              }));
-            };
-            return (
-              <div
-                key={id}
-                className="h-auto w-auto bg-white flex flex-col gap-2 rounded-xl"
+          </>
+        </article>
+
+        <article className="flex flex-col h-[536px]  gap-4">
+          {/* New image listing */}
+          <div className="border bg-white rounded-xl p-4 w-auto">
+            <h2 className="core mb-4 ">Product Image</h2>
+            <p className="text-[14px] font-medium text-[#475367] ">
+              Set the product media gallery
+            </p>
+            <div className="p-4 flex w-full border-[1.5px] rounded-md h-[417px] border-dashed border-[#D0D5DD]  items-center justify-center flex-col ">
+              <div className="h-[56px] w-[56px] rounded-full center bg-[#F0F2F5] mb-6 ">
+                <FiUploadCloud size={25} />
+              </div>
+              <div>
+                <h3 className="text-[14px] text-center text-[#475367] ">
+                  <span className="text-[14px] text-[#ED2224] ">
+                    Click to upload
+                  </span>{" "}
+                  or drag and drop
+                </h3>
+                <p className="text-[12px] text-center text-[#98A2B3]  ">
+                  Max number of file 4 - SVG, PNG, JPG or GIF (max. 800x400px)
+                </p>
+              </div>
+
+              <div className="my-6 w-full bg-red-300 relative ">
+                <hr className="bg-[#F0F2F5]" />
+                <div className="w-full center ">
+                  <p className="absolute px-4 text-center bg-white text-xs font-bold text-[#98A2B3]  -top-[9px] ">
+                    OR
+                  </p>
+                </div>
+              </div>
+
+              <button
+                onClick={handleClick}
+                className="w-[118px] center h-[36px] rounded-md text-[14px] font-semibold "
               >
-                <div className="w-full px-8 flex justify-between items-center bg-white rounded-[10px] h-[100px]">
-                  <img
-                    src={d}
-                    className="h-[60px] w-[60px] rounded-md object-cover"
-                    alt=""
-                  />
+                Browse Files
+              </button>
+              <input
+                id="file-upload"
+                type="file"
+                accept=".png, .jpg, .jpeg, .svg"
+                className="hidden"
+                onChange={handleFileSelect}
+                multiple
+              />
+            </div>
+          </div>
+          {/* Image listing */}
+          <div className="h-[400px] w-full flex flex-col gap-2 rounded-xl">
+            {selectedFile?.map((d, id) => {
+              const handleRemoveFile = (fileIndex) => {
+                setSelectedFile((prevFiles) =>
+                  prevFiles.filter((_, index) => index !== fileIndex)
+                );
+              };
+              return (
+                <div
+                  key={id}
+                  className="w-[300px]   px-4 flex justify-between items-center bg-white rounded-[10px] h-[86px]"
+                >
+                  <p className="truncate">{d.name}</p>
                   <p
-                    className="pointer text-primary"
+                    className="pointer hover:text-primary "
                     onClick={() => {
                       handleRemoveFile(id);
                     }}
                   >
-                    <LiaTimesSolid size={30} />
+                    cancel
                   </p>
                 </div>
-              </div>
-            );
-          })}
-        </div>
-        {/* Spec */}
-        <section className="h-auto col-span-2 w-auto flex flex-col gap-3 rounded-xl ">
-          <div className="bg-white w-full rounded-xl px-6 py-8 pb-12 flex flex-col gap-3 h-auto ">
-            <h2 className=" core  ">Product Specifications</h2>
-            <div className="w-full ">
-              <label className="inputlabel">Size (L x W x H) cm</label>
-              <input
-                className="input"
-                name="size"
-                value={size}
-                onChange={handleInputChange}
-                type="text"
-                placeholder="Enter Subject"
-              />
-              <p className="inputfooter">
-                Ensure Measurements are in Centimetres
-              </p>
-            </div>
-            <div className="w-full ">
-              <label className="inputlabel">Weight (Kg)</label>
-              <input
-                className="input"
-                name="weight"
-                value={weight}
-                onChange={handleInputChange}
-                type="text"
-                placeholder="Enter Subject"
-              />
-            </div>
-            <div className="w-full ">
-              <label className="inputlabel">Model Number</label>
-              <input
-                className="input"
-                name="modelno"
-                value={modelno}
-                onChange={handleInputChange}
-                type="text"
-                placeholder="Enter Subject"
-              />
-            </div>
-            <div className="w-full ">
-              <label className="inputlabel">Main Material</label>
-              <input
-                className="input"
-                name="mainmaterial"
-                value={mainmaterial}
-                onChange={handleInputChange}
-                type="text"
-                placeholder="Enter Subject"
-              />
-            </div>
-            <div className="w-full">
-              <label className="inputlabel">Color</label>
-              <input
-                className="input"
-                name="color"
-                value={color}
-                onChange={handleInputChange}
-                type="text"
-                placeholder="Iphone 11 Pro"
-              />
-            </div>
+              );
+            })}
           </div>
-          <div className="bg-white w-full rounded-xl px-6 py-8 pb-12 flex flex-col gap-3 h-auto ">
-            <h2 className=" core  ">Key Feautres</h2>
-            <div className="w-full ">
-              <label className="inputlabel">Feature 1</label>
-              <input
-                className="input"
-                name="fit1"
-                value={fit1}
-                onChange={handleInputChange}
-                type="text"
-                placeholder="Please Enter a Unique Feature that the Product Offers"
-              />
-            </div>
-            <div className="w-full ">
-              <label className="inputlabel">Feature 2</label>
-              <input
-                className="input"
-                value={fit2}
-                name="fit2"
-                onChange={handleInputChange}
-                type="text"
-                placeholder="Please Enter a Unique Feature that the Product Offers"
-              />
-            </div>
-            <div className="w-full ">
-              <label className="inputlabel">Feature 3</label>
-              <input
-                className="input"
-                name="fit3"
-                value={fit3}
-                onChange={handleInputChange}
-                type="text"
-                placeholder="Please Enter a Unique Feature that the Product Offers"
-              />
-            </div>
-            <div className="w-full ">
-              <label className="inputlabel">Feature 4</label>
-              <input
-                className="input"
-                value={fit4}
-                name="fit4"
-                onChange={handleInputChange}
-                type="text"
-                placeholder="Please Enter a Unique Feature that the Product Offers"
-              />
-            </div>
-            <div className="w-full ">
-              <label className="inputlabel">Feature 5</label>
-              <input
-                className="input"
-                value={fit5}
-                name="fit5"
-                onChange={handleInputChange}
-                type="text"
-                placeholder="Please Enter a Unique Feature that the Product Offers"
-              />
-            </div>
-            <div className="w-full ">
-              <label className="inputlabel">Feature 6</label>
-              <input
-                className="input"
-                value={fit6}
-                name="fit6"
-                onChange={handleInputChange}
-                type="text"
-                placeholder="Please Enter a Unique Feature that the Product Offers"
-              />
-            </div>
-          </div>
-        </section>
+        </article>
       </main>
+      {/* Previos images */}
+      <div className="h-auto w-[300px] bg-white flex flex-col gap-2  rounded-xl">
+        {formContent?.images.map((d, id) => {
+          const handleRemoveFile = (fileIndex) => {
+            setformContent((prevContent) => ({
+              ...prevContent,
+              images: prevContent.images.filter(
+                (_, index) => index !== fileIndex
+              ),
+            }));
+          };
+          return (
+            <div
+              key={id}
+              className="h-auto w-auto bg-white flex flex-col gap-2 rounded-xl"
+            >
+              <div className="w-full px-8 flex justify-between items-center bg-white rounded-[10px] h-[100px]">
+                <img
+                  src={d}
+                  className="h-[60px] w-[60px] rounded-md object-cover"
+                  alt=""
+                />
+                <p
+                  className="pointer text-primary"
+                  onClick={() => {
+                    handleRemoveFile(id);
+                  }}
+                >
+                  <LiaTimesSolid size={30} />
+                </p>
+              </div>
+            </div>
+          );
+        })}
+      </div>
     </main>
   );
 }
