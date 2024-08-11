@@ -35,7 +35,7 @@ const useData = (url) => {
     };
 
     fetchData();
-  }, [url, token]);
+  }, []);
 
   return { data, loading, error, setData };
 };
