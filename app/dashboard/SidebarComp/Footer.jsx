@@ -49,7 +49,9 @@ function Footer() {
             <div className="absolute right-0 bottom-0 border-2 border-white h-3 w-3 bg-[#04802E] rounded-full" />
           </div>
           <div className="w-[140px]">
-            <h4 className="text-[14px] truncate font-semibold">{username}</h4>
+            <h4 className="text-[14px] capitalize truncate font-semibold">
+              {email.split("@")[0]}
+            </h4>
             <p className="text-[14px] truncate text-[#475367]">{email}</p>
           </div>
         </div>
