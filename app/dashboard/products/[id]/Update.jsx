@@ -6,8 +6,10 @@ import React, { useState, useEffect } from "react";
 import { FiUploadCloud } from "react-icons/fi";
 import { GoChevronDown } from "react-icons/go";
 import { FaPlus } from "react-icons/fa6";
+
 import { LiaTimesSolid } from "react-icons/lia";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 const Modal = ({ cat, categories, setCat, setformContent, formContent }) => {
   return (
     <div className="flex flex-col h-auto top-24 p-4 right-2 w-[200px] rounded-xl border bg-white absolute z-20 ">
@@ -16,12 +18,12 @@ const Modal = ({ cat, categories, setCat, setformContent, formContent }) => {
           <p
             key={id}
             onClick={() => {
-              setformContent({ ...formContent, category: d });
-              setCat(d);
+              setformContent({ ...formContent, category: d._id });
+              setCat(d.name);
             }}
             className="px-2 text-[12px] rounded-md cursor-pointer hover:bg-red-50 py-2"
           >
-            {d}
+            {d.name}
           </p>
         );
       })}
@@ -57,6 +59,7 @@ function Form({ id }) {
     fit6: "",
     images: [],
   });
+  const router = useRouter();
   const { token, openModal } = useGlobal();
   const [cat, setCat] = useState("");
   const [loading, setLoading] = useState(false);
@@ -66,10 +69,7 @@ function Form({ id }) {
     const formData = new FormData();
     formData.append("productTitle", formContent.productTitle);
     formData.append("price", formContent.price);
-    formData.append("category", {
-      ...formContent.category,
-      name: formContent.category.name,
-    });
+    formData.append("category", formContent.category);
     formData.append("description", formContent.description);
     formData.append("brand", formContent.brand);
     formData.append("inventory", formContent.inventory);
@@ -83,7 +83,9 @@ function Form({ id }) {
     formData.append("keyFeatures", [formContent.fit4]);
     formData.append("keyFeatures", [formContent.fit5]);
     formData.append("keyFeatures", [formContent.fit6]);
-    formData.append("images", formContent.images);
+    // formContent.images.forEach((file, index) => {
+    //    formData.append("images", file); // Field name should match 'images'
+    //  });
     try {
       const response = await fetch(
         `https://my-home-et-al.onrender.com/api/v1/product/${id}`,
@@ -98,11 +100,19 @@ function Form({ id }) {
       if (response.ok) {
         const data = await response.json();
         openModal("Product updated!", true);
+        // setTimeout(()=>{
+        //   router.push("dashboard/products");
+        // },1000)
         console.log("Response from server:", data);
+        console.log(formContent.category);
+      } else {
+        openModal("Error updating product!");
+        console.log(formContent.category);
       }
-      openModal("Error updating product!");
     } catch (error) {
       console.error("Error submitting data:", error);
+      console.log(formContent.category);
+
       openModal("Error updating product!");
     } finally {
       setLoading(false);
@@ -171,7 +181,6 @@ function Form({ id }) {
       if (response.ok) {
         console.log("Product deleted!");
         openModal("Product deleted successfully.", true);
-        fetchCategory();
       } else {
         const errorData = await response.json();
         console.error("Error deleting data:", errorData);
@@ -197,7 +206,7 @@ function Form({ id }) {
   const [catItem, setCatItem] = useState([]);
 
   useEffect(() => {
-    setCatItem(categories.map((d) => d.name));
+    setCatItem(categories);
   }, []);
   const {
     productTitle,
@@ -222,10 +231,14 @@ function Form({ id }) {
   return (
     <main key={id} className="mb-40 w-full">
       <div className="flex  items-center justify-between">
-        <section>
-          <h2 className="text-[24px] font-semibold ">
-            Edit an Existing Product
-          </h2>
+        <section className="flex gap-4 text-end justify-end items-end">
+          <h2 className="text-2xl font-semibold ">Edit an Existing Product</h2>
+          <p
+            onClick={handleDelete}
+            className="text-primary text-lg font-semibold "
+          >
+            Delete Product
+          </p>
         </section>
         <section className="flex gap-6">
           <Link href={"/dashboard/products"}>
