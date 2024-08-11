@@ -12,7 +12,6 @@ const useData = (url) => {
     const fetchData = async () => {
       if (!token) {
         setError("Token is not available");
-        alert("token not available");
         return;
       }
 
