@@ -35,10 +35,9 @@ function Table() {
     }
   };
 
-  const currentData = customers.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
-  );
+  const currentData = customers
+    .reverse()
+    .slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
   const getPageNumbers = () => {
     const pages = [];
