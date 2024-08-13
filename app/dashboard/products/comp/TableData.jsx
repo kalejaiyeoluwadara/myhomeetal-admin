@@ -31,7 +31,7 @@ function TableData({
     <div className="w-full h-[72px] border-b bg-white text-[#344054] text-[14px] px-3 items-center justify-center grid pt-2 grid-cols-8 ">
       <div className="flex w-auto col-span-2 items-center justify-start gap-2 truncate">
         <img
-          className=" h-[40px] bg-gray-200 w-[40px] rounded-full object-cover "
+          className=" h-[40px] flex-shrink-0 bg-gray-200 w-[40px] rounded-full object-cover "
           alt=""
           src={img}
         />
