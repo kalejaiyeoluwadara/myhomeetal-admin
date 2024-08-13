@@ -8,10 +8,11 @@ import { FaCheckCircle } from "react-icons/fa";
 import { MdError } from "react-icons/md";
 import { useGlobal } from "./context";
 import Link from "next/link";
-
+import { BsEye, BsEyeSlash } from "react-icons/bs";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [visible, setVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { role, setRole, userData, openModal, setUserData, setLogOut } =
     useGlobal();
@@ -89,13 +90,21 @@ const Login = () => {
           </div>
           <div className="holder mt-4 ">
             <label className="label semibold">Password</label>
-            <input
-              className="inputa"
-              placeholder="Enter Password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
+            <div className="h-[56px] w-full justify-between rounded-[16px] bg-[#F4F4F4] overflow-hidden flex relative ">
+              <input
+                className="inputa"
+                placeholder="Enter Password"
+                type={visible ? "text" : "password"} // Toggle input type based on visibility
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <div
+                className="h-full w-10 absolute right-2 flex justify-center cursor-pointer items-center"
+                onClick={() => setVisible((prev) => !prev)} // Toggle visibility on click
+              >
+                {visible ? <BsEyeSlash /> : <BsEye />}
+              </div>
+            </div>
           </div>
           <p className="w-full text-start mt-2 ml-1 text-primary ">
             <Link href={"/"}>Forgot Password</Link>
