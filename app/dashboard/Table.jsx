@@ -158,7 +158,6 @@ function Table() {
           ) : (
             currentData.map((d, id) => (
               <TableData
-                username={d?.username}
                 email={d?.email}
                 fullname={d.fullname}
                 role={d?.role}

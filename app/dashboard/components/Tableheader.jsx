@@ -13,7 +13,7 @@ function Tableheader({ admins, setAdmins, manipulate, setManipulate }) {
       setManipulate(admins);
     } else {
       const filteredAdmins = admins.filter((admin) =>
-        admin.username.toLowerCase().includes(list.toLowerCase())
+        admin?.fullname.toLowerCase().includes(list.toLowerCase())
       );
       setManipulate(filteredAdmins);
       setList("");

@@ -5,7 +5,6 @@ import profile from "../../assets/logo.svg";
 import { IoIosArrowDown, IoIosArrowUp, IoMdMore } from "react-icons/io";
 import Link from "next/link";
 function TableData({
-  username,
   fullname,
   email,
   _id,
@@ -40,7 +39,7 @@ function TableData({
           />
         )}
         <p className="text-[14px] truncate bg-re-300 font-medium text-[#101928] capitalize ">
-          {fullname ? fullname.split(" ")[0] : username}
+          {fullname ? fullname.split(" ")[0] : ""}
         </p>
       </div>
       <p className=" truncate">#{employee_id}</p>

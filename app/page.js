@@ -39,7 +39,6 @@ const Login = () => {
       if (response.ok) {
         const data = await response.json();
         localStorage.setItem("user", JSON.stringify(data.adminProfile));
-        localStorage.setItem("username", data.adminProfile?.username);
         localStorage.setItem("email", data.adminProfile?.email);
         localStorage.setItem("fullname", data.adminProfile?.fullname);
         localStorage.setItem("image", data.adminProfile?.image);

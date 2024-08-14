@@ -39,7 +39,6 @@ function Page({ params }) {
           employee.emergency_contact_relationship || "",
         emergency_contact_phone: employee.emergency_contact_phone || "",
         employee_id: employee.employee_id || "",
-        username: employee.username || "",
         start_date: employee.start_date || "",
         employment_type: employee.employment_type || "",
         salary: employee.salary || "",

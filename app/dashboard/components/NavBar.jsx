@@ -9,22 +9,19 @@ function NavBar() {
   const [userDetails, setUserDetails] = useState({
     email: "",
     image: "",
-    username: "",
   });
 
   useEffect(() => {
     const email = localStorage.getItem("email");
     const image = localStorage.getItem("image");
-    const username = localStorage.getItem("username");
 
     setUserDetails({
       email: email || "N/A",
       image: image && image !== "undefined" ? image : null,
-      username: username || "Anonymous",
     });
   }, []);
 
-  const { email, image, username } = userDetails;
+  const { email, image } = userDetails;
   return (
     <div className="relative w-full  flex items-center justify-between px-8  h-[64px] bg-white z-20 ">
       <section className=" bg-gray-50 h-[40px] w-[629px] flex items-start justify-center rounded-[6px] px-[12px] py-[10px] gap-[8px] ">

@@ -54,7 +54,6 @@ const OtpVerification = ({ email }) => {
   const [userDetails, setUserDetails] = useState({
     email: "",
     image: "",
-    username: "",
   });
 
   useEffect(() => {
@@ -63,7 +62,7 @@ const OtpVerification = ({ email }) => {
       email: email || "N/A",
     });
   }, []);
-  const { email: mail, image, username } = userDetails;
+  const { email: mail, image } = userDetails;
   return (
     <div className="border w-full h-auto py-[14px] rounded-[24px] flex items-start justify-center px-[40px] pr-[24px] flex-col border-[#DCDCDC] gap-[16px]">
       <h3 className="text-[25px] w-full text-center font-light">

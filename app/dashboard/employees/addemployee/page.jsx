@@ -53,7 +53,6 @@ function Page() {
     emergency_contact_phone: "",
     employee_id: "",
     password: "",
-    username: "",
     start_date: "",
     employment_type: emp,
     salary: "",
@@ -86,7 +85,6 @@ function Page() {
       emergency_contact_phone: "",
       employee_id: "",
       password: "",
-      username: "",
       start_date: "",
       employment_type: emp,
       salary: "",
@@ -115,7 +113,6 @@ function Page() {
         formContent.emergency_contact_phone
       );
       formData.append("employee_id", formContent.employee_id);
-      formData.append("username", formContent.normal_email);
       formData.append("position", "");
       formData.append("start_date", formContent.start_date);
       formData.append("employment_type", formContent.employment_type);

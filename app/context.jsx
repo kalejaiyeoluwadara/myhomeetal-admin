@@ -25,7 +25,6 @@ function AppProvider({ children }) {
   };
   const [userData, setUserData] = useState([
     {
-      username: "",
       fullname: "",
       email: "",
       image: "",

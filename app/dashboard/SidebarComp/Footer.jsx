@@ -11,22 +11,19 @@ function Footer() {
   const [userDetails, setUserDetails] = useState({
     email: "",
     image: "",
-    username: "",
   });
 
   useEffect(() => {
     const email = localStorage.getItem("email");
     const image = localStorage.getItem("image");
-    const username = localStorage.getItem("username");
 
     setUserDetails({
       email: email || "N/A",
       image: image && image !== "undefined" ? image : null,
-      username: username || "Anonymous",
     });
   }, []);
 
-  const { email, image, username } = userDetails;
+  const { email, image } = userDetails;
 
   return (
     <footer className="absolute w-full bottom-2">
