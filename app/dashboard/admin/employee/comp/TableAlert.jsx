@@ -74,6 +74,7 @@ function TableAlert({ data, loading }) {
             <Data
               _id={item?._id}
               images={item?.images}
+              inventory={item?.inventory}
               productTitle={item?.productTitle}
               key={id}
             />

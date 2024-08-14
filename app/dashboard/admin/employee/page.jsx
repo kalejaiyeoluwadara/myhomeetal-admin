@@ -23,13 +23,16 @@ function Page() {
   const [lowStockProducts, setLowStockProducts] = useState([]);
   useEffect(() => {
     if (products && products.length > 0) {
-      const low = products.filter((product) => product.inventory?.quantity < 5);
+      const low = products.filter(
+        (product) =>
+          product.inventory?.quantity != null && product.inventory.quantity < 5
+      );
       setLowStockProducts(low);
-      console.log(lowStockProducts);
     } else {
       console.log("none");
     }
   }, [products]);
+
   const today = filterDataByDate(order, "today");
   const week = filterDataByDate(order, "this week");
   const data = [

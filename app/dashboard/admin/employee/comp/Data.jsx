@@ -1,13 +1,18 @@
 import React from "react";
 import Link from "next/link";
 
-function Data({ productTitle, images, _id }) {
+function Data({ productTitle, images, _id, inventory }) {
   const img =
     images.length > 0
       ? images[0]
       : "https://images.unsplash.com/photo-1694878981819-1084b2d7dd0b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
   return (
-    <div className="flex justify-between items-center gap-2 px-4 h-[68px] w-full ">
+    <div
+      onClick={() => {
+        console.log(inventory);
+      }}
+      className="flex justify-between items-center gap-2 px-4 h-[68px] w-full "
+    >
       <div className="flex gap-2 w-[200px] items-center ">
         <img
           src={img}
