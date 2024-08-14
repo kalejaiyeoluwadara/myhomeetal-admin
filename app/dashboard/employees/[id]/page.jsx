@@ -30,7 +30,6 @@ function Page({ params }) {
     if (employee) {
       setFormData({
         fullname: employee.fullname || "",
-        image: employee.image || "",
         address: employee.address || "",
         phone_no: employee.phone_no || "",
         gender: employee.gender || "",

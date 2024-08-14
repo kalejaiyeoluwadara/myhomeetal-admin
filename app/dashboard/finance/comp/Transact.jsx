@@ -21,7 +21,7 @@ const Header = () => {
 
 function Transact({ data, loading }) {
   // Slice the last 5 items from the array, or return all if there are fewer than 5
-  const recentPayments = (data?.userPayments || []).slice(-5);
+  const recentPayments = (data?.userPayments || []).slice(-5).reverse();
 
   return (
     <main>
