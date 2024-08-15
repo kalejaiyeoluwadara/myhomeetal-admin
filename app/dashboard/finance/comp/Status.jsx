@@ -27,9 +27,13 @@ function Status({ data, loading }) {
                     <span className="text-gray-400">.00</span>{" "}
                   </h2>
                 ) : (
-                  <h2 className="text-[36px] font-semibold text-white ">
-                    ₦ {formatNumberWithCommas(data?.adminWallet?.balance)}
-                    <span className="text-gray-400">.00</span>{" "}
+                  <h2 className="text-[36px] font-semibold text-white">
+                    ₦{" "}
+                    {typeof data?.adminWallet?.balance === "number" &&
+                    !isNaN(data?.adminWallet?.balance)
+                      ? formatNumberWithCommas(data?.adminWallet?.balance)
+                      : 0}
+                    <span className="text-gray-400">.00</span>
                   </h2>
                 )}
               </>

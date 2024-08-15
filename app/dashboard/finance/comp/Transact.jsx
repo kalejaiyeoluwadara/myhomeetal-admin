@@ -29,14 +29,20 @@ function Transact({ data, loading }) {
         <section className="bg-white px-5 py-6 flex flex-col gap-5 relative w-auto h-full rounded-xl">
           <Header />
           {!loading ? (
-            recentPayments.map((d, id) => (
-              <Credit
-                key={id}
-                name={d?.userId?.firstname || "user"}
-                method={d?.method}
-                amount={d?.amount}
-              />
-            ))
+            recentPayments.length > 0 ? (
+              recentPayments.map((d, id) => (
+                <Credit
+                  key={id}
+                  name={d?.userId?.firstname || "user"}
+                  method={d?.method}
+                  amount={d?.amount}
+                />
+              ))
+            ) : (
+              <p className="text-center text-gray-500">
+                No recent transactions available.
+              </p>
+            )
           ) : (
             <Loading loading={loading} />
           )}

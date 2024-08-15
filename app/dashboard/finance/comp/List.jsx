@@ -45,12 +45,12 @@ function List({ data, loading }) {
       {[
         {
           title: "Total Sales",
-          item: `₦${formatNumberWithCommas(totalSales)}`,
+          item: `₦${formatNumberWithCommas(totalSales)}.00`,
           year: "This year",
         },
         {
           title: "Total Revenue",
-          item: `₦${formatNumberWithCommas(totalSales)}`,
+          item: `₦${formatNumberWithCommas(totalSales)}.00`,
           year: "This year",
         },
         {

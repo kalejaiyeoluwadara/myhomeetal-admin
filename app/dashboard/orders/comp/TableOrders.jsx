@@ -167,7 +167,7 @@ function Table() {
         </div>
         {loading ? (
           <Loading loading={loading} />
-        ) : (
+        ) : currentData.length > 0 ? (
           currentData.map((d, id) => {
             return (
               <TableData
@@ -183,6 +183,10 @@ function Table() {
               />
             );
           })
+        ) : (
+          <p className="text-center text-sm text-gray-500 py-4">
+            No orders found for the selected period.
+          </p>
         )}
 
         {/* Footer */}

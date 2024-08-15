@@ -20,14 +20,20 @@ function Page() {
         <h2 className="text-black">Recent Transactions</h2>
         <section className="bg-white px-5 py-6 flex flex-col gap-5 relative w-auto h-full rounded-xl">
           {!loading ? (
-            reversedData?.map((d, id) => (
-              <Credit
-                key={id}
-                name={d?.userId?.firstname || "user"}
-                method={d?.method}
-                amount={d?.amount}
-              />
-            ))
+            reversedData && reversedData.length > 0 ? (
+              reversedData.map((d, id) => (
+                <Credit
+                  key={id}
+                  name={d?.userId?.firstname || "user"}
+                  method={d?.method}
+                  amount={d?.amount}
+                />
+              ))
+            ) : (
+              <p className="text-center text-sm text-gray-500">
+                No recent transactions available.
+              </p>
+            )
           ) : (
             <Loading loading={loading} />
           )}
