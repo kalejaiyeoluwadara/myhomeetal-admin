@@ -10,7 +10,7 @@ function Welcome() {
     setId(localId);
   }, [id]);
   const { data } = useData(
-    `https://my-home-et-al.onrender.com/api/v1/admin/${id}`
+    `https://my-home-et-al-backend-2.onrender.com/api/v1/admin/${id}`
   );
   return (
     <div>

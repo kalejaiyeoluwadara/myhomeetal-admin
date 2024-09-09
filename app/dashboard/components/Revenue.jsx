@@ -6,9 +6,10 @@ import { MdOutlineAccessAlarms } from "react-icons/md";
 import { IoAnalyticsOutline } from "react-icons/io5";
 import useData from "@/hooks/useData";
 import { useGlobal } from "@/app/context";
+import useData2 from "@/hooks/useData2";
 function Revenue() {
-  const { data } = useData(
-    "https://my-home-et-al.onrender.com/api/v1/admin-wallet"
+  const { data } = useData2(
+    "https://my-home-et-al-backend-2.onrender.com/api/v1/admin-wallet"
   );
   const { formatNumberWithCommas } = useGlobal();
   const totalSales = (data?.userPayments || []).reduce(

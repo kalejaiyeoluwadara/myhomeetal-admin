@@ -23,7 +23,9 @@ function Table() {
     data: products,
     setData: setProducts,
     loading,
-  } = useData("https://my-home-et-al.onrender.com/api/v1/product/all-products");
+  } = useData(
+    "https://my-home-et-al-backend-2.onrender.com/api/v1/product/all-products"
+  );
   const [manipulate, setManipulate] = useState([]);
   const [error, setError] = useState(null);
   const { totalProd, setTotalProd, token } = useGlobal();

@@ -36,7 +36,7 @@ function Page() {
     try {
       setLoading(true);
       const response = await fetch(
-        "https://my-home-et-al.onrender.com/api/v1/product/bulk-create",
+        "https://my-home-et-al-backend-2.onrender.com/api/v1/product/bulk-create",
         {
           method: "POST",
           headers: {

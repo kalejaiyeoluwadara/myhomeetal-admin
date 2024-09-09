@@ -9,7 +9,6 @@ const Page = () => {
     <div className="w-full p-[36px] bg-[#F9FAFB] min-h-screen overflow-y-scroll">
       <Welcome />
       <Details />
-      {/* <Chart /> */}
       <Table />
     </div>
   );

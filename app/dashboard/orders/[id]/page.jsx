@@ -21,7 +21,7 @@ function Page({ params: { id } }) {
     setLoading(true);
     try {
       const response = await fetch(
-        `https://my-home-et-al.onrender.com/api/v1/order/${id}`,
+        `https://my-home-et-al-backend-2.onrender.com/api/v1/order/${id}`,
         {
           method: "GET",
           headers: {

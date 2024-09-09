@@ -89,7 +89,7 @@ function Form({ id }) {
     });
     try {
       const response = await fetch(
-        `https://my-home-et-al.onrender.com/api/v1/product/${id}`,
+        `https://my-home-et-al-backend-2.onrender.com/api/v1/product/${id}`,
         {
           method: "PUT",
           headers: {
@@ -123,7 +123,7 @@ function Form({ id }) {
   const fetchProducts = async () => {
     try {
       const response = await fetch(
-        `https://my-home-et-al.onrender.com/api/v1/product/${id}`,
+        `https://my-home-et-al-backend-2.onrender.com/api/v1/product/${id}`,
         {
           method: "GET",
           headers: {
@@ -170,7 +170,7 @@ function Form({ id }) {
   const handleDelete = async () => {
     try {
       const response = await fetch(
-        `https://my-home-et-al.onrender.com/api/v1/product/${id}`,
+        `https://my-home-et-al-backend-2.onrender.com/api/v1/product/${id}`,
         {
           method: "DELETE",
           headers: {
