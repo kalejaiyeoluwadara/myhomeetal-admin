@@ -36,7 +36,7 @@ function Form({ id }) {
   const [disc, setDisc] = useState(0);
   const [discModal, setDiscModal] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
-
+  const [deleteFiles, setDeleteFiles] = useState([]);
   const [formContent, setformContent] = useState({
     productTitle: "",
     price: "",
@@ -84,8 +84,12 @@ function Form({ id }) {
     formData.append("keyFeatures", [formContent.fit4]);
     formData.append("keyFeatures", [formContent.fit5]);
     formData.append("keyFeatures", [formContent.fit6]);
+    // this is the current section i need help with
     formContent.images.forEach((file, index) => {
       formData.append("images", file); // Field name should match 'images'
+    });
+    deleteFiles.forEach((file, index) => {
+      formData.append(`imagesToDelete[${index}]`, file);
     });
     try {
       const response = await fetch(
@@ -593,6 +597,14 @@ function Form({ id }) {
       <div className="h-auto w-[300px] bg-white flex flex-col gap-2  rounded-xl">
         {formContent?.images.map((d, id) => {
           const handleRemoveFile = (fileIndex) => {
+            const imageToDelete = formContent.images[fileIndex];
+            setDeleteFiles((prevDeleteFiles) => [
+              ...prevDeleteFiles,
+              imageToDelete,
+            ]);
+            console.log(deleteFiles);
+
+            // Update formContent to remove the image from the array
             setformContent((prevContent) => ({
               ...prevContent,
               images: prevContent.images.filter(
@@ -600,6 +612,7 @@ function Form({ id }) {
               ),
             }));
           };
+
           return (
             <div
               key={id}
