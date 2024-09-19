@@ -606,9 +606,10 @@ function Page() {
               {/* Buttons */}
 
               <button
+                disabled={loading}
                 onClick={handleSubmit}
                 className={`w-full col-span-2 text-[16px] font-semibold border h-[55px]  rounded-[99px] ${
-                  loading && "bg-gray-500"
+                  loading && "bg-gray-500 cursor-not-allowed"
                 } `}
               >
                 {loading ? "Creating new employee" : "Confirm employee"}

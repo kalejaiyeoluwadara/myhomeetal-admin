@@ -221,9 +221,10 @@ function Form() {
             </button>
           </Link>
           <button
+            disabled={isLoading}
             onClick={createProduct}
             className={` text-[16px] ${
-              isLoading ? "bg-gray-500 text-white " : ""
+              isLoading ? "bg-gray-500 cursor-not-allowed text-white " : ""
             } font-semibold px-4 py-2 rounded-[8px] flex items-center justify-center gap-2 `}
           >
             <FaPlus size={20} />

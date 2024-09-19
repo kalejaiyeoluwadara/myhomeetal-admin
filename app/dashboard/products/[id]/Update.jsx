@@ -45,7 +45,6 @@ function Form({ id }) {
     brand: "",
     inventory: 0,
     sku: "",
-
     size: "",
     weight: "",
     modelno: "",
@@ -266,9 +265,10 @@ function Form({ id }) {
             </div>
           </Link>
           <button
+            disabled={loading}
             onClick={handleSubmit}
             className={`text-base ${
-              loading ? "bg-gray-500 text-white" : ""
+              loading ? "bg-gray-500 cursor-not-allowed text-white" : ""
             } font-medium p-4 rounded-[99px] w-[166px] flex items-center justify-center gap-2 `}
           >
             {/* <FaPlus size={20} /> */}
