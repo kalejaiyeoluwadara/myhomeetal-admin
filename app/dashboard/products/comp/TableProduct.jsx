@@ -17,7 +17,7 @@ import TableHeader from "./TableHeader";
 import Loading from "../../components/Loading";
 import useData from "@/hooks/useData";
 function Table() {
-  const itemsPerPage = 8;
+  const itemsPerPage = 50;
   const [currentPage, setCurrentPage] = useState(1);
   const {
     data: products,
@@ -28,8 +28,8 @@ function Table() {
   );
   const [manipulate, setManipulate] = useState([]);
   const [error, setError] = useState(null);
-  const { totalProd, setTotalProd, token } = useGlobal();
-
+  const { totalProd, setTotalProd, token, toBeDeleted, setToBeDeleted } =
+    useGlobal();
   useEffect(() => {
     setManipulate(products.reverse());
     setTotalProd(products.length);
@@ -95,11 +95,12 @@ function Table() {
       {/* Content */}
       <div className="w-full ">
         <div className="w-full h-[44px] px-3 text-[12px] font-medium pt-1 items-center justify-center grid grid-cols-8 ">
+          <p></p>
           <p className=" col-span-2 ">Product name</p>
           {/* <p className="col-span-2">SKU</p> */}
           <p>Price</p>
           <p className="">Stock Level </p>
-          <p className="col-span-2 text-center">Category</p>
+          <p className=" text-center">Category</p>
           <p className="pl-2 text-center">Status</p>
           <p className="text-center">Action</p>
         </div>

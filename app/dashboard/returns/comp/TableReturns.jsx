@@ -22,7 +22,7 @@ function Table() {
     79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97,
     98, 99, 100,
   ]; // Sample data array
-  const itemsPerPage = 8;
+  const itemsPerPage = 50;
   const [currentPage, setCurrentPage] = useState(1);
 
   const totalPages = Math.ceil(data.length / itemsPerPage);

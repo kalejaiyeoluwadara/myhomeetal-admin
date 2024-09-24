@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { IoMdMore } from "react-icons/io";
 import Link from "next/link";
+import CheckMark from "../../components/CheckMark";
 
 function TableData({
   _id,
@@ -28,8 +29,10 @@ function TableData({
   };
 
   return (
-    <div className="w-full h-[72px] border-b bg-white text-[#344054] text-[14px] px-3 items-center justify-center grid pt-2 grid-cols-8 ">
-      <div className="flex w-auto col-span-2 items-center justify-start gap-2 truncate">
+    <div className="w-full h-[72px] border-b bg-white text-[#344054] text-[14px] px-3 items-center relative justify-center grid pt-2 grid-cols-8 ">
+      {/* delete product */}
+      <CheckMark />
+      <div className="flex pl-4 ml-2 w-auto col-span-3 items-center justify-start gap-2 truncate">
         <img
           className=" h-[40px] flex-shrink-0 bg-gray-200 w-[40px] rounded-full object-cover "
           alt=""
@@ -42,7 +45,7 @@ function TableData({
       {/* <p className=" col-span-2 truncate ">-</p> */}
       <p>#{formatNumberWithCommas(price)}</p>
       <p className="text-center ">{inventory}</p>
-      <p className="truncate text-center col-span-2 ">{category?.name}</p>
+      <p className="truncate text-center">{category?.name}</p>
       <div className="px-2 ">
         <p className="px-3 font-medium bg-green-200 rounded-[12px] py-[2px] flex items-center justify-center text-green-600 ">
           active

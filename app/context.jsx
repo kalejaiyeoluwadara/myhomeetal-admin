@@ -7,6 +7,7 @@ function AppProvider({ children }) {
   const [logout, setLogOut] = useState(false);
   const [addEmployee, setAddEmployee] = useState(false);
   const [role, setRole] = useState("");
+  const [toBeDeleted, setToBeDeleted] = useState([]);
   const [createCat, setCreateCat] = useState(false);
   const [admins, setAdmins] = useState([]);
   const [clen, setClen] = useState(0);
@@ -138,6 +139,8 @@ function AppProvider({ children }) {
     <AppContext.Provider
       value={{
         openModal,
+        toBeDeleted,
+        setToBeDeleted,
         role,
         categories,
         setRole,

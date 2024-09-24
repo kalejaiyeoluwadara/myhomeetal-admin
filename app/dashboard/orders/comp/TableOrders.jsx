@@ -60,7 +60,7 @@ function Table() {
   useEffect(() => {
     fetchOrders();
   }, []);
-  const itemsPerPage = 8;
+  const itemsPerPage = 50;
   const [currentPage, setCurrentPage] = useState(1);
   const [cal, setCal] = useState(false);
   const filteredOrders = filterDataByDate(orders, filt);

@@ -12,6 +12,7 @@ function TableData({
   employee_id,
   img,
   isActive,
+  product,
 }) {
   const [modal, setModal] = useState(false);
   useEffect(() => {

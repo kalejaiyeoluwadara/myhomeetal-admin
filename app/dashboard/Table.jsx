@@ -19,7 +19,7 @@ function Table() {
   const [error, setError] = useState(null);
   const [admins, setAdmins] = useState([]);
   const [loading, setLoading] = useState(false);
-  const itemsPerPage = 8;
+  const itemsPerPage = 50;
   const [currentPage, setCurrentPage] = useState(1);
   const [manipulate, setManipulate] = useState([]);
 
@@ -158,6 +158,7 @@ function Table() {
           ) : (
             currentData.map((d, id) => (
               <TableData
+                product={d}
                 email={d?.email}
                 fullname={d.fullname}
                 role={d?.role}

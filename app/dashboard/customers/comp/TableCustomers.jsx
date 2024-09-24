@@ -13,7 +13,7 @@ import {
 import TableData from "./TableData";
 import useData from "@/hooks/useData";
 function Table() {
-  const itemsPerPage = 8;
+  const itemsPerPage = 50;
   const [currentPage, setCurrentPage] = useState(1);
   const {
     data: customers,
