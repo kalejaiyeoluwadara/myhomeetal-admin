@@ -13,6 +13,7 @@ function TableData({
   inventory,
   brand,
   images,
+  product,
 }) {
   const [modal, setModal] = useState(false);
   useEffect(() => {
@@ -31,7 +32,7 @@ function TableData({
   return (
     <div className="w-full h-[72px] border-b bg-white text-[#344054] text-[14px] px-3 items-center relative justify-center grid pt-2 grid-cols-8 ">
       {/* delete product */}
-      <CheckMark />
+      <CheckMark product={product} />
       <div className="flex pl-4 ml-2 w-auto col-span-3 items-center justify-start gap-2 truncate">
         <img
           className=" h-[40px] flex-shrink-0 bg-gray-200 w-[40px] rounded-full object-cover "

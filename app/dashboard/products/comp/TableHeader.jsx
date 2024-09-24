@@ -1,13 +1,14 @@
+"use client";
 import React, { useState, useEffect } from "react";
 import { IoSearch } from "react-icons/io5";
 import filter from "@/app/assets/filter.svg";
 import ex from "@/app/assets/export.svg";
 import Image from "next/image";
 import Export from "../../components/Export";
-
+import { useGlobal } from "@/app/context";
 function Tableheader({ products, manipulate, setManipulate }) {
   const [list, setList] = useState("");
-
+  const { toBeDeleted } = useGlobal();
   const handleSearch = () => {
     const filteredProducts = list
       ? products.filter((product) => {
@@ -45,6 +46,11 @@ function Tableheader({ products, manipulate, setManipulate }) {
         </section> */}
       </div>
       <div className="flex w-full justify-end items-center gap-2">
+        {toBeDeleted.length > 0 && (
+          <button className="  capitalize w-[300px] py-3 rounded-md ">
+            delete all selected
+          </button>
+        )}
         <Export data={products} />
       </div>
     </section>

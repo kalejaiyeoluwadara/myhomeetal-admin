@@ -137,6 +137,7 @@ function Table() {
                 brand={brand}
                 _id={d._id}
                 images={images}
+                product={d}
               />
             );
           })
