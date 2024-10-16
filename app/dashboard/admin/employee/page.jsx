@@ -13,14 +13,14 @@ import TableAlert from "./comp/TableAlert";
 function Page() {
   const { token } = useGlobal();
   const { data: order, loading } = useData(
-    "https://my-home-et-al-backend-2.onrender.com/api/v1/order"
+    "https://my-home-et-al-backend-u0m7.onrender.com/api/v1/order"
   );
   const {
     data: products,
     setData: setProducts,
     loading: prodLoading,
   } = useData(
-    "https://my-home-et-al-backend-2.onrender.com/api/v1/product/all-products"
+    "https://my-home-et-al-backend-u0m7.onrender.com/api/v1/product/all-products"
   );
   const [lowStockProducts, setLowStockProducts] = useState([]);
   useEffect(() => {

@@ -39,7 +39,7 @@ function Page() {
     try {
       setLoading(true);
       const response = await fetch(
-        "https://my-home-et-al-backend-2.onrender.com/api/v1/product/bulk-publish",
+        "https://my-home-et-al-backend-u0m7.onrender.com/api/v1/product/bulk-publish",
         {
           method: "POST",
           headers: {

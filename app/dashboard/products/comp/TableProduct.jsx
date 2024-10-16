@@ -24,7 +24,7 @@ function Table() {
     setData: setProducts,
     loading,
   } = useData(
-    "https://my-home-et-al-backend-2.onrender.com/api/v1/product/all-products"
+    "https://my-home-et-al-backend-u0m7.onrender.com/api/v1/product/all-products"
   );
   const [manipulate, setManipulate] = useState([]);
   const [error, setError] = useState(null);

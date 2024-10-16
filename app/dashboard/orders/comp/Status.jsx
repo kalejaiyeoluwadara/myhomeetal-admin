@@ -9,7 +9,7 @@ function Status() {
     data: orders,
     loading,
     error,
-  } = useData("https://my-home-et-al-backend-2.onrender.com/api/v1/order");
+  } = useData("https://my-home-et-al-backend-u0m7.onrender.com/api/v1/order");
   const [completedCount, setCompletedCount] = useState(0);
   const [pendingCount, setPendingCount] = useState(0);
 

@@ -36,7 +36,7 @@ function CreateCategory({ fetchCategories }) {
     }
 
     const url =
-      "https://my-home-et-al-backend-2.onrender.com/api/v1/product-category";
+      "https://my-home-et-al-backend-u0m7.onrender.com/api/v1/product-category";
 
     try {
       const response = await fetch(url, {

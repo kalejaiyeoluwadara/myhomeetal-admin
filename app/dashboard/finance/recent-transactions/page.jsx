@@ -8,7 +8,7 @@ import Credit from "../Components/Credit";
 
 function Page() {
   const { data, loading } = useData(
-    "https://my-home-et-al-backend-2.onrender.com/api/v1/admin-wallet"
+    "https://my-home-et-al-backend-u0m7.onrender.com/api/v1/admin-wallet"
   );
 
   // Reverse the data array if it exists

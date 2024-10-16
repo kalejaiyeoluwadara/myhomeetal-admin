@@ -8,7 +8,7 @@ import useData from "@/hooks/useData";
 Status;
 function Page() {
   const { data, loading } = useData(
-    "https://my-home-et-al-backend-2.onrender.com/api/v1/admin-wallet"
+    "https://my-home-et-al-backend-u0m7.onrender.com/api/v1/admin-wallet"
   );
   return (
     <div className="w-full p-[36px] bg-screen   min-h-screen overflow-y-scroll ">

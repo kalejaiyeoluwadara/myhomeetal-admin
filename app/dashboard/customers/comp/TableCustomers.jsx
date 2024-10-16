@@ -21,7 +21,7 @@ function Table() {
     error,
     setdata: setCustomers,
   } = useData(
-    "https://my-home-et-al-backend-2.onrender.com/api/v1/user/all-users"
+    "https://my-home-et-al-backend-u0m7.onrender.com/api/v1/user/all-users"
   );
   const totalPages = Math.ceil(customers.length / itemsPerPage);
 

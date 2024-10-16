@@ -9,7 +9,7 @@ import { useGlobal } from "@/app/context";
 import useData2 from "@/hooks/useData2";
 function Revenue() {
   const { data } = useData2(
-    "https://my-home-et-al-backend-2.onrender.com/api/v1/admin-wallet"
+    "https://my-home-et-al-backend-u0m7.onrender.com/api/v1/admin-wallet"
   );
   const { formatNumberWithCommas } = useGlobal();
   const totalSales = (data?.userPayments || []).reduce(
