@@ -6,9 +6,12 @@ import ex from "@/app/assets/export.svg";
 import Image from "next/image";
 import Export from "../../components/Export";
 import { useGlobal } from "@/app/context";
+import axios from "axios"; // Import axios for making API requests
+
 function Tableheader({ products, manipulate, setManipulate }) {
   const [list, setList] = useState("");
-  const { toBeDeleted } = useGlobal();
+  const { toBeDeleted, setToBeDeleted, openModal, token } = useGlobal();
+  const [loading, isLoading] = useState(false);
   const handleSearch = () => {
     const filteredProducts = list
       ? products.filter((product) => {
@@ -19,6 +22,44 @@ function Tableheader({ products, manipulate, setManipulate }) {
 
     setManipulate(filteredProducts);
     setList("");
+  };
+
+  const handleBulkDelete = async () => {
+    if (toBeDeleted.length === 0) return;
+    isLoading(true);
+    console.log(toBeDeleted);
+
+    try {
+      const response = await axios.delete(
+        "https://my-home-et-al-backend-u0m7.onrender.com/api/v1/product/bulk-delete",
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          data: {
+            productIds: toBeDeleted,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        const updatedProducts = manipulate.filter(
+          (product) => !toBeDeleted.includes(product._id)
+        );
+        setManipulate(updatedProducts); // Update the displayed products
+        setToBeDeleted([]); // Clear selected items
+        openModal("Selected products deleted successfully!", true); // Success message
+      }
+    } catch (error) {
+      console.error("Failed to delete products:", error);
+      openModal(
+        "An error occurred while deleting products. Please try again.",
+        false
+      );
+    } finally {
+      isLoading(false);
+    }
   };
 
   return (
@@ -47,7 +88,12 @@ function Tableheader({ products, manipulate, setManipulate }) {
       </div>
       <div className="flex w-full justify-end items-center gap-2">
         {toBeDeleted.length > 0 && (
-          <button className="  capitalize w-[300px] py-3 rounded-md ">
+          <button
+            onClick={handleBulkDelete}
+            className={`capitalize w-[300px] py-3 rounded-md ${
+              loading ? "bg-gray-400" : "bg-primary hover:bg-red-700 text-white"
+            } `}
+          >
             delete all selected
           </button>
         )}

@@ -9,18 +9,18 @@ function CheckMark({ product }) {
   // Toggle product selection
   const handleClick = () => {
     if (isActive) {
-      // Remove product from toBeDeleted
-      setToBeDeleted((prev) => prev.filter((item) => item._id !== product._id));
+      // Remove product ID from toBeDeleted
+      setToBeDeleted((prev) => prev.filter((id) => id !== product._id));
     } else {
-      // Add product to toBeDeleted
-      setToBeDeleted((prev) => [...prev, product]);
+      // Add product ID to toBeDeleted
+      setToBeDeleted((prev) => [...prev, product._id]);
     }
     setIsActive(!isActive); // Toggle active state
   };
 
-  // Update active state if product is in toBeDeleted
+  // Update active state if product ID is in toBeDeleted
   useEffect(() => {
-    setIsActive(toBeDeleted.some((item) => item._id === product._id));
+    setIsActive(toBeDeleted.includes(product._id));
   }, [toBeDeleted, product._id]);
 
   return (
