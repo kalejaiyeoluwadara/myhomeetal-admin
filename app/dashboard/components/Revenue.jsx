@@ -8,9 +8,7 @@ import useData from "@/hooks/useData";
 import { useGlobal } from "@/app/context";
 import useData2 from "@/hooks/useData2";
 function Revenue() {
-  const { data } = useData2(
-    "https://my-home-et-al-backend-u0m7.onrender.com/api/v1/admin-wallet"
-  );
+  const { data } = useData2("server.myhomeetal.store/api/v1/admin-wallet");
   const { formatNumberWithCommas } = useGlobal();
   const totalSales = (data?.userPayments || []).reduce(
     (acc, payment) => acc + payment?.amount,

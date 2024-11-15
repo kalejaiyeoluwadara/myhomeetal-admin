@@ -17,7 +17,7 @@ function ItemCard({
   const handleDelete = async () => {
     try {
       const response = await fetch(
-        `https://my-home-et-al-backend-u0m7.onrender.com/api/v1/product/${id}`,
+        `server.myhomeetal.store/api/v1/product/${id}`,
         {
           method: "DELETE",
           headers: {

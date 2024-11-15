@@ -9,9 +9,7 @@ function Welcome() {
     const localId = localStorage.getItem("id");
     setId(localId);
   }, [id]);
-  const { data } = useData(
-    `https://my-home-et-al-backend-u0m7.onrender.com/api/v1/admin/${id}`
-  );
+  const { data } = useData(`server.myhomeetal.store/api/v1/admin/${id}`);
   return (
     <div>
       <h2 className="text-2xl font-semibold ">

@@ -7,7 +7,7 @@ import { SiHackthebox } from "react-icons/si";
 function Status() {
   const { totalProd } = useGlobal();
   const { data: products = [] } = useData(
-    "https://my-home-et-al-backend-u0m7.onrender.com/api/v1/product/all-products"
+    "server.myhomeetal.store/api/v1/product/all-products"
   );
   const outOfStockCount = products.reduce((count, product) => {
     if (product.inventory?.quantity < 5) {

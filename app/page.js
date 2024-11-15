@@ -27,7 +27,7 @@ const Login = () => {
       };
 
       const response = await fetch(
-        "https://my-home-et-al-backend-u0m7.onrender.com/api/v1/admin/sign-in",
+        "server.myhomeetal.store/api/v1/admin/sign-in",
         {
           method: "POST",
           headers: {

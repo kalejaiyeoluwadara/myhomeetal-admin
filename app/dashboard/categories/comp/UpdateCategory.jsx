@@ -35,7 +35,7 @@ function UpdateCategory({
       formData.append("category-image", formContent.coverImage);
     }
 
-    const url = `https://my-home-et-al-backend-u0m7.onrender.com/api/v1/product-category/edit-category/${itemId}`;
+    const url = `server.myhomeetal.store/api/v1/product-category/edit-category/${itemId}`;
 
     try {
       const response = await fetch(url, {

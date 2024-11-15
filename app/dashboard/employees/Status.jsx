@@ -4,7 +4,7 @@ import React from "react";
 import { GoPeople } from "react-icons/go";
 function Status() {
   const { data: admins } = useData(
-    "https://my-home-et-al-backend-u0m7.onrender.com/api/v1/admin/get-admins"
+    "server.myhomeetal.store/api/v1/admin/get-admins"
   );
   const data = [
     {

@@ -21,7 +21,7 @@ function Page({ params: { id } }) {
     setLoading(true);
     try {
       const response = await fetch(
-        `https://my-home-et-al-backend-u0m7.onrender.com/api/v1/order/${id}`,
+        `server.myhomeetal.store/api/v1/order/${id}`,
         {
           method: "GET",
           headers: {

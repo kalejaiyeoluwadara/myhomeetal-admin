@@ -23,9 +23,7 @@ function Table() {
     data: products,
     setData: setProducts,
     loading,
-  } = useData(
-    "https://my-home-et-al-backend-u0m7.onrender.com/api/v1/product/all-products"
-  );
+  } = useData("server.myhomeetal.store/api/v1/product/all-products");
   const [manipulate, setManipulate] = useState([]);
   const [error, setError] = useState(null);
   const { totalProd, setTotalProd, token, toBeDeleted, setToBeDeleted } =

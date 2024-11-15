@@ -36,7 +36,7 @@ function Table() {
 
     try {
       const response = await fetch(
-        "https://my-home-et-al-backend-u0m7.onrender.com/api/v1/admin/get-admins",
+        "server.myhomeetal.store/api/v1/admin/get-admins",
         {
           method: "GET",
           headers: {

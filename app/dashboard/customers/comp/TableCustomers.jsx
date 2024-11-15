@@ -20,9 +20,7 @@ function Table() {
     loading,
     error,
     setdata: setCustomers,
-  } = useData(
-    "https://my-home-et-al-backend-u0m7.onrender.com/api/v1/user/all-users"
-  );
+  } = useData("server.myhomeetal.store/api/v1/user/all-users");
   const totalPages = Math.ceil(customers.length / itemsPerPage);
 
   const handleNextPage = () => {

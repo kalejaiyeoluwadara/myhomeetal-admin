@@ -31,7 +31,7 @@ function Tableheader({ products, manipulate, setManipulate }) {
 
     try {
       const response = await axios.delete(
-        "https://my-home-et-al-backend-u0m7.onrender.com/api/v1/product/bulk-delete",
+        "server.myhomeetal.store/api/v1/product/bulk-delete",
         {
           headers: {
             "Content-Type": "application/json",
@@ -47,9 +47,9 @@ function Tableheader({ products, manipulate, setManipulate }) {
         const updatedProducts = manipulate.filter(
           (product) => !toBeDeleted.includes(product._id)
         );
-        setManipulate(updatedProducts); // Update the displayed products
-        setToBeDeleted([]); // Clear selected items
-        openModal("Selected products deleted successfully!", true); // Success message
+        setManipulate(updatedProducts);
+        setToBeDeleted([]);
+        openModal("Selected products deleted successfully!", true);
       }
     } catch (error) {
       console.error("Failed to delete products:", error);

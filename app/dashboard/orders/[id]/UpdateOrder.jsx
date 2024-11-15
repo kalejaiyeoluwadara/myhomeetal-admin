@@ -13,7 +13,7 @@ function UpdateOrder({ id, setModal, modal, fetchOrders }) {
     setLoading(true);
     try {
       const response = await fetch(
-        `https://my-home-et-al-backend-u0m7.onrender.com/api/v1/order/update-status`,
+        `server.myhomeetal.store/api/v1/order/update-status`,
         {
           method: "PUT",
           headers: {

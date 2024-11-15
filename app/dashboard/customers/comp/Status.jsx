@@ -5,7 +5,7 @@ import { GoPeople } from "react-icons/go";
 import { SiHackthebox } from "react-icons/si";
 function Status() {
   const { data: customers } = useData(
-    "https://my-home-et-al-backend-u0m7.onrender.com/api/v1/user/all-users"
+    "server.myhomeetal.store/api/v1/user/all-users"
   );
   const data = [
     {

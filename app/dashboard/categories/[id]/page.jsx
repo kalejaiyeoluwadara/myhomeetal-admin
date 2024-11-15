@@ -14,7 +14,7 @@ function Page({ params }) {
   const handleDelete = async () => {
     try {
       const response = await fetch(
-        `https://my-home-et-al-backend-u0m7.onrender.com/api/v1/product-category/delete-category/${params.id}`,
+        `server.myhomeetal.store/api/v1/product-category/delete-category/${params.id}`,
         {
           method: "DELETE",
           headers: {
@@ -41,7 +41,7 @@ function Page({ params }) {
     setError(null);
     try {
       const response = await fetch(
-        `https://my-home-et-al-backend-u0m7.onrender.com/api/v1/product/category/${params.id}`,
+        `server.myhomeetal.store/api/v1/product/category/${params.id}`,
         {
           method: "GET",
           headers: {
