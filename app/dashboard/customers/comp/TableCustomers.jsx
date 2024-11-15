@@ -20,7 +20,7 @@ function Table() {
     loading,
     error,
     setdata: setCustomers,
-  } = useData("server.myhomeetal.store/api/v1/user/all-users");
+  } = useData("https://server.myhomeetal.store/api/v1/user/all-users");
   const totalPages = Math.ceil(customers.length / itemsPerPage);
 
   const handleNextPage = () => {

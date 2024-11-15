@@ -27,13 +27,16 @@ function Table() {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch("server.myhomeetal.store/api/v1/order", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        "https://server.myhomeetal.store/api/v1/order",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       if (!response.ok) {
         const errorData = await response.json();

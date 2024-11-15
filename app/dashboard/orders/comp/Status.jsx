@@ -9,7 +9,7 @@ function Status() {
     data: orders,
     loading,
     error,
-  } = useData("server.myhomeetal.store/api/v1/order");
+  } = useData("https://server.myhomeetal.store/api/v1/order");
   const [completedCount, setCompletedCount] = useState(0);
   const [pendingCount, setPendingCount] = useState(0);
 

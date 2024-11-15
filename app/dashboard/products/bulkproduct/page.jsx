@@ -36,7 +36,7 @@ function Page() {
     try {
       setLoading(true);
       const response = await fetch(
-        "server.myhomeetal.store/api/v1/product/bulk-create",
+        "https://server.myhomeetal.store/api/v1/product/bulk-create",
         {
           method: "POST",
           headers: {

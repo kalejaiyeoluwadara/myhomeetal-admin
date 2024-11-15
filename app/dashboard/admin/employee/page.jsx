@@ -13,13 +13,13 @@ import TableAlert from "./comp/TableAlert";
 function Page() {
   const { token } = useGlobal();
   const { data: order, loading } = useData(
-    "server.myhomeetal.store/api/v1/order"
+    "https://server.myhomeetal.store/api/v1/order"
   );
   const {
     data: products,
     setData: setProducts,
     loading: prodLoading,
-  } = useData("server.myhomeetal.store/api/v1/product/all-products");
+  } = useData("https://server.myhomeetal.store/api/v1/product/all-products");
   const [lowStockProducts, setLowStockProducts] = useState([]);
   useEffect(() => {
     if (products && products.length > 0) {

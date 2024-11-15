@@ -31,7 +31,7 @@ function Tableheader({ products, manipulate, setManipulate }) {
 
     try {
       const response = await axios.delete(
-        "server.myhomeetal.store/api/v1/product/bulk-delete",
+        "https://server.myhomeetal.store/api/v1/product/bulk-delete",
         {
           headers: {
             "Content-Type": "application/json",

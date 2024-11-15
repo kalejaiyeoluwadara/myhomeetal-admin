@@ -13,7 +13,7 @@ function UpdateOrder({ id, setModal, modal, fetchOrders }) {
     setLoading(true);
     try {
       const response = await fetch(
-        `server.myhomeetal.store/api/v1/order/update-status`,
+        `https://server.myhomeetal.store/api/v1/order/update-status`,
         {
           method: "PUT",
           headers: {

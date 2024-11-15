@@ -121,7 +121,7 @@ function Page() {
 
       try {
         const response = await fetch(
-          "server.myhomeetal.store/api/v1/admin/create-admin",
+          "https://server.myhomeetal.store/api/v1/admin/create-admin",
           {
             method: "POST",
             headers: {

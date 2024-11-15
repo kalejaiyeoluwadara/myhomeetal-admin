@@ -36,7 +36,7 @@ function AppProvider({ children }) {
     setLoading(true);
     try {
       const response = await fetch(
-        "server.myhomeetal.store/api/v1/admin/get-admins",
+        "https://server.myhomeetal.store/api/v1/admin/get-admins",
         {
           method: "GET",
           headers: {
@@ -68,7 +68,7 @@ function AppProvider({ children }) {
   const fetchCutomers = async () => {
     try {
       const response = await fetch(
-        "server.myhomeetal.store/api/v1/admin/all-users",
+        "https://server.myhomeetal.store/api/v1/admin/all-users",
         {
           method: "GET",
           headers: {
@@ -94,7 +94,7 @@ function AppProvider({ children }) {
   const fetchCategories = async () => {
     try {
       const response = await fetch(
-        "server.myhomeetal.store/api/v1/product-category/categories",
+        "https://server.myhomeetal.store/api/v1/product-category/categories",
         {
           method: "GET",
           headers: {

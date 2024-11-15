@@ -27,7 +27,7 @@ const Login = () => {
       };
 
       const response = await fetch(
-        "server.myhomeetal.store/api/v1/admin/sign-in",
+        "https://server.myhomeetal.store/api/v1/admin/sign-in",
         {
           method: "POST",
           headers: {
@@ -63,6 +63,7 @@ const Login = () => {
         setIsLoading(false);
       }
     } catch (error) {
+      console.log(error);
       setIsLoading(false);
       openModal("Login failed.", false);
     }

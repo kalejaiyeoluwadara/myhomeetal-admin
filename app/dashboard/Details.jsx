@@ -11,7 +11,9 @@ import TotalUsers from "./components/TotalUsers";
 import Loadtime from "./components/Loadtime";
 import useData from "@/hooks/useData";
 function Details() {
-  const { data } = useData("server.myhomeetal.store/api/v1/user/all-users");
+  const { data } = useData(
+    "https://server.myhomeetal.store/api/v1/user/all-users"
+  );
   return (
     <div className="w-full grid grid-cols-4 gap-[10px] my-[45px] ">
       <Revenue />

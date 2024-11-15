@@ -35,7 +35,7 @@ function CreateCategory({ fetchCategories }) {
       formData.append("category-image", formContent.coverImage);
     }
 
-    const url = "server.myhomeetal.store/api/v1/product-category";
+    const url = "https://server.myhomeetal.store/api/v1/product-category";
 
     try {
       const response = await fetch(url, {
