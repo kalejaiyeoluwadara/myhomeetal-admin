@@ -1,0 +1,7 @@
+Changes Made to MyHomeetal's Wallet System.
+*ADMIN*1. Added a Withdraw API route
+2. Added an API to get the total withdrawal within a year (12 months)3. Added an API to get the total revenue within a year
+4. Updated the get Total Sales API5. Modularised and changed the 'Get Admin Wallet' API route to 'Get Admin Wallet Details' and 'Get Admin Wallet Tranasactions'
+
+CUSTOMER
+1. Updated what the 'Get Wallet' API route returns

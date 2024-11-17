@@ -1,13 +1,32 @@
 "use client";
+
 import { useGlobal } from "@/app/context";
 import useData from "@/hooks/useData";
 import React from "react";
 
-function List({ data, loading }) {
+function List() {
   const { formatNumberWithCommas } = useGlobal();
 
-  // Check if data is loading or undefined
-  if (loading || !data) {
+  // Fetch revenue, sales, and withdrawals data
+  const { data: revenueData, loading: loadingRevenue } = useData(
+    "https://server.myhomeetal.store/api/v1/admin-wallet/revenue"
+  );
+  const { data: salesData, loading: loadingSales } = useData(
+    "https://server.myhomeetal.store/api/v1/admin-wallet/sales"
+  );
+  const { data: withdrawalsData, loading: loadingWithdrawals } = useData(
+    "https://server.myhomeetal.store/api/v1/admin-wallet/withdrawals"
+  );
+
+  // Loading state or data fallback
+  if (
+    loadingRevenue ||
+    loadingSales ||
+    loadingWithdrawals ||
+    !revenueData ||
+    !salesData ||
+    !withdrawalsData
+  ) {
     return (
       <div className="grid grid-cols-3 mb-6 items-center justify-center gap-4">
         {[
@@ -34,11 +53,10 @@ function List({ data, loading }) {
     );
   }
 
-  // Calculate total sales and total revenue
-  const totalSales = (data.userPayments || []).reduce(
-    (acc, payment) => acc + payment.amount,
-    0
-  );
+  // Extract total revenue, sales, and withdrawals from the API responses
+  const totalRevenue = revenueData?.totalRevenue || 0;
+  const totalSales = salesData?.totalSales || 0;
+  const totalWithdrawals = withdrawalsData?.totalWithdrawals || 0;
 
   return (
     <div className="grid grid-cols-3 mb-6 items-center justify-center gap-4">
@@ -50,12 +68,12 @@ function List({ data, loading }) {
         },
         {
           title: "Total Revenue",
-          item: `₦${formatNumberWithCommas(totalSales)}.00`,
+          item: `₦${formatNumberWithCommas(totalRevenue)}.00`,
           year: "This year",
         },
         {
           title: "Total Withdrawal",
-          item: "₦0.00",
+          item: `₦${formatNumberWithCommas(totalWithdrawals)}.00`,
           year: "This year",
         },
       ].map((d, id) => (

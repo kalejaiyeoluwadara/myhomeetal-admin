@@ -3,7 +3,8 @@ import React from "react";
 import { BsChevronRight } from "react-icons/bs";
 import Loading from "../../components/Loading";
 import Credit from "../Components/Credit";
-
+import useData from "@/hooks/useData";
+useData;
 const Header = () => {
   return (
     <header className="flex -top-10 left-0 absolute justify-between items-center w-full">
@@ -19,9 +20,14 @@ const Header = () => {
   );
 };
 
-function Transact({ data, loading }) {
-  // Slice the last 5 items from the array, or return all if there are fewer than 5
-  const recentPayments = (data?.userPayments || []).slice(-5).reverse();
+function Transact() {
+  const { data, loading } = useData(
+    "https://server.myhomeetal.store/api/v1/admin-wallet/transactions"
+  );
+  const transactions = data?.adminWallet?.transactions || [];
+
+  // Slice the last 5 transactions or return all if fewer than 5
+  const recentPayments = transactions.slice(-5).reverse();
 
   return (
     <main>
@@ -30,12 +36,12 @@ function Transact({ data, loading }) {
           <Header />
           {!loading ? (
             recentPayments.length > 0 ? (
-              recentPayments.map((d, id) => (
+              recentPayments.map((transaction, index) => (
                 <Credit
-                  key={id}
-                  name={d?.userId?.firstname || "user"}
-                  method={d?.method}
-                  amount={d?.amount}
+                  key={index}
+                  name={transaction?.userId?.firstname || "User"}
+                  method={transaction?.method || "Unknown Method"}
+                  amount={transaction?.amount || 0}
                 />
               ))
             ) : (

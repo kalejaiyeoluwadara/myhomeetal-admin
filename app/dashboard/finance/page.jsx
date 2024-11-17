@@ -14,8 +14,8 @@ function Page() {
     <div className="w-full p-[36px] bg-screen   min-h-screen overflow-y-scroll ">
       <Welcome />
       <Status data={data} loading={loading} />
-      <List data={data} loading={loading} />
-      <Transact data={data} loading={loading} />
+      <List />
+      <Transact />
     </div>
   );
 }
