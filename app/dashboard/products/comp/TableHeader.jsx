@@ -12,7 +12,7 @@ function Tableheader({
   products,
   manipulate,
   setManipulate,
-  currentPage,ll
+  currentPage,
   productsPerPage,
 }) {
   const [list, setList] = useState("");
