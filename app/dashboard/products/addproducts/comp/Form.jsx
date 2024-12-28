@@ -10,6 +10,7 @@ import { LiaTimesSolid } from "react-icons/lia";
 import { useGlobal } from "@/app/context";
 import formData from "form-data";
 import useData from "@/hooks/useData";
+import { useDropzone } from "react-dropzone";
 const Modal = ({ cat, categories, setCat, setformContent, formContent }) => {
   return (
     <div className="flex flex-col h-[250px] overflow-y-scroll no-scrollbar top-[87px] p-4 right-6 w-[250px] rounded-xl border bg-white absolute z-20">
@@ -75,6 +76,23 @@ function Form() {
       openModal("Error Encountered", true);
     }
   };
+  const handleDrop = (acceptedFiles) => {
+    const files = acceptedFiles.slice(0, 4); // Limit to 4 files
+    if (files.length > 0) {
+      setSelectedFile(files);
+      setformContent({ ...formContent, images: files });
+      openModal("Image Upload Completed", true);
+      console.log(formContent.images);
+    } else {
+      openModal("Error Encountered", true);
+    }
+  };
+  const { getRootProps, getInputProps } = useDropzone({
+    onDrop: handleDrop,
+    accept: "image/*",
+    multiple: true,
+    maxFiles: 4,
+  });
 
   const createProduct = async () => {
     setIsLoading(true);
@@ -479,30 +497,34 @@ function Form() {
 
         {/* Image update */}
         <div className="border bg-white rounded-xl p-4 w-auto h-[536px]">
-          <h2 className="core mb-4 ">Product Image</h2>
-          <p className="text-[14px] font-medium text-[#475367] ">
+          <h2 className="core mb-4">Product Image</h2>
+          <p className="text-[14px] font-medium text-[#475367]">
             Set the product media gallery
           </p>
-          <div className="p-4 flex w-full border-[1.5px] rounded-md h-[417px] border-dashed border-[#D0D5DD]  items-center justify-center flex-col ">
-            <div className="h-[56px] w-[56px] rounded-full center bg-[#F0F2F5] mb-6 ">
+          <div
+            {...getRootProps()}
+            className="p-4 flex w-full border-[1.5px] rounded-md h-[417px] border-dashed border-[#D0D5DD] items-center justify-center flex-col"
+          >
+            <input {...getInputProps()} />
+            <div className="h-[56px] w-[56px] rounded-full center bg-[#F0F2F5] mb-6">
               <FiUploadCloud size={25} />
             </div>
             <div>
-              <h3 className="text-[14px] text-center text-[#475367] ">
-                <span className="text-[14px] text-[#ED2224] ">
+              <h3 className="text-[14px] text-center text-[#475367]">
+                <span className="text-[14px] text-[#ED2224]">
                   Click to upload
                 </span>{" "}
                 or drag and drop
               </h3>
-              <p className="text-[12px] text-center text-[#98A2B3]  ">
+              <p className="text-[12px] text-center text-[#98A2B3]">
                 Max number of file 4 - SVG, PNG, JPG or GIF (max. 800x400px)
               </p>
             </div>
 
-            <div className="my-6 w-full bg-red-300 relative ">
+            <div className="my-6 w-full bg-red-300 relative">
               <hr className="bg-[#F0F2F5]" />
-              <div className="w-full center ">
-                <p className="absolute px-4 text-center bg-white text-xs font-bold text-[#98A2B3]  -top-[9px] ">
+              <div className="w-full center">
+                <p className="absolute px-4 text-center bg-white text-xs font-bold text-[#98A2B3] -top-[9px]">
                   OR
                 </p>
               </div>
@@ -510,7 +532,7 @@ function Form() {
 
             <button
               onClick={handleClick}
-              className="w-[118px] center h-[36px] rounded-md text-[14px] font-semibold "
+              className="w-[118px] center h-[36px] rounded-md text-[14px] font-semibold"
             >
               Browse Files
             </button>
