@@ -12,6 +12,8 @@ function Tableheader({ products, manipulate, setManipulate }) {
   const [list, setList] = useState("");
   const { toBeDeleted, setToBeDeleted, openModal, token } = useGlobal();
   const [loading, isLoading] = useState(false);
+  const [selectAll, setSelectAll] = useState(false);
+
   const handleSearch = () => {
     const filteredProducts = list
       ? products.filter((product) => {
@@ -62,6 +64,16 @@ function Tableheader({ products, manipulate, setManipulate }) {
     }
   };
 
+  const handleSelectAll = () => {
+    if (selectAll) {
+      setToBeDeleted([]);
+    } else {
+      const allProductIds = products.map((product) => product._id);
+      setToBeDeleted(allProductIds);
+    }
+    setSelectAll(!selectAll);
+  };
+
   return (
     <section className="w-full flex items-center justify-between px-[16px] bg-white h-[68px] ">
       {/* search and filter button */}
@@ -81,12 +93,14 @@ function Tableheader({ products, manipulate, setManipulate }) {
             <IoSearch size={20} />
           </div>
         </section>
-        {/* <section className="px-3 h-[40px] border border-[#D0D5DD] flex items-center justify-center gap-2 rounded-[8px] sh text-[14px] font-[500] ">
-          <Image src={filter} alt="Filter" className="h-[13px] w-[13px]" />
-          <p className="text-[#344054]">Filter</p>
-        </section> */}
       </div>
-      <div className="flex w-full justify-end items-center gap-2">
+      <div className="flex w-full px-3 justify-end items-center gap-2">
+        <button
+          onClick={handleSelectAll}
+          className="capitalize w-[150px] py-3 rounded-md bg-primary hover:bg-red-700 text-white"
+        >
+          {selectAll ? "Deselect All" : "Select All"}
+        </button>
         {toBeDeleted.length > 0 && (
           <button
             onClick={handleBulkDelete}

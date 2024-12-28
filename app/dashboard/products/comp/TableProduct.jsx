@@ -26,8 +26,7 @@ function Table() {
   } = useData("https://server.myhomeetal.store/api/v1/product/all-products");
   const [manipulate, setManipulate] = useState([]);
   const [error, setError] = useState(null);
-  const { totalProd, setTotalProd, token, toBeDeleted, setToBeDeleted } =
-    useGlobal();
+  const { totalProd, setTotalProd, token } = useGlobal();
   useEffect(() => {
     setManipulate(products.reverse());
     setTotalProd(products.length);

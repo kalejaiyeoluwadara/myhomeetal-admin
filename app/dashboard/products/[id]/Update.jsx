@@ -105,17 +105,13 @@ function Form({ id }) {
         const data = await response.json();
         openModal("Product updated!", true);
         setTimeout(() => {
-          router.push("/dashboard/products");
+          router.back();
         }, 1000);
-        console.log("Response from server:", data);
-        console.log(formContent.category);
       } else {
         openModal("Error updating product!");
-        console.log(formContent.category);
       }
     } catch (error) {
       console.error("Error submitting data:", error);
-      console.log(formContent.category);
 
       openModal("Error updating product!");
     } finally {
