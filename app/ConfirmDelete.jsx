@@ -24,7 +24,7 @@ function ConfirmDelete({ handleClick, opened, setOpened, isLoading }) {
             <div onClick={handleClick} className="w-full">
               <div
                 className={`${
-                  isLaoding
+                  isLoading
                     ? "bg-gray-400 cursor-wait "
                     : "bg-red-600 cursor-pointer hover:bg-red-500"
                 } text-white mt-6 mb-2 gap-2 text-[16px] center w-full h-[44px] rounded-[8px] `}
