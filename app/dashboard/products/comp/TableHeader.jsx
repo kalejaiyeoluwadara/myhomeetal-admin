@@ -6,7 +6,8 @@ import ex from "@/app/assets/export.svg";
 import Image from "next/image";
 import Export from "../../components/Export";
 import { useGlobal } from "@/app/context";
-import axios from "axios"; // Import axios for making API requests
+import axios from "axios";
+import ConfirmDelete from "@/app/ConfirmDelete";
 
 function Tableheader({
   products,
@@ -19,6 +20,7 @@ function Tableheader({
   const { toBeDeleted, setToBeDeleted, openModal, token } = useGlobal();
   const [loading, isLoading] = useState(false);
   const [selectAll, setSelectAll] = useState(false);
+  const [opened, setOpened] = useState(false);
 
   const handleSearch = () => {
     const filteredProducts = list
@@ -58,6 +60,8 @@ function Tableheader({
         setManipulate(updatedProducts);
         setToBeDeleted([]);
         openModal("Selected products deleted successfully!", true);
+        setOpened(false);
+        router.push("/dashboard/products");
       }
     } catch (error) {
       console.error("Failed to delete products:", error);
@@ -88,6 +92,12 @@ function Tableheader({
   return (
     <section className="w-full flex items-center justify-between px-[16px] bg-white h-[68px] ">
       {/* search and filter button */}
+      <ConfirmDelete
+        handleClick={handleBulkDelete}
+        opened={opened}
+        isLoading={isLoading}
+        setOpened={setOpened}
+      />
       <div className="flex gap-2">
         <section className="sh w-[291px] h-full border flex items-center justify-center rounded-[6px] px-[12px] py-[10px] gap-[8px] ">
           <input
@@ -108,14 +118,14 @@ function Tableheader({
       <div className="flex w-full px-3 justify-end items-center gap-2">
         <button
           onClick={handleSelectAll}
-          className="capitalize w-[150px] py-3 rounded-md bg-primary hover:bg-red-700 text-white"
+          className="capitalize w-[120px] py-3 rounded-md bg-primary hover:bg-red-700 text-white"
         >
           {selectAll ? "Deselect All" : "Select All"}
         </button>
         {toBeDeleted.length > 0 && (
           <button
-            onClick={handleBulkDelete}
-            className={`capitalize w-[300px] py-3 rounded-md ${
+            onClick={() => setOpened(true)}
+            className={`capitalize w-[190px] py-3 rounded-md ${
               loading ? "bg-gray-400" : "bg-primary hover:bg-red-700 text-white"
             } `}
           >

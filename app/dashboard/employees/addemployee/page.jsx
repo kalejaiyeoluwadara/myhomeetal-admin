@@ -503,6 +503,7 @@ function Page() {
                       <div className="absolute h-auto flex pointer flex-col gap-2 w-[200px] px-1 py-4 rounded-xl bg-white border top-16">
                         {["On-Site", "Remote"].map((d, id) => (
                           <p
+                            key={id}
                             onClick={() => {
                               setEmp(d);
                               setformContent({

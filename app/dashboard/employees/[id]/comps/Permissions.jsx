@@ -22,7 +22,10 @@ function Permissions() {
       <section className="flex flex-col w-full">
         {data.map((d, id) => {
           return (
-            <div className="flex h-[52px] border-b border-[#F7F9FC] items-center justify-start gap-4">
+            <div
+              key={id}
+              className="flex h-[52px] border-b border-[#F7F9FC] items-center justify-start gap-4"
+            >
               <p className="text-[14px] font-medium ">{d.title}</p>
               <Pill opt={d.opt} />
             </div>
