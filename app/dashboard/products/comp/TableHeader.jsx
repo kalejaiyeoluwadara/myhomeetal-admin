@@ -37,7 +37,6 @@ function Tableheader({
   const handleBulkDelete = async () => {
     if (toBeDeleted.length === 0) return;
     isLoading(true);
-    console.log(toBeDeleted);
 
     try {
       const response = await axios.delete(
@@ -61,7 +60,6 @@ function Tableheader({
         setToBeDeleted([]);
         openModal("Selected products deleted successfully!", true);
         setOpened(false);
-        router.push("/dashboard/products");
       }
     } catch (error) {
       console.error("Failed to delete products:", error);
@@ -95,7 +93,7 @@ function Tableheader({
       <ConfirmDelete
         handleClick={handleBulkDelete}
         opened={opened}
-        isLoading={isLoading}
+        isLoading={loading}
         setOpened={setOpened}
       />
       <div className="flex gap-2">
