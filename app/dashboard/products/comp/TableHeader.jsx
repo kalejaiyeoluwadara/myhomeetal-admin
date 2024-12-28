@@ -70,20 +70,11 @@ function Tableheader({
     }
   };
 
-  // const handleSelectAll = () => {
-  //   if (selectAll) {
-  //     setToBeDeleted([]);
-  //   } else {
-  //     const allProductIds = products.map((product) => product._id);
-  //     setToBeDeleted(allProductIds);
-  //   }
-  //   setSelectAll(!selectAll);
-  // };
-
   const handleSelectAll = () => {
     const startIndex = (currentPage - 1) * productsPerPage;
     const endIndex = startIndex + productsPerPage;
-    const currentProducts = products.slice(startIndex, endIndex);
+    const currentProducts =
+      manipulate.length > 0 ? manipulate : products.slice(startIndex, endIndex);
 
     if (selectAll) {
       setToBeDeleted([]);
@@ -93,6 +84,7 @@ function Tableheader({
     }
     setSelectAll(!selectAll);
   };
+
   return (
     <section className="w-full flex items-center justify-between px-[16px] bg-white h-[68px] ">
       {/* search and filter button */}
