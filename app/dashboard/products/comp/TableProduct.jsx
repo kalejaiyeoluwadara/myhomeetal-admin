@@ -85,6 +85,8 @@ function Table() {
   return (
     <div className="w-full overflow-hidden h-auto rounded-[10px] flex flex-col items-start justify-start border ">
       <TableHeader
+        currentPage={currentPage}
+        productsPerPage={itemsPerPage}
         manipulate={manipulate}
         setManipulate={setManipulate}
         products={products}
