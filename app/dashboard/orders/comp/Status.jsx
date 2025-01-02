@@ -19,17 +19,18 @@ function Status() {
         (order) => order.status === "Delivered"
       ).length;
       const pending = orders.filter(
-        (order) => order.status !== "Pending"
+        (order) => order.status === "Ongoing"
       ).length;
       setCompletedCount(completed);
       setPendingCount(pending);
+      console.log(pending);
     }
   }, [orders]);
 
   const data = [
     {
       title: "Total Orders",
-      count: orders.length,
+      count: orders.filter((order) => order.status !== "Not paid").length,
     },
     {
       title: "Pending Orders",
