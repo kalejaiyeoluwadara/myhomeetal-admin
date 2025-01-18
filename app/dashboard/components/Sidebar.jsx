@@ -104,6 +104,19 @@ function Sidebar() {
             </div>
           </div>
         </Link>
+        {/* Banner */}
+        <Link href={"/dashboard/banner"}>
+          <div
+            className={`h-[44px] hover:bg-red-50 px-[16px] flex-shrink-0 py-[12px] rounded-[4px] ${
+              active === "/dashboard/banner" ? "bg-red-50" : "bg-white"
+            }`}
+          >
+            <div className={`flex grey gap-3`}>
+              <PiHashBold size={20} className="grey" />
+              <p>Banners</p>
+            </div>
+          </div>
+        </Link>
       </section>
 
       <Footer />
