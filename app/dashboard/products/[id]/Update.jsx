@@ -135,7 +135,7 @@ function Form({ id }) {
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(
-          `Failed to fetch product: ${response.status} ${response.statusText} - ${errorData.message}`
+          `Failed to fetch product: ${response.status} ${response.statusText} - ${errorData.message} `
         );
       }
 
@@ -164,6 +164,7 @@ function Form({ id }) {
       setCat(data.category.name);
     } catch (error) {
       console.error("An error occurred while fetching product:", error);
+      console.log(id);
     }
   };
   const handleDelete = async () => {

@@ -11,21 +11,26 @@ import { useGlobal } from "@/app/context";
 import formData from "form-data";
 import useData from "@/hooks/useData";
 import { useDropzone } from "react-dropzone";
-const Modal = ({ cat, categories, setCat, setformContent, formContent }) => {
+import Modal from "./Modal1";
+import Modal2 from "./Modal2";
+const InputField = ({ label, type, name, value, onChange, placeholder }) => {
   return (
-    <div className="flex flex-col h-[250px] overflow-y-scroll no-scrollbar top-[87px] p-4 right-6 w-[250px] rounded-xl border bg-white absolute z-20">
-      {categories.map((d, id) => (
-        <p
-          key={id}
-          onClick={() => {
-            setformContent({ ...formContent, category: d._id });
-            setCat(d.name);
-          }}
-          className="px-2 text-base rounded-md cursor-pointer hover:bg-red-50 py-2"
-        >
-          {d.name}
-        </p>
-      ))}
+    <div className="mb-4">
+      <label
+        htmlFor={name}
+        className="block text-sm font-medium text-gray-700 mb-2"
+      >
+        {label}
+      </label>
+      <input
+        type={type}
+        name={name}
+        id={name}
+        value={value}
+        onChange={onChange}
+        placeholder={placeholder}
+        className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+      />
     </div>
   );
 };
@@ -34,7 +39,9 @@ function Form() {
   const [disctype, SetDiscType] = useState("No Discount");
   const { openModal } = useGlobal();
   const [cat, setCat] = useState("");
+  const [subCat, setSubCat] = useState("");
   const [modal, setModal] = useState(false);
+  const [modal2, setModal2] = useState(false);
   const [disc, setDisc] = useState(0);
   const [discModal, setDiscModal] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
@@ -139,6 +146,7 @@ function Form() {
           productTitle: "",
           price: "",
           category: "",
+          subcategory: "",
           description: "",
           brand: "",
           inventory: 0,
@@ -258,7 +266,7 @@ function Form() {
         {/* General Info */}
         {/* scrollable */}
         <div className="col-span-2 h-[80vh] no-scrollbar overflow-y-scroll ">
-          <div className="border bg-white  rounded-xl p-4 w-auto h-[800px]">
+          <div className="border bg-white  rounded-xl p-4 w-auto h-auto">
             {/* title */}
             <h2 className=" core mt-4 ">General Information</h2>
             <div className="mt-4 flex flex-col items-start justify-center gap-6 ">
@@ -358,6 +366,28 @@ function Form() {
                   )}
                 </div>
               </section>
+              {/* sub category */}
+              <div
+                onClick={() => {
+                  setModal2((prev) => !prev);
+                }}
+                className="w-full relative "
+              >
+                <label className="inputlabel">Sub-Category</label>
+                <div className="w-full border cursor-pointer flex items-center h-[56px] rounded-md  justify-between px-4 ">
+                  <p>{cat ? cat : "Select Sub-category"}</p>
+                  {!modal2 ? <GoChevronDown /> : <GoChevronUp />}
+                </div>
+                {modal2 && (
+                  <Modal
+                    formContent={formContent}
+                    setformContent={setformContent}
+                    subCat={subCat}
+                    categories={catItem}
+                    setSubCat={setSubCat}
+                  />
+                )}
+              </div>
             </div>
           </div>
           {/* Product spec and key feautures */}
