@@ -36,7 +36,7 @@ function Table() {
 
     try {
       const response = await fetch(
-        "https://server.myhomeetal.store/api/v1/admin/get-admins",
+        "https://api.myhomeetal.store/api/v1/admin/get-admins",
         {
           method: "GET",
           headers: {

@@ -27,7 +27,7 @@ const Login = () => {
       };
 
       const response = await fetch(
-        "https://server.myhomeetal.store/api/v1/admin/sign-in",
+        "https://api.myhomeetal.store/api/v1/admin/sign-in",
         {
           method: "POST",
           headers: {

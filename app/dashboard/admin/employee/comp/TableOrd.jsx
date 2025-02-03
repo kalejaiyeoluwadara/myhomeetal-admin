@@ -28,7 +28,7 @@ function Table() {
     setError(null);
     try {
       const response = await fetch(
-        "https://server.myhomeetal.store/api/v1/order",
+        "https://api.myhomeetal.store/api/v1/order",
         {
           method: "GET",
           headers: {

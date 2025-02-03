@@ -103,7 +103,7 @@ function Form() {
 
   const createProduct = async () => {
     setIsLoading(true);
-    const url = "https://server.myhomeetal.store/api/v1/product/create-product";
+    const url = "https://api.myhomeetal.store/api/v1/product/create-product";
 
     const formData = new FormData();
     formData.append("productTitle", formContent.productTitle);
@@ -221,9 +221,9 @@ function Form() {
   const router = useRouter();
   const [catItem, setCatItem] = useState([]);
   const { token } = useGlobal();
-  const { data: categories } = useData(
-    "https://server.myhomeetal.store/api/v1/product-category/categories"
-  );
+  const URI = "https://server.myhomeetal.store/api/v1";
+  const { data: categories } = useData(`${URI}/product-category/categories`);
+  const { data: subcategories } = useData(`${URI}/sub-category/all`);
 
   useEffect(() => {
     if (categories) {

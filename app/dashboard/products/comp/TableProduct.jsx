@@ -23,7 +23,7 @@ function Table() {
     data: products,
     setData: setProducts,
     loading,
-  } = useData("https://server.myhomeetal.store/api/v1/product/all-products");
+  } = useData("https://api.myhomeetal.store/api/v1/product/all-products");
   const [manipulate, setManipulate] = useState([]);
   const [error, setError] = useState(null);
   const { totalProd, setTotalProd, token } = useGlobal();

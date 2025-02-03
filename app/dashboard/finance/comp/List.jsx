@@ -9,13 +9,13 @@ function List() {
 
   // Fetch revenue, sales, and withdrawals data
   const { data: revenueData, loading: loadingRevenue } = useData(
-    "https://server.myhomeetal.store/api/v1/admin-wallet/revenue"
+    "https://api.myhomeetal.store/api/v1/admin-wallet/revenue"
   );
   const { data: salesData, loading: loadingSales } = useData(
-    "https://server.myhomeetal.store/api/v1/admin-wallet/sales"
+    "https://api.myhomeetal.store/api/v1/admin-wallet/sales"
   );
   const { data: withdrawalsData, loading: loadingWithdrawals } = useData(
-    "https://server.myhomeetal.store/api/v1/admin-wallet/withdrawals"
+    "https://api.myhomeetal.store/api/v1/admin-wallet/withdrawals"
   );
 
   // Loading state or data fallback

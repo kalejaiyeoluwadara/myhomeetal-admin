@@ -7,7 +7,7 @@ import { useGlobal } from "@/app/context";
 
 function Revenue() {
   const { data, loading } = useData(
-    "https://server.myhomeetal.store/api/v1/admin-wallet/revenue"
+    "https://api.myhomeetal.store/api/v1/admin-wallet/revenue"
   );
   const { formatNumberWithCommas } = useGlobal();
 

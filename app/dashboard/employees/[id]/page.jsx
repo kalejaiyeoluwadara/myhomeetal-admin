@@ -52,7 +52,7 @@ function Page({ params }) {
     setLoading(true);
     try {
       const response = await fetch(
-        `https://server.myhomeetal.store/api/v1/admin/${params.id}`,
+        `https://api.myhomeetal.store/api/v1/admin/${params.id}`,
         {
           method: "DELETE",
           headers: {
@@ -85,7 +85,7 @@ function Page({ params }) {
     setLoading(true);
     try {
       const response = await fetch(
-        `https://server.myhomeetal.store/api/v1/admin/${params.id}`,
+        `https://api.myhomeetal.store/api/v1/admin/${params.id}`,
         {
           method: "PUT",
           headers: {
@@ -117,7 +117,7 @@ function Page({ params }) {
     setLoading(true);
     try {
       const response = await fetch(
-        `https://server.myhomeetal.store/api/v1/admin/${params.id}`,
+        `https://api.myhomeetal.store/api/v1/admin/${params.id}`,
         {
           method: "GET",
           headers: {
@@ -157,7 +157,7 @@ function Page({ params }) {
     setLoading(true);
     try {
       const response = await fetch(
-        `https://server.myhomeetal.store/api/v1/admin/deactivate/${params.id}`,
+        `https://api.myhomeetal.store/api/v1/admin/deactivate/${params.id}`,
         {
           method: "PATCH",
           headers: {
@@ -190,7 +190,7 @@ function Page({ params }) {
     setLoading(true);
     try {
       const response = await fetch(
-        `https://server.myhomeetal.store/api/v1/admin/activate/${params.id}`,
+        `https://api.myhomeetal.store/api/v1/admin/activate/${params.id}`,
         {
           method: "PATCH",
           headers: {

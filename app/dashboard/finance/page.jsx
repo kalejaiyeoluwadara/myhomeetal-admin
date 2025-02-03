@@ -8,7 +8,7 @@ import useData from "@/hooks/useData";
 Status;
 function Page() {
   const { data, loading } = useData(
-    "https://server.myhomeetal.store/api/v1/admin-wallet"
+    "https://api.myhomeetal.store/api/v1/admin-wallet"
   );
   return (
     <div className="w-full p-[36px] bg-screen   min-h-screen overflow-y-scroll ">

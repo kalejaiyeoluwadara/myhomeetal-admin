@@ -21,7 +21,7 @@ function Page({ params: { id } }) {
     setLoading(true);
     try {
       const response = await fetch(
-        `https://server.myhomeetal.store/api/v1/order/${id}`,
+        `https://api.myhomeetal.store/api/v1/order/${id}`,
         {
           method: "GET",
           headers: {

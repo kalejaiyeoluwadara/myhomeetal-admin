@@ -22,7 +22,7 @@ const Header = () => {
 
 function Transact() {
   const { data, loading } = useData(
-    "https://server.myhomeetal.store/api/v1/admin-wallet/transactions"
+    "https://api.myhomeetal.store/api/v1/admin-wallet/transactions"
   );
   const transactions = data?.adminWallet?.transactions || [];
 

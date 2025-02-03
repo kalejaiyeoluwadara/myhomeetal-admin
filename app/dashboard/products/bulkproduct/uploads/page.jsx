@@ -39,7 +39,7 @@ function Page() {
     try {
       setLoading(true);
       const response = await fetch(
-        "https://server.myhomeetal.store/api/v1/product/bulk-publish",
+        "https://api.myhomeetal.store/api/v1/product/bulk-publish",
         {
           method: "POST",
           headers: {

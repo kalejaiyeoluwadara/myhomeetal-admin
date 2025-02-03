@@ -92,7 +92,7 @@ function Form({ id }) {
     });
     try {
       const response = await fetch(
-        `https://server.myhomeetal.store/api/v1/product/${id}`,
+        `https://api.myhomeetal.store/api/v1/product/${id}`,
         {
           method: "PUT",
           headers: {
@@ -122,7 +122,7 @@ function Form({ id }) {
   const fetchProducts = async () => {
     try {
       const response = await fetch(
-        `https://server.myhomeetal.store/api/v1/product/${id}`,
+        `https://api.myhomeetal.store/api/v1/product/${id}`,
         {
           method: "GET",
           headers: {
@@ -170,7 +170,7 @@ function Form({ id }) {
   const handleDelete = async () => {
     try {
       const response = await fetch(
-        `https://server.myhomeetal.store/api/v1/product/${id}`,
+        `https://api.myhomeetal.store/api/v1/product/${id}`,
         {
           method: "DELETE",
           headers: {

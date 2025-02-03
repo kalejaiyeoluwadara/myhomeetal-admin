@@ -8,7 +8,7 @@ import Credit from "../Components/Credit";
 
 function Page() {
   const { data, loading } = useData(
-    "https://server.myhomeetal.store/api/v1/admin-wallet"
+    "https://api.myhomeetal.store/api/v1/admin-wallet"
   );
 
   // Reverse the data array if it exists

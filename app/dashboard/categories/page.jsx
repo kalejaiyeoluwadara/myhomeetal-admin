@@ -23,7 +23,7 @@ function Page() {
     setError(null);
     try {
       const response = await fetch(
-        "https://server.myhomeetal.store/api/v1/product-category/categories",
+        "https://api.myhomeetal.store/api/v1/product-category/categories",
         {
           method: "GET",
           headers: {

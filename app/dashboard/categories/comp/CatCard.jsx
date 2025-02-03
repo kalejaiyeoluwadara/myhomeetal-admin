@@ -20,7 +20,7 @@ function CatCard({
   const [catItem, setCatItem] = useState([]);
   const [selectedItemId, setSelectedItemId] = useState(null); // Track selected item
   const { data: categories } = useData(
-    "https://server.myhomeetal.store/api/v1/product-category/categories"
+    "https://api.myhomeetal.store/api/v1/product-category/categories"
   );
 
   useEffect(() => {
