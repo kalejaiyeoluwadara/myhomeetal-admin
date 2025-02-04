@@ -100,7 +100,7 @@ function Form() {
     multiple: true,
     maxFiles: 4,
   });
-
+// updated  
   const createProduct = async () => {
     setIsLoading(true);
     const url = "https://api.myhomeetal.store/api/v1/product/create-product";
