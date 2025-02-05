@@ -8,6 +8,7 @@ import UpdateCategory from "../categories/comp/UpdateCategory";
 import Welcome from "./components/Welcome";
 import SubcategoryModal from "../products/addproducts/comp/SubCategoryModal";
 import SubCategoryCard from "./components/SubCategoryCard";
+import CreateSubCategory from "./createSubCategory";
 function Page() {
   const [subCategories, setSubCategories] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -83,7 +84,7 @@ function Page() {
             })}
         </div>
       )}
-      <CreateCategory fetchCategories={fetchSubCategories} />
+      <CreateSubCategory fetchCategories={fetchSubCategories} />
       <UpdateCategory
         setItemId={setItemId}
         itemId={itemId}
