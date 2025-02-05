@@ -7,7 +7,7 @@ import Image from "next/image";
 import FormData from "form-data";
 import useData from "@/hooks/useData";
 import CategoryModal from "./components/CategoryModal";
-function CreateSubCategory({ fetchSubCategories }) {
+function CreateSubCategory() {
   const {
     isCreateSubCategoryOpen,
     setIsCreateSubCategoryOpen,
@@ -42,51 +42,57 @@ function CreateSubCategory({ fetchSubCategories }) {
   };
 
   const handleSubmit = async () => {
-    setLoading(true);
     setError(null);
     setSuccess(null);
 
-    const formData = new FormData();
-    formData.append("name", formContent.name);
-    formData.append("category", formContent.category);
-    if (formContent.coverImage) {
-      formData.append("subCategoryImage", formContent.coverImage);
-    }
-
-    const url = "https://api.myhomeetal.store/api/v1/sub-category/create";
-
-    try {
-      const response = await fetch(url, {
-        method: "POST",
-        body: formData,
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      if (response.ok) {
-        const result = await response.json();
-        console.log("sub-category created:", result);
-        setSuccess("Sub-Category created successfully");
-        setFormContent({
-          name: "",
-          coverImage: null,
-        });
-        setCreateCat(false);
-        openModal("Created sub-category successfully.", true);
-        fetchSubCategories();
-      } else {
-        const result = await response.json();
-        console.log("Error encountered:", result);
-        setError(result.message || "Failed to create sub-category");
-        openModal("Failed to create sub-category", false);
+    if (formContent.category && formContent.coverImage && formContent.name) {
+      setLoading(true);
+      const formData = new FormData();
+      formData.append("name", formContent.name);
+      formData.append("category", formContent.category);
+      if (formContent.coverImage) {
+        formData.append("subCategoryImage", formContent.coverImage);
       }
-    } catch (error) {
-      console.log("Error:", error);
-      setError("An error occurred while creating sub category");
-      openModal("Failed to create sub category", false);
-    } finally {
-      setLoading(false);
+
+      const url = "https://api.myhomeetal.store/api/v1/sub-category/create";
+
+      try {
+        const response = await fetch(url, {
+          method: "POST",
+          body: formData,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (response.ok) {
+          const result = await response.json();
+          console.log("sub-category created:", result);
+          setSuccess("Sub-Category created successfully");
+          setFormContent({
+            name: "",
+            coverImage: null,
+          });
+          openModal("Created sub-category successfully.", true);
+          // fetchSubCategories();
+          setTimeout(() => {
+            setIsCreateSubCategoryOpen(false);
+          }, 1000);
+        } else {
+          const result = await response.json();
+          console.log("Error encountered:", result);
+          setError(result.message || "Failed to create sub-category");
+          openModal("Failed to create sub-category", false);
+        }
+      } catch (error) {
+        console.log("Error:", error);
+        setError("An error occurred while creating sub category");
+        openModal("Failed to create sub category", false);
+      } finally {
+        setLoading(false);
+      }
+    } else {
+      setError("Input all fields");
     }
   };
 
@@ -178,7 +184,7 @@ function CreateSubCategory({ fetchSubCategories }) {
               <button
                 type="button"
                 onClick={closeForm}
-                className="w-full h-[44px] rounded-[8px] bg-gray-300 text-black"
+                className="w-[40%] h-[44px] rounded-[8px] bg-gray-300 text-black"
               >
                 Cancel
               </button>
