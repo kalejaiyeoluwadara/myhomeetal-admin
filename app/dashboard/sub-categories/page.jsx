@@ -55,35 +55,36 @@ function Page() {
   useEffect(() => {
     fetchSubCategories();
   }, []);
-
+  if (loading) {
+    return <Loading />;
+  }
   return (
     <div className="w-full p-[36px] bg-screen min-h-screen overflow-y-scroll">
       <Welcome />
-      {loading ? (
-        <Loading loading={loading} />
-      ) : error ? (
-        <p>Error: {error}</p>
-      ) : (
-        <div className="w-full flex flex-col gap-[22px] mt-[49px]">
-          {subCategories != undefined &&
-            subCategories?.map((d, id) => {
-              const { _id, name, products, subCategoryImage } = d;
-              return (
-                <SubCategoryCard
-                  name={name}
-                  subCategoryImage={subCategoryImage}
-                  amt={products.length}
-                  _id={_id}
-                  key={_id}
-                  setItemId={setItemId}
-                  category={d}
-                  setDetails={setDetails}
-                  details={details}
-                />
-              );
-            })}
-        </div>
+      {subCategories.length < 1 && (
+        <main className="h-[60vh] w-full flex items-center justify-center ">
+          <p>No Subcategories added yet!</p>
+        </main>
       )}
+      <div className="w-full flex flex-col gap-[22px] mt-[49px]">
+        {subCategories != undefined &&
+          subCategories?.map((d, id) => {
+            const { _id, name, products, subCategoryImage } = d;
+            return (
+              <SubCategoryCard
+                name={name}
+                subCategoryImage={subCategoryImage}
+                amt={products.length}
+                _id={_id}
+                key={_id}
+                setItemId={setItemId}
+                category={d}
+                setDetails={setDetails}
+                details={details}
+              />
+            );
+          })}
+      </div>
       <CreateSubCategory />
       <UpdateCategory
         setItemId={setItemId}

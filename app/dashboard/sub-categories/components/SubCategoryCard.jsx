@@ -2,6 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
+import { BsEye, BsEyeSlash } from "react-icons/bs";
 import logo from "@/app/assets/logo.svg";
 import useData from "@/hooks/useData";
 
@@ -29,10 +30,7 @@ function SubCategoryCard({
     }
   }, [categories]);
   return (
-    <section
-      onClick={() => setSubCategories((prev) => !prev)}
-      className="flex relative h-[158px] bg-white w-full justify-between items-center rounded-[22px] cursor-pointer overflow-hidden px-6"
-    >
+    <section className="flex relative h-[158px] bg-white w-full justify-between items-center rounded-[22px] overflow-hidden px-6">
       {!subCategories && (
         <div className="flex items-center justify-center gap-[59px]">
           <div
@@ -65,15 +63,29 @@ function SubCategoryCard({
             {amt}
             {amt > 1 ? " products" : " product"}
           </p>
-          <Link href={`/dashboard/sub-categories/${_id}`}>
-            <p className="text-[#ED2224] font-light cursor-pointer">
-              Edit Category
+          <div className="flex items-center gap-3">
+            <p
+              className="cursor-pointer"
+              onClick={() => setSubCategories((prev) => !prev)}
+            >
+              <BsEye />
             </p>
-          </Link>
+            <Link href={`/dashboard/sub-categories/${_id}`}>
+              <p className="text-[#ED2224] font-light cursor-pointer">
+                Edit Category
+              </p>
+            </Link>
+          </div>
         </div>
       )}
       {subCategories && (
         <div className="w-full flex flex-col gap-2 overflow-y-auto py-2 bg-white h-full ">
+          <p
+            className="cursor-pointer"
+            onClick={() => setSubCategories((prev) => !prev)}
+          >
+            <BsEyeSlash />
+          </p>
           {catItem.map((d, id) => {
             return (
               <div
