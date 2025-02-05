@@ -65,7 +65,7 @@ function SubCategoryCard({
             {amt}
             {amt > 1 ? " products" : " product"}
           </p>
-          <Link href={`/dashboard/categories/${_id}`}>
+          <Link href={`/dashboard/sub-categories/${_id}`}>
             <p className="text-[#ED2224] font-light cursor-pointer">
               Edit Category
             </p>
