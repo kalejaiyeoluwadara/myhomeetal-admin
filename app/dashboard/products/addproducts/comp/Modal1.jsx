@@ -1,6 +1,11 @@
 import React from "react";
 
-const Modal = ({ cat, categories, setCat, setformContent, formContent }) => {
+const CategoryModal = ({
+  categories,
+  setCategoryName,
+  setformContent,
+  formContent,
+}) => {
   return (
     <div className="flex flex-col h-[250px] overflow-y-scroll no-scrollbar top-[87px] p-4 left-0 w-full rounded-xl border bg-white absolute z-20">
       {categories.map((d, id) => (
@@ -8,7 +13,7 @@ const Modal = ({ cat, categories, setCat, setformContent, formContent }) => {
           key={id}
           onClick={() => {
             setformContent({ ...formContent, category: d._id });
-            setCat(d.name);
+            setCategoryName(d.name);
           }}
           className="px-2 text-base rounded-md cursor-pointer hover:bg-red-50 py-2"
         >
@@ -19,4 +24,4 @@ const Modal = ({ cat, categories, setCat, setformContent, formContent }) => {
   );
 };
 
-export default Modal;
+export default CategoryModal;

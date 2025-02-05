@@ -11,8 +11,8 @@ import { useGlobal } from "@/app/context";
 import formData from "form-data";
 import useData from "@/hooks/useData";
 import { useDropzone } from "react-dropzone";
-import Modal from "./Modal1";
-import Modal2 from "./Modal2";
+import CategoryModal from "./Modal1";
+import SubcategoryModal from "./SubCategoryModal";
 const InputField = ({ label, type, name, value, onChange, placeholder }) => {
   return (
     <div className="mb-4">
@@ -38,8 +38,8 @@ const InputField = ({ label, type, name, value, onChange, placeholder }) => {
 function Form() {
   const [disctype, SetDiscType] = useState("No Discount");
   const { openModal } = useGlobal();
-  const [cat, setCat] = useState("");
-  const [subCat, setSubCat] = useState("");
+  const [categoryName, setCatCategoryName] = useState("");
+  const [subCategoryName, setSubCatName] = useState("");
   const [modal, setModal] = useState(false);
   const [modal2, setModal2] = useState(false);
   const [disc, setDisc] = useState(0);
@@ -59,6 +59,7 @@ function Form() {
     weight: "",
     modelno: "",
     mainmaterial: "",
+    subCategory: "",
     color: "",
     fit1: "",
     fit2: "",
@@ -100,7 +101,7 @@ function Form() {
     multiple: true,
     maxFiles: 4,
   });
-// updated  
+  // updated
   const createProduct = async () => {
     setIsLoading(true);
     const url = "https://api.myhomeetal.store/api/v1/product/create-product";
@@ -109,6 +110,7 @@ function Form() {
     formData.append("productTitle", formContent.productTitle);
     formData.append("price", formContent.price);
     formData.append("category", formContent.category);
+    formData.append("subCategories", formContent.subCategory);
     formData.append("description", formContent.description);
     formData.append("brand", formContent.brand);
     formData.append("inventory", formContent.inventory);
@@ -201,6 +203,7 @@ function Form() {
     productTitle,
     price,
     category,
+    subcategory,
     description,
     brand,
     inventory,
@@ -220,16 +223,31 @@ function Form() {
   } = formContent;
   const router = useRouter();
   const [catItem, setCatItem] = useState([]);
+  const [subCategoriesItem, setSubCategoriesItem] = useState([]);
   const { token } = useGlobal();
-  const URI = "https://server.myhomeetal.store/api/v1";
+  const URI = "https://api.myhomeetal.store/api/v1";
   const { data: categories } = useData(`${URI}/product-category/categories`);
   const { data: subcategories } = useData(`${URI}/sub-category/all`);
 
   useEffect(() => {
     if (categories) {
+      console.log(categories);
       setCatItem(categories.map((d) => ({ _id: d._id, name: d.name })));
     }
   }, [categories]); // Use categories as a dependency
+  useEffect(() => {
+    if (subcategories?.data && Array.isArray(subcategories.data)) {
+      const subCategoriesArray = subcategories.data;
+      setSubCategoriesItem(
+        subCategoriesArray.map((d) => ({ _id: d._id, name: d.name }))
+      );
+    } else {
+      console.warn(
+        "subcategories.data is undefined or not an array",
+        subcategories
+      );
+    }
+  }, [subcategories]);
 
   return (
     <div className="mb-8 relative w-full">
@@ -352,16 +370,15 @@ function Form() {
                 >
                   <label className="inputlabel">Category</label>
                   <div className="w-[250px] border cursor-pointer flex items-center h-[56px] rounded-md  justify-between px-4 ">
-                    <p>{cat ? cat : "Select Category"}</p>
+                    <p>{categoryName ? categoryName : "Select Category"}</p>
                     {!modal ? <GoChevronDown /> : <GoChevronUp />}
                   </div>
                   {modal && (
-                    <Modal
+                    <CategoryModal
                       formContent={formContent}
                       setformContent={setformContent}
-                      cat={cat}
                       categories={catItem}
-                      setCat={setCat}
+                      setCatCategoryName={setCatCategoryName}
                     />
                   )}
                 </div>
@@ -375,16 +392,18 @@ function Form() {
               >
                 <label className="inputlabel">Sub-Category</label>
                 <div className="w-full border cursor-pointer flex items-center h-[56px] rounded-md  justify-between px-4 ">
-                  <p>{cat ? cat : "Select Sub-category"}</p>
+                  <p>
+                    {subCategoryName ? subCategoryName : "Select Sub-category"}
+                  </p>
                   {!modal2 ? <GoChevronDown /> : <GoChevronUp />}
                 </div>
                 {modal2 && (
-                  <Modal
+                  <SubcategoryModal
                     formContent={formContent}
                     setformContent={setformContent}
-                    subCat={subCat}
-                    categories={catItem}
-                    setSubCat={setSubCat}
+                    subCategoryName={subCategoryName}
+                    categories={subCategoriesItem}
+                    setSubCatName={setSubCatName}
                   />
                 )}
               </div>

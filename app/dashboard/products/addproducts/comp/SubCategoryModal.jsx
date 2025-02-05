@@ -1,11 +1,10 @@
 import React from "react";
 
-const Modal2 = ({
-  subCat,
-  categories,
-  setSubCat,
+const SubcategoryModal = ({
+  setSubCategoryName,
   setformContent,
   formContent,
+  categories,
 }) => {
   return (
     <div className="flex flex-col h-[250px] overflow-y-scroll no-scrollbar top-[87px] p-4 right-6 w-[250px] rounded-xl border bg-white absolute z-20">
@@ -13,8 +12,9 @@ const Modal2 = ({
         <p
           key={id}
           onClick={() => {
-            setformContent({ ...formContent, category: d._id });
-            setSubCat(d.name);
+            setformContent({ ...formContent, subCategories: d._id });
+            setSubCategoryName(d.name);
+            console.log(d._id);
           }}
           className="px-2 text-base rounded-md cursor-pointer hover:bg-red-50 py-2"
         >
@@ -25,4 +25,4 @@ const Modal2 = ({
   );
 };
 
-export default Modal2;
+export default SubcategoryModal;
