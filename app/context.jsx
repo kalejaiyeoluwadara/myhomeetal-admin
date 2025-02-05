@@ -9,6 +9,7 @@ function AppProvider({ children }) {
   const [role, setRole] = useState("");
   const [toBeDeleted, setToBeDeleted] = useState([]);
   const [createCat, setCreateCat] = useState(false);
+  const [isCreateSubCategoryOpen, setIsCreateSubCategoryOpen] = useState(false);
   const [admins, setAdmins] = useState([]);
   const [clen, setClen] = useState(0);
   const [totalProd, setTotalProd] = useState(0);
@@ -128,7 +129,6 @@ function AppProvider({ children }) {
   // switchAccount();
   useEffect(() => {
     fetchCategories();
-    console.log("fetched");
   }, []);
   useEffect(() => {
     const local_token = localStorage.getItem("token");
@@ -139,6 +139,8 @@ function AppProvider({ children }) {
     <AppContext.Provider
       value={{
         openModal,
+        isCreateSubCategoryOpen,
+        setIsCreateSubCategoryOpen,
         toBeDeleted,
         setToBeDeleted,
         role,
