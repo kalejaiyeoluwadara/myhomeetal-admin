@@ -12,9 +12,9 @@ const SubcategoryModal = ({
         <p
           key={id}
           onClick={() => {
-            setformContent({ ...formContent, subCategories: d._id });
+            setformContent({ ...formContent, subCategory: d._id });
             setSubCategoryName(d.name);
-            console.log(d._id);
+            console.log(formContent);
           }}
           className="px-2 text-base rounded-md cursor-pointer hover:bg-red-50 py-2"
         >

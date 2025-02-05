@@ -1,11 +1,11 @@
 "use client";
 import React, { useState } from "react";
-import Form from "./comp/Form";
 import Modal from "./Modal";
+import AddProductForm from "./comp/AddProduct";
 function Page() {
   return (
     <main className="w-full relative p-[36px] bg-screen  min-h-screen overflow-y-scroll ">
-      <Form />
+      <AddProductForm />
     </main>
   );
 }

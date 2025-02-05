@@ -11,7 +11,7 @@ import { useGlobal } from "@/app/context";
 import formData from "form-data";
 import useData from "@/hooks/useData";
 import { useDropzone } from "react-dropzone";
-import CategoryModal from "./Modal1";
+import CategoryModal from "./CategoryModal";
 import SubcategoryModal from "./SubCategoryModal";
 const InputField = ({ label, type, name, value, onChange, placeholder }) => {
   return (
@@ -35,11 +35,11 @@ const InputField = ({ label, type, name, value, onChange, placeholder }) => {
   );
 };
 
-function Form() {
+function AddProductForm() {
   const [disctype, SetDiscType] = useState("No Discount");
   const { openModal } = useGlobal();
-  const [categoryName, setCatCategoryName] = useState("");
-  const [subCategoryName, setSubCatName] = useState("");
+  const [categoryName, setCategoryName] = useState("");
+  const [subCategoryName, setSubCategoryName] = useState("");
   const [modal, setModal] = useState(false);
   const [modal2, setModal2] = useState(false);
   const [disc, setDisc] = useState(0);
@@ -79,7 +79,6 @@ function Form() {
       setSelectedFile(files);
       setformContent({ ...formContent, images: files });
       openModal("Image Upload Completed", true);
-      console.log(formContent.images);
     } else {
       openModal("Error Encountered", true);
     }
@@ -90,7 +89,6 @@ function Form() {
       setSelectedFile(files);
       setformContent({ ...formContent, images: files });
       openModal("Image Upload Completed", true);
-      console.log(formContent.images);
     } else {
       openModal("Error Encountered", true);
     }
@@ -110,7 +108,7 @@ function Form() {
     formData.append("productTitle", formContent.productTitle);
     formData.append("price", formContent.price);
     formData.append("category", formContent.category);
-    formData.append("subCategories", formContent.subCategory);
+    formData.append("subCategory", formContent.subCategory);
     formData.append("description", formContent.description);
     formData.append("brand", formContent.brand);
     formData.append("inventory", formContent.inventory);
@@ -144,35 +142,10 @@ function Form() {
       if (response.ok) {
         const result = await response.json();
         console.log("Product created:", result);
-        setformContent({
-          productTitle: "",
-          price: "",
-          category: "",
-          subcategory: "",
-          description: "",
-          brand: "",
-          inventory: 0,
-          sku: "",
-          stock: "",
-          size: "",
-          weight: "",
-          modelno: "",
-          mainmaterial: "",
-          color: "",
-          fit1: "",
-          fit2: "",
-          fit3: "",
-          fit4: "",
-          fit5: "",
-          fit6: "",
-          weight: "",
-          images: [],
-          review: [],
-        });
         openModal("Product Uploaded Successfully", true);
         setTimeout(() => {
           router.push("/dashboard/products");
-        }, 3000);
+        }, 1000);
       } else {
         // Extract and handle error message from response
         const errorData = await response.json();
@@ -203,7 +176,7 @@ function Form() {
     productTitle,
     price,
     category,
-    subcategory,
+    subCategory,
     description,
     brand,
     inventory,
@@ -231,7 +204,6 @@ function Form() {
 
   useEffect(() => {
     if (categories) {
-      console.log(categories);
       setCatItem(categories.map((d) => ({ _id: d._id, name: d.name })));
     }
   }, [categories]); // Use categories as a dependency
@@ -378,7 +350,7 @@ function Form() {
                       formContent={formContent}
                       setformContent={setformContent}
                       categories={catItem}
-                      setCatCategoryName={setCatCategoryName}
+                      setCategoryName={setCategoryName}
                     />
                   )}
                 </div>
@@ -403,7 +375,7 @@ function Form() {
                     setformContent={setformContent}
                     subCategoryName={subCategoryName}
                     categories={subCategoriesItem}
-                    setSubCatName={setSubCatName}
+                    setSubCategoryName={setSubCategoryName}
                   />
                 )}
               </div>
@@ -627,4 +599,4 @@ function Form() {
   );
 }
 
-export default Form;
+export default AddProductForm;
