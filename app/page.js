@@ -71,7 +71,10 @@ const Login = () => {
 
   return (
     <>
-      <div className=" w-[100%] h-[400px] rounded-[24px] flex items-start justify-center px-[40px] pr-[24px] flex-col border-[#DCDCDC] gap-[16px] ">
+      <form
+        onSubmit={handleLogin}
+        className=" w-[100%] h-[400px] rounded-[24px] flex items-start justify-center px-[40px] pr-[24px] flex-col border-[#DCDCDC] gap-[16px] "
+      >
         <div className="w-full center mb-4">
           <h3 className="text-xl w-[238px] font-semibold text-center ">
             Myhomeetal Admin Panel Login
@@ -98,12 +101,13 @@ const Login = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <div
+              <button
+                type="button"
                 className="h-full w-10 absolute right-2 flex justify-center cursor-pointer items-center"
                 onClick={() => setVisible((prev) => !prev)} // Toggle visibility on click
               >
                 {visible ? <BsEyeSlash /> : <BsEye />}
-              </div>
+              </button>
             </div>
           </div>
           <p className="w-full text-start mt-2 ml-1 text-primary ">
@@ -111,8 +115,8 @@ const Login = () => {
           </p>
         </div>
         <div className="w-full">
-          <div
-            onClick={handleLogin}
+          <button
+            type="submit"
             className={`cursor-pointer mt-4 w-full h-[52px] flex items-center justify-center rounded-[99px] text-[16px] font-bold ${
               isLoading
                 ? "bg-gray-400"
@@ -120,9 +124,9 @@ const Login = () => {
             }`}
           >
             {isLoading ? <div className="loader"></div> : "Login"}
-          </div>
+          </button>
         </div>
-      </div>
+      </form>
 
       <style jsx>{`
         .loader {
