@@ -1,15 +1,10 @@
 "use client";
 import React from "react";
-import { PiMoneyWavy } from "react-icons/pi";
-import { IoPersonOutline } from "react-icons/io5";
-import { PiUsersThree } from "react-icons/pi";
-import { MdOutlineAccessAlarms } from "react-icons/md";
-import { IoAnalyticsOutline } from "react-icons/io5";
 import Revenue from "./components/Revenue";
 import ActiveUsers from "./components/ActiveUsers";
 import TotalUsers from "./components/TotalUsers";
 import Loadtime from "./components/Loadtime";
-import useData from "@/hooks/useData";
+import useData from "../../hooks/useData";
 function Details() {
   const { data } = useData(
     "https://api.myhomeetal.store/api/v1/user/all-users"

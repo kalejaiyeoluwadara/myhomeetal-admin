@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { FaCheckCircle } from "react-icons/fa";
 import { MdError } from "react-icons/md";
-import check from "@/app/assets/check.svg";
+import check from "../app/assets/check.svg";
 import { useGlobal } from "./context";
 import Image from "next/image";
 function Modal() {

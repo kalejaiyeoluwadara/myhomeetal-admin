@@ -5,7 +5,7 @@ import employees from "../../assets/users.svg";
 import Image from "next/image";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import Link from "next/link";
-import { useParams } from "@/utils/param";
+import { useParams } from "../../../utils/param";
 import { useGlobal } from "@/app/context";
 function EmployeeC() {
   const active = useParams();

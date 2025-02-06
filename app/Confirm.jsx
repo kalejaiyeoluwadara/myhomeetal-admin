@@ -2,11 +2,9 @@
 import React, { useState, useEffect } from "react";
 import { FaCheckCircle } from "react-icons/fa";
 import { MdError } from "react-icons/md";
-import check from "@/app/assets/check.svg";
 import { FiLogOut } from "react-icons/fi";
-import logouts from "@/app/assets/logout.svg";
-
-import cancel from "@/app/assets/cancel.svg";
+import logout from "../app/assets/logout.svg";
+import cancel from "../app/assets/cancel.svg";
 
 import { useGlobal } from "./context";
 import Image from "next/image";
@@ -40,7 +38,7 @@ function Confirm() {
               className="w-full"
             >
               <div className="bg-red-600  text-white mt-6 mb-2 gap-2 text-[16px] center w-full h-[44px] rounded-[8px] ">
-                <Image src={logouts} alt="" className="" />
+                <Image src={logout} alt="" className="" />
                 <p>Yes, Update</p>
               </div>
             </div>
