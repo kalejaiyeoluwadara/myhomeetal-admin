@@ -17,7 +17,8 @@ const Login = () => {
   const { role, setRole, userData, openModal, setUserData, setLogOut } =
     useGlobal();
   const router = useRouter();
-  const handleLogin = async () => {
+  const handleLogin = async (e) => {
+    e.preventDefault();
     setIsLoading(true);
 
     try {
@@ -103,7 +104,7 @@ const Login = () => {
               />
               <button
                 type="button"
-                className="h-full w-10 absolute right-2 flex justify-center cursor-pointer items-center"
+                className="h-full bg-transparent hover:bg-transparent text-black w-10 absolute right-2 flex justify-center cursor-pointer items-center"
                 onClick={() => setVisible((prev) => !prev)} // Toggle visibility on click
               >
                 {visible ? <BsEyeSlash /> : <BsEye />}

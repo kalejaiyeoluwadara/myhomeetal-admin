@@ -42,7 +42,7 @@ function Page({ params }) {
     setError(null);
     try {
       const response = await fetch(
-        `https://api.myhomeetal.store/api/v1/product/sub-category/${params.id}`,
+        `https://api.myhomeetal.store/api/v1/sub-category/${params.id}`,
         {
           method: "GET",
           headers: {
@@ -59,7 +59,7 @@ function Page({ params }) {
         );
       }
       const data = await response.json();
-      console.log(data);
+      console.log(data.data);
       setCategory(data);
     } catch (error) {
       console.error("An error occurred while fetching categories:", error);
@@ -87,7 +87,7 @@ function Page({ params }) {
         </div>
       ) : (
         <div className="w-full flex flex-col gap-6 my-[34px]">
-          {category.map((d, id) => {
+          {/* {category.map((d, id) => {
             const { brand, description, price, productTitle, images, _id } = d;
             return (
               <ItemCard
@@ -101,7 +101,7 @@ function Page({ params }) {
                 id={_id}
               />
             );
-          })}
+          })} */}
         </div>
       )}
     </div>
