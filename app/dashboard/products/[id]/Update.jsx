@@ -9,6 +9,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import SubcategoryModal from "../addproducts/comp/SubCategoryModal";
 import useData from "@/hooks/useData";
+import Loading from "../../components/Loading";
 const Modal = ({ cat, categories, setCat, setformContent, formContent }) => {
   return (
     <div className="flex flex-col h-auto top-24 p-4 right-2 w-[200px] rounded-xl border bg-white absolute z-20 ">
@@ -17,7 +18,7 @@ const Modal = ({ cat, categories, setCat, setformContent, formContent }) => {
           <p
             key={id}
             onClick={() => {
-              setformContent({ ...formContent, category: d._id });
+              setformContent({ ...formContent, category: d?._id });
               setCat(d.name);
             }}
             className="px-2 text-[12px] rounded-md cursor-pointer hover:bg-red-50 py-2"
@@ -32,6 +33,13 @@ const Modal = ({ cat, categories, setCat, setformContent, formContent }) => {
 
 function Form({ id }) {
   const URI = "https://api.myhomeetal.store/api/v1";
+  const router = useRouter();
+  const { token, openModal } = useGlobal();
+  const { categories } = useGlobal();
+  const [catItem, setCatItem] = useState([]);
+  const [subCategoriesItem, setSubCategoriesItem] = useState([]);
+  const [cat, setCat] = useState("");
+  const [loading, setLoading] = useState(false);
   const [modal, setModal] = useState(false);
   const [modal2, setModal2] = useState(false);
   const [subCategoryName, setSubCategoryName] = useState("");
@@ -59,10 +67,27 @@ function Form({ id }) {
     fit6: "",
     images: [],
   });
-  const router = useRouter();
-  const { token, openModal } = useGlobal();
-  const [cat, setCat] = useState("");
-  const [loading, setLoading] = useState(false);
+  const {
+    productTitle,
+    price,
+    category,
+    subCategory,
+    description,
+    brand,
+    inventory,
+    sku,
+    size,
+    weight,
+    modelno,
+    mainmaterial,
+    color,
+    fit1,
+    fit2,
+    fit3,
+    fit4,
+    fit5,
+    fit6,
+  } = formContent;
   // Handling submit
   const handleSubmit = async () => {
     setLoading(true);
@@ -146,7 +171,7 @@ function Form({ id }) {
         productTitle: data.productTitle || "",
         price: data.price || 0,
         category: data.category._id || "",
-        subCategory: data.subCategory._id || "",
+        subCategory: data.subCategory?._id || "",
         description: data.description || "",
         brand: data.brand || "",
         inventory: data.inventory.quantity || "",
@@ -165,6 +190,8 @@ function Form({ id }) {
         fit6: data.keyFeatures[5] || "",
       });
       setCat(data.category.name);
+      setSubCategoryName(data?.subCategory?.name);
+      console.log(data);
     } catch (error) {
       console.error("An error occurred while fetching product:", error);
       console.log(id);
@@ -219,9 +246,6 @@ function Form({ id }) {
       openModal("Error Encountered", true);
     }
   };
-  const { categories } = useGlobal();
-  const [catItem, setCatItem] = useState([]);
-  const [subCategoriesItem, setSubCategoriesItem] = useState([]);
 
   useEffect(() => {
     setCatItem(categories);
@@ -231,7 +255,7 @@ function Form({ id }) {
     if (subcategories?.data && Array.isArray(subcategories.data)) {
       const subCategoriesArray = subcategories.data;
       setSubCategoriesItem(
-        subCategoriesArray.map((d) => ({ _id: d._id, name: d.name }))
+        subCategoriesArray.map((d) => ({ _id: d?._id, name: d.name }))
       );
     } else {
       console.warn(
@@ -240,27 +264,13 @@ function Form({ id }) {
       );
     }
   }, [subcategories]);
-  const {
-    productTitle,
-    price,
-    category,
-    subCategory,
-    description,
-    brand,
-    inventory,
-    sku,
-    size,
-    weight,
-    modelno,
-    mainmaterial,
-    color,
-    fit1,
-    fit2,
-    fit3,
-    fit4,
-    fit5,
-    fit6,
-  } = formContent;
+  if (loading) {
+    return (
+      <section className="flex-center w-full">
+        <Loading loading={loading} />
+      </section>
+    );
+  }
   return (
     <main key={id} className="mb-40 w-full">
       <div className="flex  items-center justify-between">
@@ -636,7 +646,7 @@ function Form({ id }) {
         </article>
       </main>
       {/* Previos images */}
-      <div className="h-auto w-[300px] bg-white flex flex-col gap-2  rounded-xl">
+      <div className="h-auto w-[300px] mt-6 bg-white flex flex-col gap-2  rounded-xl">
         {formContent?.images.map((d, id) => {
           const handleRemoveFile = (fileIndex) => {
             const imageToDelete = formContent.images[fileIndex];
