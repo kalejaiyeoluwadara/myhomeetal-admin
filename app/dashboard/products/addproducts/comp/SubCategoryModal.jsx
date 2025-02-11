@@ -7,7 +7,7 @@ const SubcategoryModal = ({
   categories,
 }) => {
   return (
-    <div className="flex flex-col h-[250px] overflow-y-scroll no-scrollbar top-[87px] p-4 right-6 w-[250px] rounded-xl border bg-white absolute z-20">
+    <div className="flex flex-col h-[250px] overflow-y-scroll no-scrollbar top-[87px] p-4 right-6 w-full rounded-xl border bg-white absolute z-20">
       {categories.map((d, id) => (
         <p
           key={id}

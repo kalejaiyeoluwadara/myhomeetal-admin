@@ -36,14 +36,11 @@ const InputField = ({ label, type, name, value, onChange, placeholder }) => {
 };
 
 function AddProductForm() {
-  const [disctype, SetDiscType] = useState("No Discount");
   const { openModal } = useGlobal();
   const [categoryName, setCategoryName] = useState("");
   const [subCategoryName, setSubCategoryName] = useState("");
   const [modal, setModal] = useState(false);
   const [modal2, setModal2] = useState(false);
-  const [disc, setDisc] = useState(0);
-  const [discModal, setDiscModal] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [formContent, setformContent] = useState({

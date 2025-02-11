@@ -1,14 +1,14 @@
 "use client";
 import { useGlobal } from "@/app/context";
 import Image from "next/image";
-import formData from "form-data";
 import React, { useState, useEffect } from "react";
 import { FiUploadCloud } from "react-icons/fi";
-import { GoChevronDown } from "react-icons/go";
-import { FaPlus } from "react-icons/fa6";
+import { GoChevronDown, GoChevronUp } from "react-icons/go";
 import { LiaTimesSolid } from "react-icons/lia";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import SubcategoryModal from "../addproducts/comp/SubCategoryModal";
+import useData from "@/hooks/useData";
 const Modal = ({ cat, categories, setCat, setformContent, formContent }) => {
   return (
     <div className="flex flex-col h-auto top-24 p-4 right-2 w-[200px] rounded-xl border bg-white absolute z-20 ">
@@ -31,10 +31,10 @@ const Modal = ({ cat, categories, setCat, setformContent, formContent }) => {
 };
 
 function Form({ id }) {
-  const [disctype, SetDiscType] = useState("No Discount");
+  const URI = "https://api.myhomeetal.store/api/v1";
   const [modal, setModal] = useState(false);
-  const [disc, setDisc] = useState(0);
-  const [discModal, setDiscModal] = useState(false);
+  const [modal2, setModal2] = useState(false);
+  const [subCategoryName, setSubCategoryName] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
   const [deleteFiles, setDeleteFiles] = useState([]);
   const [formContent, setformContent] = useState({
@@ -49,6 +49,7 @@ function Form({ id }) {
     weight: "",
     modelno: "",
     mainmaterial: "",
+    subCategory: "",
     color: "",
     fit1: "",
     fit2: "",
@@ -70,6 +71,7 @@ function Form({ id }) {
     formData.append("price", formContent.price);
     formData.append("category", formContent.category);
     formData.append("description", formContent.description);
+    formData.append("subCategory", formContent.subCategory);
     formData.append("brand", formContent.brand);
     formData.append("inventory", formContent.inventory);
     formData.append("weight", formContent.weight);
@@ -144,6 +146,7 @@ function Form({ id }) {
         productTitle: data.productTitle || "",
         price: data.price || 0,
         category: data.category._id || "",
+        subCategory: data.subCategory._id || "",
         description: data.description || "",
         brand: data.brand || "",
         inventory: data.inventory.quantity || "",
@@ -218,14 +221,30 @@ function Form({ id }) {
   };
   const { categories } = useGlobal();
   const [catItem, setCatItem] = useState([]);
+  const [subCategoriesItem, setSubCategoriesItem] = useState([]);
 
   useEffect(() => {
     setCatItem(categories);
   }, []);
+  const { data: subcategories } = useData(`${URI}/sub-category/all`);
+  useEffect(() => {
+    if (subcategories?.data && Array.isArray(subcategories.data)) {
+      const subCategoriesArray = subcategories.data;
+      setSubCategoriesItem(
+        subCategoriesArray.map((d) => ({ _id: d._id, name: d.name }))
+      );
+    } else {
+      console.warn(
+        "subcategories.data is undefined or not an array",
+        subcategories
+      );
+    }
+  }, [subcategories]);
   const {
     productTitle,
     price,
     category,
+    subCategory,
     description,
     brand,
     inventory,
@@ -277,8 +296,8 @@ function Form({ id }) {
       </div>
       <main className="grid w-full grid-cols-3 mt-10  gap-6 ">
         {/* Main form */}
-        <article className="col-span-2 h-[80vh] flex flex-col gap-4 no-scrollbar overflow-y-scroll  ">
-          <div className="border bg-white  rounded-xl p-4 w-auto h-[800px]">
+        <article className="col-span-2 min-h-[80vh] flex flex-col gap-4 no-scrollbar overflow-y-scroll  ">
+          <div className="border bg-white  rounded-xl p-4 w-auto h-fit">
             {/* title */}
             <h2 className=" core mt-4 ">Product Information</h2>
             <section className="mt-4 flex flex-col items-start justify-center gap-6 ">
@@ -377,6 +396,30 @@ function Form({ id }) {
                   </div>
                 </div>
               </section>
+              {/* sub category */}
+              <div
+                onClick={() => {
+                  setModal2((prev) => !prev);
+                }}
+                className="w-full relative "
+              >
+                <label className="inputlabel">Sub-Category</label>
+                <div className="w-full border cursor-pointer flex items-center h-[56px] rounded-md  justify-between px-4 ">
+                  <p>
+                    {subCategoryName ? subCategoryName : "Select Sub-category"}
+                  </p>
+                  {!modal2 ? <GoChevronDown /> : <GoChevronUp />}
+                </div>
+                {modal2 && (
+                  <SubcategoryModal
+                    formContent={formContent}
+                    setformContent={setformContent}
+                    subCategoryName={subCategoryName}
+                    categories={subCategoriesItem}
+                    setSubCategoryName={setSubCategoryName}
+                  />
+                )}
+              </div>
             </section>
           </div>
           {/* Spec */}
