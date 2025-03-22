@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { FiUploadCloud } from "react-icons/fi";
 import { useRouter } from "next/navigation";
 import { FiCheckCircle, FiXCircle } from "react-icons/fi";
+import { ApiRoutes } from "@/app/api/apiRoute";
 
 function Modal({ message, success, onClose }) {
   return (
@@ -39,7 +40,7 @@ function Page() {
     try {
       setLoading(true);
       const response = await fetch(
-        "https://api.myhomeetal.store/api/v1/product/bulk-publish",
+        `${ApiRoutes.BASE_URL}product/bulk-publish`,
         {
           method: "POST",
           headers: {

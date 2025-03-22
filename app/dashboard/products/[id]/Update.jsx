@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 import SubcategoryModal from "../addproducts/comp/SubCategoryModal";
 import useData from "@/hooks/useData";
 import Loading from "../../components/Loading";
+import { ApiRoutes } from "@/app/api/apiRoute";
 const Modal = ({ cat, categories, setCat, setformContent, formContent }) => {
   return (
     <div className="flex flex-col h-auto top-24 p-4 right-2 w-[200px] rounded-xl border bg-white absolute z-20 ">
@@ -118,16 +119,13 @@ function Form({ id }) {
       formData.append(`imagesToDelete[${index}]`, file);
     });
     try {
-      const response = await fetch(
-        `https://api.myhomeetal.store/api/v1/product/${id}`,
-        {
-          method: "PUT",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          body: formData,
-        }
-      );
+      const response = await fetch(`${ApiRoutes.BASE_URL}product/${id}`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData,
+      });
       if (response.ok) {
         const data = await response.json();
         openModal("Product updated!", true);
@@ -148,16 +146,13 @@ function Form({ id }) {
 
   const fetchProducts = async () => {
     try {
-      const response = await fetch(
-        `https://api.myhomeetal.store/api/v1/product/${id}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await fetch(`${ApiRoutes.BASE_URL}product/${id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -199,15 +194,12 @@ function Form({ id }) {
   };
   const handleDelete = async () => {
     try {
-      const response = await fetch(
-        `https://api.myhomeetal.store/api/v1/product/${id}`,
-        {
-          method: "DELETE",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await fetch(`${ApiRoutes.BASE_URL}product/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       if (response.ok) {
         console.log("Product deleted!");

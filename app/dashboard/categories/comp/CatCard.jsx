@@ -4,6 +4,7 @@ import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import logo from "@/app/assets/logo.svg";
 import useData from "@/hooks/useData";
+import { ApiRoutes } from "@/app/api/apiRoute";
 useData;
 
 function CatCard({
@@ -20,7 +21,7 @@ function CatCard({
   const [catItem, setCatItem] = useState([]);
   const [selectedItemId, setSelectedItemId] = useState(null); // Track selected item
   const { data: categories } = useData(
-    "https://api.myhomeetal.store/api/v1/product-category/categories"
+    `${ApiRoutes.BASE_URL}product-category/categories`
   );
 
   useEffect(() => {

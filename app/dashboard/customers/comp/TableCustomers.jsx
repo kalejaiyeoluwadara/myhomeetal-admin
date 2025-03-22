@@ -1,17 +1,15 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { IoSearch } from "react-icons/io5";
-import filter from "../../../assets/filter.svg";
 import ex from "../../../assets/export.svg";
-import date from "../../../assets/date.svg";
 import Image from "next/image";
-import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import {
   HiOutlineArrowLongRight,
   HiOutlineArrowLongLeft,
 } from "react-icons/hi2";
 import TableData from "./TableData";
 import useData from "@/hooks/useData";
+import { ApiRoutes } from "@/app/api/apiRoute";
 function Table() {
   const itemsPerPage = 50;
   const [currentPage, setCurrentPage] = useState(1);
@@ -20,7 +18,7 @@ function Table() {
     loading,
     error,
     setdata: setCustomers,
-  } = useData("https://api.myhomeetal.store/api/v1/user/all-users");
+  } = useData(`${ApiRoutes.BASE_URL}user/all-users`);
   const totalPages = Math.ceil(customers.length / itemsPerPage);
 
   const handleNextPage = () => {
@@ -90,10 +88,6 @@ function Table() {
               size={20}
             />
           </section>
-          {/* <section className="px-3 h-[40px] border border-[#D0D5DD] flex items-center justify-center gap-2 rounded-[8px] sh text-[14px] font-[500] ">
-            <Image src={filter} alt="" className="h-[13px] w-[13px] " />
-            <p className="text-[#344054]">Filter</p>
-          </section> */}
         </div>
         <div className="flex  w-full  justify-end items-center gap-2">
           <section className="px-3 h-[40px] border border-[#D0D5DD] flex items-center justify-center gap-2 rounded-[8px] sh pointer text-[14px] font-[500] ">

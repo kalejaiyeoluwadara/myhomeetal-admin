@@ -2,6 +2,7 @@
 import React from "react";
 import Image from "next/image";
 import { useGlobal } from "@/app/context";
+import { ApiRoutes } from "@/app/api/apiRoute";
 
 function ItemCard({
   brand,
@@ -16,15 +17,12 @@ function ItemCard({
   const { openModal, token } = useGlobal();
   const handleDelete = async () => {
     try {
-      const response = await fetch(
-        `https://api.myhomeetal.store/api/v1/product/${id}`,
-        {
-          method: "DELETE",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await fetch(`${ApiRoutes.BASE_URL}product/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       if (response.ok) {
         console.log("Product deleted!");

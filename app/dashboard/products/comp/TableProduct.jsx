@@ -1,12 +1,5 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { IoSearch } from "react-icons/io5";
-import filter from "@/app/assets/filter.svg";
-import ex from "@/app/assets/export.svg";
-import date from "@/app/assets/date.svg";
-import Image from "next/image";
-import profile from "@/app/assets/profile.png";
-import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import {
   HiOutlineArrowLongRight,
   HiOutlineArrowLongLeft,
@@ -16,6 +9,7 @@ import { useGlobal } from "@/app/context";
 import TableHeader from "./TableHeader";
 import Loading from "../../components/Loading";
 import useData from "@/hooks/useData";
+import { ApiRoutes } from "@/app/api/apiRoute";
 function Table() {
   const itemsPerPage = 50;
   const [currentPage, setCurrentPage] = useState(1);
@@ -23,10 +17,10 @@ function Table() {
     data: products,
     setData: setProducts,
     loading,
-  } = useData("https://api.myhomeetal.store/api/v1/product/all-products");
+  } = useData(`${ApiRoutes.BASE_URL}product/all-products`);
   const [manipulate, setManipulate] = useState([]);
   const [error, setError] = useState(null);
-  const { totalProd, setTotalProd, token } = useGlobal();
+  const { setTotalProd } = useGlobal();
   useEffect(() => {
     setManipulate(products.reverse());
     setTotalProd(products.length);

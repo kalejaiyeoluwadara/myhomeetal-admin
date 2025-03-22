@@ -8,6 +8,7 @@ import Export from "../../components/Export";
 import { useGlobal } from "@/app/context";
 import axios from "axios";
 import ConfirmDelete from "@/app/ConfirmDelete";
+import { ApiRoutes } from "@/app/api/apiRoute";
 
 function Tableheader({
   products,
@@ -40,7 +41,7 @@ function Tableheader({
 
     try {
       const response = await axios.delete(
-        "https://api.myhomeetal.store/api/v1/product/bulk-delete",
+        `${ApiRoutes.BASE_URL}product/bulk-delete`,
         {
           headers: {
             "Content-Type": "application/json",

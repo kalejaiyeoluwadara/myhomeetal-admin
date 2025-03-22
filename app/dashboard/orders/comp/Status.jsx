@@ -1,15 +1,15 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import useData from "@/hooks/useData";
-import { GoPeople } from "react-icons/go";
 import { SiHackthebox } from "react-icons/si";
+import { ApiRoutes } from "@/app/api/apiRoute";
 
 function Status() {
   const {
     data: orders,
     loading,
     error,
-  } = useData("https://api.myhomeetal.store/api/v1/order");
+  } = useData(`${ApiRoutes.BASE_URL}order`);
   const [completedCount, setCompletedCount] = useState(0);
   const [pendingCount, setPendingCount] = useState(0);
 

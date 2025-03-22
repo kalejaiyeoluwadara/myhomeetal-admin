@@ -1,13 +1,13 @@
 "use client";
+import { ApiRoutes } from "@/app/api/apiRoute";
 import { useGlobal } from "@/app/context";
 import useData from "@/hooks/useData";
 import React from "react";
-import { GoPeople } from "react-icons/go";
 import { SiHackthebox } from "react-icons/si";
 function Status() {
   const { totalProd } = useGlobal();
   const { data: products = [] } = useData(
-    "https://api.myhomeetal.store/api/v1/product/all-products"
+    `${ApiRoutes.BASE_URL}product/all-products`
   );
   const outOfStockCount = products.reduce((count, product) => {
     if (product.inventory?.quantity < 5) {

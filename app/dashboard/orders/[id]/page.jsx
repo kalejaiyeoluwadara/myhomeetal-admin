@@ -1,35 +1,30 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Nav from "./Nav";
-import { GoPeople } from "react-icons/go";
 import { useGlobal } from "@/app/context";
 import Loading from "../../components/Loading";
 import Box from "./Box";
 import { location, messages, profile, shoppingCart } from "@/utils/icons";
 import Image from "next/image";
 import UpdateOrder from "./UpdateOrder";
+import { ApiRoutes } from "@/app/api/apiRoute";
 
 function Page({ params: { id } }) {
   const [modal, setModal] = useState(false);
-  const [status, setStatus] = useState("Pending");
   const [order, setOrder] = useState({});
-  const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const { token } = useGlobal();
 
   const fetchOrders = async () => {
     setLoading(true);
     try {
-      const response = await fetch(
-        `https://api.myhomeetal.store/api/v1/order/${id}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await fetch(`${ApiRoutes.BASE_URL}order/${id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       if (!response.ok) {
         const errorData = await response.json();

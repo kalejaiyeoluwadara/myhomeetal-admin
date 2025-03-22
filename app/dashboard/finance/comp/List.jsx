@@ -1,5 +1,6 @@
 "use client";
 
+import { ApiRoutes } from "@/app/api/apiRoute";
 import { useGlobal } from "@/app/context";
 import useData from "@/hooks/useData";
 import React from "react";
@@ -9,13 +10,13 @@ function List() {
 
   // Fetch revenue, sales, and withdrawals data
   const { data: revenueData, loading: loadingRevenue } = useData(
-    "https://api.myhomeetal.store/api/v1/admin-wallet/revenue"
+    `${ApiRoutes.BASE_URL}admin-wallet/revenue`
   );
   const { data: salesData, loading: loadingSales } = useData(
-    "https://api.myhomeetal.store/api/v1/admin-wallet/sales"
+    `${ApiRoutes.BASE_URL}admin-wallet/sales`
   );
   const { data: withdrawalsData, loading: loadingWithdrawals } = useData(
-    "https://api.myhomeetal.store/api/v1/admin-wallet/withdrawals"
+    `${ApiRoutes.BASE_URL}admin-wallet/withdrawals`
   );
 
   // Loading state or data fallback

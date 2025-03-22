@@ -9,6 +9,7 @@ import { MdError } from "react-icons/md";
 import { useGlobal } from "./context";
 import Link from "next/link";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
+import { ApiRoutes } from "./api/apiRoute";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -27,16 +28,13 @@ const Login = () => {
         password,
       };
 
-      const response = await fetch(
-        "https://api.myhomeetal.store/api/v1/admin/sign-in",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(payload),
-        }
-      );
+      const response = await fetch(`${ApiRoutes.BASE_URL}admin/sign-in`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
       if (response.ok) {
         const data = await response.json();
         localStorage.setItem("user", JSON.stringify(data.adminProfile));

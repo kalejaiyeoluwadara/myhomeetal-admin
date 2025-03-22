@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import { FiUploadCloud } from "react-icons/fi";
 import { GoChevronDown } from "react-icons/go";
 import { useRouter } from "next/navigation";
+import { ApiRoutes } from "@/app/api/apiRoute";
 function Page() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -35,16 +36,13 @@ function Page() {
 
     try {
       setLoading(true);
-      const response = await fetch(
-        "https://api.myhomeetal.store/api/v1/product/bulk-create",
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          body: formData,
-        }
-      );
+      const response = await fetch(`${ApiRoutes.BASE_URL}product/bulk-create`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData,
+      });
 
       const data = await response.json();
       console.log("Response from server:", data);

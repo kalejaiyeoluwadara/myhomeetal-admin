@@ -5,6 +5,7 @@ import ItemCard from "./comp/ItemCard";
 import Loading from "../../components/Loading";
 import { useGlobal } from "@/app/context";
 import { useRouter } from "next/navigation";
+import { ApiRoutes } from "@/app/api/apiRoute";
 function Page({ params }) {
   const [category, setCategory] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -14,7 +15,7 @@ function Page({ params }) {
   const handleDelete = async () => {
     try {
       const response = await fetch(
-        `https://api.myhomeetal.store/api/v1/product-category/delete-category/${params.id}`,
+        `${ApiRoutes.BASE_URL}product-category/delete-category/${params.id}`,
         {
           method: "DELETE",
           headers: {
@@ -41,7 +42,7 @@ function Page({ params }) {
     setError(null);
     try {
       const response = await fetch(
-        `https://api.myhomeetal.store/api/v1/product/category/${params.id}`,
+        `${ApiRoutes.BASE_URL}product/category/${params.id}`,
         {
           method: "GET",
           headers: {

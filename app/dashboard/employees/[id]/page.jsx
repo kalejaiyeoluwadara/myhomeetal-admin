@@ -13,6 +13,7 @@ import logo from "../../../assets/logo.svg";
 import { useGlobal } from "@/app/context";
 import { useRouter } from "next/navigation";
 import Loading from "../../components/Loading";
+import { ApiRoutes } from "@/app/api/apiRoute";
 function Page({ params }) {
   const [loading, setLoading] = useState(false);
   const [employee, setEmployee] = useState({});
@@ -51,15 +52,12 @@ function Page({ params }) {
   const handleDelete = async () => {
     setLoading(true);
     try {
-      const response = await fetch(
-        `https://api.myhomeetal.store/api/v1/admin/${params.id}`,
-        {
-          method: "DELETE",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await fetch(`${ApiRoutes.BASE_URL}admin/${params.id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -84,17 +82,14 @@ function Page({ params }) {
   const handleSave = async () => {
     setLoading(true);
     try {
-      const response = await fetch(
-        `https://api.myhomeetal.store/api/v1/admin/${params.id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(formData),
-        }
-      );
+      const response = await fetch(`${ApiRoutes.BASE_URL}admin/${params.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(formData),
+      });
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(
@@ -116,16 +111,13 @@ function Page({ params }) {
   const fetchAdmin = async () => {
     setLoading(true);
     try {
-      const response = await fetch(
-        `https://api.myhomeetal.store/api/v1/admin/${params.id}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await fetch(`${ApiRoutes.BASE_URL}admin/${params.id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -157,7 +149,7 @@ function Page({ params }) {
     setLoading(true);
     try {
       const response = await fetch(
-        `https://api.myhomeetal.store/api/v1/admin/deactivate/${params.id}`,
+        `${ApiRoutes.BASE_URL}admin/deactivate/${params.id}`,
         {
           method: "PATCH",
           headers: {
@@ -190,7 +182,7 @@ function Page({ params }) {
     setLoading(true);
     try {
       const response = await fetch(
-        `https://api.myhomeetal.store/api/v1/admin/activate/${params.id}`,
+        `${ApiRoutes.BASE_URL}admin/activate/${params.id}`,
         {
           method: "PATCH",
           headers: {

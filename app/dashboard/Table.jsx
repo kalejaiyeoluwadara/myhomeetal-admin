@@ -15,6 +15,7 @@ import TableData from "./components/TableData";
 import Tableheader from "./components/Tableheader";
 import { useGlobal } from "../context";
 import Loading from "./components/Loading";
+import { ApiRoutes } from "../api/apiRoute";
 function Table() {
   const [error, setError] = useState(null);
   const [admins, setAdmins] = useState([]);
@@ -35,16 +36,13 @@ function Table() {
     }
 
     try {
-      const response = await fetch(
-        "https://api.myhomeetal.store/api/v1/admin/get-admins",
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await fetch(`${ApiRoutes.BASE_URL}admin/get-admins`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       if (!response.ok) {
         const errorData = await response.json();

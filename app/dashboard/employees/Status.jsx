@@ -1,11 +1,10 @@
 "use client";
+import { ApiRoutes } from "@/app/api/apiRoute";
 import useData from "@/hooks/useData";
 import React from "react";
 import { GoPeople } from "react-icons/go";
 function Status() {
-  const { data: admins } = useData(
-    "https://api.myhomeetal.store/api/v1/admin/get-admins"
-  );
+  const { data: admins } = useData(`${ApiRoutes.BASE_URL}admin/get-admins`);
   const data = [
     {
       title: "Total employee",

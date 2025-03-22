@@ -4,6 +4,7 @@ import { FiUploadCloud } from "react-icons/fi";
 import { useGlobal } from "@/app/context";
 import Image from "next/image";
 import FormData from "form-data";
+import { ApiRoutes } from "@/app/api/apiRoute";
 
 function CreateCategory({ fetchCategories }) {
   const { createCat, setCreateCat, token, openModal } = useGlobal();
@@ -35,7 +36,7 @@ function CreateCategory({ fetchCategories }) {
       formData.append("category-image", formContent.coverImage);
     }
 
-    const url = "https://api.myhomeetal.store/api/v1/product-category";
+    const url = `${ApiRoutes.BASE_URL}product-category`;
 
     try {
       const response = await fetch(url, {

@@ -1,13 +1,13 @@
 "use client";
-
 import { PiMoneyWavy } from "react-icons/pi";
 import { IoAnalyticsOutline } from "react-icons/io5";
 import useData from "@/hooks/useData";
 import { useGlobal } from "@/app/context";
+import { ApiRoutes } from "@/app/api/apiRoute";
 
 function Revenue() {
   const { data, loading } = useData(
-    "https://api.myhomeetal.store/api/v1/admin-wallet/revenue"
+    `${ApiRoutes.BASE_URL}admin-wallet/revenue`
   );
   const { formatNumberWithCommas } = useGlobal();
 

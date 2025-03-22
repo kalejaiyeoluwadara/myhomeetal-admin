@@ -4,6 +4,7 @@ import { FiUploadCloud } from "react-icons/fi";
 import { useGlobal } from "@/app/context";
 import FormData from "form-data";
 import { useRouter } from "next/navigation";
+import { ApiRoutes } from "@/app/api/apiRoute";
 function UpdateCategory({
   itemId,
   setItemId,
@@ -35,7 +36,7 @@ function UpdateCategory({
       formData.append("category-image", formContent.coverImage);
     }
 
-    const url = `https://api.myhomeetal.store/api/v1/product-category/edit-category/${itemId}`;
+    const url = `${ApiRoutes.BASE_URL}product-category/edit-category/${itemId}`;
 
     try {
       const response = await fetch(url, {

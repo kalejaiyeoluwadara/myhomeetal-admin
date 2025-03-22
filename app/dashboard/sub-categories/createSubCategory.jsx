@@ -3,10 +3,10 @@ import React, { useState, useEffect } from "react";
 import { FiUploadCloud } from "react-icons/fi";
 import { useGlobal } from "@/app/context";
 import { GoChevronDown, GoChevronUp } from "react-icons/go";
-import Image from "next/image";
 import FormData from "form-data";
 import useData from "@/hooks/useData";
 import CategoryModal from "./components/CategoryModal";
+import { ApiRoutes } from "@/app/api/apiRoute";
 function CreateSubCategory() {
   const {
     isCreateSubCategoryOpen,
@@ -54,7 +54,7 @@ function CreateSubCategory() {
         formData.append("subCategoryImage", formContent.coverImage);
       }
 
-      const url = "https://api.myhomeetal.store/api/v1/sub-category/create";
+      const url = `${ApiRoutes.BASE_URL}sub-category/create`;
 
       try {
         const response = await fetch(url, {

@@ -1,5 +1,6 @@
 "use client";
 import React, { useContext, useState, useEffect } from "react";
+import { ApiRoutes } from "./api/apiRoute";
 
 const AppContext = React.createContext();
 
@@ -36,16 +37,13 @@ function AppProvider({ children }) {
   const fetchAdmins = async () => {
     setLoading(true);
     try {
-      const response = await fetch(
-        "https://api.myhomeetal.store/api/v1/admin/get-admins",
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await fetch(`${ApiRoutes.BASE_URL}admin/get-admins`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -68,16 +66,13 @@ function AppProvider({ children }) {
   };
   const fetchCutomers = async () => {
     try {
-      const response = await fetch(
-        "https://api.myhomeetal.store/api/v1/admin/all-users",
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await fetch(`${ApiRoutes.BASE_URL}admin/all-users`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -95,7 +90,7 @@ function AppProvider({ children }) {
   const fetchCategories = async () => {
     try {
       const response = await fetch(
-        "https://api.myhomeetal.store/api/v1/product-category/categories",
+        `${ApiRoutes.BASE_URL}product-category/categories`,
         {
           method: "GET",
           headers: {

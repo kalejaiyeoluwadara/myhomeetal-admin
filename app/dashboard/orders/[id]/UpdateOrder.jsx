@@ -1,28 +1,24 @@
 "use client";
 import { useGlobal } from "@/app/context";
 import React, { useState } from "react";
-import { FiLogOut } from "react-icons/fi";
 import logouts from "@/app/assets/logout.svg";
 import cancel from "@/app/assets/cancel.svg";
 import Image from "next/image";
-import Link from "next/link";
+import { ApiRoutes } from "@/app/api/apiRoute";
 function UpdateOrder({ id, setModal, modal, fetchOrders }) {
   const { token, openModal } = useGlobal();
   const [loading, setLoading] = useState(false);
   const updateOrder = async () => {
     setLoading(true);
     try {
-      const response = await fetch(
-        `https://api.myhomeetal.store/api/v1/order/update-status`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({ orderId: id }),
-        }
-      );
+      const response = await fetch(`${ApiRoutes.BASE_URL}order/update-status`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ orderId: id }),
+      });
 
       if (!response.ok) {
         const errorData = await response.json();

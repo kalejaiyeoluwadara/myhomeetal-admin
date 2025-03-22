@@ -1,12 +1,10 @@
 "use client";
+import { ApiRoutes } from "@/app/api/apiRoute";
 import useData from "@/hooks/useData";
 import React from "react";
-import { GoPeople } from "react-icons/go";
 import { SiHackthebox } from "react-icons/si";
 function Status() {
-  const { data: customers } = useData(
-    "https://api.myhomeetal.store/api/v1/user/all-users"
-  );
+  const { data: customers } = useData(`${ApiRoutes.BASE_URL}user/all-users`);
   const data = [
     {
       title: "Total Customer",

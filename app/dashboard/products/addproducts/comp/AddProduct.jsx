@@ -13,6 +13,7 @@ import useData from "@/hooks/useData";
 import { useDropzone } from "react-dropzone";
 import CategoryModal from "./CategoryModal";
 import SubcategoryModal from "./SubCategoryModal";
+import { ApiRoutes } from "@/app/api/apiRoute";
 const InputField = ({ label, type, name, value, onChange, placeholder }) => {
   return (
     <div className="mb-4">
@@ -99,7 +100,7 @@ function AddProductForm() {
   // updated
   const createProduct = async () => {
     setIsLoading(true);
-    const url = "https://api.myhomeetal.store/api/v1/product/create-product";
+    const url = `${ApiRoutes.BASE_URL}product/create-product`;
 
     const formData = new FormData();
     formData.append("productTitle", formContent.productTitle);

@@ -3,13 +3,14 @@ import React, { useEffect, useState } from "react";
 import Table from "./TableOrd";
 import { useGlobal } from "@/app/context";
 import useData from "@/hooks/useData";
+import { ApiRoutes } from "@/app/api/apiRoute";
 function Welcome() {
   const [id, setId] = useState("");
   useEffect(() => {
     const localId = localStorage.getItem("id");
     setId(localId);
   }, [id]);
-  const { data } = useData(`https://api.myhomeetal.store/api/v1/admin/${id}`);
+  const { data } = useData(`${ApiRoutes.BASE_URL}admin/${id}`);
   return (
     <div>
       <h2 className="text-2xl font-semibold ">

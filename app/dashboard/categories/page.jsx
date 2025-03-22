@@ -7,6 +7,7 @@ import CreateCategory from "./CreateCategory";
 import { useGlobal } from "@/app/context";
 import Loading from "@/app/dashboard/components/Loading"; // Import the Loading component
 import UpdateCategory from "./comp/UpdateCategory";
+import { ApiRoutes } from "@/app/api/apiRoute";
 
 function Page() {
   const [categories, setCategories] = useState([]);
@@ -23,7 +24,7 @@ function Page() {
     setError(null);
     try {
       const response = await fetch(
-        "https://api.myhomeetal.store/api/v1/product-category/categories",
+        `${ApiRoutes.BASE_URL}product-category/categories`,
         {
           method: "GET",
           headers: {

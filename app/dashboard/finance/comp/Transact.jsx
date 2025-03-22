@@ -4,6 +4,7 @@ import { BsChevronRight } from "react-icons/bs";
 import Loading from "../../components/Loading";
 import Credit from "../Components/Credit";
 import useData from "@/hooks/useData";
+import { ApiRoutes } from "@/app/api/apiRoute";
 useData;
 const Header = () => {
   return (
@@ -22,7 +23,7 @@ const Header = () => {
 
 function Transact() {
   const { data, loading } = useData(
-    "https://api.myhomeetal.store/api/v1/admin-wallet/transactions"
+    `${ApiRoutes.BASE_URL}admin-wallet/transactions`
   );
   const transactions = data?.adminWallet?.transactions || [];
 

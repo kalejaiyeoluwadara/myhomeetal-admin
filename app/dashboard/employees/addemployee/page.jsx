@@ -1,21 +1,13 @@
 "use client";
 import React, { useState } from "react";
-import home from "@/app/assets/home.svg";
-import { LiaTimesSolid } from "react-icons/lia";
-import { FiUploadCloud } from "react-icons/fi";
-import { IoChevronDown } from "react-icons/io5";
-import { LuDot } from "react-icons/lu";
-import home2 from "@/app/assets/home2.svg";
-import profile2 from "@/app/assets/profile2.svg";
 import tick from "@/app/assets/tick.svg";
 import Image from "next/image";
 import { useGlobal } from "@/app/context";
 import FormData from "form-data";
 import Link from "next/link";
 import Success from "./Success";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { storage } from "@/utils/firebase";
 import { TbCurrencyNaira } from "react-icons/tb";
+import { ApiRoutes } from "@/app/api/apiRoute";
 const HeaderButton = ({ name, onclick, active, setActive, img }) => {
   return (
     <div
@@ -121,7 +113,7 @@ function Page() {
 
       try {
         const response = await fetch(
-          "https://api.myhomeetal.store/api/v1/admin/create-admin",
+          `${ApiRoutes.BASE_URL}admin/create-admin`,
           {
             method: "POST",
             headers: {

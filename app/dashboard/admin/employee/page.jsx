@@ -10,16 +10,15 @@ import useData from "@/hooks/useData";
 import { filterDataByDate } from "@/utils/FilterByDate";
 import { useGlobal } from "@/app/context";
 import TableAlert from "./comp/TableAlert";
+import { ApiRoutes } from "@/app/api/apiRoute";
 function Page() {
   const { token } = useGlobal();
-  const { data: order, loading } = useData(
-    "https://api.myhomeetal.store/api/v1/order"
-  );
+  const { data: order, loading } = useData(`${ApiRoutes.BASE_URL}order`);
   const {
     data: products,
     setData: setProducts,
     loading: prodLoading,
-  } = useData("https://api.myhomeetal.store/api/v1/product/all-products");
+  } = useData(`${ApiRoutes.BASE_URL}product/all-products`);
   const [lowStockProducts, setLowStockProducts] = useState([]);
   useEffect(() => {
     if (products && products.length > 0) {

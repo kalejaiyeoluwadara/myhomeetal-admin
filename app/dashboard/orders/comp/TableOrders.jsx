@@ -1,7 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { IoSearch } from "react-icons/io5";
-import ex from "../../../assets/export.svg";
 import dateimg from "../../../assets/date.svg";
 import Image from "next/image";
 import { IoIosArrowDown } from "react-icons/io";
@@ -16,6 +15,7 @@ import Filter from "../../components/Filter";
 import { filterDataByDate } from "@/utils/FilterByDate";
 import Export from "../../components/Export";
 import Loading from "../../components/Loading";
+import { ApiRoutes } from "@/app/api/apiRoute";
 function Table() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -27,16 +27,13 @@ function Table() {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch(
-        "https://api.myhomeetal.store/api/v1/order",
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await fetch(`${ApiRoutes.BASE_URL}order`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       if (!response.ok) {
         const errorData = await response.json();

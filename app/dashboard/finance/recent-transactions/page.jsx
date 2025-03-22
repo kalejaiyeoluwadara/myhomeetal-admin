@@ -1,15 +1,12 @@
 "use client";
 import useData from "@/hooks/useData";
 import React from "react";
-import { BsChevronRight, BsArrowUp, BsArrowDown } from "react-icons/bs";
 import Loading from "../../components/Loading";
-import { useGlobal } from "@/app/context";
 import Credit from "../Components/Credit";
+import { ApiRoutes } from "@/app/api/apiRoute";
 
 function Page() {
-  const { data, loading } = useData(
-    "https://api.myhomeetal.store/api/v1/admin-wallet"
-  );
+  const { data, loading } = useData(`${ApiRoutes.BASE_URL}admin-wallet`);
 
   // Reverse the data array if it exists
   const reversedData = data?.userPayments?.slice().reverse();
@@ -38,7 +35,6 @@ function Page() {
             <Loading loading={loading} />
           )}
         </section>
-        {/* <section className="bg-[#F0F2F5] w-auto h-full rounded-xl  "></section> */}
       </div>
     </main>
   );

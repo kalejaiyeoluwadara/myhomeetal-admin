@@ -17,6 +17,7 @@ import Loading from "@/app/dashboard/components/Loading";
 import Filter from "@/app/dashboard/components/Filter";
 import { filterDataByDate } from "@/utils/FilterByDate";
 import { useGlobal } from "@/app/context";
+import { ApiRoutes } from "@/app/api/apiRoute";
 function Table() {
   const [filt, setFilt] = useState("all time");
   const [orders, setOrders] = useState([]);
@@ -27,16 +28,13 @@ function Table() {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch(
-        "https://api.myhomeetal.store/api/v1/order",
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await fetch(`${ApiRoutes.BASE_URL}order`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       if (!response.ok) {
         const errorData = await response.json();

@@ -2,13 +2,11 @@
 import React, { useState, useEffect } from "react";
 import { useGlobal } from "@/app/context";
 import Loading from "@/app/dashboard/components/Loading";
-import CreateCategory from "../categories/CreateCategory";
-import CatCard from "../categories/comp/CatCard";
 import UpdateCategory from "../categories/comp/UpdateCategory";
 import Welcome from "./components/Welcome";
-import SubcategoryModal from "../products/addproducts/comp/SubCategoryModal";
 import SubCategoryCard from "./components/SubCategoryCard";
 import CreateSubCategory from "./createSubCategory";
+import { ApiRoutes } from "@/app/api/apiRoute";
 function Page() {
   const [subCategories, setSubCategories] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -23,16 +21,13 @@ function Page() {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch(
-        "https://api.myhomeetal.store/api/v1/sub-category/all",
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await fetch(`${ApiRoutes.BASE_URL}sub-category/all`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       if (!response.ok) {
         const errorData = await response.json();
