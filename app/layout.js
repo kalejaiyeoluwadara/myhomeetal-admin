@@ -2,7 +2,6 @@ import AppProvider from "./context";
 import "./globals.css";
 import Modal from "./Modal";
 import "../public/ClashDisplay_Complete/ClashDisplay_Complete/Fonts/WEB/css/clash-display.css";
-import Confirm from "./Confirm";
 import ReactQueryProvider from "./ReactQueryProvider";
 export const metadata = {
   title: "Dashboard - Admin | My home etal",

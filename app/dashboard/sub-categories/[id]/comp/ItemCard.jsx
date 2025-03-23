@@ -42,9 +42,9 @@ function ItemCard({
     return new Intl.NumberFormat("en-US").format(number);
   };
   return (
-    <div className="border relative w-full flex px-6 gap-20 h-[271px] rounded-xl items-center justify-start ">
-      <div className="h-[173px] relative w-[173px] center bg-white rounded-xl ">
-        <img src={img} alt="" className=" object-cover h-[131px] w-[131px] " />
+    <div className="border relative w-full flex px-6 gap-20 h-fit py-6 rounded-xl items-center justify-start ">
+      <div className="h-fit  relative w-[173px] center bg-white flex-shrink-0 rounded-xl ">
+        <img src={img} alt="" className="  object-cover h-[131px] w-[131px] " />
       </div>
       <div className="text[16px] space-y-4 font-light ">
         <p className="text-wrap">Product Name: {productTitle}</p>

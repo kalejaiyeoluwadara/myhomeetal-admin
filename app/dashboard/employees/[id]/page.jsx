@@ -1,11 +1,7 @@
 "use client";
-import Link from "next/link";
 import React, { useState, useEffect } from "react";
-import { HiArrowLeft } from "react-icons/hi2";
 import Nav from "./Nav";
 import Image from "next/image";
-import { SiHackthebox } from "react-icons/si";
-import { IoAnalyticsOutline } from "react-icons/io5";
 import TaksComp from "./comps/TaksComp";
 import Container from "./comps/Container";
 import Permissions from "./comps/Permissions";
@@ -17,16 +13,12 @@ import { ApiRoutes } from "@/app/api/apiRoute";
 function Page({ params }) {
   const [loading, setLoading] = useState(false);
   const [employee, setEmployee] = useState({});
-  const [editMode, setEditMode] = useState(false);
   const [formData, setFormData] = useState({});
   const [error, setError] = useState(null);
   const [piEdit, setPiEdit] = useState(false);
   const [eiEdit, setEiEdit] = useState(false);
   const { openModal, token, fetchAdmins: getAdmins } = useGlobal();
   const router = useRouter();
-  const formatNumberWithCommas = (number) => {
-    return new Intl.NumberFormat("en-US").format(number);
-  };
   useEffect(() => {
     if (employee) {
       setFormData({

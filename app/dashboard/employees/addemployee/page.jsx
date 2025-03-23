@@ -8,6 +8,10 @@ import Link from "next/link";
 import Success from "./Success";
 import { TbCurrencyNaira } from "react-icons/tb";
 import { ApiRoutes } from "@/app/api/apiRoute";
+import home2 from "@/app/assets/home2.svg";
+import profile2 from "@/app/assets/profile2.svg";
+import { FiUploadCloud } from "react-icons/fi";
+import { IoChevronDown } from "react-icons/io5";
 const HeaderButton = ({ name, onclick, active, setActive, img }) => {
   return (
     <div
