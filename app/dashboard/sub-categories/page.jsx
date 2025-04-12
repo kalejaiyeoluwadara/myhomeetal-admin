@@ -21,7 +21,7 @@ function Page() {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch(`${ApiRoutes.BASE_URL}sub-category/all`, {
+      const response = await fetch(`${ApiRoutes.BASE_URL}product-category/categories`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -37,7 +37,7 @@ function Page() {
       }
 
       const data = await response.json();
-      setSubCategories(data.data);
+      setSubCategories(data);
       console.log(data);
     } catch (error) {
       console.error("An error occurred while fetching subCategories:", error);
@@ -56,7 +56,7 @@ function Page() {
   return (
     <div className="w-full p-[36px] bg-screen min-h-screen overflow-y-scroll">
       <Welcome />
-      {subCategories.length < 1 && (
+      {subCategories && subCategories.length < 1 && (
         <main className="h-[60vh] w-full flex items-center justify-center ">
           <p>No Subcategories added yet!</p>
         </main>

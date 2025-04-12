@@ -16,13 +16,10 @@ function SubCategoryCard({
   setDetails,
   details,
 }) {
-  const [loading, setLoading] = useState(false);
   const [subCategories, setSubCategories] = useState(false);
   const [catItem, setCatItem] = useState([]);
   const [selectedItemId, setSelectedItemId] = useState(null); // Track selected item
-  const { data: categories } = useData(
-    `${ApiRoutes.BASE_URL}product-category/categories`
-  );
+  const { data: categories } = useData(`${ApiRoutes.BASE_URL}sub-category/all`);
 
   useEffect(() => {
     if (categories) {
@@ -65,12 +62,6 @@ function SubCategoryCard({
             {amt > 1 ? " products" : " product"}
           </p>
           <div className="flex items-center gap-3">
-            <p
-              className="cursor-pointer"
-              onClick={() => setSubCategories((prev) => !prev)}
-            >
-              <BsEye />
-            </p>
             <Link href={`/dashboard/sub-categories/${_id}`}>
               <p className="text-[#ED2224] font-light cursor-pointer">
                 Edit Category

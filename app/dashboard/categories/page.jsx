@@ -66,7 +66,8 @@ function Page() {
       ) : (
         <div className="w-full flex flex-col gap-[22px] mt-[49px]">
           {categories.map((d, id) => {
-            const { _id, name, products, product_category_image } = d;
+            const { _id, name, products, product_category_image, subCategory } =
+              d;
             return (
               <CatCard
                 name={name}
@@ -78,6 +79,7 @@ function Page() {
                 category={d}
                 setDetails={setDetails}
                 details={details}
+                subCategory={subCategory}
               />
             );
           })}
