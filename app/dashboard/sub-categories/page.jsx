@@ -21,7 +21,7 @@ function Page() {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch(`${ApiRoutes.BASE_URL}product-category/categories`, {
+      const response = await fetch(`${ApiRoutes.BASE_URL}subcategory/all`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

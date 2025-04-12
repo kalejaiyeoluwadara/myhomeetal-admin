@@ -41,7 +41,7 @@ function Page({ params }) {
     setError(null);
     try {
       const response = await fetch(
-        `${ApiRoutes.BASE_URL}sub-category/${params.id}`,
+        `${ApiRoutes.BASE_URL}product/sub-category/${params.id}`,
         {
           method: "GET",
           headers: {
@@ -58,8 +58,8 @@ function Page({ params }) {
         );
       }
       const data = await response.json();
-      console.log(data.data);
-      setCategory(data);
+      console.log(data.products);
+      setCategory(data.products);
     } catch (error) {
       console.error("An error occurred while fetching categories:", error);
       setError(error.message);

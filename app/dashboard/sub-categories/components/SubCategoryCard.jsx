@@ -19,14 +19,7 @@ function SubCategoryCard({
   const [subCategories, setSubCategories] = useState(false);
   const [catItem, setCatItem] = useState([]);
   const [selectedItemId, setSelectedItemId] = useState(null); // Track selected item
-  const { data: categories } = useData(`${ApiRoutes.BASE_URL}sub-category/all`);
 
-  useEffect(() => {
-    if (categories) {
-      setCatItem(categories.map((d) => ({ _id: d._id, name: d.name })));
-      setSubCategories(false);
-    }
-  }, [categories]);
   return (
     <section className="flex relative h-[158px] bg-white w-full justify-between items-center rounded-[22px] overflow-hidden px-6">
       {!subCategories && (
