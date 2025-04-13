@@ -64,67 +64,13 @@ function AppProvider({ children }) {
       setLoading(false);
     }
   };
-  const fetchCutomers = async () => {
-    try {
-      const response = await fetch(`${ApiRoutes.BASE_URL}admin/all-users`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(
-          `Failed to fetch products: ${response.status} ${response.statusText} - ${errorData.message}`
-        );
-      }
-
-      const data = await response.json();
-      setClen(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  const fetchCategories = async () => {
-    try {
-      const response = await fetch(
-        `${ApiRoutes.BASE_URL}product-category/categories`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(
-          `Failed to fetch categories: ${response.status} ${response.statusText} - ${errorData.message}`
-        );
-      }
-
-      const data = await response.json();
-      setCategories(data);
-    } catch (error) {
-      console.error("An error occurred while fetching categories:", error);
-      setError(error.message);
-    } finally {
-      setLoading(false);
-    }
-  };
   const openModal = (msg, success) => {
     setIsModalOpen(true);
     setModalMessage(msg);
     setIsSuccessful(success);
   };
-  // switchAccount();
-  useEffect(() => {
-    fetchCategories();
-  }, []);
+
   useEffect(() => {
     const local_token = localStorage.getItem("token");
     setToken(local_token);

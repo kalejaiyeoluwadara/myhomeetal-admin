@@ -1,40 +1,17 @@
 "use client";
 import Link from "next/link";
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { FiUploadCloud } from "react-icons/fi";
 import { GoChevronDown, GoChevronUp } from "react-icons/go";
 import { FaPlus } from "react-icons/fa6";
-import { FaTimes } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import { LiaTimesSolid } from "react-icons/lia";
 import { useGlobal } from "@/app/context";
-import formData from "form-data";
 import useData from "@/hooks/useData";
 import { useDropzone } from "react-dropzone";
-import CategoryModal from "./CategoryModal";
 import SubcategoryModal from "./SubCategoryModal";
 import { ApiRoutes } from "@/app/api/apiRoute";
-const InputField = ({ label, type, name, value, onChange, placeholder }) => {
-  return (
-    <div className="mb-4">
-      <label
-        htmlFor={name}
-        className="block text-sm font-medium text-gray-700 mb-2"
-      >
-        {label}
-      </label>
-      <input
-        type={type}
-        name={name}
-        id={name}
-        value={value}
-        onChange={onChange}
-        placeholder={placeholder}
-        className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-      />
-    </div>
-  );
-};
+import CategoryModal from "@/app/dashboard/sub-categories/components/CategoryModal";
 
 function AddProductForm() {
   const { openModal } = useGlobal();
@@ -139,7 +116,6 @@ function AddProductForm() {
 
       if (response.ok) {
         const result = await response.json();
-        console.log("Product created:", result);
         openModal("Product Uploaded Successfully", true);
         setTimeout(() => {
           router.push("/dashboard/products");
@@ -193,17 +169,23 @@ function AddProductForm() {
     fit6,
   } = formContent;
   const router = useRouter();
-  const [catItem, setCatItem] = useState([]);
+  const [categoryItem, setCategoryItem] = useState([]);
   const [subCategoriesItem, setSubCategoriesItem] = useState([]);
   const { token } = useGlobal();
   const URI = "https://api.myhomeetal.store/api/v1";
-  const { data: categories } = useData(`${URI}/product-category/categories`);
-  const { data: subcategories } = useData(`${URI}/sub-category/all`);
+  const { data: categories, loading: isCategoriesLoading } = useData(
+    `${URI}/product-category/categories`
+  );
+  const { data: subcategories, loading: isSubCategoriesLoading } = useData(
+    `${URI}/sub-category/all`
+  );
 
   useEffect(() => {
-    if (categories) {
-      setCatItem(categories.map((d) => ({ _id: d._id, name: d.name })));
-    }
+    // if (categories) {
+    // setCategoryItem(categories.map((d) => ({ _id: d._id, name: d.name })));
+    // }
+    let dataInCategory = categories.data;
+    setCategoryItem(dataInCategory?.map((d) => ({ _id: d._id, name: d.name })));
   }, [categories]); // Use categories as a dependency
   useEffect(() => {
     if (subcategories?.data && Array.isArray(subcategories.data)) {
@@ -344,10 +326,10 @@ function AddProductForm() {
                     {!modal ? <GoChevronDown /> : <GoChevronUp />}
                   </div>
                   {modal && (
-                    <CategoryModal
+                    <SubcategoryModal
                       formContent={formContent}
                       setformContent={setformContent}
-                      categories={catItem}
+                      categories={categoryItem}
                       setCategoryName={setCategoryName}
                     />
                   )}

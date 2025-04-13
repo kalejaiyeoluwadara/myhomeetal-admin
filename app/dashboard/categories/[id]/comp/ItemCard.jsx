@@ -51,7 +51,7 @@ function ItemCard({
         <p className="text-wrap">Product Name: {productTitle}</p>
         <p className="text-wrap">Prod Description: {description}</p>
         <p>Prod Price: ₦{formatNumberWithCommas(price)}</p>
-        <p>Stock Level: {"-"}</p>
+        {/* <p>Stock Level: {"-"}</p> */}
         <p>Brand: {brand}</p>
 
         <p
