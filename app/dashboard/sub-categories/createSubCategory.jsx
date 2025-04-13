@@ -28,7 +28,7 @@ function CreateSubCategory() {
   const [success, setSuccess] = useState(null);
   const [modal, setModal] = useState(false);
   useEffect(() => {
-    if (categories) {
+    if (categories && categories.length > 0) {
       setCatItem(categories.map((d) => ({ _id: d._id, name: d.name })));
     }
   }, [categories]);

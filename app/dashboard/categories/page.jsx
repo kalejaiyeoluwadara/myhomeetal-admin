@@ -42,7 +42,7 @@ function Page() {
       }
 
       const data = await response.json();
-      setCategories(data);
+      setCategories(data.data);
       console.log(data);
     } catch (error) {
       console.error("An error occurred while fetching categories:", error);
@@ -65,24 +65,31 @@ function Page() {
         <p>Error: {error}</p>
       ) : (
         <div className="w-full flex flex-col gap-[22px] mt-[49px]">
-          {categories.map((d, id) => {
-            const { _id, name, products, product_category_image, subCategory } =
-              d;
-            return (
-              <CatCard
-                name={name}
-                product_category_image={product_category_image}
-                amt={products.length}
-                _id={_id}
-                key={_id}
-                setItemId={setItemId}
-                category={d}
-                setDetails={setDetails}
-                details={details}
-                subCategory={subCategory}
-              />
-            );
-          })}
+          {categories &&
+            categories.length > 0 &&
+            categories.map((d, id) => {
+              const {
+                _id,
+                name,
+                products,
+                product_category_image,
+                subCategory,
+              } = d;
+              return (
+                <CatCard
+                  name={name}
+                  product_category_image={product_category_image}
+                  amt={products.length}
+                  _id={_id}
+                  key={_id}
+                  setItemId={setItemId}
+                  category={d}
+                  setDetails={setDetails}
+                  details={details}
+                  subCategory={subCategory}
+                />
+              );
+            })}
         </div>
       )}
       <CreateCategory fetchCategories={fetchCategories} />

@@ -5,6 +5,7 @@ import Loading from "../../components/Loading";
 import { useGlobal } from "@/app/context";
 import { useParams, useRouter } from "next/navigation";
 import { ApiRoutes } from "@/app/api/apiRoute";
+import ItemCard from "../../categories/[id]/comp/ItemCard";
 function Page({ params }) {
   const [category, setCategory] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -58,8 +59,7 @@ function Page({ params }) {
         );
       }
       const data = await response.json();
-      console.log(data.products);
-      setCategory(data.products);
+      setCategory(data);
     } catch (error) {
       console.error("An error occurred while fetching categories:", error);
       setError(error.message);
@@ -76,7 +76,7 @@ function Page({ params }) {
       <Welcome
         category={category}
         handleDelete={handleDelete}
-        id={category[0]?.category.name}
+        id={category.subCategory}
       />
       {loading ? (
         <Loading loading={true} />
@@ -86,21 +86,24 @@ function Page({ params }) {
         </div>
       ) : (
         <div className="w-full flex flex-col gap-6 my-[34px]">
-          {/* {category.map((d, id) => {
-            const { brand, description, price, productTitle, images, _id } = d;
-            return (
-              <ItemCard
-                key={id}
-                fetchCategory={fetchCategory}
-                brand={brand}
-                description={description}
-                price={price}
-                productTitle={productTitle}
-                images={images}
-                id={_id}
-              />
-            );
-          })} */}
+          {category &&
+            category.products.length > 0 &&
+            category.products.map((d, id) => {
+              const { brand, description, price, productTitle, images, _id } =
+                d;
+              return (
+                <ItemCard
+                  key={id}
+                  fetchCategory={fetchSubCategory}
+                  brand={brand}
+                  description={description}
+                  price={price}
+                  productTitle={productTitle}
+                  images={images}
+                  id={_id}
+                />
+              );
+            })}
         </div>
       )}
     </div>

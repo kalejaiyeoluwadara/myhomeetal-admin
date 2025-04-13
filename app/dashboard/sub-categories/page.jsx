@@ -21,7 +21,7 @@ function Page() {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch(`${ApiRoutes.BASE_URL}subcategory/all`, {
+      const response = await fetch(`${ApiRoutes.BASE_URL}sub-category/all`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -37,7 +37,7 @@ function Page() {
       }
 
       const data = await response.json();
-      setSubCategories(data);
+      setSubCategories(data.data);
       console.log(data);
     } catch (error) {
       console.error("An error occurred while fetching subCategories:", error);
