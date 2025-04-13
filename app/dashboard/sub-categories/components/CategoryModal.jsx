@@ -7,7 +7,7 @@ const CategoryModal = ({
   formContent,
 }) => {
   return (
-    <div className="flex flex-col h-[90px] overflow-y-scroll no-scrollbar top-[87px] p-4 right-0 w-full rounded-xl border bg-white absolute z-20">
+    <div className="flex flex-col h-[100px] overflow-y-scroll no-scrollbar top-[87px] p-4 right-0 w-full rounded-xl border bg-white absolute z-20">
       {categories.map((d, id) => (
         <p
           key={id}

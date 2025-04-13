@@ -11,7 +11,7 @@ import useData from "@/hooks/useData";
 import { useDropzone } from "react-dropzone";
 import SubcategoryModal from "./SubCategoryModal";
 import { ApiRoutes } from "@/app/api/apiRoute";
-import CategoryModal from "@/app/dashboard/sub-categories/components/CategoryModal";
+import CategoryModal from "./CategoryModal";
 
 function AddProductForm() {
   const { openModal } = useGlobal();
@@ -326,7 +326,7 @@ function AddProductForm() {
                     {!modal ? <GoChevronDown /> : <GoChevronUp />}
                   </div>
                   {modal && (
-                    <SubcategoryModal
+                    <CategoryModal
                       formContent={formContent}
                       setformContent={setformContent}
                       categories={categoryItem}
