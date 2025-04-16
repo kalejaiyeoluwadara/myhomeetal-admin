@@ -49,7 +49,7 @@ function CatCard({
               {product_category_image === null ? (
                 <Image className="cover" alt="" src={logo} />
               ) : (
-                <img
+                <Image
                   src={product_category_image}
                   className="cover"
                   alt="product_category_image"

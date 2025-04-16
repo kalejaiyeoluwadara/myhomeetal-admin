@@ -1,5 +1,6 @@
 "use client";
 import { useGlobal } from "@/app/context";
+import Image from "next/image";
 import React, { useState } from "react";
 import { BsChevronBarUp, BsChevronDown } from "react-icons/bs";
 
@@ -102,7 +103,7 @@ function Page() {
             className="flex flex-col items-center justify-center w-full h-full cursor-pointer text-gray-500"
           >
             {image ? (
-              <img
+              <Image
                 src={URL.createObjectURL(image)}
                 alt="Selected"
                 className="max-h-full max-w-full rounded-md"

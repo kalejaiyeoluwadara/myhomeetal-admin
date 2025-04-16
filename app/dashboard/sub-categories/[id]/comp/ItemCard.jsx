@@ -2,6 +2,7 @@
 import React from "react";
 import { useGlobal } from "@/app/context";
 import { ApiRoutes } from "@/app/api/apiRoute";
+import Image from "next/image";
 
 function ItemCard({
   brand,
@@ -44,7 +45,11 @@ function ItemCard({
   return (
     <div className="border relative w-full flex px-6 gap-20 h-fit py-6 rounded-xl items-center justify-start ">
       <div className="h-fit  relative w-[173px] center bg-white flex-shrink-0 rounded-xl ">
-        <img src={img} alt="" className="  object-cover h-[131px] w-[131px] " />
+        <Image
+          src={img}
+          alt=""
+          className="  object-cover h-[131px] w-[131px] "
+        />
       </div>
       <div className="text[16px] space-y-4 font-light ">
         <p className="text-wrap">Product Name: {productTitle}</p>

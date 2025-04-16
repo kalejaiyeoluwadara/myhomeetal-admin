@@ -31,7 +31,7 @@ function Footer() {
         <div className="flex items-center gap-[12px] justify-center">
           <div className="relative flex-shrink-0 flex">
             {image ? (
-              <img
+              <Image
                 className="flex-shrink-0 object-cover h-[50px] w-[50px] bg-gray-300 rounded-full"
                 alt="Profile"
                 src={image}

@@ -663,7 +663,7 @@ function Form({ id }) {
               className="h-auto w-auto bg-white flex flex-col gap-2 rounded-xl"
             >
               <div className="w-full px-8 flex justify-between items-center bg-white rounded-[10px] h-[100px]">
-                <img
+                <Image
                   src={d}
                   className="h-[60px] w-[60px] rounded-md object-cover"
                   alt=""

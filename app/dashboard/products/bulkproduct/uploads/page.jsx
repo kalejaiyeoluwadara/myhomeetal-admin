@@ -5,6 +5,7 @@ import { FiUploadCloud } from "react-icons/fi";
 import { useRouter } from "next/navigation";
 import { FiCheckCircle, FiXCircle } from "react-icons/fi";
 import { ApiRoutes } from "@/app/api/apiRoute";
+import Image from "next/image";
 
 function Modal({ message, success, onClose }) {
   return (
@@ -118,7 +119,7 @@ function Page() {
                   <div className="gap-2 grid grid-cols-2">
                     {images.map((item, id) => {
                       return (
-                        <img
+                        <Image
                           className=" h-[81px] w-[81p] "
                           src={images[id]}
                           alt=""

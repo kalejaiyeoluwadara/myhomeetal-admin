@@ -295,7 +295,7 @@ function Page({ params }) {
                     src={logo}
                   />
                 ) : (
-                  <img
+                  <Image
                     className="h-full object-left w-full"
                     src={employee.image}
                     alt=""

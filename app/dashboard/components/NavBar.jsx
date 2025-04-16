@@ -37,7 +37,7 @@ function NavBar() {
           <CiBellOn size={25} />
         </div>
         {image ? (
-          <img
+          <Image
             className="flex-shrink-0 object-cover h-[40px] w-[40px] bg-gray-300 rounded-full"
             alt="Profile"
             src={image}

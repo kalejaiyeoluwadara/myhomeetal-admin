@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { IoMdMore } from "react-icons/io";
 import Link from "next/link";
 import CheckMark from "../../components/CheckMark";
+import Image from "next/image";
 
 function TableData({
   _id,
@@ -34,7 +35,7 @@ function TableData({
       {/* delete product */}
       <CheckMark product={product} />
       <div className="flex pl-4 ml-2 w-auto col-span-3 items-center justify-start gap-2 truncate">
-        <img
+        <Image
           className=" h-[40px] flex-shrink-0 bg-gray-200 w-[40px] rounded-full object-cover "
           alt=""
           src={img}

@@ -37,7 +37,7 @@ function SubCategoryCard({
             {subCategoryImage === null ? (
               <Image className="cover" alt="" src={logo} />
             ) : (
-              <img
+              <Image
                 src={subCategoryImage}
                 className="cover"
                 alt="subCategoryImage"

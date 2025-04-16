@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 function Data({ productTitle, images, _id, inventory }) {
   const img =
@@ -14,10 +15,10 @@ function Data({ productTitle, images, _id, inventory }) {
       className="flex justify-between items-center gap-2 px-4 h-[68px] w-full "
     >
       <div className="flex gap-2 w-[200px] items-center ">
-        <img
+        <Image
           src={img}
           className=" h-[40px] flex-shrink-0  bg-gray-200 w-[40px] rounded-full object-cover "
-          alt=""
+          alt="category_image"
         />
         <h3 className="truncate">{productTitle}</h3>
       </div>
