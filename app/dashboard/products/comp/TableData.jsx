@@ -38,6 +38,8 @@ function TableData({
         <Image
           className=" h-[40px] flex-shrink-0 bg-gray-200 w-[40px] rounded-full object-cover "
           alt=""
+          height={40}
+          width={40}
           src={img}
         />
         <p className="text-[14px] truncate font-medium text-[#101928] ">

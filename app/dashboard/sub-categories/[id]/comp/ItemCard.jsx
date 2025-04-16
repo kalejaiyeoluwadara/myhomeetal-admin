@@ -48,6 +48,8 @@ function ItemCard({
         <Image
           src={img}
           alt=""
+          height={131}
+          width={131}
           className="  object-cover h-[131px] w-[131px] "
         />
       </div>

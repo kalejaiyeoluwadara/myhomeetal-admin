@@ -26,10 +26,12 @@ function TableData({
   return (
     <div className="w-full h-[72px] border-b bg-white text-[#344054] text-[14px] px-3 items-center justify-center grid pt-2 grid-cols-8 ">
       <div className="flex w-auto col-span-2 items-center justify-start gap-2 truncate">
-        {img !== undefined && img !== "" ? (
+        {img !== undefined && img !== null && img !== "" ? (
           <Image
             className=" flex-shrink-0 object-cover h-[50px] w-[50px] bg-gray-300 rounded-full "
             alt=""
+            height={50}
+            width={50}
             src={img}
           />
         ) : (

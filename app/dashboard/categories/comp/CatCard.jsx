@@ -52,6 +52,7 @@ function CatCard({
                 <Image
                   src={product_category_image}
                   className="cover"
+                  fill
                   alt="product_category_image"
                 />
               )}

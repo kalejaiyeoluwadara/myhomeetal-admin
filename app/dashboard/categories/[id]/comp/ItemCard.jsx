@@ -47,6 +47,8 @@ function ItemCard({
       <div className="h-fit relative w-[173px] center bg-white flex-shrink-0 rounded-xl ">
         <Image
           src={img}
+          height={131}
+          width={131}
           alt=""
           className=" object-cover h-[131px] w-[131px] "
         />
