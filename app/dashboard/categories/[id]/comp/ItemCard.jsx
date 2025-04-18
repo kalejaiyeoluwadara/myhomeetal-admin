@@ -45,10 +45,10 @@ function ItemCard({
   return (
     <div className="border relative w-full flex px-6 gap-20 h-fit py-4 rounded-xl items-center justify-start ">
       <div className="h-fit relative w-[173px] center bg-white flex-shrink-0 rounded-xl ">
-        <Image
+        <img
           src={img}
-          height={131}
-          width={131}
+          // height={131}
+          // width={131}
           alt=""
           className=" object-cover h-[131px] w-[131px] "
         />
