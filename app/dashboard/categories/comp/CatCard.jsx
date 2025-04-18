@@ -24,10 +24,10 @@ function CatCard({
       {/* Toggle Icon */}
       <div
         className="absolute top-4 right-4 cursor-pointer text-xl"
-        // onClick={() => setShowSubCategories((prev) => !prev)}
-        onClick={() => {
-          toast.info("Coming Soon");
-        }}
+        onClick={() => setShowSubCategories((prev) => !prev)}
+        // onClick={() => {
+        //   toast.info("Coming Soon");
+        // }}
       >
         {showSubCategories ? <BsEyeSlash /> : <BsEye />}
       </div>
@@ -77,9 +77,11 @@ function CatCard({
         <div className="w-full flex flex-col gap-2 overflow-y-auto bg-white">
           {subCategory?.length > 0 ? (
             subCategory.map((sub, index) => (
-              <div
+              <Link
+                href={`/dashboard/sub-categories/${sub._id}`}
                 key={index}
-                onClick={() => setSelectedItemId(index)}
+                // onClick={() => setSelectedItemId(index)}
+                onClick={() => {}}
                 className={`h-[35px] flex items-center cursor-pointer w-full px-2 py-2 text-black hover:text-white flex-shrink-0 ${
                   selectedItemId === index
                     ? "bg-[#881415] text-white"
@@ -87,7 +89,7 @@ function CatCard({
                 }`}
               >
                 <p className="text-xl">{sub.name}</p>
-              </div>
+              </Link>
             ))
           ) : (
             <p className="text-gray-500">No subcategories available.</p>
