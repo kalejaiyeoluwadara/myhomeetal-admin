@@ -35,10 +35,11 @@ function SubCategoryCard({
             className="h-[109px] cursor-pointer bg-[#D9D9D9] relative overflow-hidden w-[109px] rounded-[23px] flex items-center justify-center"
           >
             {subCategoryImage === null ? (
-              <Image className="cover" alt="" src={logo} />
+              <Image fill className="cover" alt="" src={logo} />
             ) : (
               <Image
                 src={subCategoryImage}
+                fill
                 className="cover"
                 alt="subCategoryImage"
               />
