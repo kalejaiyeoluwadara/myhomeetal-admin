@@ -74,7 +74,7 @@ function Page() {
             </h3>
             {!selectedFile ? (
               <p className="text-[12px] text-center text-[#98A2B3]">
-                Max number of file 10 - SVG, PNG, JPG or GIF (max. 800x400px)
+                Max number of file 10 - CSV, XLS, XLSX (Excel formats)
               </p>
             ) : (
               <p className="text-[12px] text-center text-[#98A2B3]">
@@ -114,7 +114,7 @@ function Page() {
           <input
             id="file-upload"
             type="file"
-            accept=".csv"
+            accept=".csv, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
             className="hidden"
             onChange={handleFileSelect}
           />
