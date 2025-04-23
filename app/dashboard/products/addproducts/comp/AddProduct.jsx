@@ -184,7 +184,7 @@ function AddProductForm() {
     // if (categories) {
     // setCategoryItem(categories.map((d) => ({ _id: d._id, name: d.name })));
     // }
-    let dataInCategory = categories.data;
+    let dataInCategory = categories;
     setCategoryItem(dataInCategory?.map((d) => ({ _id: d._id, name: d.name })));
   }, [categories]); // Use categories as a dependency
   useEffect(() => {
