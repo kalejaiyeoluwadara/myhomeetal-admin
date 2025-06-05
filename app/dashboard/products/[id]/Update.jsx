@@ -36,9 +36,9 @@ function Form({ id }) {
   const URI = "https://api.myhomeetal.store/api/v1";
   const router = useRouter();
   const { token, openModal } = useGlobal();
-  const { categories } = useGlobal();
   const [catItem, setCatItem] = useState([]);
   const [subCategoriesItem, setSubCategoriesItem] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [cat, setCat] = useState("");
   const [loading, setLoading] = useState(false);
   const [modal, setModal] = useState(false);
@@ -89,6 +89,38 @@ function Form({ id }) {
     fit5,
     fit6,
   } = formContent;
+
+  const fetchCategories = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch(
+        `${ApiRoutes.BASE_URL}product-category/categories`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch categories");
+      }
+
+      const data = await response.json();
+      setCategories(data);
+    } catch (error) {
+      console.error("Error fetching categories:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+
   // Handling submit
   const handleSubmit = async () => {
     setLoading(true);
@@ -241,11 +273,14 @@ function Form({ id }) {
 
   useEffect(() => {
     setCatItem(categories);
-  }, []);
+  }, [categories]);
   const { data: subcategories } = useData(`${URI}/sub-category/all`);
   useEffect(() => {
-    if (subcategories?.data && Array.isArray(subcategories.data)) {
-      const subCategoriesArray = subcategories.data;
+    if (
+      subcategories?.subcategories &&
+      Array.isArray(subcategories.subcategories)
+    ) {
+      const subCategoriesArray = subcategories.subcategories;
       setSubCategoriesItem(
         subCategoriesArray.map((d) => ({ _id: d?._id, name: d.name }))
       );
@@ -332,7 +367,7 @@ function Form({ id }) {
                 </p>
               </div>
               <div className="w-full ">
-                <label className="inputlabel">Brand’s Name</label>
+                <label className="inputlabel">Brand's Name</label>
                 <input
                   className="input"
                   value={brand}
@@ -663,7 +698,7 @@ function Form({ id }) {
               className="h-auto w-auto bg-white flex flex-col gap-2 rounded-xl"
             >
               <div className="w-full px-8 flex justify-between items-center bg-white rounded-[10px] h-[100px]">
-                <Image
+                <img
                   src={d}
                   className="h-[60px] w-[60px] rounded-md object-cover"
                   alt=""
