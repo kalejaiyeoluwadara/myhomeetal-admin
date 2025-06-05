@@ -188,8 +188,11 @@ function AddProductForm() {
     setCategoryItem(dataInCategory?.map((d) => ({ _id: d._id, name: d.name })));
   }, [categories]); // Use categories as a dependency
   useEffect(() => {
-    if (subcategories?.data && Array.isArray(subcategories.data)) {
-      const subCategoriesArray = subcategories.data;
+    if (
+      subcategories?.subcategories &&
+      Array.isArray(subcategories.subcategories)
+    ) {
+      const subCategoriesArray = subcategories.subcategories;
       setSubCategoriesItem(
         subCategoriesArray.map((d) => ({ _id: d._id, name: d.name }))
       );

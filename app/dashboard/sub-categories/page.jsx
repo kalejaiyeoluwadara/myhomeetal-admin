@@ -37,8 +37,8 @@ function Page() {
       }
 
       const data = await response.json();
-      setSubCategories(data.data);
-      console.log(data);
+      setSubCategories(data.subcategories);
+      console.log(data.subcategories);
     } catch (error) {
       console.error("An error occurred while fetching subCategories:", error);
       setError(error.message);
