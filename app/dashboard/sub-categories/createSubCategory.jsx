@@ -14,8 +14,9 @@ function CreateSubCategory() {
     token,
     openModal,
   } = useGlobal();
-  const URI = "https://api.myhomeetal.store/api/v1";
-  const { data: categories } = useData(`${URI}/product-category/categories`);
+  const { data: categories } = useData(
+    `${ApiRoutes.BASE_URL}product-category/categories`
+  );
   const [catItem, setCatItem] = useState([]);
   const [formContent, setFormContent] = useState({
     name: "",

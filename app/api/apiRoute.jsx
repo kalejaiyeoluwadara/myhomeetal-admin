@@ -1,4 +1,4 @@
 export class ApiRoutes {
-  static BASE_URL = "https://api.myhomeetal.com/api/v1/";
-  // static BASE_URL = "http://localhost:5000/api/v1/";
+  static BASE_URL =
+    process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3000/api/v1/";
 }

@@ -172,12 +172,11 @@ function AddProductForm() {
   const [categoryItem, setCategoryItem] = useState([]);
   const [subCategoriesItem, setSubCategoriesItem] = useState([]);
   const { token } = useGlobal();
-  const URI = "https://api.myhomeetal.store/api/v1";
   const { data: categories, loading: isCategoriesLoading } = useData(
-    `${URI}/product-category/categories`
+    `${ApiRoutes.BASE_URL}product-category/categories`
   );
   const { data: subcategories, loading: isSubCategoriesLoading } = useData(
-    `${URI}/sub-category/all`
+    `${ApiRoutes.BASE_URL}sub-category/all`
   );
 
   useEffect(() => {

@@ -4,19 +4,23 @@ import logo from "@/app/assets/logo.svg";
 import man from "@/app/assets/log.png";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { FaCheckCircle } from "react-icons/fa";
-import { MdError } from "react-icons/md";
 import { useGlobal } from "./context";
 import Link from "next/link";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
 import { ApiRoutes } from "./api/apiRoute";
+
+const getAdminHomePath = (role) => {
+  return role?.trim() === "Super Admin"
+    ? "/dashboard"
+    : "/dashboard/admin/employee";
+};
+
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [visible, setVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const { role, setRole, userData, openModal, setUserData, setLogOut } =
-    useGlobal();
+  const { setRole, openModal, setUserData } = useGlobal();
   const router = useRouter();
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -37,28 +41,25 @@ const Login = () => {
       });
       if (response.ok) {
         const data = await response.json();
+        const adminProfile = data.adminProfile;
+        const nextPath = getAdminHomePath(adminProfile?.role);
+
         localStorage.setItem("user", JSON.stringify(data.adminProfile));
-        localStorage.setItem("email", data.adminProfile?.email);
-        localStorage.setItem("fullname", data.adminProfile?.fullname);
-        localStorage.setItem("image", data.adminProfile?.image);
+        localStorage.setItem("email", adminProfile?.email);
+        localStorage.setItem("fullname", adminProfile?.fullname);
+        localStorage.setItem("image", adminProfile?.image);
         localStorage.setItem("token", data.token);
-        localStorage.setItem("role", data.adminProfile.role);
-        localStorage.setItem("id", data.adminProfile?.id);
+        localStorage.setItem("role", adminProfile?.role);
+        localStorage.setItem("id", adminProfile?.id);
+        setRole(adminProfile?.role || "");
+        setUserData(adminProfile);
         setIsLoading(false);
         setEmail("");
         setPassword("");
-        setTimeout(() => {
-          const role = localStorage.getItem("role");
-          openModal("Login Successful, Welcome Back!", true);
-          if (role === "Super Admin") {
-            router.push("/dashboard");
-          } else {
-            router.push("/dashboard/admin/employee");
-          }
-        }, 1500);
+        openModal("Login Successful, Welcome Back!", true);
+        router.replace(nextPath);
       } else {
         openModal("Incorrect information, try again!", false);
-        const errorData = await response.json();
         setIsLoading(false);
       }
     } catch (error) {

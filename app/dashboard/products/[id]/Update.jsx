@@ -33,7 +33,6 @@ const Modal = ({ cat, categories, setCat, setformContent, formContent }) => {
 };
 
 function Form({ id }) {
-  const URI = "https://api.myhomeetal.store/api/v1";
   const router = useRouter();
   const { token, openModal } = useGlobal();
   const [catItem, setCatItem] = useState([]);
@@ -274,7 +273,7 @@ function Form({ id }) {
   useEffect(() => {
     setCatItem(categories);
   }, [categories]);
-  const { data: subcategories } = useData(`${URI}/sub-category/all`);
+  const { data: subcategories } = useData(`${ApiRoutes.BASE_URL}sub-category/all`);
   useEffect(() => {
     if (
       subcategories?.subcategories &&

@@ -1,36 +1,40 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# MyHomeetal Admin Panel
 
-## Getting Started
+## Overview
+This is the administrative dashboard for MyHomeetal, built with **Next.js 14** (App Router) and **MongoDB**. It handles product management, order processing, and administrative wallet functions.
 
-First, run the development server:
+## 🛠 Setup Instructions
+1. **Clone the repository** and install dependencies:
+   ```bash
+   npm install
+   ```
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+2. **Environment Configuration**:
+   Create a `.env.local` file in the root directory. You **must** populate it with your own production credentials as the current ones are for testing.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+   ```env
+   # Database
+   MONGO_URI=your_production_mongodb_uri
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+   # Authentication
+   JWT_SECRET=your_secure_random_string
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+   # Storage (Cloudinary)
+   CLOUDINARY_CLOUD_NAME=your_cloud_name
+   CLOUDINARY_API_KEY=your_api_key
+   CLOUDINARY_API_SECRET=your_api_secret
 
-## Learn More
+   # Payment (Pooler - Currently using testing keys)
+   POOLER_APIKEY=pk_live_...
+   POOLER_WALLET_API_BASE=https://api.poolerapp.com/api/v1/wallet/
+   CREATE_WALLET_API=...
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+## 🚀 Key Features
+- **Serverless API Routes**: All backend logic is migrated to `app/api/v1/`.
+- **Image Handling**: Integrated with **Cloudinary**. Images are uploaded via `lib/uploadImage.js`.
+- **Admin Auth**: Handled via JWT and custom middleware in `lib/adminAuth.js`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## ⚠️ Important Notes
+- **Pooler Details**: The current keys provided in technical walkthroughs are for **testing**. The dev team must replace these with live merchant keys from the Pooler dashboard.
+- **Database**: Ensure your MongoDB cluster has the same schema defined in the `/models` directory.
